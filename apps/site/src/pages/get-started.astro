@@ -1,0 +1,98 @@
+---
+import { Code } from 'astro:components';
+import Page from '../layouts/Page.astro';
+import Callout from '../components/Callout.astro';
+
+const htmlQuickstart = `<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <link rel="stylesheet" href="lepidus.css" />
+</head>
+<body>
+  <button class="lp-button lp-button--primary lp-button--md">Save changes</button>
+  <span class="lp-badge lp-badge--success">Active</span>
+
+  <!-- interactive components (dropdown, modal, tabs…) need the behavior layer -->
+  <script src="lepidus.js" defer></script>
+</body>
+</html>`;
+
+const themeSwitch = `// theme is one attribute on <html> — every token re-resolves
+document.documentElement.setAttribute('data-theme', 'dark'); // 'light' | 'dark' | 'hc'`;
+
+const reactQuickstart = `import '@lepidus/tokens/build/css/tokens.css';
+import { Button, Badge } from '@lepidus/react';
+
+export function Toolbar() {
+  return (
+    <>
+      <Button variant="primary">Save changes</Button>
+      <Badge variant="success">Active</Badge>
+    </>
+  );
+}`;
+---
+
+<Page
+  title="Get started"
+  eyebrow="Start here"
+  lede="Lepide products ship plain HTML, CSS, and JavaScript — so Lepidus does too. One stylesheet, BEM classes, zero build step. React is available for what's next."
+>
+  <h2>1 · Plain HTML + CSS (the default)</h2>
+  <p>
+    Copy <code>lepidus.css</code> (and <code>lepidus.js</code> for interactive components) from
+    <code>packages/css/dist/</code> into your project and link them. Every component is then a
+    copy-paste of documented markup using <code>lp-</code> classes — block
+    (<code>lp-button</code>), modifier (<code>lp-button--primary</code>), element
+    (<code>lp-button__icon-left</code>).
+  </p>
+  <Code code={htmlQuickstart} lang="html" theme="github-dark" />
+  <Callout variant="info" title="Where the markup lives">
+    <p>Each component's <a href="/components/">Code tab</a> has the copy-paste HTML with a live,
+    theme-switchable preview. The full class inventory is on each Specifications tab.</p>
+  </Callout>
+
+  <h2>2 · Theming</h2>
+  <p>
+    Three themes ship out of the box — <strong>light</strong>, <strong>dark</strong>, and
+    <strong>high contrast</strong>. There are no per-theme stylesheets: every color is a CSS
+    variable that re-resolves when <code>data-theme</code> changes on <code>&lt;html&gt;</code>.
+  </p>
+  <Code code={themeSwitch} lang="js" theme="github-dark" />
+  <p>
+    Never hardcode colors, spacing, radii, or font sizes — use the
+    <a href="/tokens/">token variables</a>: <code>var(--component-*)</code> first, semantic
+    <code>var(--color-*)</code> / <code>var(--space-*)</code> / <code>var(--radius-*)</code>
+    otherwise. That single rule is what makes the themes work.
+  </p>
+
+  <h2>3 · React (when the project is React)</h2>
+  <Code code={reactQuickstart} lang="tsx" theme="github-dark" />
+  <p>
+    <code>@lepidus/react</code> ships typed components whose props are documented on every
+    component's Specifications tab (extracted from the source with react-docgen — they cannot
+    drift). The <a href="/storybook/" target="_blank" rel="noopener">Storybook ↗</a> is the
+    interactive workshop: every state of every component, switchable across all three themes and
+    RTL.
+  </p>
+
+  <h2>4 · Rules that keep the system coherent</h2>
+  <ul>
+    <li><strong>No hardcoded visual values.</strong> Tokens only — CI fails otherwise.</li>
+    <li><strong>Keep the documented accessibility markup</strong> — focus-visible outlines,
+      <code>role="switch"</code> + <code>aria-checked</code> for toggles, <code>aria-invalid</code>
+      + described-by for input errors, <code>aria-current</code> in breadcrumbs. The patterns on
+      each Accessibility tab are tested with axe in CI.</li>
+    <li><strong>Buttons and inputs are pill-shaped by token.</strong> Don't override radii.</li>
+    <li><strong>Generating UI with AI?</strong> Point your assistant at the
+      <a href="/ai/">AI surface</a> — llms.txt, the component manifest, and the MCP server.</li>
+  </ul>
+
+  <h2>Where to go next</h2>
+  <ul class="tile-grid">
+    <li><a class="tile" href="/components/"><p class="tile__title">Components</p><p class="tile__desc">44 documented components — usage, code, specifications, accessibility.</p></a></li>
+    <li><a class="tile" href="/tokens/"><p class="tile__title">Design tokens</p><p class="tile__desc">Every variable with per-theme values, click-to-copy.</p></a></li>
+    <li><a class="tile" href="/foundations/"><p class="tile__title">Foundations</p><p class="tile__desc">Typography, theming, spacing, and the token architecture.</p></a></li>
+    <li><a class="tile" href="/storybook/" target="_blank"><p class="tile__title">Storybook ↗</p><p class="tile__desc">The interactive workshop behind every example on this site.</p></a></li>
+  </ul>
+</Page>

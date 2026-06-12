@@ -1,0 +1,49 @@
+## Interactions
+
+### Mouse
+
+- The whole item — 49px icon square plus label — is one click target.
+- Hover shows a faint translucent square behind non-active items; nothing moves or resizes.
+- Disabled items show `cursor: not-allowed` and ignore clicks.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus through header content, each nav item, then footer content in DOM order |
+| `Enter` | Follows a link item or activates a button item |
+| `Space` | Activates button items (native behavior; links do not respond to `Space`) |
+
+Each item is a native `<a>` or `<button>`, so keyboard operability comes for free.
+`:focus-visible` draws a white ring around the icon square, keeping focus visible on the dark
+rail. Disabled buttons leave the tab order; disabled links lose their `href` and are skipped
+too.
+
+### Screen readers
+
+- The root is a `<nav>` landmark named by `ariaLabel` (default "Primary") — name it uniquely
+  if the page has other navigation landmarks.
+- Items live in a semantic `<ul>`/`<li>` list, so the item count is announced.
+- The selected item exposes `aria-current="page"`.
+- Disabled link items set `aria-disabled` (and drop the `href`); disabled buttons use the
+  native attribute.
+- Icons should be decorative (`aria-hidden`) — every item carries a visible text label, which
+  is the accessible name.
+
+## Development considerations
+
+- Render Sidebar once per page as the primary navigation; if a secondary nav exists, give each
+  a distinct `ariaLabel` ("Primary", "Admin").
+- Prefer `href` items for real routes; reserve `onClick` buttons for in-app view switching
+  that has no URL.
+- Focusable header/footer content needs its own accessible name — an icon-only settings button
+  requires `aria-label="Settings"`.
+- The rail works under `dir="rtl"` with no extra code — verify it docks on the correct edge in
+  your layout.
+- Don't convey the active state by icon tint alone in custom icons — keep `currentColor` so the
+  white-square indicator and `aria-current` stay in sync with the visual.
+
+## Content
+
+- Labels are one or two short words ("Auditor", "My Lepide") — they must fit under a 49px icon
+  in a 100px rail without wrapping awkwardly.

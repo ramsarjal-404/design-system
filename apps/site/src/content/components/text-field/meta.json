@@ -1,0 +1,6 @@
+{
+  "description": "Label-less standalone pill text field (44px radius) for quick inline entry — search bars, filter inputs, toolbar fields. React-only for now.",
+  "heroStory": "forms-textfield--all-states",
+  "heroHeight": 240,
+  "related": ["input", "textarea", "filter"]
+}

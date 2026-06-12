@@ -1,0 +1,81 @@
+## Overview
+
+Filter is the "Modify Filters" drawer: a right-hand panel (`role="dialog"`, default 420px) with a
+brand header, a field [Dropdown](/components/dropdown/), a **Condition** button that opens a
+criteria card (criteria dropdown, value search, checkbox list), applied conditions as editable
+cards, and a Cancel / Apply footer. Use it wherever users narrow a [Table](/components/table/) or
+list by multiple field conditions — audit logs, reports, object listings.
+
+Everything is **drafted**: nothing reaches the page until the footer Apply fires
+`onApply(conditions)`; Cancel (or `Escape`) discards the draft. Pair it with the exported
+`applyFilterConditions(items, conditions, getValue)` helper to filter your rows — a condition
+with `values: ['All']` matches everything.
+
+## Best practices
+
+- Derive each field's `values` from **real data** so the checkboxes are always honest — never
+  hardcode a list that can drift from the table.
+- Keep the committed conditions in page state and **re-filter rows only on `onApply`** — the
+  draft model exists so users can back out with Cancel.
+- Keep field labels and the drawer `title` short; the header is a single brand-blue line.
+- Use the default criteria (`Equals`, `Not Equals`, `Contains`) unless the domain genuinely needs
+  more — every extra criterion multiplies the combinations users must reason about.
+
+## When not to use
+
+- **A single quick choice** — one [Dropdown](/components/dropdown/) in the toolbar is lighter
+  than a drawer for one field.
+- **Free-text search** — use an [Input](/components/input/) search field; Filter builds
+  structured field/criteria/value conditions.
+- **Confirmations or focused tasks** — use [Modal](/components/modal/); the Filter drawer is a
+  side panel that leaves the page visible behind it.
+
+## Variants
+
+### Default drawer
+
+The full flow: pick a field, open **Condition** (disabled until a field is chosen), check values
+— the card's Apply enables only once at least one value is checked — apply the card, then commit
+everything with the footer Apply. Each applied condition renders as a secondary-blue card with an
+edit pencil that reopens its criteria.
+
+<StoryEmbed id="forms-filter--default" height={480} caption="The complete pick → condition → apply flow" />
+
+### Filtering a list (live)
+
+The drawer paired with `applyFilterConditions` — the visible rows update only when the footer
+Apply commits the draft.
+
+<StoryEmbed id="forms-filter--filtering-a-list" height={480} caption="Conditions driving a live list" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Drawer | Right-hand `role="dialog"` panel, brand-blue header bar with the `title` (default "Modify Filters") |
+| 2 | Field selector | System [Dropdown](/components/dropdown/) listing `fields`; each field carries its candidate `values` |
+| 3 | Condition button | Full-width primary [Button](/components/button/), disabled until a field is chosen |
+| 4 | Criteria card | "Filter by `{field}`" header strip, criteria Dropdown, search field narrowing the value checkboxes, Cancel / Apply (Apply disabled until a value is checked) |
+| 5 | Applied condition cards | One per field — secondary-blue card with the value list and an edit pencil that reopens the criteria |
+| 6 | Footer | Cancel (secondary) and Apply (primary) — the only place the draft is committed |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Open / close | Controlled by the required `open` prop; the component renders nothing while closed |
+| Draft model | Opening re-seeds the draft from `conditions`; card applies edit the draft; only the footer Apply fires `onApply(conditions)` |
+| Escape | Fires `onCancel` — same as the footer Cancel; the draft is discarded |
+| Search | The criteria card's search field narrows the value checkboxes (case-insensitive contains); an empty result shows "No values match" |
+| Editing | The pencil on an applied card reopens its criteria with the existing selection pre-checked |
+| Guard rails | Condition is disabled with no field; the card Apply is disabled with no values checked |
+| Theming | Header, cards, and fields resolve through brand/semantic tokens and re-theme automatically |
+
+<DoDont
+  do="Commit conditions only in onApply and keep them in page state — users expect Cancel to undo everything since the drawer opened."
+  dont="Mutate the visible rows while the drawer is open; live-updating mid-draft defeats the Cancel / Apply contract."
+/>
+
+## Related components
+
+<RelatedCards slugs={["dropdown", "table", "checkbox", "button"]} />

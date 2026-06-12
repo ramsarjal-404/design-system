@@ -1,0 +1,86 @@
+## Overview
+
+Stepper is the numeric entry control of the system: a 230px pill (`--radius-6xl` → 30px) showing
+a brand-blue value with stacked chevron up / down controls. Use it for **bounded numeric
+settings** — counts, thresholds, retention days — where small adjustments are common. The field
+is a native `<input type="number">`, so values can also be typed or nudged with the arrow keys,
+and everything is clamped to `min`/`max`. All colors resolve through the `component/stepper/*`
+tokens, so dark and high-contrast themes restyle it automatically.
+
+## Best practices
+
+- Set **finite `min` and `max`** — the chevrons disable at the bounds and the range is exposed to
+  assistive technology via `aria-valuemin` / `aria-valuemax`.
+- Give every Stepper an **accessible name** (`aria-label="Retention days"` or an external label)
+  — it has no built-in label.
+- Use a controlled pattern (`value` + `onChange`) when the value drives other UI.
+- Pick a `step` that matches the granularity users actually need — stepping by 1 through a range
+  of thousands is hostile.
+
+## When not to use
+
+- **Large or arbitrary numbers** (ports, IDs, phone numbers) — typing into an
+  [Input](/components/input/) is faster than stepping, and IDs aren't really numbers.
+- **Labeled form fields with validation states** — use [Input](/components/input/) or
+  [TextField](/components/text-field/), which carry the label/error anatomy.
+- **Choosing from a short fixed set** of values — a [Dropdown](/components/dropdown/) shows the
+  options; a stepper hides them.
+
+## Types
+
+### Default
+
+Uncontrolled with an unbounded range — adjust via the chevrons, Arrow Up / Down, or by typing
+directly. **Use for** quick counts where any value is valid.
+
+<StoryEmbed id="forms-stepper--default" height={120} caption="Default — unbounded" />
+
+### With min / max
+
+The recommended form. Values are clamped to the range, `aria-valuemin` / `aria-valuemax` are
+exposed, and each chevron disables individually at its bound — typing `999` into a 0–20 range
+snaps to 20 on blur.
+
+<StoryEmbed id="forms-stepper--with-range" height={120} caption="Bounded 0–20 — chevrons disable at the bounds" />
+
+### No controls
+
+`showControls={false}` hides the chevrons; the value remains editable by typing or with
+Arrow Up / Down. **Use only** when an adjacent control provides the same affordance.
+
+<StoryEmbed id="forms-stepper--no-controls" height={120} caption="Controls hidden" />
+
+### Disabled
+
+Gray fill, transparent border, dimmed value; the input and both controls are inert and removed
+from the tab order.
+
+<StoryEmbed id="forms-stepper--disabled" height={120} caption="Disabled" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Pill wrapper | 30px-radius shell (230px × 40px, or `fullWidth`), surface fill, 1px border |
+| 2 | Number input | Native `<input type="number" inputMode="numeric">` with the browser spinner hidden; brand-blue 16/22 value |
+| 3 | Controls | Stacked chevron-up / chevron-down buttons that step by `step` and disable at the `max`/`min` bounds; hidden via `showControls={false}` |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Step | Chevrons (and Arrow Up / Down) adjust by `step` (default 1), clamped to `min`/`max` |
+| Typing | Free-typed drafts are allowed (the field can be cleared mid-edit); the value clamps into range on blur |
+| At bound | The up or down chevron disables individually once the value reaches `max` or `min` |
+| Disabled | `disabled` / `lp-stepper--disabled` — gray tokens, input and controls inert, no tab stop |
+| Full width | `fullWidth` / `lp-stepper--full-width` stretches the pill to its container (default fixed 230px) |
+| Theming | All parts re-resolve automatically under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Set finite min and max so the chevrons disable at the bounds and the range is announced to screen readers."
+  dont="Use Stepper for large arbitrary numbers — stepping from 0 to 8080 one click at a time is not an input method."
+/>
+
+## Related components
+
+<RelatedCards slugs={["input", "dropdown", "text-field"]} />

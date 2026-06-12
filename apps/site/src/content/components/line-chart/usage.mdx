@@ -1,0 +1,83 @@
+## Overview
+
+LineChart plots one or more series over an ordered set of labels — permission changes per month,
+failed logins per day. It answers "which way is this heading?": the shape of the line is the
+message. The chart shares the system's chart grammar — dashed vertical gridlines at every x
+label, 10px axis text, series in the `--color-chart-series-1…6` palette — and draws its SVG in
+real pixels (the container width is measured with a ResizeObserver), so lines, dots, and text
+stay crisp at any size. Optional `area` adds a soft 12%-opacity fill under each line; `dots`
+(on by default) marks every data point with a tooltip-bearing marker.
+
+## Best practices
+
+- Use for **ordered data** — time above all. Every series should have exactly one value per
+  label.
+- Keep to **2–3 series**; lines that cross repeatedly become spaghetti. If the comparison is
+  subtle, give each series its own chart.
+- Use `area` for **volume-feel trends** (total traffic, cumulative counts) — and prefer a single
+  series with it, since overlapping fills obscure each other.
+- Keep `dots` on when readers need exact values (each dot carries the tooltip); turn them off
+  only for dense, many-point series where the trend is the point.
+- Wrap in `ChartCard`, name series with `ChartLegend`, and take series colors from
+  `CHART_COLORS` (the `--color-chart-series-*` tokens) — never hardcoded hex.
+
+## When not to use
+
+- **Unordered categories** (servers, departments) — a line implies continuity that isn't there;
+  use [ColumnChart](/components/column-chart/) or [BarChart](/components/bar-chart/).
+- **Part-to-whole composition** — use [DonutChart](/components/donut-chart/).
+- **A single current reading** against a scale — use [GaugeChart](/components/gauge-chart/);
+  a one-point line says nothing.
+
+## Configurations
+
+### Multi-series (default)
+
+Series in the shared palette with dots at every point, on a `ChartCard` with a `ChartLegend`.
+
+<StoryEmbed id="charts-line-chart--in-chart-card" height={360} caption="Three series over eight months" />
+
+### Area fill
+
+`area` adds a soft fill under the line — best with a single series for volume-style trends.
+
+<StoryEmbed id="charts-line-chart--area" height={360} caption="Single series with area fill" />
+
+### Minimal
+
+A compact configuration: no dots, fewer ticks, shorter `height`.
+
+<StoryEmbed id="charts-line-chart--minimal" height={300} caption="Dotless, 180px plot, 3 ticks" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Container | `role="img"` div with a generated `aria-label`, wrapping one responsive SVG |
+| 2 | Y-axis | Numeric tick labels on the left (default 4 divisions via `ticks`), 10px text |
+| 3 | Gridlines | Dashed vertical line at every x label — `--color-chart-grid` |
+| 4 | Lines | One `polyline` per series, stroked from the chart palette |
+| 5 | Area fill *(optional)* | 12%-opacity polygon under each line when `area` |
+| 6 | Dots *(default on)* | White-filled, series-stroked markers at every point |
+| 7 | X-axis labels | Centered under each gridline along the bottom |
+| 8 | Legend *(composed)* | `ChartLegend` placed below the chart inside the `ChartCard` |
+| 9 | Tooltip | Native SVG `title` per dot: "Jan — Failed: 12" |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Hover tooltip | Each dot carries an SVG `title` — "label — series: value", formatted by `formatValue`; with `dots` off there are no tooltips |
+| Axis scaling | Y-axis max defaults to a nice ceiling of the data max; `max` and `ticks` override |
+| Legend | `ChartLegend` is a static key — it names series but does not toggle or filter them |
+| Responsive sizing | A ResizeObserver re-measures the container and redraws in real pixels — strokes, dots, and text never stretch |
+| Theming | Series resolve through `--color-chart-series-1…6` and gridlines through `--color-chart-grid` — both re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Plot trends over ordered, evenly meaningful labels — months, days, scan runs."
+  dont="Connect unordered categories with a line; the slope between two servers means nothing."
+/>
+
+## Related components
+
+<RelatedCards slugs={["column-chart", "bar-chart", "card"]} />

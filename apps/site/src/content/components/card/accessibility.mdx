@@ -1,0 +1,45 @@
+## Interactions
+
+### Mouse
+
+- The card itself is a static surface — no hover, no pointer cursor, no click behavior.
+- Interactive children (Buttons, Inputs, Links) keep their own targets and hover states; the
+  card never intercepts their events.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves through the card's interactive children in DOM order — the card adds nothing of its own |
+
+The card is not focusable. Order the markup so the visual order matches the tab order: header
+actions, then body controls, then footer buttons.
+
+### Screen readers
+
+- Renders a generic `<div>` with **no implicit role** — it is a visual grouping, not a landmark.
+  Add `role="region"` + `aria-labelledby` yourself only when a navigable region is semantically
+  required.
+- The title is a **styled `<div>`, not a heading element**, so it does not affect the page
+  outline. When document structure matters, pass your own `<h2>`/`<h3>` as the `title` (React)
+  or put a heading element inside `lp-card__title` (HTML).
+- Body and title colors come from the semantic text tokens tuned for contrast on the card
+  surface — they pass AA in all three themes.
+
+## Development considerations
+
+- Don't make the entire card clickable while it contains interactive children — nested
+  interactive elements produce broken click targets and confusing screen-reader output. Wrap a
+  single action instead.
+- Keep one primary action per card footer, placed last (Cancel then Confirm) — the same rule as
+  [Button](/components/button/).
+- For destructive confirmations inside a card footer, use a `danger` Button with a destructive
+  verb in the label; for irreversible operations prefer a [Modal](/components/modal/)
+  confirmation.
+
+## Content
+
+- Card titles label the whole card — short noun phrases ("Connection status", "Delete
+  workspace"), sentence case.
+- Body text uses the secondary text color; keep it to a few lines and move detail behind
+  actions.

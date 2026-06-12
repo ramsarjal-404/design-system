@@ -1,0 +1,6 @@
+{
+  "description": "Short descriptive bubble shown on hover and keyboard focus after a 300ms delay — viewport-aware, theme-inverted, and never interactive.",
+  "heroStory": "overlays-tooltip--default",
+  "heroHeight": 180,
+  "related": ["action-item", "dropdown", "toast"]
+}

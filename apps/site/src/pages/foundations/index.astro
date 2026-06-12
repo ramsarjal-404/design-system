@@ -1,0 +1,61 @@
+---
+import Page from '../../layouts/Page.astro';
+import { loadTokens } from '../../lib/tokens';
+
+const tokens = loadTokens();
+const count = (prefix: string) => tokens.filter((t) => t.name.startsWith(prefix)).length;
+
+const pages = [
+  {
+    href: '/foundations/theming/',
+    title: 'Theming',
+    desc: `Light, dark, and high contrast from one attribute — how the ${tokens.filter((t) => t.dark || t.hc).length} themed tokens re-resolve.`,
+  },
+  {
+    href: '/foundations/typography/',
+    title: 'Typography',
+    desc: 'Open Sans, the type scale, and the weight tokens.',
+  },
+  {
+    href: '/foundations/spacing/',
+    title: 'Spacing & radius',
+    desc: `${count('--space-')} spacing steps and ${count('--radius-')} radii — pill-shaped controls by design.`,
+  },
+  {
+    href: '/tokens/',
+    title: 'Token reference',
+    desc: `All ${tokens.length} variables with per-theme values, click-to-copy.`,
+  },
+];
+---
+
+<Page
+  title="Foundations"
+  eyebrow="Principles"
+  lede="Everything visual in Lepidus resolves through one pipeline: Figma DTCG sources → Style Dictionary → CSS variables, in three tiers — primitive → semantic → component."
+>
+  <h2>The token architecture</h2>
+  <p>
+    <strong>Primitives</strong> are raw values (<code>--blue-600</code>).{' '}
+    <strong>Semantic tokens</strong> give them meaning (<code>--color-brand-primary</code>,
+    <code>--color-text-danger</code>) and are what themes override.{' '}
+    <strong>Component tokens</strong> (<code>--component-button-primary-fill</code>) pin each
+    component part to a semantic token, mirroring the Figma component structure 1:1.
+  </p>
+  <p>
+    Components consume <em>only</em> generated variables — a CI gate fails any hardcoded color.
+    That single constraint is why a theme is one attribute (<code>data-theme</code>) instead of a
+    parallel stylesheet.
+  </p>
+
+  <ul class="tile-grid">
+    {pages.map((p) => (
+      <li>
+        <a class="tile" href={p.href}>
+          <p class="tile__title">{p.title}</p>
+          <p class="tile__desc">{p.desc}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Page>

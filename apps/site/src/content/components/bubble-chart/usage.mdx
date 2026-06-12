@@ -1,0 +1,73 @@
+## Overview
+
+BubbleChart plots points that carry **three dimensions**: an `x`/`y` position plus a pixel
+radius `r` for magnitude. Each point is drawn as a translucent palette bubble with a solid rim
+floating over a light grid — the style of the "Security Group Changes" card in the Lepide
+dashboard. It answers "where do these cluster, and which are big?" — change events positioned
+by time and scope, sized by volume. Series take the shared chart palette
+(`--color-chart-series-1…6`), the grid uses `--color-chart-grid`, and the SVG is drawn in real
+pixels via a ResizeObserver, so rims and gridlines stay crisp at any width.
+
+## Best practices
+
+- Use only when **all three dimensions carry meaning** — position and size. If `r` would be
+  constant, you have a scatter that a simpler chart usually serves better.
+- Keep to **2–3 series** and a modest number of points; overlapping translucent bubbles get
+  unreadable fast.
+- Choose radii in a **legible range** (~8–24px) — `r` is literal pixels, not a data scale, so
+  map your magnitude onto sensible pixel values yourself.
+- Give important points a `label` — it appears in the tooltip ("Product 1 — FS1: (12, 30)").
+- Wrap in `ChartCard`, name series with `ChartLegend`, and take colors from `CHART_COLORS`
+  (the `--color-chart-series-*` tokens) — never hardcoded hex.
+
+## When not to use
+
+- **Plain comparison across categories** — use [BarChart](/components/bar-chart/) or
+  [ColumnChart](/components/column-chart/); two dimensions don't need a bubble.
+- **Trends over ordered points** — use [LineChart](/components/line-chart/); bubbles don't
+  imply order.
+- **Part-to-whole composition** — use [DonutChart](/components/donut-chart/).
+
+## Configurations
+
+### In a ChartCard (default)
+
+Three series over the light grid, with a `ChartLegend` naming them.
+
+<StoryEmbed id="charts-bubble-chart--in-chart-card" height={380} caption="Three series of rimmed bubbles over the grid" />
+
+### Bare
+
+Fewer series and a shorter plot — `height` and `showGrid` tune the footprint.
+
+<StoryEmbed id="charts-bubble-chart--bare" height={320} caption="Two series, 200px plot" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Container | `role="img"` div with a generated `aria-label`, wrapping one responsive SVG |
+| 2 | Grid | Light 13×7 line grid in `--color-chart-grid` (`showGrid`, default on) |
+| 3 | Plot area | Height set by `height` (default 240px); width tracks the container; axes scale to a nice ceiling or `xMax`/`yMax` |
+| 4 | Bubbles | Translucent fill with a solid rim, both in the series color; radius is the point's `r` in px |
+| 5 | Legend *(composed)* | `ChartLegend` placed below the chart inside the `ChartCard` |
+| 6 | Tooltip | Native SVG `title` per bubble: "Product 1 — FS1: (12, 30)" |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Hover tooltip | Each bubble carries an SVG `title` — "series — label: (x, y)"; the radius is not stated, only drawn |
+| Axis scaling | x and y scale to a nice ceiling of the data; `xMax`/`yMax` override. There are no tick labels — the grid is purely visual |
+| Legend | `ChartLegend` is a static key — it names series but does not toggle or filter them |
+| Responsive sizing | A ResizeObserver re-measures the container and redraws in real pixels — rims and grid never stretch; bubble radii stay literal |
+| Theming | Bubbles resolve through `--color-chart-series-1…6` and the grid through `--color-chart-grid` — re-resolved under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Reserve BubbleChart for data where position and size all mean something, and label the notable points."
+  dont="Use bubbles for a two-variable comparison — constant radii add noise; a Column or Bar chart says it cleaner."
+/>
+
+## Related components
+
+<RelatedCards slugs={["line-chart", "column-chart", "card"]} />

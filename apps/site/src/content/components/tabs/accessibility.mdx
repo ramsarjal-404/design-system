@@ -1,0 +1,51 @@
+## Interactions
+
+### Mouse
+
+- The whole pill/label area of each tab is the click target; clicking selects it immediately.
+- Disabled tabs ignore clicks (native `disabled` attribute).
+- Selection never scrolls or navigates the page — only the associated panel changes.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` | Moves focus **onto the active tab only** (roving tabindex — inactive tabs are `tabindex="-1"`), then out of the tablist into the visible panel |
+| `ArrowRight` | Selects and focuses the next enabled tab, wrapping to the first |
+| `ArrowLeft` | Selects and focuses the previous enabled tab, wrapping to the last |
+| `Home` | Selects and focuses the first enabled tab |
+| `End` | Selects and focuses the last enabled tab |
+
+Selection follows focus on arrow keys — the standard for tabs whose panels render instantly.
+Disabled tabs are skipped. In plain HTML, `lepidus.js` flips ArrowLeft/ArrowRight automatically
+under `direction: rtl`.
+
+### Screen readers
+
+- The container is `role="tablist"`; each tab is a native `<button role="tab">` with
+  `aria-selected` announcing the current choice.
+- With panels rendered (`hasPanels` in React, `aria-controls` in HTML), each tab references its
+  `role="tabpanel"`, and the panel points back with `aria-labelledby` — so the panel is announced
+  by its tab's name.
+- Unselected panels carry the `hidden` attribute, removing them from the accessibility tree.
+- The active state is conveyed by `aria-selected` and the filled pill, not color alone.
+
+## Development considerations
+
+- Always render panels with `role="tabpanel"`, `id="{idPrefix}-panel-{id}"` and
+  `aria-labelledby="{idPrefix}-tab-{id}"` so the ids match what the component generates; set
+  `hasPanels` in React to switch on the `aria-controls` wiring.
+- Give the plain-HTML tablist an `aria-label` (e.g. `aria-label="Report sections"`) when the
+  surrounding context doesn't name it.
+- Use a unique `idPrefix` per tabs instance on the page.
+- Don't use tabs for page navigation — screen-reader users expect a tab change to swap content
+  in place, not move them elsewhere. Use [Sidebar](/components/sidebar/) for navigation.
+- If a panel contains focusable content, it is reached with a single Tab press from the tablist —
+  avoid wrapping panels in extra focus traps.
+
+## Content
+
+- Tab labels are accessible names — keep them short, parallel nouns ("Overview", "Permissions",
+  "Activity"), never sentences.
+- Don't badge tabs with critical information that only appears when the tab is selected;
+  surface alerts outside the tablist.

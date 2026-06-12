@@ -1,0 +1,6 @@
+{
+  "description": "Pill-shaped action button for triggering actions — forms, dialogs, and flows. Four variants, three sizes, fully token-driven.",
+  "heroStory": "actions-button--all-variants",
+  "heroHeight": 240,
+  "related": ["action-item", "link", "badge"]
+}

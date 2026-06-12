@@ -1,0 +1,81 @@
+## Overview
+
+Calendar is a titled scheduling card: a **Start On** month/year picker, an interactive month
+grid, a **Start At** H/M/S time row and — depending on the `variant` frequency — weekday and
+date multi-selects, closed by a Cancel / Done footer. Use it inside scheduling flows (configuring
+a recurring job, report, or scan) where the user composes a full schedule in one card. It is a
+composite scheduler, not a generic date input: all selection state is internal (uncontrolled),
+seeded by the `default*` props and reported in one piece through `onDone`.
+
+## Best practices
+
+- Pick the **lightest variant** that fits the schedule: `daily` unless weekday or date recurrence
+  is genuinely needed.
+- Read the final selection **only from `onDone`** — intermediate time, weekday, and date changes
+  are intentionally not surfaced.
+- Pass `markedDates` to flag days that already have scheduled events, so users avoid collisions.
+- Seed sensible defaults (`defaultMonth`, `defaultYear`, `defaultSelectedDate`) when editing an
+  existing schedule, and widen `yearRange` only if schedules genuinely span beyond ±5 years.
+
+## When not to use
+
+- **Picking just a clock time** — use [TimePicker](/components/time-picker/); Calendar embeds its
+  own H/M/S dropdowns inside the larger schedule.
+- **Date of birth, ranges, or generic date fields** — Calendar models a *recurring schedule*; a
+  plain [Input](/components/input/) or a dedicated date field fits one-off dates better.
+- **Selecting list values** — use [Dropdown](/components/dropdown/).
+
+## Types
+
+### Daily
+
+The base card: Start On month/year picker, the day grid, the Start At H/M/S row, and the footer —
+no recurrence selectors.
+
+<StoryEmbed id="forms-calendar--daily" height={460} caption="Daily schedule" />
+
+### Weekly
+
+Adds the **Select Month** weekday chip multi-select — chosen weekdays render as removable blue
+chips. This story also demonstrates `markedDates` event dots.
+
+<StoryEmbed id="forms-calendar--weekly" height={520} caption="Weekly schedule with weekday chips and event dots" />
+
+### Monthly
+
+Adds both the weekday chips and the **Select Date** round-chip grid (1–31) for date-of-month
+recurrence.
+
+<StoryEmbed id="forms-calendar--monthly" height={560} caption="Monthly schedule with weekday and date chips" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Header | White bar with the bold title — defaults to "`<Variant>` Schedule" |
+| 2 | Start On row | Two brand-filled Month and Year dropdowns with leading calendar glyphs |
+| 3 | Month grid | 7-column grid of circular day cells; today is ring-outlined, the selection tinted, event days dotted |
+| 4 | Start At row | Three white bordered H / M / S dropdown pills |
+| 5 | Select Month / Select Date rows | Chip multi-select fields (`weekly` / `monthly` only); selected values are removable blue chips (round chips for dates) |
+| 6 | Footer | Cancel (secondary) and Done (primary) system [Button](/components/button/)s |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Month / year | The dropdowns re-render the grid for the chosen month; the year list spans `yearRange` offsets around the current year (default ±5) |
+| Day selection | Clicking a day selects it (single selection) and fires `onSelectDate`; days in `markedDates` carry an event dot |
+| Dismissal | All dropdowns and chip popovers close on outside click; the dropdowns also close on `Escape` |
+| Chips | Clicking a popover option or a chip itself adds/removes the value; selections stay sorted |
+| Time | H/M/S selections are internal state, reported only through `onDone` |
+| Commit | Done fires `onDone` with the entire `CalendarValue` (year, month, day, time, weekdays, dates); Cancel fires `onCancel` — neither clears internal state |
+| Theming | Card, grid, and chips resolve through `component/calendar/*` and semantic tokens in all three themes |
+
+<DoDont
+  do="Use the daily variant by default and read the whole schedule once from onDone."
+  dont="Use Calendar as a general date-of-birth or range picker — it models a recurring schedule, not a date field."
+/>
+
+## Related components
+
+<RelatedCards slugs={["time-picker", "dropdown", "modal"]} />

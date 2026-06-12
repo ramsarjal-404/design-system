@@ -6,6 +6,12 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["http-server", ".", "-p", "8099", "-c-1", "--silent"],
       "port": 8099
+    },
+    {
+      "name": "site",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["http-server", "apps/site/dist", "-p", "8098", "-c-1", "--silent"],
+      "port": 8098
     }
   ]
 }

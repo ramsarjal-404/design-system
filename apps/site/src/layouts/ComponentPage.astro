@@ -1,0 +1,81 @@
+---
+/**
+ * Shared shell for the four tabs of a component page:
+ * eyebrow + title + lede + gate badges, tab strip, sidebar with the current
+ * component's tabs expanded, optional on-page TOC.
+ */
+import type { MarkdownHeading } from 'astro';
+import Base from './Base.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Toc from '../components/Toc.astro';
+import type { ComponentDoc } from '../lib/data';
+
+interface Props {
+  component: ComponentDoc;
+  tab: 'usage' | 'code' | 'specifications' | 'accessibility';
+  headings?: MarkdownHeading[];
+}
+const { component: c, tab, headings = [] } = Astro.props;
+
+const TABS = [
+  { key: 'usage', suffix: '', label: 'Usage' },
+  { key: 'code', suffix: 'code/', label: 'Code' },
+  { key: 'specifications', suffix: 'specifications/', label: 'Specifications' },
+  { key: 'accessibility', suffix: 'accessibility/', label: 'Accessibility' },
+];
+
+const lede =
+  c.meta.description ?? c.description.replace(/ — Lepidus Design System\.?$/, '') ?? c.name;
+const tabTitles: Record<string, string> = {
+  usage: c.name,
+  code: `${c.name} — Code`,
+  specifications: `${c.name} — Specifications`,
+  accessibility: `${c.name} — Accessibility`,
+};
+---
+
+<Base title={tabTitles[tab]} description={lede}>
+  <div class="site-shell">
+    <Sidebar current={c.slug} />
+    <main class="site-main" data-pagefind-body>
+      <header>
+        <p class="page-eyebrow">{c.category}</p>
+        <h1>{c.name}</h1>
+        <p class="page-lede">{lede}</p>
+        <div class="badge-row">
+          <span class="gate-badge" title="Every story passes axe WCAG 2.1 AA checks in CI">
+            ✓ axe WCAG 2.1 AA
+          </span>
+          <span class="gate-badge" title="Token-pair contrast checked in CI across all themes">
+            ✓ contrast · 3 themes
+          </span>
+          {c.plainCss ? (
+            <span class="gate-badge gate-badge--info" title="Available as plain HTML/CSS via @lepidus/css">
+              HTML + CSS · @lepidus/css
+            </span>
+          ) : (
+            <span class="gate-badge gate-badge--info">React (@lepidus/react)</span>
+          )}
+        </div>
+      </header>
+
+      <nav class="page-tabs" aria-label={`${c.name} sections`}>
+        {TABS.map((t) => (
+          <a
+            href={`/components/${c.slug}/${t.suffix}`}
+            aria-current={t.key === tab ? 'page' : undefined}
+          >
+            {t.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class={headings.length > 1 ? 'site-main--with-toc' : ''}>
+        <div class="prose">
+          <slot />
+        </div>
+        <Toc headings={headings} />
+      </div>
+    </main>
+  </div>
+</Base>

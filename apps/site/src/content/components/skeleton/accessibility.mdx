@@ -1,0 +1,39 @@
+## Interactions
+
+### Mouse
+
+- Skeletons are inert decoration — no hover, click or focus behavior. The cursor stays
+  default over them.
+
+### Keyboard
+
+- Nothing to interact with: skeletons are never focusable and never appear in the tab
+  order. Keyboard users tab straight past a loading region.
+
+### Screen readers
+
+- Each skeleton renders `aria-hidden="true"` and exposes **nothing** to assistive tech —
+  no role, no announcement.
+- Communicate loading on the **container** instead: set `aria-busy="true"` while skeletons
+  show, and clear it when content arrives.
+- For long loads, announce status with a polite live region — or place a
+  [Spinner](/components/spinner/) (`role="status"`) alongside, which announces its hidden
+  label automatically.
+
+## Development considerations
+
+- Don't put critical information inside a skeleton region without an announcement path —
+  a screen-reader user who tabs through during loading hears nothing at all.
+- Keep `aria-busy` accurate: stale `aria-busy="true"` after content arrives tells assistive
+  tech the region is still pending.
+- Don't stack a Spinner on top of skeleton placeholders — pick one loading signal per
+  region.
+- The shimmer respects `prefers-reduced-motion: reduce` out of the box (static fill); don't
+  re-add motion with custom CSS.
+
+## Content
+
+- Skeletons carry no text — there is nothing to localize or announce in the blocks
+  themselves.
+- If you add a visible loading caption near the region, mirror it in the live-region
+  announcement ("Loading reports…"), and keep it specific to the region.

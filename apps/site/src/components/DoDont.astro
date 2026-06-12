@@ -1,0 +1,23 @@
+---
+/**
+ * Paired do/don't guidance, SLDS-style.
+ * <DoDont do="Use sentence case." dont="Use ALL CAPS labels." />
+ * or slots: <Fragment slot="do">…</Fragment> <Fragment slot="dont">…</Fragment>
+ */
+interface Props {
+  do?: string;
+  dont?: string;
+}
+const { do: doText, dont: dontText } = Astro.props;
+---
+
+<div class="dodont">
+  <div class="dodont__card dodont__card--do">
+    <header>✓ Do</header>
+    <div>{doText ? <p>{doText}</p> : <slot name="do" />}</div>
+  </div>
+  <div class="dodont__card dodont__card--dont">
+    <header>✕ Don't</header>
+    <div>{dontText ? <p>{dontText}</p> : <slot name="dont" />}</div>
+  </div>
+</div>

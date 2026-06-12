@@ -1,0 +1,38 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@lepidus/react`) is shown for React projects. Both resolve to the
+same tokens, so they are pixel-identical in every theme.
+
+## Inline
+
+Block `lp-link` + `lp-link--inline` on a normal anchor inside running text.
+
+<Example snippet="link/inline" title="Inline link in a paragraph" story="actions-link--inline" />
+
+## Standalone with icon
+
+`lp-link--standalone` drops the underline; the trailing icon goes in `lp-link__icon` and must
+use `currentColor` so hover and theme switches recolor it. In React, pass the SVG via the
+`icon` prop.
+
+<Example snippet="link/standalone" title="Standalone with trailing icon" story="actions-link--standalone" />
+
+## External
+
+External links add `target="_blank"` + `rel="noreferrer"`, a `lp-link__visually-hidden`
+"(opens in new tab)" span for screen readers, and the `lp-link__external-icon` glyph. The React
+`external` prop renders all of this for you.
+
+<Example snippet="link/external" title="External link" story="actions-link--external" />
+
+## Disabled
+
+A disabled link is not a link: render a `<span aria-disabled="true">` with no `href` (the React
+component does this automatically when `disabled` is set).
+
+<Example snippet="link/disabled" title="Disabled" story="actions-link--disabled" />
+
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@lepidus/css</code> — see <a href="/get-started/">Get Started</a>. Link is pure CSS and
+  needs no <code>lepidus.js</code>.</p>
+</Callout>

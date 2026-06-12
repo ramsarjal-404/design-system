@@ -1,0 +1,54 @@
+## Interactions
+
+### Mouse
+
+- Clicking the trigger pill toggles the panel; clicking the blue header (or anywhere outside the
+  component) closes it.
+- Single select: clicking an option commits it and closes the panel immediately. Multi-select:
+  each click toggles the row's checkbox while the panel stays open.
+- The trigger is visually hidden (layout preserved) while the panel is open, so the blue header
+  occupies exactly the trigger's slot — the click target never jumps.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus to the trigger; while open, moves through the option buttons (and footer buttons) in document order |
+| `Enter` / `Space` | On the trigger: opens or closes the panel. On an option: selects it (single) or toggles its checkbox (multi) — native button activation |
+| `Escape` | Closes the panel (document-level listener, attached only while open) |
+| Arrow keys | Not handled — there is no roving focus between options; keyboard users move with `Tab` |
+
+The trigger shows a 2px brand focus ring via `:focus-visible`. In the plain-CSS build,
+`lepidus.js` returns focus to the trigger when the panel closes while focus is inside it.
+
+### Screen readers
+
+- The trigger is a native `<button>` with `aria-haspopup="listbox"` and `aria-expanded`, kept in
+  sync on every open/close (by React or by `lepidus.js`).
+- The panel list is `role="listbox"`, with `aria-multiselectable="true"` in `multiple` mode.
+- Each row is a native `<button>` with `role="option"`. The React component exposes selection via
+  `aria-selected`; the plain-HTML pattern uses `aria-checked`, which `lepidus.js` toggles in
+  multi mode.
+- Per-option `disabled` uses the native button disabled state — announced as dimmed and removed
+  from the tab order.
+- The chevron and the checkmark glyphs are `aria-hidden` decoration; selection state comes from
+  ARIA, never from the icon alone.
+
+## Development considerations
+
+- In plain HTML give the `lp-dropdown__list` an `aria-label` (e.g. the placeholder text) so the
+  listbox is named — the React component names it through the trigger relationship.
+- Disable the control with **both** the `lp-dropdown__trigger--disabled` modifier and the native
+  `disabled` attribute: the class stops `lepidus.js` from opening the panel, the attribute conveys
+  the state to assistive technology and removes the tab stop.
+- The options are buttons, not form fields — if the committed value must submit with a form,
+  mirror it into a hidden input on `lp-dropdown-change` (plain HTML) or `onChange` (React).
+- Don't nest the panel in a container with `overflow: hidden` — it is absolutely positioned and
+  will be clipped.
+
+## Content
+
+- The `placeholder` doubles as the open panel's header text — name the choice ("Select servers"),
+  keep it under ~3 words.
+- Keep option labels short and parallel; the trigger joins all selected labels with commas and
+  truncates with an ellipsis, so long labels become unreadable in multi-select.

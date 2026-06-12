@@ -1,0 +1,44 @@
+## Interactions
+
+### Mouse
+
+- The entire pill is the click target — clicking the padding focuses the native input inside.
+- Focus feedback is the strongest in the system: fill, border, **and** text color all change,
+  so the active field is unmistakable; the field never moves or resizes.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus to / away from the field (native tab order) |
+| Typing keys | Native text editing — caret movement, selection, clipboard all standard |
+
+The active state renders via `:focus-within` for both keyboard and mouse focus. Disabled
+fields use the native `disabled` attribute and are removed from the tab order.
+
+### Screen readers
+
+- Renders a native `<input>` — implicit `role="textbox"`; all standard input attributes
+  (`type`, `name`, `aria-*`) pass through.
+- **There is no built-in label.** The placeholder is not an accessible name — supply
+  `aria-label` ("Search") or pair the field with an external `<label>` /
+  `aria-labelledby`. Without one, the field is announced with no name at all.
+- `disabled` is announced as "dimmed"/"unavailable" automatically by the native attribute.
+
+## Development considerations
+
+- Treat the missing label as a hard requirement to fill: every TextField needs `aria-label`
+  or `aria-labelledby` — this is the component's only a11y gap and it is yours to close.
+- TextField has no error state; if the value can fail validation, you have outgrown it — move
+  to [Input](/components/input/) rather than bolting on custom error styling.
+- Use the right native `type` (`search`, `email`) and `autocomplete` so mobile keyboards and
+  browser autofill behave; the styling is type-agnostic.
+- For search fields, wire `Enter` submission via a wrapping `<form>` or an `onKeyDown`
+  handler — the component deliberately ships no behavior of its own.
+
+## Content
+
+- The accessible name describes the purpose: "Search", "Filter by server name" — verb-first
+  and specific to the data set.
+- Placeholders show an example value or a short prompt ("Type text"); they disappear on entry,
+  so never put required information in them.

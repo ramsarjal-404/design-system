@@ -1,0 +1,102 @@
+## Overview
+
+Badge labels the state or category of an object inline — "Active", "Pending", "Failed" — next to
+table rows, card titles, and list items. It renders a plain inline `<span>` pill: purely
+presentational and non-interactive by design. The `default` variant is the brand pill
+(`component/badge` tokens); `success` / `warning` / `error` / `neutral` reuse the shared
+`component/status` palette, so badge colors always match status colors elsewhere in the system
+and re-resolve automatically in the dark and high-contrast themes.
+
+## Best practices
+
+- Keep labels to **one or two words** ("Active", "Sync failed") — the pill never wraps.
+- Pick the variant **by meaning, not color preference**: `success` = healthy/complete,
+  `warning` = needs attention, `error` = failed, `neutral` = not applicable/unknown.
+- Use the **leading dot** for live presence and health indicators (Online / Away / Offline).
+- Let the **text state the status** — color and the dot are reinforcement, never the only signal.
+- Compose Badges into [Card](/components/card/) `actions` slots and [Table](/components/table/)
+  cells for at-a-glance status columns.
+
+## When not to use
+
+- **Removable, user-applied items** (filters, selections) — use [Tag](/components/tag/); it has a
+  real dismiss button. Badge is what the *system* says, Tag is what the *user* put there.
+- **Clickable actions** — a Badge has no button semantics; use [Button](/components/button/) or
+  ActionItem instead.
+- **Transient feedback after an action** — use [Toast](/components/toast/) or
+  [Message](/components/message/); a Badge is persistent state, not a notification.
+
+## Variants
+
+### Default
+
+The brand pill — lightblue background with brand-blue text via the `component/badge` token pair.
+**Use for** categories and counts that carry no good/bad judgement ("Beta", "New", "3 reports").
+
+<StoryEmbed id="data-display-badge--default" height={100} caption="Default (brand)" />
+
+### Success
+
+Green pair from `component/status/success`. **Use for** healthy, complete, or enabled states.
+
+<StoryEmbed id="data-display-badge--success" height={100} caption="Success" />
+
+### Warning
+
+Orange pair from `component/status/warning`. **Use for** pending or attention-needed states.
+
+<StoryEmbed id="data-display-badge--warning" height={100} caption="Warning" />
+
+### Error
+
+Red pair from `component/status/error`. **Use for** failed or blocking states.
+
+<StoryEmbed id="data-display-badge--error" height={100} caption="Error" />
+
+### Neutral
+
+Gray "not applicable" pair from `component/status/na`. **Use for** unknown, inactive, or
+inapplicable states.
+
+<StoryEmbed id="data-display-badge--neutral" height={100} caption="Neutral" />
+
+### With status dot
+
+A 6px leading dot filled with `currentColor`, so it always matches the variant text color. The
+dot is `aria-hidden` decoration — keep the meaning in the label.
+
+<StoryEmbed id="data-display-badge--with-dot" height={100} caption="Success badge with status dot" />
+
+### With icon
+
+A 12px leading icon slot. Pass an SVG that uses `currentColor` so it inherits the variant text
+color; the icon replaces the dot when both are set.
+
+<StoryEmbed id="data-display-badge--with-icon" height={100} caption="Success badge with check icon" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Container | Inline `<span>` pill — 28px radius, 5px/15px padding, 1px transparent border |
+| 2 | Leading dot *(optional)* | 6px circle filled with the variant text color, `aria-hidden` |
+| 3 | Leading icon *(optional)* | 12px slot, replaces the dot when both are set |
+| 4 | Label | Required — Open Sans 12px Semibold, single line; the badge's meaning |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Non-interactive | No hover, focus, or click behavior — Badge is read-only by design |
+| Dot vs icon | `icon` wins when both are provided; both inherit the variant text color via `currentColor` |
+| No wrapping | The pill stays on one line — keep labels to 1–2 words |
+| Theming | All variant pairs re-resolve under `data-theme="dark"` and `"hc"` with no extra code |
+
+<DoDont
+  do="Pick the variant by meaning and let the text state the status: a success Badge labelled “Active”."
+  dont="Attach click handlers to a Badge or encode the status in color alone — it is a plain span with no button semantics."
+/>
+
+## Related components
+
+<RelatedCards slugs={["tag", "button", "message"]} />

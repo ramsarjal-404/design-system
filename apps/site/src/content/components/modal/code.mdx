@@ -1,0 +1,39 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. In plain HTML the open/close behavior comes from `lepidus.js`: a trigger with
+`data-lp-modal-open="id"` opens the matching `<div class="lp-modal" id="…" hidden>`, any
+element with `data-lp-modal-close` closes it, and Escape, backdrop clicks, the focus trap
+and focus restore are wired automatically.
+
+## Open modal (static)
+
+The full overlay markup with the `hidden` attribute removed — what an open modal looks
+like. In production keep `hidden` on and let `lepidus.js` toggle it.
+
+<Example snippet="modal/open" title="Open dialog over the backdrop" story="feedback-modal--default" height={480} />
+
+## Trigger and wiring
+
+The production pattern: a button opens the hidden modal; Save/Cancel close it. Mark the
+field that should receive focus with `data-lp-autofocus` (otherwise the first focusable
+element is used).
+
+<Example snippet="modal/trigger" title="data-lp-modal-open / data-lp-modal-close wiring" story="feedback-modal--with-overlay" height={480} />
+
+<Callout variant="info" title="Requires lepidus.js">
+  <p>The trigger wiring, Escape handling, backdrop click, focus trap and focus restore live in
+  <code>lepidus.js</code> — include it once before <code>&lt;/body&gt;</code>:
+  <code>&lt;script src="lepidus.js"&gt;&lt;/script&gt;</code>. It also exposes
+  <code>Lepidus.openModal(id)</code> and <code>Lepidus.closeModal()</code> for programmatic
+  control. See <a href="/get-started/">Get Started</a>.</p>
+</Callout>
+
+## Multiple fields
+
+<Example snippet="modal/fields" title="A credentials form from field rows" story="feedback-modal--multiple-inputs" height={560} />
+
+## Inline (no overlay)
+
+`lp-modal__shell--inline` / `overlay={false}` embeds the shell in the page flow — no
+backdrop, no focus trap. Useful for docs canvases and wizard-style embedded panels.
+
+<Example snippet="modal/inline" title="Embedded shell without a backdrop" story="feedback-modal--left-header" />

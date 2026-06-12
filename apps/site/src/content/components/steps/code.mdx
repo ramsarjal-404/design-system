@@ -1,0 +1,33 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@lepidus/react`) renders the same markup from `total` + `current`.
+
+## Basic
+
+One `lp-steps__item` per step: the circle takes `--done`, `--current`, or `--upcoming`, the
+connector between circles takes `--done` once crossed, and the `lp-steps__label` trails the
+dots. In plain HTML you render the state classes yourself — add the `progressbar` attributes so
+the row reads as progress, and update them together with the classes when the step changes.
+
+<Example snippet="steps/basic" title="Three steps, step 2 current" story="navigation-steps--default" />
+
+## Without the label
+
+Omit `lp-steps__label` (React: `showLabel={false}`) when the surrounding heading already states
+the progress — keep `aria-valuetext` either way.
+
+<Example snippet="steps/no-label" title="Dots only" />
+
+## Clickable wizard
+
+`onStepClick` turns completed circles into "Go to step N" buttons (`lp-steps__step-button` in
+the generated markup) — back-navigation for wizards where revisiting is safe.
+
+<Example snippet="steps/wizard" title="Wizard with back-navigation" story="navigation-steps--wizard" codeOnly />
+
+<StoryEmbed id="navigation-steps--wizard" height={220} caption="Wizard, live" />
+
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@lepidus/css</code> — see <a href="/get-started/">Get Started</a>. Steps is pure CSS and
+  needs no <code>lepidus.js</code>; your code renders the state classes per step.</p>
+</Callout>

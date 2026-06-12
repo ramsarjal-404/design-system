@@ -1,0 +1,52 @@
+## Interactions
+
+### Mouse
+
+- Everything in the drawer is a standard control: the field selector and criteria selector are
+  system [Dropdown](/components/dropdown/)s, values are native labeled checkboxes, and the
+  Condition / Cancel / Apply buttons are system [Button](/components/button/)s.
+- The **Condition** button stays disabled until a field is chosen, and the criteria card's Apply
+  stays disabled until at least one value is checked — dead clicks are impossible.
+- The pencil button on an applied-condition card reopens that condition's criteria with the
+  existing selection pre-checked.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves through the drawer's controls in document order — dropdowns, Condition, search field, value checkboxes, card buttons, footer |
+| `Enter` / `Space` | Activates buttons and toggles checkboxes (native semantics throughout) |
+| `Escape` | Fires `onCancel` — closes the drawer and discards the draft (document-level listener, active only while open) |
+
+There is no focus trap: the drawer relies on the embedded native controls' tab order.
+
+### Screen readers
+
+- The drawer is `role="dialog"`, named by its `title` (`aria-label`, falling back to "Filters"
+  when the title is a non-string node).
+- Value rows are **native `<input type="checkbox">` inside `<label>`** elements — checked state
+  and label are announced for free.
+- The criteria card's search input carries `aria-label="Search {field} values"`; each edit pencil
+  carries `aria-label="Edit {field} filter"`.
+- Disabled states (Condition without a field, card Apply without values) use the Button
+  component's real `disabled` attribute, announced as dimmed.
+- The embedded Dropdowns expose `aria-haspopup="listbox"` / `aria-expanded` and
+  `role="listbox"` / `role="option"` panels.
+
+## Development considerations
+
+- **Move focus into the drawer on open and restore it on close** — the component renders and
+  unmounts on `open` but does not manage focus itself; in product code, focus the first control
+  on open and return focus to the launching button on close.
+- Always wire `onCancel`: it backs both the footer Cancel and `Escape`. Leaving it undefined
+  strands keyboard users in an undismissable drawer.
+- Don't wrap Filter in another `role="dialog"` container — it already announces itself.
+- The drawer is positioned by its own styles at the right edge; ensure the page behind it remains
+  scrollable/inert per your app's overlay conventions.
+
+## Content
+
+- Keep the `title` short and task-shaped — the default "Modify Filters" is the Figma-canonical
+  wording.
+- Field labels should match the column headers users see in the table they are filtering, so the
+  condition cards read as "Server Name — DE10016.LDSP1.com" without translation.

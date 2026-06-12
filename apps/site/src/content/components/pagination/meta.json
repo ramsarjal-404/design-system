@@ -1,0 +1,6 @@
+{
+  "description": "Table pagination bar — record count, First/Previous/Next/Last buttons, an editable page input and a rows-per-page selector, fully controlled.",
+  "heroStory": "data-display-pagination--default",
+  "heroHeight": 120,
+  "related": ["table", "dropdown", "steps"]
+}

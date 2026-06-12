@@ -1,0 +1,75 @@
+## Overview
+
+Breadcrumb shows where the user is and lets them jump back up the trail. Pass `items` in order:
+every item except the last renders as a 14px semibold brand-blue link (an anchor with `href`, or
+a button with `onClick` for router navigation) followed by a bold "/" separator in the same blue;
+the last item is the current page — regular weight, `--color-text-primary`, not interactive, and
+marked `aria-current="page"`. The whole trail is a semantic `<nav aria-label="Breadcrumb">`
+wrapping an `<ol>`.
+
+## Best practices
+
+- Keep the trail to what the user **actually descended** — typically 3–5 levels.
+- Use `href` wherever a routable URL exists, so middle-click and copy-link work; reserve
+  `onClick`-only crumbs for wizards and client-side routers.
+- Place the breadcrumb at the top of the content area, above the page title, where users expect
+  orientation.
+- Shorten long labels in the text itself rather than truncating with CSS.
+
+## When not to use
+
+- **Peer views of the same context** — use [Tabs](/components/tabs/); a breadcrumb is strictly
+  hierarchical ancestry.
+- **Primary navigation** — use [Sidebar](/components/sidebar/); breadcrumbs complement, never
+  replace, the main nav.
+- **Flat sites** one level deep — a single [Link](/components/link/) back is clearer than a
+  two-item trail.
+
+## Variants
+
+### Default
+
+A four-level trail — three ancestor links and the current page.
+
+<StoryEmbed id="navigation-breadcrumb--default" height={100} caption="Default trail" />
+
+### Two levels
+
+The minimum useful breadcrumb — one parent link and the current page.
+
+<StoryEmbed id="navigation-breadcrumb--two-levels" height={100} caption="Two levels" />
+
+### Button crumbs
+
+Without `href`, crumbs render as buttons — for client-side router navigation or wizard steps.
+
+<StoryEmbed id="navigation-breadcrumb--button-crumbs" height={100} caption="Button crumbs (router navigation)" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Nav landmark | `<nav aria-label="Breadcrumb">` wrapping the trail |
+| 2 | List | `<ol>` — order conveys the hierarchy |
+| 3 | Crumb link | 14px semibold brand-blue anchor (`href`) or button (`onClick`) |
+| 4 | Separator | Bold "/" in the link blue, `aria-hidden` (customizable via `separator`) |
+| 5 | Current page | Regular-weight `--color-text-primary` text with `aria-current="page"` — never a link |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Link rendering | `href` renders a real `<a>` (middle-click, copy-link work); `onClick` alone renders a `<button>` |
+| Current page | The last item is always plain text with `aria-current="page"` — not clickable |
+| Separator | Defaults to "/"; the `separator` prop accepts any `ReactNode` |
+| RTL | Crumbs flow right-to-left under `dir="rtl"`; the 10px crumb gap uses logical margins |
+| Theming | Link and current-page colors re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Use href for every crumb that has a routable URL — real anchors keep browser behaviors."
+  dont="Make the current page a link to itself, or pad the trail with levels the user never visited."
+/>
+
+## Related components
+
+<RelatedCards slugs={["tabs", "sidebar", "link"]} />

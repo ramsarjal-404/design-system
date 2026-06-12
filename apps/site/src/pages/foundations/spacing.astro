@@ -1,0 +1,52 @@
+---
+import Page from '../../layouts/Page.astro';
+import { loadTokens } from '../../lib/tokens';
+
+const tokens = loadTokens();
+const spaces = tokens
+  .filter((t) => /^--space-\d+$/.test(t.name))
+  .sort((a, b) => parseInt(a.name.slice(8)) - parseInt(b.name.slice(8)));
+const radii = tokens.filter((t) => t.name.startsWith('--radius-'));
+---
+
+<Page
+  title="Spacing & radius"
+  eyebrow="Foundations"
+  lede="A numeric spacing scale and a semantic radius set. The signature look — pill-shaped buttons and inputs — comes from radius tokens, not component CSS."
+>
+  <h2>Spacing scale</h2>
+  <table class="doc-table">
+    <thead><tr><th>Token</th><th>Value</th><th></th></tr></thead>
+    <tbody>
+      {spaces.map((t) => (
+        <tr>
+          <td><code>var({t.name})</code></td>
+          <td><code>{t.light}</code></td>
+          <td><span style={`display:inline-block;height:12px;width:${t.light};background:var(--color-brand-primary);border-radius:2px`}></span></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>Radii</h2>
+  <table class="doc-table">
+    <thead><tr><th>Token</th><th>Value</th><th></th></tr></thead>
+    <tbody>
+      {radii.map((t) => (
+        <tr>
+          <td><code>var({t.name})</code></td>
+          <td><code>{t.light}</code></td>
+          <td><span style={`display:inline-block;width:56px;height:28px;border:2px solid var(--color-brand-primary);border-radius:${t.light}`}></span></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>Usage</h2>
+  <ul>
+    <li>Use semantic radii (<code>--radius-button</code>, <code>--radius-card</code>,
+      <code>--radius-input</code>) before raw sizes.</li>
+    <li>Pill shapes are intentional brand — never flatten a button's radius locally.</li>
+    <li>Spacing in components comes from <code>--space-*</code>; page layout may compose them.</li>
+  </ul>
+</Page>

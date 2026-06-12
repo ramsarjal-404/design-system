@@ -1,0 +1,31 @@
+<Callout variant="info" title="React-only">
+  <p>This component has no <code>@lepidus/css</code> distribution yet — use
+  <code>@lepidus/react</code>.</p>
+</Callout>
+
+## Basic
+
+`folders` is an array of `{ id, label, items }`, each item a `{ id, label, icon? }` report.
+`defaultExpandedIds` opens folders on first render; expansion state is managed internally.
+
+<Example snippet="folder-tree/basic" title="Folders with reports" story="navigation-folder-tree--default" codeOnly />
+
+<StoryEmbed id="navigation-folder-tree--default" height={340} caption="Folder tree, live" />
+
+## Controlled selection
+
+`onItemSelect` receives both the report id and its folder id; feed the selection back through
+`selectedItemId` to paint the brand-light highlight.
+
+<Example snippet="folder-tree/selection" title="Selecting a report" story="navigation-folder-tree--expanded" codeOnly />
+
+<StoryEmbed id="navigation-folder-tree--expanded" height={420} caption="Selection, live" />
+
+## Filtering
+
+Pass the search text as `filter` — non-matching folders and reports are hidden, folders with
+matching reports auto-expand, and an empty result renders a no-match message.
+
+<Example snippet="folder-tree/filter" title="Search field driving the filter" story="navigation-folder-tree--report-sidebar" codeOnly />
+
+<StoryEmbed id="navigation-folder-tree--report-sidebar" height={560} caption="Report sidebar, live" />

@@ -1,0 +1,183 @@
+---
+/**
+ * Live plain-HTML example: a sandboxed iframe loading the real @lepidus/css
+ * artifacts (tokens.css + lepidus.css + lepidus.js), a 3-theme switcher, and
+ * tabbed HTML / React code with copy buttons.
+ *
+ * Snippets live in src/snippets/<component>/<name>.html (+ optional .jsx for
+ * the React rendition): <Example snippet="button/primary" />
+ */
+import { Code } from 'astro:components';
+import { STORYBOOK_BASE } from '../lib/data';
+
+interface Props {
+  snippet: string;
+  title?: string;
+  /** preview iframe height; defaults to auto-fitting the content */
+  height?: number;
+  /** storybook story id for the "Open in Storybook" link */
+  story?: string;
+  /** hide the live preview (code-only example) */
+  codeOnly?: boolean;
+}
+const { snippet, title = 'Example', height, story, codeOnly = false } = Astro.props;
+
+const htmlFiles = import.meta.glob<string>('/src/snippets/**/*.html', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+const jsxFiles = import.meta.glob<string>('/src/snippets/**/*.jsx', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+
+const html = htmlFiles[`/src/snippets/${snippet}.html`]?.trim();
+const jsx = jsxFiles[`/src/snippets/${snippet}.jsx`]?.trim();
+if (!html && !jsx) {
+  throw new Error(`Example: no snippet found at src/snippets/${snippet}.{html,jsx}`);
+}
+
+const srcdoc =
+  html &&
+  `<!doctype html>
+<html data-theme="light">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/lepidus/tokens.css">
+<link rel="stylesheet" href="/lepidus/lepidus.css">
+<style>
+  html { font-family: var(--font-family-primary, 'Open Sans', sans-serif); }
+  body { margin: 0; padding: 20px; background: var(--color-background-page);
+         transition: none !important; }
+</style>
+</head>
+<body>
+${html}
+<script src="/lepidus/lepidus.js" defer><\/script>
+</body>
+</html>`;
+
+const tabs = [
+  html && { key: 'html', label: 'HTML + lp- classes', code: html, lang: 'html' as const },
+  jsx && { key: 'jsx', label: 'React', code: jsx, lang: 'jsx' as const },
+].filter(Boolean) as { key: string; label: string; code: string; lang: 'html' | 'jsx' }[];
+
+const uid = `ex-${snippet.replace(/[^a-z0-9]+/gi, '-')}`;
+---
+
+<figure class="example" data-live-example style="margin-inline:0">
+  <div class="example__bar">
+    <span class="example__title">{title}</span>
+    {srcdoc && !codeOnly && (
+      <div class="theme-switch" role="group" aria-label="Example theme">
+        <button type="button" aria-pressed="true" data-theme="light">Light</button>
+        <button type="button" aria-pressed="false" data-theme="dark">Dark</button>
+        <button type="button" aria-pressed="false" data-theme="hc">High contrast</button>
+      </div>
+    )}
+    {story && (
+      <span class="example__links">
+        <a href={`${STORYBOOK_BASE}/?path=/story/${story}`} target="_blank" rel="noopener">
+          Open in Storybook ↗
+        </a>
+      </span>
+    )}
+  </div>
+
+  {srcdoc && !codeOnly && (
+    <iframe
+      class="example__frame"
+      srcdoc={srcdoc}
+      height={height ?? 120}
+      data-auto-height={height ? undefined : ''}
+      loading="lazy"
+      title={`${title} — live preview`}></iframe>
+  )}
+
+  <div class="code-tabs">
+    <div class="code-tabs__bar" role="tablist" aria-label="Code language">
+      {tabs.map((t, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`${uid}-tab-${t.key}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          aria-controls={`${uid}-panel-${t.key}`}
+          data-code-tab={t.key}
+        >
+          {t.label}
+        </button>
+      ))}
+      <button type="button" class="code-tabs__copy" data-copy>Copy</button>
+    </div>
+    {tabs.map((t, i) => (
+      <div
+        class="code-tabs__panel"
+        role="tabpanel"
+        id={`${uid}-panel-${t.key}`}
+        aria-labelledby={`${uid}-tab-${t.key}`}
+        hidden={i !== 0}
+      >
+        <Code code={t.code} lang={t.lang} theme="github-dark" />
+      </div>
+    ))}
+  </div>
+</figure>
+
+<script>
+  // ----- theme switching for srcdoc previews (same-origin, direct DOM) -----
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+
+    const themeBtn = target.closest<HTMLButtonElement>('[data-live-example] .theme-switch button');
+    if (themeBtn) {
+      const fig = themeBtn.closest('[data-live-example]')!;
+      const iframe = fig.querySelector('iframe');
+      fig
+        .querySelectorAll('.theme-switch button')
+        .forEach((b) => b.setAttribute('aria-pressed', String(b === themeBtn)));
+      iframe?.contentDocument?.documentElement.setAttribute('data-theme', themeBtn.dataset.theme!);
+      return;
+    }
+
+    const tabBtn = target.closest<HTMLButtonElement>('[data-live-example] [data-code-tab]');
+    if (tabBtn) {
+      const fig = tabBtn.closest('[data-live-example]')!;
+      fig.querySelectorAll('[data-code-tab]').forEach((b) => {
+        const selected = b === tabBtn;
+        b.setAttribute('aria-selected', String(selected));
+        const panel = fig.querySelector(`#${b.getAttribute('aria-controls')}`);
+        if (panel) (panel as HTMLElement).hidden = !selected;
+      });
+      return;
+    }
+
+    const copyBtn = target.closest<HTMLButtonElement>('[data-live-example] [data-copy]');
+    if (copyBtn) {
+      const fig = copyBtn.closest('[data-live-example]')!;
+      const visible = fig.querySelector('.code-tabs__panel:not([hidden]) pre');
+      if (visible) {
+        navigator.clipboard.writeText(visible.textContent ?? '').then(() => {
+          copyBtn.textContent = 'Copied ✓';
+          setTimeout(() => (copyBtn.textContent = 'Copy'), 1400);
+        });
+      }
+    }
+  });
+
+  // ----- auto-fit preview height to content -----
+  const fit = (iframe: HTMLIFrameElement) => {
+    const h = iframe.contentDocument?.body?.scrollHeight;
+    if (h) iframe.height = String(Math.min(Math.max(h + 8, 64), 720));
+  };
+  document.querySelectorAll<HTMLIFrameElement>('[data-live-example] iframe[data-auto-height]').forEach((f) => {
+    f.addEventListener('load', () => {
+      fit(f);
+      // fonts/late layout
+      setTimeout(() => fit(f), 350);
+    });
+  });
+</script>

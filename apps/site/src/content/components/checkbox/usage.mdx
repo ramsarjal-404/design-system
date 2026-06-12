@@ -1,0 +1,98 @@
+## Overview
+
+Checkbox collects a yes/no choice that is submitted with a form — accept terms, include an
+option, select rows. It is a native `<input type="checkbox">` visually hidden over a 16px
+styled box, so click, Space, focus, and form submission are all native behavior. The box reuses
+the dropdown checkbox token pair (`--component-dropdown-checkbox-border/-fill`) so standalone
+checkboxes and the multi-select [Dropdown](/components/dropdown/) never drift, and every theme
+restyles it with no extra code.
+
+## Best practices
+
+- Use a checkbox when the value is **collected and submitted** — not applied instantly.
+- Always give it a name: pass `label` (rendered in a real `<label>` wrapper, so clicking the
+  text toggles the box) or `aria-label` when the surrounding context labels it visually.
+- Use `indeterminate` on a "select all" parent over a partially-selected list — it clears on
+  the next user toggle.
+- Phrase labels positively ("Enable audit trail"), never as a negation ("Don't disable…").
+- Pair the `error` state with visible error text near the control — the red border alone is
+  not sufficient feedback.
+
+## When not to use
+
+- **The change applies instantly** (no Save button) — use [Toggle](/components/toggle/), which
+  announces itself as a switch.
+- **One-of-many choices** — use [Radio](/components/radio/) for 2–5 visible options, or
+  [Dropdown](/components/dropdown/) beyond that.
+- **A labeled text value** — that's [Input](/components/input/); Checkbox is strictly binary.
+
+## Variants
+
+### Default and checked
+
+Unchecked is a white box with a 1px brand border; checking fills it brand blue with a white
+check glyph. **Use for** any independent yes/no option in a form.
+
+<StoryEmbed id="forms-checkbox--default" height={120} caption="Default (click to toggle)" />
+
+<StoryEmbed id="forms-checkbox--checked" height={120} caption="Checked — brand fill, white check" />
+
+### Indeterminate
+
+The "mixed" state — a dash glyph instead of a check, exposed to assistive tech as
+`aria-checked="mixed"`. **Use on** a parent checkbox that tracks a partially-selected group;
+it is set by your code, never directly by the user.
+
+<StoryEmbed id="forms-checkbox--indeterminate" height={120} caption="Indeterminate (mixed)" />
+
+### Error
+
+The box border switches to the status-error token and `aria-invalid` is set. **Use for** an
+invalid required choice — e.g. unaccepted terms on submit.
+
+<StoryEmbed id="forms-checkbox--with-error" height={120} caption="Error — pair with visible error text" />
+
+### Disabled
+
+Native `disabled` attribute — gray box and label, removed from the tab order. Both the checked
+and unchecked positions have disabled styling.
+
+<StoryEmbed id="forms-checkbox--disabled" height={140} caption="Disabled pair" />
+
+### Group with select-all
+
+A `<fieldset>` of checkboxes under a parent that is checked when all are selected and
+indeterminate while only some are.
+
+<StoryEmbed id="forms-checkbox--group" height={260} caption="Select-all parent goes indeterminate while the list is partially selected" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Label wrapper | Real `<label>` root — clicking anywhere (box or text) toggles |
+| 2 | Input | Native checkbox, visually hidden over the box; the click/focus/a11y target |
+| 3 | Box | 16px square, `--radius-3xs` (3px) corners, 1px brand border; brand fill when checked or indeterminate |
+| 4 | Check / dash glyph | White inline SVG, `aria-hidden`; check when checked, dash when indeterminate |
+| 5 | Label text *(optional)* | Open Sans 14px in `--color-text-primary` |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Toggle | Click (box or label text) and Space flip the state — native checkbox behavior |
+| Focus | 3px brand-tinted ring (`--color-focus-ring`) on `:focus-visible` only |
+| Indeterminate | DOM property + `aria-checked="mixed"`; dash glyph; clears on the next toggle |
+| Error | Border uses `--color-status-error-text`; `aria-invalid` is set |
+| Disabled | Native `disabled` — subtle gray box, gray label, removed from tab order, `cursor: not-allowed` |
+| Motion | Glyph scales in over 120ms; transitions collapse under `prefers-reduced-motion` |
+| Theming | All tokens re-resolve automatically under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Use indeterminate on a “select all” parent while its list is partially selected."
+  dont="Use a checkbox for an instant on/off setting — that's Toggle, which announces itself as a switch."
+/>
+
+## Related components
+
+<RelatedCards slugs={["radio", "toggle", "dropdown", "input"]} />

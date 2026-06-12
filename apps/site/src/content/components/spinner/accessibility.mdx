@@ -1,0 +1,38 @@
+## Interactions
+
+### Mouse
+
+- Spinner is inert — no hover, click or focus behavior of its own. Inside a Button, the
+  Button (usually disabled while working) owns the interaction.
+
+### Keyboard
+
+- Nothing to operate: the spinner is never focusable and never appears in the tab order.
+- When a spinner replaces a Button's idle state, disable the Button so keyboard users can't
+  double-submit — the native `disabled` attribute also removes it from the tab order.
+
+### Screen readers
+
+- The root renders `role="status"` — an implicit **polite** live region. When the spinner
+  appears, its visually hidden label ("Loading…" by default) is announced without
+  interrupting the current task.
+- The SVG itself is `aria-hidden="true"`; only the hidden text is exposed.
+- Customize the label per context: `label="Saving changes…"` (React) or edit the
+  `lp-spinner__visually-hidden` span (HTML).
+
+## Development considerations
+
+- One announcement per region: don't render several labelled spinners side by side — pick
+  one, or give the extras an empty label.
+- Don't stack a Spinner on top of [Skeleton](/components/skeleton/) placeholders; choose
+  one loading signal per region.
+- Keep the spinner mounted until the work completes — removing and re-adding it re-fires
+  the announcement.
+- Pair an inline spinner with visible text that mirrors the hidden label, so sighted users
+  and screen-reader users get the same information.
+
+## Content
+
+- Labels name the work, not the control: "Loading…", "Saving changes…", "Refreshing
+  results" — never "spinner" or "please wait" alone.
+- Keep labels short; they are announced verbatim each time the spinner mounts.

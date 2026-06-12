@@ -1,0 +1,37 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@lepidus/react`) is shown for React projects. Both resolve to the
+same tokens, so they are pixel-identical in every theme.
+
+## Variants
+
+Block `lp-tag` + one status modifier, with the label wrapped in `lp-tag__label`. The four status
+modifiers bind to the same `component/status/*` tokens as Badge.
+
+<Example snippet="tag/variants" title="Status variants" story="data-display-tag--all-states" />
+
+## Dismissible
+
+Append an `lp-tag__remove` button with a per-item `aria-label`. The Tag styling is pure CSS —
+wire the button's click handler yourself (in React, `onRemove` renders and wires it for you).
+
+<Example snippet="tag/dismissible" title="Dismissible tag" story="data-display-tag--dismissible" />
+
+## Disabled
+
+`lp-tag--disabled` replaces the status modifier, and the dismiss button takes the native
+`disabled` attribute so dismissal is blocked and the button leaves the tab order.
+
+<Example snippet="tag/disabled" title="Disabled tag" story="data-display-tag--disabled" />
+
+## Filter bar
+
+The canonical pattern — a row of applied filters the user can take off one by one. In React,
+remove the item from state in `onRemove`.
+
+<Example snippet="tag/filter-bar" title="Applied filters" story="data-display-tag--filter-bar" />
+
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@lepidus/css</code> — see <a href="/get-started/">Get Started</a>. Tag is pure CSS and
+  needs no <code>lepidus.js</code>; only the dismiss click handler is yours to wire.</p>
+</Callout>

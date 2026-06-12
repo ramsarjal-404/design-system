@@ -1,0 +1,6 @@
+{
+  "description": "Empty page statement with illustration — centered line art above a brand-blue message, with an optional call to action.",
+  "heroStory": "feedback-empty-state--with-action",
+  "heroHeight": 360,
+  "related": ["table", "skeleton", "message", "button"]
+}

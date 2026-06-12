@@ -1,0 +1,6 @@
+{
+  "description": "Binary form control built on a native checkbox — collects a yes/no choice submitted with a form, with indeterminate, error, and disabled states.",
+  "heroStory": "forms-checkbox--all-states",
+  "heroHeight": 220,
+  "related": ["radio", "toggle", "dropdown", "input"]
+}

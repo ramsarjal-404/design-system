@@ -1,0 +1,39 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@lepidus/react`) is shown for React projects. Both resolve to the
+same tokens, so they are pixel-identical in every theme.
+
+## Basic
+
+The root is a real `<label class="lp-checkbox">` wrapping the hidden native input and the
+styled box — clicking the text toggles the box. `:checked` on the input drives the fill and
+glyph; no JavaScript needed.
+
+<Example snippet="checkbox/basic" title="Unchecked and checked" story="forms-checkbox--default" />
+
+## Indeterminate
+
+The mixed state only exists as a DOM property — set `input.indeterminate = true` from script
+(React does this for you via the `indeterminate` prop, which also sets
+`aria-checked="mixed"`). It clears natively on the next user toggle.
+
+<Example snippet="checkbox/indeterminate" title="Indeterminate (select-all parent)" story="forms-checkbox--indeterminate" />
+
+## Error
+
+Add `lp-checkbox__box--error` to the box and `aria-invalid="true"` to the input, and point
+`aria-describedby` at visible error text — the red border alone is not enough.
+
+<Example snippet="checkbox/error" title="Error with linked message" story="forms-checkbox--with-error" />
+
+## Disabled
+
+Always the native `disabled` attribute plus the `lp-checkbox--disabled` root modifier (it
+grays the label and switches the cursor) — never a class alone.
+
+<Example snippet="checkbox/disabled" title="Disabled pair" story="forms-checkbox--disabled" />
+
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@lepidus/css</code> — see <a href="/get-started/">Get Started</a>. Checkbox is pure CSS;
+  only the indeterminate state needs the one-line script shown above.</p>
+</Callout>

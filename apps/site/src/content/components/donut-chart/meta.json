@@ -1,0 +1,6 @@
+{
+  "description": "Part-to-whole ring with a center stat and a built-in value legend — for compositions of five or fewer segments.",
+  "heroStory": "charts-donut-chart--in-chart-card",
+  "heroHeight": 380,
+  "related": ["bar-chart", "gauge-chart", "card"]
+}

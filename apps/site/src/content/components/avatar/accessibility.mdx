@@ -1,0 +1,51 @@
+## Interactions
+
+### Mouse
+
+- Avatar is **not interactive** — no hover, no pointer cursor, no click behavior. For clickable
+  avatars, wrap the Avatar in a [Button](/components/button/) or [Link](/components/link/) and
+  let the wrapper own the interaction.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` | Skips the Avatar — it is not focusable and has no keyboard behavior |
+
+When wrapped in a Button or Link, the wrapper receives focus and activation; the Avatar inside
+stays decorative.
+
+### Screen readers
+
+- **Image avatars**: the `<img>` carries the accessible name via `alt` (React falls back to
+  `name` when `alt` is omitted). Pass `alt=""` only for purely decorative avatars duplicated by
+  adjacent text.
+- **Initials fallback**: exposes `role="img"` with the person's name as `aria-label`, so the
+  person is announced either way. The initials characters themselves are `aria-hidden` — the
+  label is "Ada Lovelace", never "AL".
+- **Status dot**: announced via an explicit `aria-label` ("Online" / "Away" / "Offline") in
+  React. In plain HTML, bake the presence into the wrapper's label
+  (`aria-label="Jane Kim (online)"`) and keep the dot `aria-hidden`.
+- **AvatarGroup**: renders `role="group"` — give it an `aria-label` (e.g. "Contributors") when
+  the context isn't obvious. The "+N" overflow chip is labelled "N more".
+
+## Development considerations
+
+- **Documented contrast exemption**: white initials on the red, yellow, and light-blue
+  chart-series backgrounds fall below the 4.5:1 AA text threshold. Because the initials are
+  `aria-hidden` decoration and the accessible name comes from the `aria-label`, the
+  `.lp-avatar__fallback` element is excluded from the axe `color-contrast` rule in the design
+  system's own checks — the same exemption the Avatar stories use. Revisit when dedicated
+  `component/avatar` tokens land.
+- Always provide `name` even when `src` is set — it covers the fallback path and the accessible
+  name in one move.
+- Never rely on the status dot color alone in surrounding copy; pair presence with text (a
+  [Badge](/components/badge/) with a dot reads better next to a name).
+- Don't attach click handlers directly to the Avatar — it exposes no role or focus for
+  interaction.
+
+## Content
+
+- The accessible name is the person's name as written in the product ("Jane Kim"), not the
+  initials.
+- Group labels describe the collection: "Contributors", "Assigned analysts".

@@ -1,0 +1,83 @@
+## Overview
+
+Skeleton holds the layout steady while data loads, replacing layout shifts with
+shape-matched gray blocks: `text` lines, a `circle` for avatars and icons, a `rect` for
+images and cards. A subtle shimmer sweeps across each block; under
+`prefers-reduced-motion` it degrades to a static fill. Compose several skeletons to sketch
+the real layout. Skeletons are pure decoration — each renders `aria-hidden="true"`; the
+loading state belongs on the container (`aria-busy="true"`).
+
+## Best practices
+
+- **Match shapes and sizes to the real content** so nothing jumps when it arrives.
+- Swap skeletons for content **all at once per region** — partial swaps look broken.
+- Use Skeleton when you know the shape of what's coming and it takes more than ~300ms.
+- Set `aria-busy="true"` on the loading container and clear it when content arrives.
+
+## When not to use
+
+- **Sub-300ms loads** — the flash is worse than the wait; show nothing.
+- **Action feedback** (saving, submitting, refreshing) — use
+  [Spinner](/components/spinner/); the incoming "content" has no shape.
+- **Measurable progress** — use [Progress](/components/progress/).
+- **Permanently empty regions** — use [EmptyState](/components/empty-state/); Skeleton
+  promises content is coming.
+
+## Variants
+
+### Text
+
+A rounded line matching body text. With `lines` greater than 1 it stacks into a paragraph,
+the last line cut to 60% width.
+
+<StoryEmbed id="feedback-skeleton--text" height={120} caption="Single text line" />
+
+<StoryEmbed id="feedback-skeleton--paragraph" height={160} caption="lines={3} — the last line reads as a paragraph end" />
+
+### Circle
+
+Avatar/icon placeholder — `height` defaults to `width`.
+
+<StoryEmbed id="feedback-skeleton--circle" height={140} caption="40px circle" />
+
+### Rect
+
+Image/card-media placeholder with `--radius-sm` corners.
+
+<StoryEmbed id="feedback-skeleton--rect" height={240} caption="320×160 rect" />
+
+### Composition
+
+Sketch the real layout — here a Card while it loads: avatar, title pair, media block, body
+lines. Note `aria-busy="true"` on the container.
+
+<StoryEmbed id="feedback-skeleton--card-skeleton" height={420} caption="CardSkeleton composition" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Block | Base fill `--color-background-subtle` with a `--color-background-surface` shimmer sweeping left to right |
+| 2 | Text variant | Rounded 14px line, `--radius-xs` corners |
+| 3 | Circle variant | `--radius-circle`, 40px default, height = width |
+| 4 | Rect variant | `--radius-sm` corners, free-size |
+| 5 | Paragraph wrapper | `lines > 1` stacks text lines with an 8px gap; last line at 60% width |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Shimmer | Gradient sweep, ~1.9s per cycle (`--duration-slow` × 8, `--easing-standard`) |
+| Reduced motion | Under `prefers-reduced-motion` the shimmer is replaced by a static fill |
+| Sizing | `width`/`height` — numbers are px, strings pass through (`'100%'`, `'12rem'`) |
+| Accessibility | Every block renders `aria-hidden="true"` — loading is conveyed by the container's `aria-busy` |
+| Theming | Base and highlight fills re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Mirror the incoming layout — a circle for the avatar, a rect for the chart, text lines for the copy — and swap it out in one go."
+  dont="Show a skeleton for a 100ms fetch, or leave half a region skeletal while the other half has loaded."
+/>
+
+## Related components
+
+<RelatedCards slugs={["spinner", "progress", "card", "table"]} />

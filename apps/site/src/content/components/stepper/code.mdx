@@ -1,0 +1,39 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical form.
+The React rendition (`@lepidus/react`) is shown for React projects. Both resolve to the same
+tokens, so they are pixel-identical in every theme.
+
+<Callout variant="info" title="Requires lepidus.js">
+  <p>Stepper is interactive: <code>lepidus.js</code> binds <code>[data-lp-stepper]</code> — the
+  first <code>lp-stepper__control</code> increments, the second decrements, stepping by the
+  input's <code>step</code> and clamping to its <code>min</code>/<code>max</code>; every change
+  dispatches a bubbling <code>change</code> event on the input. Typing and Arrow Up / Down work
+  natively without the script. See <a href="/get-started/">Get Started</a> for the script tag.</p>
+</Callout>
+
+## Basic with range
+
+The native `min`, `max`, and `step` attributes drive both the script and the browser's own
+arrow-key stepping. Always provide an `aria-label` (or external label).
+
+<Example snippet="stepper/basic" title="Bounded stepper (0–365)" height={100} story="forms-stepper--with-range" />
+
+## No controls
+
+Omit the `lp-stepper__controls` block (React: `showControls={false}`) — the value remains
+editable by typing and Arrow Up / Down.
+
+<Example snippet="stepper/no-controls" title="Input only, no chevrons" height={100} story="forms-stepper--no-controls" />
+
+## Full width
+
+`lp-stepper--full-width` stretches the pill to its container instead of the fixed 230px.
+
+<Example snippet="stepper/full-width" title="Full width inside a constrained container" height={100} />
+
+## Disabled
+
+Combine the `lp-stepper--disabled` modifier with native `disabled` attributes on the input and
+both control buttons — the class restyles, the attributes convey the state and remove the tab
+stops.
+
+<Example snippet="stepper/disabled" title="Disabled" height={100} story="forms-stepper--disabled" />

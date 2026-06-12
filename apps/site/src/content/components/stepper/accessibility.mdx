@@ -1,0 +1,51 @@
+## Interactions
+
+### Mouse
+
+- The chevron buttons increment / decrement by `step`; each disables individually once the value
+  reaches its bound, so a dead click is impossible.
+- Clicking into the pill places the caret in the number field for direct typing; the browser's
+  built-in spinner is hidden so the chevrons are the only stepping affordance.
+- Out-of-range drafts (typed values) clamp back into `min`/`max` when the field blurs.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus to / away from the number field — in React it is the **only** tab stop (the chevrons have `tabIndex={-1}`) |
+| `Arrow Up` / `Arrow Down` | Adjust the value by `step` (native number-input behavior), clamped to the range |
+| Digits / `-` | Type a value directly; drafts may be temporarily out of range and clamp on blur |
+
+The chevron buttons keep a visible brand `:focus-visible` ring, and a disabled Stepper uses the
+native `disabled` attribute, removing it from the tab order entirely.
+
+### Screen readers
+
+- The field is a native `<input type="number" inputMode="numeric">` — announced as a spinbutton,
+  with platform numeric keyboards on touch devices.
+- `aria-valuenow` is always exposed; `aria-valuemin` / `aria-valuemax` appear whenever finite
+  `min` / `max` are set.
+- The chevrons carry `aria-label="Increment"` / `"Decrement"` (the plain-CSS demo uses
+  "Increase" / "Decrease") and are skipped in the React tab order so keyboard users interact
+  through the one field.
+- There is **no built-in label** — the React component defaults to `aria-label="Value"`; always
+  override it with something meaningful.
+
+## Development considerations
+
+- Always supply an accessible name: `aria-label="Retention days"`, or an external `<label>` /
+  `aria-labelledby` pointing at the input.
+- Set finite `min` / `max` wherever the domain allows — it drives chevron disabling, blur
+  clamping, and the ARIA range attributes in one move.
+- In plain HTML, control order matters: `lepidus.js` wires the **first**
+  `lp-stepper__control` as increment and the **second** as decrement, and dispatches a bubbling
+  `change` event on the input after every step.
+- For the disabled state, pair the `lp-stepper--disabled` class with native `disabled` attributes
+  on the input **and** both buttons — the class alone is only paint.
+- React's `onChange` receives the already-clamped number for chevrons, typing, and arrow keys
+  alike; don't re-clamp downstream.
+
+## Content
+
+- Label the quantity and its unit ("Retention days", "Concurrent scans") — the pill shows only a
+  bare number, so the name carries all the context.

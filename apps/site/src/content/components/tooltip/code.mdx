@@ -1,0 +1,37 @@
+Lepide products ship plain HTML/CSS/JS — in plain HTML a tooltip is a single
+`data-lp-tooltip` attribute on the trigger; the React rendition (`@lepidus/react`) wraps the
+trigger in `<Tooltip>`. Both render the same `lp-tooltip` bubble.
+
+<Callout variant="info" title="Requires lepidus.js">
+  <p>The plain-HTML tooltip is bound by <code>lepidus.js</code>: it shows the bubble on hover
+  and keyboard focus, positions it above the trigger (flipping below when there's no room),
+  wires <code>aria-describedby</code>, and hides on leave, blur, or Escape. Include
+  <code>&lt;script src="lepidus.js"&gt;&lt;/script&gt;</code> once per page — see
+  <a href="/get-started/">Get Started</a>.</p>
+</Callout>
+
+## Basic
+
+Put the text in `data-lp-tooltip` on any focusable element — `lepidus.js` does the rest. In
+React, pass the text as `content` and the trigger as the single child.
+
+<Example snippet="tooltip/basic" title="Tooltip on a button" story="overlays-tooltip--default" />
+
+## Placements
+
+The React component accepts a preferred `placement` (default `bottom-start`) and flips
+vertically when out of viewport space. The plain-HTML binding always positions above the
+trigger, flipping below when there is no room — it has no placement option.
+
+<Example snippet="tooltip/placements" title="All four placements" story="overlays-tooltip--placements" codeOnly />
+
+<StoryEmbed id="overlays-tooltip--placements" height={320} caption="Placements, live" />
+
+## Icon-only trigger
+
+The tooltip shows the name for sighted users; `aria-label` still provides the accessible name —
+never rely on the tooltip alone.
+
+<Example snippet="tooltip/icon-button" title="Naming an icon-only button" story="overlays-tooltip--on-icon-button" codeOnly />
+
+<StoryEmbed id="overlays-tooltip--on-icon-button" height={160} caption="Icon-only trigger, live" />

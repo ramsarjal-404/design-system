@@ -1,0 +1,24 @@
+---
+/** Shortcut tiles linking to sibling component pages (SLDS "Related Components"). */
+import { bySlug } from '../lib/data';
+
+interface Props {
+  slugs: string[];
+}
+const { slugs } = Astro.props;
+const items = slugs.map((s) => bySlug.get(s)).filter(Boolean);
+---
+
+{items.length > 0 && (
+  <ul class="tile-grid">
+    {items.map((c) => (
+      <li>
+        <a class="tile" href={`/components/${c!.slug}/`}>
+          <p class="tile__title">{c!.name}</p>
+          <p class="tile__desc">{c!.description.replace(/ — Lepidus Design System\.?$/, '')}</p>
+          <span class="tile__meta">{c!.category}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+)}

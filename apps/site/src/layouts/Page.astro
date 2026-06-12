@@ -1,0 +1,28 @@
+---
+/** Simple documentation page: centered prose column, optional eyebrow. */
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  eyebrow?: string;
+  lede?: string;
+  description?: string;
+  wide?: boolean;
+}
+const { title, eyebrow, lede, description, wide = false } = Astro.props;
+---
+
+<Base title={title} description={description ?? lede}>
+  <main
+    class="site-main"
+    style={`max-width: ${wide ? '1180px' : '920px'}; margin: 0 auto;`}
+    data-pagefind-body
+  >
+    {eyebrow && <p class="page-eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    {lede && <p class="page-lede">{lede}</p>}
+    <div class="prose" style={wide ? 'max-width:none' : undefined}>
+      <slot />
+    </div>
+  </main>
+</Base>

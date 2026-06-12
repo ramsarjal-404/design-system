@@ -1,0 +1,29 @@
+<Callout variant="info" title="React-only">
+  <p>Charts have no @lepidus/css distribution — use <code>@lepidus/react</code>.</p>
+</Callout>
+
+## Grouped in a ChartCard
+
+The standard composition: `ChartCard` supplies the surface (brand-blue title, "Last Updated"
+stamp, actions slot), `BarChart` plots the data, `ChartLegend` names the series.
+
+<Example snippet="bar-chart/grouped" codeOnly title="Grouped bars in a ChartCard" />
+
+<StoryEmbed id="charts-bar-chart--in-chart-card" height={360} caption="Live render" />
+
+## Stacked
+
+`stacked` turns each group into one segmented bar sized by the category total.
+
+<Example snippet="bar-chart/stacked" codeOnly title="Stacked bars" />
+
+<StoryEmbed id="charts-bar-chart--stacked" height={360} caption="Live render" />
+
+## Single series
+
+A per-series `color` from the palette tokens, a wider `labelWidth` for long server names, and
+`formatValue` for unit formatting.
+
+<Example snippet="bar-chart/single-series" codeOnly title="Single series with overrides" />
+
+<StoryEmbed id="charts-bar-chart--single-series" height={300} caption="Live render" />

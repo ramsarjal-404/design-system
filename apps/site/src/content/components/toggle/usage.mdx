@@ -1,0 +1,82 @@
+## Overview
+
+Toggle flips a single setting on or off with **immediate effect** — agent enabled,
+notifications on, dark mode. It renders a native `<button role="switch" aria-checked>` styled
+as a 56×20 pill track (`--radius-4xl`) with a 15px white thumb that slides between ends in
+180ms. The track is brand blue when on (`--component-toggle-on-bg`), light blue when off
+(`--component-toggle-off-bg`), and gray in both disabled positions — all token-driven, so the
+dark and high-contrast themes restyle it with no extra code.
+
+## Best practices
+
+- **Apply the change immediately** when the switch flips — no Save button.
+- The switch is text-free: always name it with `aria-label` ("Enable notifications") or pair
+  it with a visible label via `aria-labelledby`.
+- Phrase the label as the thing being switched ("Auto-backup"), not the state ("On") — the
+  switch itself communicates on/off.
+- Don't disable a toggle without explaining why nearby.
+
+## When not to use
+
+- **The value is collected and submitted with a form** — use
+  [Checkbox](/components/checkbox/); a switch implies instant effect.
+- **One-of-many choices** — use [Radio](/components/radio/) or
+  [Dropdown](/components/dropdown/).
+- **Triggering an action** (Run scan, Export) — that's a [Button](/components/button/);
+  switches represent state, not commands.
+
+## Variants
+
+The four Figma variants map to checked × disabled.
+
+### On
+
+Brand-blue track with a darker brand border, thumb at the right end.
+
+<StoryEmbed id="forms-toggle--on" height={120} caption="On — brand blue track" />
+
+### Off
+
+Light-blue track with a brand border, thumb at the left end.
+
+<StoryEmbed id="forms-toggle--off" height={120} caption="Off — light blue track" />
+
+### Disabled
+
+Gray track in both positions, interaction blocked via the native `disabled` attribute.
+
+<StoryEmbed id="forms-toggle--disabled" height={120} caption="The disabled pair" />
+
+### With a visible label
+
+The canonical settings-row pattern — controlled Toggle next to text describing the setting.
+
+<StoryEmbed id="forms-toggle--with-label" height={120} caption="Controlled toggle with a visible label" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Track | 56×20 pill `<button role="switch">`, `--radius-4xl` (24px), 1px border one shade deeper than the fill |
+| 2 | Thumb | 15px white circle (`--component-toggle-handle`) with a soft drop shadow; slides 3px → 36px |
+| 3 | Focus ring | 2px brand outline, 2px offset, on `:focus-visible` |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Flip | Click, `Space`, or `Enter` toggles; `aria-checked` flips with the visual state |
+| State signal | Conveyed by thumb position **and** track color — never color alone |
+| Focus | 2px brand outline with 2px offset on `:focus-visible` |
+| Disabled | Native `disabled` attribute — gray track in either position, removed from tab order, `cursor: not-allowed` |
+| Motion | Thumb slides in 180ms; transitions collapse under `prefers-reduced-motion` |
+| Theming | All `component/toggle/*` tokens re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Apply the setting the instant the switch flips — “Auto-backup” starts backing up right away."
+  dont="Put a Toggle inside a form that needs a Save/Submit step — that expectation belongs to Checkbox."
+/>
+
+## Related components
+
+<RelatedCards slugs={["checkbox", "radio", "settings-panel"]} />

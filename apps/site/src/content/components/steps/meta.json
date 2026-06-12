@@ -1,0 +1,6 @@
+{
+  "description": "Wizard progress indicator — solid green check discs for completed steps, a ringed dot for the current one, and a trailing “N of M” label.",
+  "heroStory": "navigation-steps--default",
+  "heroHeight": 140,
+  "related": ["stepper", "progress", "modal", "button"]
+}

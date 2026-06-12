@@ -1,0 +1,75 @@
+## Overview
+
+Progress reports the completion of a long-running task — restores, scans, imports — as a status
+label above a 9px rounded track with a percentage readout. It covers the full task lifecycle in
+one component: queued (`pending`), running (`in-progress`) and finished (`completed`), and by
+default (`status="auto"`) flips to the green completed treatment the moment `value` reaches 100.
+The track renders `role="progressbar"` with real `aria-valuenow` / `aria-valuetext` semantics.
+
+## Best practices
+
+- Update `value` from **real task telemetry** and leave `status="auto"` so completion flips by
+  itself.
+- Keep labels short and stateful: "Restore in Progress", "Scan complete", "Queued".
+- Keep the percentage readout visible — the number is the primary progress signal; only set
+  `showValue={false}` when space is truly critical.
+- Use `pending` for queued tasks that have not started; the clock icon replaces the percentage.
+
+## When not to use
+
+- **Indeterminate "busy" feedback** with no measurable completion — use
+  [Spinner](/components/spinner/); Progress always renders a quantified bar.
+- **Page or layout loading** — use [Skeleton](/components/skeleton/) placeholders.
+- **Announcing that a task finished** — pair the bar with [Toast](/components/toast/) for the
+  completion event; don't leave a 100% bar as the only notification.
+
+## Types
+
+### In progress
+
+Cyan label and fill sized by `value`, with the percentage readout.
+
+<StoryEmbed id="data-display-progress--in-progress" height={120} caption="In progress — 75%" />
+
+### Completed
+
+Green label, full green bar and "100%". Forced with `status="completed"`, or derived
+automatically when `value` reaches 100 under `status="auto"`.
+
+<StoryEmbed id="data-display-progress--completed" height={120} caption="Completed" />
+
+### Pending
+
+For queued tasks — gray label, full disabled-gray bar, and a clock icon instead of the
+percentage. `value` is ignored.
+
+<StoryEmbed id="data-display-progress--pending" height={120} caption="Pending — clock replaces the readout" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Label | 12px semibold status line above the bar, tinted by state |
+| 2 | Track | 9px tall, 12px-radius gray rail (`role="progressbar"`) |
+| 3 | Fill | Rounded bar sized by `value` (30px minimum so tiny values stay visible), animated on change |
+| 4 | Readout | 12px percentage right of the bar; an 18px clock icon replaces it when pending |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Auto status | `status="auto"` (default) shows in-progress below 100 and flips to completed at `value >= 100` |
+| Clamping | `value` is clamped to 0–100; `NaN` becomes 0 |
+| Pending | Renders a full gray bar and the clock; `aria-valuenow` is omitted and `aria-valuetext` reads "Pending" |
+| Width | Fixed 274px by default (from Figma); `fullWidth` / `lp-progress--full-width` stretches to the container |
+| Motion | The fill width animates on change; the percentage is the source of truth for assistive tech |
+| Theming | All state colors re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Drive value from real task telemetry and let status=auto flip to completed at 100%."
+  dont="Use pending for failures — surface errors with Message or Toast, not a gray bar."
+/>
+
+## Related components
+
+<RelatedCards slugs={["spinner", "skeleton", "toast", "steps"]} />

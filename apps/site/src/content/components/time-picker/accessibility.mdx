@@ -1,0 +1,47 @@
+## Interactions
+
+### Mouse
+
+- Clicking the hour or minute box places the caret for direct typing; a focused box gains a brand
+  border plus a soft brand glow.
+- Clicking an AM or PM segment selects it — the active segment takes the tinted fill and brand
+  text.
+- Cancel and OK are text buttons in the footer; OK clamps whatever is currently typed before
+  reporting it.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves through hour box → minute box → AM/PM segments → Cancel → OK |
+| Digits | Type the value directly — non-digits are stripped, input caps at 2 characters |
+| `Enter` / `Space` | Activates the focused AM/PM segment or footer button (native buttons) |
+
+On blur each box clamps into range (hour 1–12, or 0–23 in 24-hour mode; minute 0–59) and re-pads
+to two digits — a half-typed "7" becomes "07". Footer buttons show visible `:focus-visible` brand
+outlines.
+
+### Screen readers
+
+- The card is `role="group"` labelled by the `label` text ("Enter Time" by default).
+- The hour and minute fields carry explicit `aria-label="Hour"` / `"Minute"` and
+  `inputMode="numeric"`, so touch devices raise numeric keyboards.
+- The AM/PM toggle is a nested `role="group"` labelled "AM or PM"; its segments are native
+  buttons exposing state via `aria-pressed`.
+- The colon dots and the footer clock glyph are `aria-hidden` decoration.
+
+## Development considerations
+
+- State is uncontrolled — there is no `value` prop. To programmatically reset the picker, remount
+  it (e.g. change its `key`).
+- `onConfirm` delivers already-clamped values; `period` is `null` only in 24-hour mode — branch
+  on that when persisting.
+- Don't pass `defaultPeriod` together with `use24Hour`; the toggle is hidden and the value
+  ignored.
+- The card is a group, not a dialog — if you present it in a popover or modal, the host owns
+  focus management and dismissal.
+
+## Content
+
+- Keep the `label` short and imperative ("Enter Time", "Remind me at") — it renders as the
+  uppercase overline and is announced as the card's name.

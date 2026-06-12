@@ -1,0 +1,6 @@
+{
+  "description": "Vertical bar chart for comparing series across time buckets or short-named categories — grouped, stacked, or single-series.",
+  "heroStory": "charts-column-chart--grouped",
+  "heroHeight": 380,
+  "related": ["bar-chart", "line-chart", "card"]
+}

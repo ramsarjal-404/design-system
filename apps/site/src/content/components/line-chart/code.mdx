@@ -1,0 +1,27 @@
+<Callout variant="info" title="React-only">
+  <p>Charts have no @lepidus/css distribution — use <code>@lepidus/react</code>.</p>
+</Callout>
+
+## Multi-series in a ChartCard
+
+`labels` are the ordered x positions; every series carries one value per label.
+
+<Example snippet="line-chart/multi-series" codeOnly title="Trend with three series" />
+
+<StoryEmbed id="charts-line-chart--in-chart-card" height={360} caption="Live render" />
+
+## Area fill
+
+`area` adds the soft fill — best with a single series.
+
+<Example snippet="line-chart/area" codeOnly title="Single series with area fill" />
+
+<StoryEmbed id="charts-line-chart--area" height={360} caption="Live render" />
+
+## Minimal
+
+A compact trend: no dots, three ticks, 180px plot.
+
+<Example snippet="line-chart/minimal" codeOnly title="Compact, dotless trend" />
+
+<StoryEmbed id="charts-line-chart--minimal" height={300} caption="Live render" />

@@ -1,0 +1,25 @@
+<Callout variant="info" title="React-only">
+  <p>This component has no <code>@lepidus/css</code> distribution yet — use
+  <code>@lepidus/react</code>.</p>
+</Callout>
+
+Scrollbar is presentational: pass the geometry (`length`, `thumbSize`, `thumbOffset`) and state
+(`variant`, `orientation`) — your container supplies the scroll behavior.
+
+## Basic vertical scrollbar
+
+<Example snippet="scrollbar/basic" title="Active vertical scrollbar" codeOnly />
+
+<StoryEmbed id="data-display-scrollbar--active" height={500} caption="Active vertical scrollbar" />
+
+## Horizontal
+
+<Example snippet="scrollbar/horizontal" title="Horizontal orientation" codeOnly />
+
+<StoryEmbed id="data-display-scrollbar--horizontal" height={120} caption="Horizontal scrollbar" />
+
+## All variants
+
+<Example snippet="scrollbar/variants" title="Default, active, disabled" codeOnly />
+
+<StoryEmbed id="data-display-scrollbar--all-variants" height={300} caption="The three thumb states plus horizontal" />

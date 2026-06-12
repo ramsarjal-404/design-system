@@ -1,0 +1,21 @@
+ToastProvider is **React-only** — there is no `lp-` class; plain-HTML products use
+`Lepidus.toast(...)` instead (see [Toast](/components/toast/)). Wrap the app once, then
+call `toast()` from anywhere.
+
+## Setup
+
+<Example snippet="toast-provider/setup" title="Wrap the app once" codeOnly />
+
+## Firing toasts
+
+`toast(...)` accepts `variant`, `title`, `message`, `icon` and `duration`, and returns an
+id for `dismiss(id)`.
+
+<Example snippet="toast-provider/fire" title="useToast() from any descendant" story="feedback-toast-provider--live-demo" codeOnly />
+
+## Persistent and programmatic dismissal
+
+`duration: 0` keeps a toast until it is dismissed — by its close button or by `dismiss(id)`
+when the related work finishes.
+
+<Example snippet="toast-provider/persistent" title="duration: 0 + dismiss(id)" story="feedback-toast-provider--auto-dismiss" codeOnly />

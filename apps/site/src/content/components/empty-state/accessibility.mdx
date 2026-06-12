@@ -1,0 +1,46 @@
+## Interactions
+
+### Mouse
+
+- The surface itself is not interactive — only the optional Button in the `action` slot
+  takes clicks.
+- For upload dropzones, wrap the whole EmptyState in a real `<button>` styled as a dashed
+  target (see the "As upload dropzone" story) so the entire area is one click target.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus to / away from the action Button (the only focusable part by default) |
+| `Enter` / `Space` | Activates the action Button (native button behavior) |
+
+EmptyState adds no keyboard handling of its own.
+
+### Screen readers
+
+- The meaning lives entirely in the **message text**; the illustration is an `aria-hidden`
+  decorative SVG and exposes nothing to assistive tech.
+- The component sets no role or live region itself. When the empty state replaces async
+  content (a search that returned nothing), render it inside an `aria-live="polite"` region
+  so the outcome is announced.
+- An action Button in the `action` slot is a normal focusable Button with its label as the
+  accessible name.
+
+## Development considerations
+
+- When wrapping the EmptyState in a button to make a dropzone, give the wrapper an
+  `aria-label` ("Upload a file") — the message text alone may be too verbose as a control
+  name.
+- Don't convey the situation only through the illustration; the four illustrations look
+  similar to low-vision users and don't exist for screen-reader users.
+- Inside [Table](/components/table/), pass the EmptyState through `emptyMessage` so it lands
+  in the table's own empty slot rather than overlapping the grid semantics.
+
+## Content
+
+- Be specific about **what** is empty and **why**: "No records found for this period.
+  Adjust the filters or run a new scan."
+- Keep it to one or two short sentences — the message column maxes at 455px.
+- Action labels are verb-first and concrete: "Generate Report", "Run scan" — not "OK" or
+  "Click here".
+- Avoid blamey or cutesy copy; state the fact and the way forward.

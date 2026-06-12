@@ -1,0 +1,24 @@
+<!-- Static open state: `hidden` removed so the dialog shows. In production keep
+     `hidden` and open it with data-lp-modal-open / Lepidus.openModal (lepidus.js). -->
+<div class="lp-modal" id="url-modal">
+  <div class="lp-modal__shell lp-modal__shell--lg" role="dialog" aria-modal="true"
+       aria-labelledby="url-modal-title">
+    <div class="lp-modal__header lp-modal__header--center">
+      <h2 class="lp-modal__title" id="url-modal-title">Please Enter Site Collection URL</h2>
+    </div>
+    <div class="lp-modal__body">
+      <div class="lp-modal__fields">
+        <label class="lp-modal__field-label" for="url-input">Site Collection:</label>
+        <div class="lp-input lp-input--full-width">
+          <div class="lp-input__field">
+            <input class="lp-input__input" id="url-input" value="\\192.14.35.335" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="lp-modal__footer">
+      <button class="lp-button lp-button--secondary lp-button--md" data-lp-modal-close>Cancel</button>
+      <button class="lp-button lp-button--primary lp-button--md" data-lp-modal-close>Done</button>
+    </div>
+  </div>
+</div>

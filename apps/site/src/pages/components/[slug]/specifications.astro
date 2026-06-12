@@ -1,0 +1,72 @@
+---
+/**
+ * Specifications tab — fully generated, never hand-written (SLDS model):
+ * React import + props (docgen), lp-* class reference (build-css inventory),
+ * pointer to the global token reference.
+ */
+import { Code } from 'astro:components';
+import ComponentPage from '../../../layouts/ComponentPage.astro';
+import PropsTable from '../../../components/PropsTable.astro';
+import ClassTable from '../../../components/ClassTable.astro';
+import Callout from '../../../components/Callout.astro';
+import { components, bySlug, storyDocsUrl } from '../../../lib/data';
+
+export async function getStaticPaths() {
+  return components.map((c) => ({ params: { slug: c.slug } }));
+}
+
+const c = bySlug.get(Astro.params.slug!)!;
+const headings = [
+  { depth: 2, slug: 'react-api', text: 'React API' },
+  ...(c.plainCss ? [{ depth: 2, slug: 'css-classes', text: 'CSS classes' }] : []),
+  { depth: 2, slug: 'design-tokens', text: 'Design tokens' },
+];
+---
+
+<ComponentPage component={c} tab="specifications" headings={headings}>
+  <Callout variant="info" title="Generated reference">
+    <p>
+      Everything on this tab is generated from the source of truth — component types via
+      react-docgen and the <code>@lepidus/css</code> class inventory — and republished on every
+      build. It cannot drift from the code.
+    </p>
+  </Callout>
+
+  <h2 id="react-api">React API</h2>
+  <Code code={c.reactImport} lang="tsx" theme="github-dark" />
+  <PropsTable props={c.props} />
+
+  {c.plainCss ? (
+    <>
+      <h2 id="css-classes">CSS classes (plain HTML — <code>@lepidus/css</code>)</h2>
+      <p>
+        BEM with the <code>lp-</code> prefix: block <code>.{c.plainCss.block}</code>, elements
+        <code> .{c.plainCss.block}__part</code>, modifiers <code>.{c.plainCss.block}--variant</code>.
+        Copy-paste markup lives on the <a href={`/components/${c.slug}/code/`}>Code tab</a>.
+      </p>
+      <ClassTable plainCss={c.plainCss} />
+    </>
+  ) : (
+    <>
+      <h2 id="css-classes">CSS classes</h2>
+      <p>
+        This component is currently React-only (<code>@lepidus/react</code>) — it has no plain-CSS
+        distribution in <code>@lepidus/css</code> yet.
+      </p>
+    </>
+  )}
+
+  <h2 id="design-tokens">Design tokens</h2>
+  <p>
+    Components consume generated CSS variables only — <code>var(--component-*)</code> first, then
+    semantic <code>var(--color-*</code>/<code>--space-*</code>/<code>--radius-*)</code>. Tokens are
+    documented centrally (not repeated per component): see the{' '}
+    <a href="/tokens/">token reference</a> for every variable with per-theme values, and{' '}
+    <a href="/foundations/theming/">Theming</a> for how <code>data-theme</code> switching works.
+  </p>
+  {c.storyFile && (
+    <p>
+      Interactive playground: <a href={storyDocsUrl(c.storyFile.stories[0]?.id ?? '')} target="_blank" rel="noopener">open {c.name} in Storybook ↗</a>
+    </p>
+  )}
+</ComponentPage>

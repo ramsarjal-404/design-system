@@ -1,0 +1,82 @@
+## Overview
+
+TextField is the label-less, standalone single-line entry of the Lepidus design system — a
+490px-max, 41px-tall pill with a 44px radius (`--radius-xxl`) wrapping a native `<input>`.
+Use it for inline quick entry — search bars, filter inputs, toolbar fields — where a separate
+label, helper text, or validation messaging is not needed. Its fill, border, and text all
+swap on focus via the `component/textfield/*` tokens, matching the Figma "Type Text Field"
+component, so dark and high-contrast themes restyle it with no extra code. TextField is
+currently React-only — there is no `@lepidus/css` distribution yet.
+
+## Best practices
+
+- **Provide an `aria-label`** (e.g. "Search") on every TextField — it has no visible label,
+  and the placeholder is not an accessible name.
+- Use `fullWidth` when the field should track its container instead of the fixed 490px Figma
+  width — toolbars, page headers.
+- Keep the default placeholder pattern — a short example or verb ("Type text", "Search
+  servers"), not instructions.
+
+## When not to use
+
+- **Form fields that need labels or validation** — use [Input](/components/input/), which
+  provides a real `<label>`, helper text, and error status/messaging.
+- **Multi-line content** — use [Textarea](/components/textarea/).
+- **A field that drives a result list with operators/chips** — see
+  [Filter](/components/filter/).
+- **Stacked as a form** — multiple label-less fields hurt scannability and accessibility.
+
+## Variants
+
+### Normal
+
+The resting state — white fill, gray border, placeholder in the disabled-gray token.
+
+<StoryEmbed id="forms-textfield--normal" height={120} caption="Normal — type into it to see the active state" />
+
+### Active
+
+`:focus-within` mirrors the Figma "active state" variant: light-blue fill
+(`--component-textfield-active-bg`), brand border, and the entered text turns brand blue.
+
+<StoryEmbed id="forms-textfield--filled" height={120} caption="Click into the field to trigger the active state" />
+
+### Disabled
+
+Gray fill and text from the `component/textfield/disabled-*` tokens; removed from the tab
+order via the native `disabled` attribute.
+
+<StoryEmbed id="forms-textfield--disabled" height={120} caption="Disabled" />
+
+### Full width
+
+`fullWidth` overrides the fixed 490px width so the pill tracks its container.
+
+<StoryEmbed id="forms-textfield--full-width" height={120} caption="Full width" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Pill wrapper | 44px-radius shell with the surface fill, 1px border, 14px padding; owns active/disabled styling via `:focus-within` |
+| 2 | Input element | Transparent native `<input>`, 16/22 Open Sans regular, primary text color |
+| 3 | Placeholder | `"Type text"` by default, in the disabled-gray text token |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Active | `:focus-within` swaps fill to `#C6D8FF`, border and text to brand blue — the strongest focus treatment in the system |
+| Disabled | Native `disabled` — gray fill, gray text, light-blue border, `cursor: not-allowed`, removed from tab order |
+| Full width | `fullWidth` stretches past the fixed 490px Figma width to fill the container |
+| Pass-through | All native input attributes (`type`, `name`, `aria-*`) flow to the `<input>` |
+| Theming | All `component/textfield/*` tokens re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Give every TextField an aria-label — “Search”, “Filter by server name”."
+  dont="Stack TextFields as a form; fields that need labels and validation are Input's job."
+/>
+
+## Related components
+
+<RelatedCards slugs={["input", "textarea", "filter"]} />

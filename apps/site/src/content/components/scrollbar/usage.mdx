@@ -1,0 +1,84 @@
+## Overview
+
+Scrollbar renders the Lepidus scrollbar visuals: a 10px fully-rounded pill track holding a
+state-colored thumb whose length (`thumbSize`, %) and position (`thumbOffset`, %) are driven by
+props. Use it to skin custom scroll containers, virtualized lists or progress-along-content
+indicators so they match the design language.
+
+It is **purely presentational** — it does not listen to wheel or drag events and scrolls nothing
+itself; the host component owns the scroll math and feeds the geometry props. It exposes
+`role="scrollbar"` with `aria-orientation` and `aria-valuenow` so the visuals stay honest to
+assistive technology.
+
+## Best practices
+
+- Keep the thumb proportional: `thumbSize` ≈ (viewport ÷ content) × 100, clamped to a usable
+  minimum.
+- Pair `variant="active"` with the actual drag/scroll interaction state in your container;
+  rest on `default` otherwise.
+- Forward real scroll position into `thumbOffset` on every scroll frame — a stale thumb is worse
+  than no thumb.
+- Size the track with `length` (px number or any CSS length) to match the scrollport.
+
+## When not to use
+
+- **Native overflow scrolling** where custom visuals aren't required — just use the browser
+  scrollbar; it is free, accessible and platform-correct.
+- **Quantified task progress** — use [Progress](/components/progress/); a scrollbar communicates
+  position, not completion.
+- **Paged datasets** — use [Pagination](/components/pagination/) under a
+  [Table](/components/table/) instead of simulating an endless scroll.
+
+## Variants
+
+### Active
+
+The Figma default property — engaged/dragging thumb in `--color-button-secondary-bg`
+(brand blue-200) at the ~26% Figma ratio.
+
+<StoryEmbed id="data-display-scrollbar--active" height={500} caption="Active thumb (default variant)" />
+
+### Default
+
+Neutral resting state — the thumb uses `--component-scrollbar-thumb` gray.
+
+<StoryEmbed id="data-display-scrollbar--default" height={500} caption="Default (resting) thumb" />
+
+### Disabled
+
+Non-interactive state — `--color-button-disabled-bg` thumb plus `aria-disabled` on the root.
+
+<StoryEmbed id="data-display-scrollbar--disabled" height={500} caption="Disabled thumb" />
+
+### Horizontal
+
+Identical tokens with the axis flipped and `aria-orientation="horizontal"`.
+
+<StoryEmbed id="data-display-scrollbar--horizontal" height={120} caption="Horizontal orientation" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Track | Fully-rounded pill (`--radius-xxl`), 10px thick (`--space-5`), subtle background tint; length set by `length` (default 451px) |
+| 2 | Thumb | Fully-rounded bar riding the track; color from `variant`, length from `thumbSize` (%), position from `thumbOffset` (%) |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Geometry | `thumbSize`, `thumbOffset` and `length` are forwarded as CSS custom properties (`--thumb-size`, `--thumb-offset`, `--track-length`) |
+| Variants | `default` (resting gray), `active` *(default)* (brand blue-200), `disabled` (gray + `aria-disabled`) |
+| Orientation | `vertical` *(default)* or `horizontal`; sets `aria-orientation` and flips the axis |
+| Position semantics | `thumbOffset` is rounded and exposed as `aria-valuenow` (0–100) |
+| Interaction | None built in — the host wires pointer/keyboard handling and updates the props |
+| Theming | Track and thumb tokens re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Compute thumbSize from viewport ÷ content and update thumbOffset from the real scroll position."
+  dont="Ship it as the only scrolling affordance without wiring keyboard and pointer handling in the host."
+/>
+
+## Related components
+
+<RelatedCards slugs={["table", "pagination", "sidebar"]} />

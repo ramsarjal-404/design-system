@@ -1,0 +1,43 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@lepidus/react`) is shown for React projects. Both resolve to the
+same tokens, so they are pixel-identical in every theme. One important difference: the `lp-`
+classes are **styling only** — sorting, filtering, and selection logic in plain HTML is yours to
+wire, while the React component ships all three working client-side.
+
+## Basic
+
+Wrapper `lp-table` around a semantic `<table class="lp-table__table">`. Headers are
+`lp-table__th` with `scope="col"`; cells nest `lp-table__cell-inner` → `lp-table__cell-text`.
+
+<Example snippet="table/basic" title="Plain table" story="data-display-table--plain-table" />
+
+## Sortable headers and the search row
+
+Sortable headers wrap the label in an `lp-table__sort-button` with an `lp-table__sort-arrow`
+(add `--active` on the sorted column and `--desc` for descending, and set `aria-sort` on the
+`th`). The filter row lives in the `thead`: `lp-table__filter-cell` → `lp-table__filter-field` →
+`lp-table__filter-input` plus the `lp-table__search-icon`.
+
+<Example snippet="table/sortable" title="Sort buttons + filter row" story="data-display-table--default" />
+
+## Row selection
+
+Selection checkboxes are `lp-table__checkbox` inputs inside the first column's cells, with a
+select-all in the header. Mark selected rows with `lp-table__row--selected`.
+
+<Example snippet="table/selection" title="Checkbox selection" story="data-display-table--controlled-selection" />
+
+## Custom cells
+
+Any component can live in a cell — here a status [Badge](/components/badge/) and a secondary
+Button action column. In React, use the column's `render` and keep `value` alongside it so
+sorting and filtering still work.
+
+<Example snippet="table/cells" title="Badges and Buttons in cells" story="data-display-table--custom-cells" />
+
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@lepidus/css</code> — see <a href="/get-started/">Get Started</a>. Table is pure CSS and
+  needs no <code>lepidus.js</code>; sort/filter/selection behavior in plain HTML is wired by your
+  own script (the React component implements it for you).</p>
+</Callout>

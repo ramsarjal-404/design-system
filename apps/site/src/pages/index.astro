@@ -1,0 +1,198 @@
+---
+import Base from '../layouts/Base.astro';
+import { components } from '../lib/data';
+
+const cssCount = components.filter((c) => c.plainCss).length;
+---
+
+<Base title="Lepidus" description="Lepidus — Lepide's enterprise design system. Tokens, components, themes, and AI-ready documentation.">
+  <section class="home-hero">
+    <h1>Design, build, and ship Lepide products faster</h1>
+    <p>
+      Lepidus is Lepide's end-to-end design language — tokens, components, and guidelines
+      that keep every product consistent, accessible, and unmistakably Lepide.
+    </p>
+    <a class="home-search" href="/search/">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      Search components, tokens, guidelines…
+      <kbd>/</kbd>
+    </a>
+    <div class="home-hero__actions">
+      <a class="btn btn--primary" href="/get-started/">Get started</a>
+      <a class="btn btn--secondary" href="/storybook/" target="_blank" rel="noopener">
+        Open Storybook
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="explore-title">
+    <h2 id="explore-title">Explore the system</h2>
+    <p class="home-section__sub">Everything you need to design and build — organized the way you work.</p>
+    <ul class="explore-grid">
+      <li>
+        <a class="explore-card" href="/get-started/">
+          <div class="explore-card__art" style="background:#e9f0ff" aria-hidden="true">
+            <svg viewBox="0 0 280 140" xmlns="http://www.w3.org/2000/svg">
+              <rect x="80" y="38" width="120" height="64" rx="10" fill="#fff"/>
+              <rect x="96" y="56" width="56" height="9" rx="4.5" fill="#1c4599"/>
+              <rect x="96" y="74" width="88" height="6" rx="3" fill="#c6d8ff"/>
+              <circle cx="206" cy="44" r="14" fill="#7096d1"/>
+              <path d="M201 44l4 4 7-8" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="63" cy="96" r="8" fill="#c6d8ff"/>
+            </svg>
+          </div>
+          <div class="explore-card__body">
+            <p class="explore-card__title">Get started</p>
+            <p class="explore-card__desc">Add one stylesheet and ship your first on-brand page in minutes — no build step required.</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="explore-card" href="/components/">
+          <div class="explore-card__art" style="background:#e4f3ec" aria-hidden="true">
+            <svg viewBox="0 0 280 140" xmlns="http://www.w3.org/2000/svg">
+              <rect x="62" y="34" width="92" height="30" rx="15" fill="#1c4599"/>
+              <rect x="78" y="46" width="60" height="7" rx="3.5" fill="#fff" opacity="0.9"/>
+              <rect x="62" y="76" width="156" height="30" rx="15" fill="#fff"/>
+              <rect x="78" y="88" width="80" height="7" rx="3.5" fill="#9fc8b6"/>
+              <circle cx="200" cy="91" r="9" fill="#1caa52"/>
+              <rect x="170" y="34" width="48" height="30" rx="15" fill="#9fc8b6"/>
+            </svg>
+          </div>
+          <div class="explore-card__body">
+            <p class="explore-card__title">Components</p>
+            <p class="explore-card__desc">{components.length} accessible building blocks with usage guidance, live examples, and copy-paste code.</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="explore-card" href="/foundations/">
+          <div class="explore-card__art" style="background:#fdf1e2" aria-hidden="true">
+            <svg viewBox="0 0 280 140" xmlns="http://www.w3.org/2000/svg">
+              <rect x="70" y="34" width="40" height="72" rx="8" fill="#1c4599"/>
+              <rect x="120" y="48" width="40" height="58" rx="8" fill="#e8b75c"/>
+              <rect x="170" y="62" width="40" height="44" rx="8" fill="#fff"/>
+              <circle cx="90" cy="50" r="6" fill="#fff" opacity="0.85"/>
+              <circle cx="140" cy="64" r="6" fill="#fff" opacity="0.85"/>
+              <circle cx="190" cy="78" r="6" fill="#e8b75c"/>
+            </svg>
+          </div>
+          <div class="explore-card__body">
+            <p class="explore-card__title">Foundations</p>
+            <p class="explore-card__desc">Typography, spacing, and theming — the decisions that make every screen feel like one product.</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="explore-card" href="/tokens/">
+          <div class="explore-card__art" style="background:#eef2f8" aria-hidden="true">
+            <svg viewBox="0 0 280 140" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="86" cy="56" r="16" fill="#1c4599"/>
+              <circle cx="130" cy="56" r="16" fill="#7096d1"/>
+              <circle cx="174" cy="56" r="16" fill="#c6d8ff"/>
+              <circle cx="218" cy="56" r="16" fill="#fff"/>
+              <rect x="70" y="90" width="104" height="10" rx="5" fill="#c6d8ff"/>
+              <rect x="182" y="90" width="36" height="10" rx="5" fill="#1c4599"/>
+            </svg>
+          </div>
+          <div class="explore-card__body">
+            <p class="explore-card__title">Tokens</p>
+            <p class="explore-card__desc">Every color, size, and radius as a themed variable — generated from Figma, never hardcoded.</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="explore-card" href="/ai/">
+          <div class="explore-card__art" style="background:#f0ebfa" aria-hidden="true">
+            <svg viewBox="0 0 280 140" xmlns="http://www.w3.org/2000/svg">
+              <rect x="92" y="40" width="96" height="60" rx="12" fill="#fff"/>
+              <circle cx="122" cy="64" r="7" fill="#6d5bd0"/>
+              <circle cx="158" cy="64" r="7" fill="#6d5bd0"/>
+              <rect x="116" y="82" width="48" height="6" rx="3" fill="#cfc6ee"/>
+              <path d="M205 47l4 9 9 4-9 4-4 9-4-9-9-4 9-4z" fill="#6d5bd0"/>
+              <circle cx="76" cy="92" r="6" fill="#cfc6ee"/>
+            </svg>
+          </div>
+          <div class="explore-card__body">
+            <p class="explore-card__title">AI surface</p>
+            <p class="explore-card__desc">Rules, a component manifest, and an MCP server — so coding agents produce correct Lepide UI.</p>
+          </div>
+        </a>
+      </li>
+      <li>
+        <a class="explore-card" href="/storybook/" target="_blank" rel="noopener">
+          <div class="explore-card__art" style="background:#fdeceb" aria-hidden="true">
+            <svg viewBox="0 0 280 140" xmlns="http://www.w3.org/2000/svg">
+              <rect x="96" y="30" width="88" height="80" rx="10" fill="#d65c5c"/>
+              <rect x="108" y="30" width="64" height="80" fill="#fff" opacity="0.12"/>
+              <path d="M128 58v28l24-14z" fill="#fff"/>
+              <circle cx="206" cy="46" r="8" fill="#f2b5b5"/>
+              <circle cx="74" cy="96" r="6" fill="#f2b5b5"/>
+            </svg>
+          </div>
+          <div class="explore-card__body">
+            <p class="explore-card__title">
+              Storybook
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </p>
+            <p class="explore-card__desc">Every component, every state, every theme — the live workshop behind these docs.</p>
+          </div>
+        </a>
+      </li>
+    </ul>
+
+    <div class="stat-row">
+      <div class="stat"><strong>{components.length}</strong><span>components</span></div>
+      <div class="stat"><strong>{cssCount}</strong><span>as plain HTML + CSS</span></div>
+      <div class="stat"><strong>3</strong><span>themes — light · dark · high contrast</span></div>
+      <div class="stat"><strong>AA</strong><span>axe + contrast gates in CI</span></div>
+    </div>
+  </section>
+
+  <section class="home-section" aria-labelledby="ships-title">
+    <h2 id="ships-title">How Lepidus ships</h2>
+    <ul class="tile-grid">
+      <li>
+        <a class="tile" href="/get-started/">
+          <p class="tile__title">Plain HTML + CSS first</p>
+          <p class="tile__desc">
+            One stylesheet, BEM lp- classes, zero build step — built for how Lepide product teams
+            actually ship. lepidus.js adds the documented behaviors.
+          </p>
+          <span class="tile__meta">@lepidus/css</span>
+        </a>
+      </li>
+      <li>
+        <a class="tile" href="/components/">
+          <p class="tile__title">React workshop</p>
+          <p class="tile__desc">
+            Typed components with docgen-extracted props, Storybook stories for every state, and
+            VRT across all three themes.
+          </p>
+          <span class="tile__meta">@lepidus/react</span>
+        </a>
+      </li>
+      <li>
+        <a class="tile" href="/tokens/">
+          <p class="tile__title">Tokens end to end</p>
+          <p class="tile__desc">
+            Figma DTCG → Style Dictionary → CSS variables. Primitive → semantic → component, themed
+            via data-theme. No hardcoded colors anywhere.
+          </p>
+          <span class="tile__meta">@lepidus/tokens</span>
+        </a>
+      </li>
+      <li>
+        <a class="tile" href="/ai/">
+          <p class="tile__title">AI-ready by design</p>
+          <p class="tile__desc">
+            llms.txt rules, a machine-readable component manifest, and an MCP server so coding
+            agents generate correct Lepide UI on the first try.
+          </p>
+          <span class="tile__meta">AI surface</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+</Base>

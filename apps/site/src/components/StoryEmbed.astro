@@ -1,0 +1,57 @@
+---
+/**
+ * Live Storybook embed with a 3-theme switcher.
+ * Renders /storybook/iframe.html?id=…&globals=theme:… — the same global the
+ * Storybook toolbar drives, so the embed is always behavior-identical.
+ */
+import { STORYBOOK_BASE } from '../lib/data';
+
+interface Props {
+  id: string;
+  height?: number;
+  caption?: string;
+}
+const { id, height = 200, caption = 'Live example' } = Astro.props;
+const src = `${STORYBOOK_BASE}/iframe.html?id=${id}&viewMode=story&globals=theme:light`;
+---
+
+<figure class="example" data-story-embed style="margin-inline:0">
+  <div class="example__bar">
+    <span class="example__title">{caption}</span>
+    <div class="theme-switch" role="group" aria-label="Example theme">
+      <button type="button" aria-pressed="true" data-theme="light">Light</button>
+      <button type="button" aria-pressed="false" data-theme="dark">Dark</button>
+      <button type="button" aria-pressed="false" data-theme="hc">High contrast</button>
+    </div>
+    <span class="example__links">
+      <a href={`${STORYBOOK_BASE}/?path=/story/${id}`} target="_blank" rel="noopener">
+        Open in Storybook ↗
+      </a>
+    </span>
+  </div>
+  <iframe
+    class="example__frame"
+    src={src}
+    height={height}
+    loading="lazy"
+    title={`${caption} — Storybook story ${id}`}></iframe>
+</figure>
+
+<script>
+  // One delegated handler for every Storybook embed on the page.
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(
+      '[data-story-embed] .theme-switch button'
+    );
+    if (!btn) return;
+    const figure = btn.closest('[data-story-embed]')!;
+    const iframe = figure.querySelector('iframe')!;
+    const theme = btn.dataset.theme!;
+    figure
+      .querySelectorAll('.theme-switch button')
+      .forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+    const url = new URL(iframe.src, location.href);
+    url.searchParams.set('globals', `theme:${theme}`);
+    iframe.src = url.toString();
+  });
+</script>

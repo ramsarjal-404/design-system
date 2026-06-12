@@ -1,0 +1,6 @@
+{
+  "description": "Identity thumbnail with an automatic initials fallback, deterministic background colors, presence dots, and group stacking.",
+  "heroStory": "data-display-avatar--sizes",
+  "heroHeight": 140,
+  "related": ["badge", "link", "button"]
+}

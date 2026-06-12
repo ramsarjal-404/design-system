@@ -1,0 +1,18 @@
+<div style="display: flex; flex-direction: column; gap: 8px">
+  <!-- error: circle modifier + aria-invalid on the input -->
+  <label class="lp-radio">
+    <span class="lp-radio__control">
+      <input class="lp-radio__input" type="radio" name="plan" value="basic" aria-invalid="true" />
+      <span class="lp-radio__circle lp-radio__circle--error" aria-hidden="true"><span class="lp-radio__dot"></span></span>
+    </span>
+    <span class="lp-radio__label">Error</span>
+  </label>
+  <!-- disabled: native attribute + root modifier -->
+  <label class="lp-radio lp-radio--disabled">
+    <span class="lp-radio__control">
+      <input class="lp-radio__input" type="radio" name="plan" value="xml" disabled />
+      <span class="lp-radio__circle" aria-hidden="true"><span class="lp-radio__dot"></span></span>
+    </span>
+    <span class="lp-radio__label">XML (requires Enterprise plan)</span>
+  </label>
+</div>

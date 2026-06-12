@@ -1,0 +1,30 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The pill is static markup; for stacking and auto-dismiss use `Lepidus.toast(...)`
+(plain HTML) or [ToastProvider](/components/toast-provider/) (React).
+
+## Basic pill
+
+`lp-toast` defaults to the info accents — no modifier needed.
+
+<Example snippet="toast/basic" title="Info pill with badge, message and close" story="feedback-toast--info" />
+
+## Variants
+
+`lp-toast--success`, `lp-toast--warning`, `lp-toast--error` swap the accents.
+
+<Example snippet="toast/variants" title="success / warning / error" story="feedback-toast--all-variants" />
+
+## Fired at runtime
+
+`Lepidus.toast({ title, message, variant, duration })` builds the pill, stacks it in a
+fixed top-right polite live region and auto-dismisses after 5s (`duration` overrides;
+`0` persists until closed). It returns a function that dismisses the toast.
+
+<Example snippet="toast/dynamic" title="Lepidus.toast / useToast" />
+
+<Callout variant="info" title="Requires lepidus.js">
+  <p>Only the runtime API needs the script — include
+  <code>&lt;script src="lepidus.js"&gt;&lt;/script&gt;</code> once before
+  <code>&lt;/body&gt;</code>; static pills are pure CSS. See
+  <a href="/get-started/">Get Started</a>.</p>
+</Callout>

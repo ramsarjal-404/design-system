@@ -1,0 +1,32 @@
+<Callout variant="info" title="React-only">
+  <p>This component has no <code>@lepidus/css</code> distribution yet — use
+  <code>@lepidus/react</code>. For plain HTML/CSS projects, the labeled
+  <a href="/components/input/">Input</a> field is available as <code>lp-input</code>.</p>
+</Callout>
+
+## Basic
+
+A native `<textarea>` (default `rows={6}`) in a 15px-radius card box. Pair it with a visible
+label or `aria-label` — there is no built-in label.
+
+<Example snippet="textarea/basic" codeOnly title="Description box" />
+
+<StoryEmbed id="forms-textarea--default" height={240} caption="Live — click in and type to see the brand border" />
+
+## Sized and full width
+
+`rows` sets the initial height; `fullWidth` makes the box track its container instead of the
+fixed 481px Figma width.
+
+<Example snippet="textarea/full-width" codeOnly title="Three rows, full width" />
+
+<StoryEmbed id="forms-textarea--full-width" height={240} caption="Live full-width box" />
+
+## Disabled
+
+The native `disabled` attribute — subtle gray fill, resize disabled, removed from the tab
+order.
+
+<Example snippet="textarea/disabled" codeOnly title="Disabled" />
+
+<StoryEmbed id="forms-textarea--disabled" height={240} caption="Live disabled state" />

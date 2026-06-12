@@ -1,0 +1,21 @@
+<Callout variant="info" title="React-only">
+  <p>Charts have no @lepidus/css distribution — use <code>@lepidus/react</code>.</p>
+</Callout>
+
+## In a ChartCard
+
+Each series carries `points` of `{ x, y, r }` — `r` is a literal pixel radius. `ChartLegend`
+names the series.
+
+<Example snippet="bubble-chart/security-groups" codeOnly title="Security group changes by server" />
+
+<StoryEmbed id="charts-bubble-chart--in-chart-card" height={380} caption="Live render" />
+
+## Bare with fixed axes
+
+`xMax`/`yMax` pin the scales (useful when several charts must share axes), `height` shortens
+the plot, and `showGrid` can drop the background grid.
+
+<Example snippet="bubble-chart/fixed-axes" codeOnly title="Two series, pinned 0–100 axes" />
+
+<StoryEmbed id="charts-bubble-chart--bare" height={320} caption="Live render" />

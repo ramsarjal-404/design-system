@@ -1,0 +1,24 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The markup carries its own accessibility: `role="status"` on the root, `aria-hidden`
+on the SVG, and a visually hidden label span.
+
+## Basic
+
+<Example snippet="spinner/basic" title="Default (md, 24px)" story="feedback-spinner--default" />
+
+## Sizes
+
+<Example snippet="spinner/sizes" title="sm / md / lg" story="feedback-spinner--sizes" />
+
+## In a Button
+
+A `sm` spinner in the Button's icon slot while the action is in flight — disable the
+button so it can't be re-submitted.
+
+<Example snippet="spinner/in-button" title="Working button" story="feedback-spinner--in-button" />
+
+<Callout variant="info" title="Pure CSS — no lepidus.js needed">
+  <p>The rotation is a CSS animation; one <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code>
+  is enough — see <a href="/get-started/">Get Started</a>. Under
+  <code>prefers-reduced-motion</code> it falls back to a slow opacity pulse automatically.</p>
+</Callout>

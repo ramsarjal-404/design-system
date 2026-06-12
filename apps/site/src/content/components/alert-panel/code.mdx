@@ -1,0 +1,28 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. In plain HTML the severity color is set with an inline `color` on the icon span (the
+SVG draws with `currentColor`); in React the `severity` prop does it for you.
+
+## Basic panel
+
+<Example snippet="alert-panel/basic" title="Title, summary, action and footnote" story="feedback-alert-panel--success" />
+
+## Severities
+
+Warning is the default. The triangle is the only part that changes color — warning uses the
+icon set's illustrative yellow (#FFCA28, tokenless), the others bind to status and brand
+tokens.
+
+<Example snippet="alert-panel/severities" title="warning / success / error / info" story="feedback-alert-panel--all-severities" />
+
+## With evidence details
+
+The `details` slot sits between the summary and the action — keep it to a handful of rows
+and link to the full report via the CTA.
+
+<Example snippet="alert-panel/with-details" title="Evidence table between summary and action" story="feedback-alert-panel--with-details" />
+
+<Callout variant="info" title="Pure CSS — no lepidus.js needed">
+  <p>AlertPanel is a static surface: one <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code>
+  is enough — see <a href="/get-started/">Get Started</a>. The <code>role="alert"</code> on the
+  root is part of the markup contract, not the script.</p>
+</Callout>

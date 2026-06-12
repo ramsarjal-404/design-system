@@ -1,0 +1,26 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. In React the sleeping-server art renders by default; in plain HTML you place your own
+SVG or image inside the `lp-empty-state__illustration` slot.
+
+## Basic
+
+<Example snippet="empty-state/basic" title="Illustration and statement" story="feedback-empty-state--default" />
+
+## With action
+
+<Example snippet="empty-state/with-action" title="Statement plus a call to action" story="feedback-empty-state--with-action" />
+
+## Custom illustration
+
+In React, swap the art via the `illustration` prop — the package exports
+`EmptyStateIllustration`, `UploadFileIllustration`, `DragDropIllustration` and
+`NoRecordsIllustration`. In HTML, put any `aria-hidden` SVG or `img` in the illustration
+slot.
+
+<Example snippet="empty-state/custom-illustration" title="Upload prompt with the open-folder art" story="feedback-empty-state--upload-file" />
+
+<Callout variant="info" title="Pure CSS — no lepidus.js needed">
+  <p>EmptyState is a static surface: one <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code>
+  is enough — see <a href="/get-started/">Get Started</a>. Keep the illustration
+  <code>aria-hidden="true"</code>; the meaning lives in the message text.</p>
+</Callout>

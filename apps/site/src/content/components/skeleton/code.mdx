@@ -1,0 +1,27 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. Block `lp-skeleton` + one shape modifier; size with inline `width`/`height` (React:
+the `width`/`height` props, numbers as px).
+
+## Shapes
+
+<Example snippet="skeleton/variants" title="text / circle / rect" story="feedback-skeleton--all-variants" />
+
+## Paragraph
+
+Stack `--text` bars in a `lp-skeleton-paragraph` wrapper, adding
+`lp-skeleton-paragraph__last-line` to the final one (React: `lines={3}`).
+
+<Example snippet="skeleton/paragraph" title="Multi-line text block" story="feedback-skeleton--paragraph" />
+
+## Card composition
+
+Sketch the layout of the real content. The skeletons are `aria-hidden`; the container
+carries `aria-busy="true"`.
+
+<Example snippet="skeleton/card" title="Card while it loads" story="feedback-skeleton--card-skeleton" />
+
+<Callout variant="info" title="Pure CSS — no lepidus.js needed">
+  <p>The shimmer is a CSS animation; one <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code>
+  is enough — see <a href="/get-started/">Get Started</a>. It respects
+  <code>prefers-reduced-motion</code> automatically.</p>
+</Callout>

@@ -1,0 +1,72 @@
+---
+import { Code } from 'astro:components';
+import Page from '../layouts/Page.astro';
+import Callout from '../components/Callout.astro';
+import { components } from '../lib/data';
+
+const mcpConfig = `{
+  "mcpServers": {
+    "lepidus": {
+      "command": "node",
+      "args": ["packages/mcp/server.mjs"]
+    }
+  }
+}`;
+---
+
+<Page
+  title="AI surface"
+  eyebrow="For AI assistants & their humans"
+  lede="Lepidus is documented for machines as carefully as for people: rules in llms.txt, a structured component manifest, and an MCP server — so coding agents generate correct Lepide UI on the first try."
+>
+  <h2>llms.txt — the rules</h2>
+  <p>
+    <a href="/llms.txt"><code>/llms.txt</code></a> is the system's contract for AI-generated code:
+    HTML-first with <code>lp-</code> classes, tokens instead of hardcoded values, theming via
+    <code>data-theme</code>, and the accessibility patterns that must survive generation. Paste it
+    into any assistant's context, or let tools that support the llms.txt convention discover it
+    automatically.
+  </p>
+
+  <h2>component-manifest.json — the structured twin</h2>
+  <p>
+    <a href="/component-manifest.json"><code>/component-manifest.json</code></a> describes all
+    {components.length} components in machine-readable form: every React prop (type, default,
+    required, doc comment — extracted with react-docgen) and the full plain-CSS class inventory
+    per component. It is regenerated on every build, so it cannot drift from the source. This very
+    site is rendered from it — the Specifications tabs are the manifest, visualized.
+  </p>
+
+  <h2>MCP server</h2>
+  <p>
+    The repo ships a zero-dependency MCP (Model Context Protocol) server —
+    <code>packages/mcp/server.mjs</code> — that exposes the design system to MCP-capable agents
+    (Claude Code, Cursor, and friends):
+  </p>
+  <table class="doc-table">
+    <thead><tr><th>Tool</th><th>Returns</th></tr></thead>
+    <tbody>
+      <tr><td><code>list_components</code></td><td>All components with one-line descriptions</td></tr>
+      <tr><td><code>get_component</code></td><td>Props + lp- classes + import for one component</td></tr>
+      <tr><td><code>search_tokens</code></td><td>Matching CSS variables with values</td></tr>
+      <tr><td><code>get_usage_rules</code></td><td>The llms.txt rules</td></tr>
+    </tbody>
+  </table>
+  <p>Wire it up with <code>.mcp.json</code> at your project root:</p>
+  <Code code={mcpConfig} lang="json" theme="github-dark" />
+
+  <Callout variant="success" title="Why trust generated UI here?">
+    <p>The same gates that check human code check AI code: token-only styling is enforced by
+    <code>check:tokens</code>, color pairs by <code>check:contrast</code>, and every documented
+    pattern passes axe (WCAG 2.1 AA) in CI across all three themes.</p>
+  </Callout>
+
+  <h2>Prompting tips</h2>
+  <ul>
+    <li>Tell the assistant the target stack: <em>"plain HTML/CSS with @lepidus/css"</em> or
+      <em>"React with @lepidus/react"</em> — the default per llms.txt is plain HTML.</li>
+    <li>Name the theme contract: <em>"must work under data-theme dark and hc"</em>.</li>
+    <li>For complex screens, paste the relevant component's Code-tab markup as a seed — the
+      assistant extends documented patterns instead of inventing markup.</li>
+  </ul>
+</Page>

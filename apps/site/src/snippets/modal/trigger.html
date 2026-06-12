@@ -1,0 +1,34 @@
+<!-- Requires lepidus.js: the trigger opens the modal by id; Escape, backdrop
+     clicks and [data-lp-modal-close] close it; focus is trapped and restored. -->
+<button class="lp-button lp-button--primary lp-button--md" data-lp-modal-open="add-server-modal">
+  Open modal
+</button>
+
+<div class="lp-modal" id="add-server-modal" hidden>
+  <div class="lp-modal__shell lp-modal__shell--sm" role="dialog" aria-modal="true"
+       aria-labelledby="add-server-title">
+    <div class="lp-modal__header lp-modal__header--center">
+      <h2 class="lp-modal__title" id="add-server-title">Add file server</h2>
+    </div>
+    <div class="lp-modal__body">
+      <div class="lp-modal__fields">
+        <label class="lp-modal__field-label" for="server-name">Name</label>
+        <div class="lp-input lp-input--full-width">
+          <div class="lp-input__field">
+            <input class="lp-input__input" id="server-name" placeholder="e.g. LDSP-FS-04" data-lp-autofocus />
+          </div>
+        </div>
+        <label class="lp-modal__field-label" for="server-host">Host</label>
+        <div class="lp-input lp-input--full-width">
+          <div class="lp-input__field">
+            <input class="lp-input__input" id="server-host" placeholder="10.0.0.12" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="lp-modal__footer">
+      <button class="lp-button lp-button--secondary lp-button--md" data-lp-modal-close>Cancel</button>
+      <button class="lp-button lp-button--primary lp-button--md" data-lp-modal-close>Save</button>
+    </div>
+  </div>
+</div>

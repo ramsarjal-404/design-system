@@ -1,0 +1,6 @@
+{
+  "description": "Compact transient notification pill — circular status badge, bold title, one-line message and close button on a white-to-accent gradient.",
+  "heroStory": "feedback-toast--info",
+  "heroHeight": 160,
+  "related": ["toast-provider", "message", "alert-panel"]
+}

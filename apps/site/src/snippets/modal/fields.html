@@ -1,0 +1,36 @@
+<!-- Shown open (no `hidden`) for the preview. The label column auto-sizes to
+     the widest label; every input stays aligned. -->
+<div class="lp-modal" id="credentials-modal">
+  <div class="lp-modal__shell lp-modal__shell--lg" role="dialog" aria-modal="true"
+       aria-labelledby="credentials-title">
+    <div class="lp-modal__header lp-modal__header--center">
+      <h2 class="lp-modal__title" id="credentials-title">Add Credentials</h2>
+    </div>
+    <div class="lp-modal__body">
+      <div class="lp-modal__fields">
+        <label class="lp-modal__field-label" for="cred-domain">Domain:</label>
+        <div class="lp-input lp-input--full-width">
+          <div class="lp-input__field">
+            <input class="lp-input__input" id="cred-domain" placeholder="mycompany.local" data-lp-autofocus />
+          </div>
+        </div>
+        <label class="lp-modal__field-label" for="cred-user">Username:</label>
+        <div class="lp-input lp-input--full-width">
+          <div class="lp-input__field">
+            <input class="lp-input__input" id="cred-user" placeholder="username@domainname" />
+          </div>
+        </div>
+        <label class="lp-modal__field-label" for="cred-pass">Password:</label>
+        <div class="lp-input lp-input--full-width">
+          <div class="lp-input__field">
+            <input class="lp-input__input" id="cred-pass" type="password" placeholder="••••••••" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="lp-modal__footer">
+      <button class="lp-button lp-button--secondary lp-button--md" data-lp-modal-close>Cancel</button>
+      <button class="lp-button lp-button--primary lp-button--md" data-lp-modal-close>Save</button>
+    </div>
+  </div>
+</div>

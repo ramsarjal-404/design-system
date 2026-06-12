@@ -1,0 +1,21 @@
+<!-- No backdrop: the shell sits in the page flow. No aria-modal, no focus trap. -->
+<div class="lp-modal__shell lp-modal__shell--md lp-modal__shell--inline" role="dialog"
+     aria-labelledby="rename-title">
+  <div class="lp-modal__header lp-modal__header--left">
+    <h2 class="lp-modal__title" id="rename-title">Rename Item</h2>
+  </div>
+  <div class="lp-modal__body">
+    <div class="lp-modal__fields">
+      <label class="lp-modal__field-label" for="rename-input">Name:</label>
+      <div class="lp-input lp-input--full-width">
+        <div class="lp-input__field">
+          <input class="lp-input__input" id="rename-input" value="Q3 Permission Report" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="lp-modal__footer">
+    <button class="lp-button lp-button--secondary lp-button--md">Cancel</button>
+    <button class="lp-button lp-button--primary lp-button--md">Rename</button>
+  </div>
+</div>

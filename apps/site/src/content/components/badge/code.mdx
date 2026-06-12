@@ -1,0 +1,30 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@lepidus/react`) is shown for React projects. Both resolve to the
+same tokens, so they are pixel-identical in every theme.
+
+## Variants
+
+Block `lp-badge` + exactly one variant modifier. `lp-badge--default` is the brand pill; the four
+status modifiers bind to the shared `component/status/*` tokens.
+
+<Example snippet="badge/variants" title="All five variants" story="data-display-badge--all-variants" />
+
+## With status dot
+
+An empty `lp-badge__dot` span before the label — it fills with the variant text color via
+`currentColor` and carries no text of its own.
+
+<Example snippet="badge/dot" title="Status dots for presence and health" story="data-display-badge--with-dot" />
+
+## With icon
+
+A 12px `lp-badge__icon` slot before the label. Pass an SVG that strokes/fills with
+`currentColor` and mark it `aria-hidden` — the label remains the accessible text.
+
+<Example snippet="badge/icon" title="Leading check icon" story="data-display-badge--with-icon" />
+
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@lepidus/css</code> — see <a href="/get-started/">Get Started</a>. Badge is pure CSS and
+  needs no <code>lepidus.js</code>.</p>
+</Callout>

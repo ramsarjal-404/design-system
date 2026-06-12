@@ -1,0 +1,30 @@
+<Callout variant="info" title="React-only">
+  <p>This component has no <code>@lepidus/css</code> distribution yet — use
+  <code>@lepidus/react</code>.</p>
+</Callout>
+
+TimePicker is uncontrolled — seed it with the `default*` props and read the chosen time from
+`onConfirm`.
+
+## Basic 12-hour
+
+The default mode. `onConfirm` receives `{ hour, minute, period }` with `period` as `'AM'` or
+`'PM'`.
+
+<Example snippet="time-picker/basic" codeOnly title="12-hour picker with handlers" story="forms-timepicker--default" />
+
+<StoryEmbed id="forms-timepicker--default" height={300} caption="Live: hour/minute boxes + AM/PM toggle" />
+
+## 24-hour clock
+
+`use24Hour` hides the AM/PM toggle, clamps hours to 0–23, and reports `period: null`.
+
+<Example snippet="time-picker/twenty-four-hour" codeOnly title="24-hour mode" story="forms-timepicker--twenty-four-hour" />
+
+<StoryEmbed id="forms-timepicker--twenty-four-hour" height={300} caption="Live: 24-hour mode" />
+
+## Custom label
+
+`label` renders as the uppercase overline and names the card for assistive technology.
+
+<Example snippet="time-picker/custom-label" codeOnly title="Custom overline label" story="forms-timepicker--pm" />

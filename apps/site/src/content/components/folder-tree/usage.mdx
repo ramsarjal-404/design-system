@@ -1,0 +1,84 @@
+## Overview
+
+FolderTree lists report folders, matching the Figma "Report Sidebar" frame: each row is a
+brand-blue plus, a yellow folder, and a label. Clicking the row (or its plus) flips the plus to
+a minus and reveals the folder's reports underneath, each with a scroll/file icon. Reports are
+selectable (`onItemSelect` + `selectedItemId`), expansion works uncontrolled
+(`defaultExpandedIds`) or controlled (`expandedIds` + `onExpandedChange`), and `filter` wires a
+search field above the tree — non-matching folders and reports are hidden, and folders with
+matching reports auto-expand.
+
+## Best practices
+
+- Keep folder labels short and one line each — "Active Directory", "File Server".
+- Use `onItemSelect` to load the report and mark it via `selectedItemId` so the brand-light
+  highlight follows the open report.
+- Start with the most relevant folder in `defaultExpandedIds` rather than everything collapsed.
+- When wiring `filter`, drive it from a visible search input directly above the tree (the
+  Report sidebar pattern below).
+
+## When not to use
+
+- **Flat category menus** — use [SettingsPanel](/components/settings-panel/); FolderTree's
+  affordances (plus/minus, nesting) are noise for a single-level list.
+- **App-level navigation** — use [Sidebar](/components/sidebar/) for the product's primary
+  rail.
+- **Collapsible content sections** — use [Accordion](/components/accordion/); FolderTree
+  reveals selectable items, not arbitrary content.
+- **Deeper hierarchies** — the design is a two-level tree (folders → reports); it does not
+  support folders inside folders.
+
+## Variants
+
+### Default
+
+All folders collapsed — click any row (or its plus) to reveal the reports underneath; click
+again to collapse.
+
+<StoryEmbed id="navigation-folder-tree--default" height={340} caption="Default, collapsed" />
+
+### Expanded with selection
+
+A folder pre-expanded via `defaultExpandedIds` with one report selected — brand-light
+background and brand text.
+
+<StoryEmbed id="navigation-folder-tree--expanded" height={420} caption="Expanded with a selected report" />
+
+### Report sidebar
+
+The full Figma composition: heading, a rounded search field driving `filter` (folders with
+matching reports auto-expand), and selectable reports.
+
+<StoryEmbed id="navigation-folder-tree--report-sidebar" height={560} caption="Report sidebar pattern" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Folder row | One `<button aria-expanded>` per folder — the whole row toggles, not just the plus |
+| 2 | Toggle glyph | 24px brand-blue plus, flipping to a minus when expanded |
+| 3 | Folder glyph | 40px yellow folder illustration |
+| 4 | Folder label | Body-lg text |
+| 5 | Report rows | `<button>`s revealed underneath, indented, each with a scroll/file icon (replaceable per item via `icon`) |
+| 6 | Selected report | Brand-light background, brand text, `aria-current` |
+| 7 | Empty state | "No reports in this folder" when an empty folder expands; a no-match line when `filter` finds nothing |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Expand / collapse | Clicking the folder row toggles it; the plus flips to a minus and the report list appears below |
+| Controlled / uncontrolled | `defaultExpandedIds` for internal state, or `expandedIds` + `onExpandedChange` to own it |
+| Selection | `onItemSelect(itemId, folderId)` fires on report click; `selectedItemId` paints the highlight and sets `aria-current` |
+| Filter | Hides non-matching folders/reports; folders with matching reports are force-expanded; an empty result shows a no-match message |
+| Empty folder | Expanding a folder with no items shows a quiet "No reports in this folder" line |
+| Theming | Row, highlight, and text tokens re-resolve automatically under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Keep folder labels to one short line — “Active Directory”, “File Server”."
+  dont="Nest folders inside folders — the design is a two-level tree: folders containing reports."
+/>
+
+## Related components
+
+<RelatedCards slugs={["settings-panel", "sidebar", "accordion"]} />

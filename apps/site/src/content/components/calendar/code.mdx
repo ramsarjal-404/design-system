@@ -1,0 +1,34 @@
+<Callout variant="info" title="React-only">
+  <p>This component has no <code>@lepidus/css</code> distribution yet — use
+  <code>@lepidus/react</code>.</p>
+</Callout>
+
+Calendar is uncontrolled — seed it with the `default*` props and read the composed schedule from
+`onDone`.
+
+## Daily schedule
+
+The base card. `onDone` receives the full `CalendarValue`; `onSelectDate` fires on every day
+click if you need it live.
+
+<Example snippet="calendar/daily" codeOnly title="Daily schedule with a Done handler" story="forms-calendar--daily" />
+
+<StoryEmbed id="forms-calendar--daily" height={460} caption="Live: month grid + H/M/S time row" />
+
+## Weekly with marked dates
+
+`variant="weekly"` adds the weekday chip multi-select; `markedDates` dots days that already have
+events in the shown month.
+
+<Example snippet="calendar/weekly" codeOnly title="Weekly schedule with event dots" story="forms-calendar--weekly" />
+
+<StoryEmbed id="forms-calendar--weekly" height={520} caption="Live: weekday chips and event dots" />
+
+## Monthly recurrence
+
+`variant="monthly"` adds the Select Date round-chip grid (1–31) on top of the weekday chips —
+`onDone` reports both as `weekdays` (0=Sun…6=Sat) and `dates` arrays.
+
+<Example snippet="calendar/monthly" codeOnly title="Monthly schedule reading the full value" story="forms-calendar--monthly" />
+
+<StoryEmbed id="forms-calendar--monthly" height={560} caption="Live: weekday + date-of-month chips" />

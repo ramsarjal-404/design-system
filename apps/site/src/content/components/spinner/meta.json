@@ -1,0 +1,6 @@
+{
+  "description": "Indeterminate loading indicator — a brand-blue arc rotating over a subtle track, announced to screen readers via a hidden label.",
+  "heroStory": "feedback-spinner--sizes",
+  "heroHeight": 140,
+  "related": ["skeleton", "progress", "button"]
+}

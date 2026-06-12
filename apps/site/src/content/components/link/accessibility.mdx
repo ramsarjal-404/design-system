@@ -1,0 +1,51 @@
+## Interactions
+
+### Mouse
+
+- The whole text run is the click target; `standalone` links include their trailing icon in the
+  target.
+- Hover gives two cues — darker text and a thicker (or appearing) underline — so feedback never
+  relies on color alone.
+- Clicking with the mouse does **not** show the focus outline (`:focus-visible` semantics).
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus to / away from the link (native tab order) |
+| `Enter` | Follows the link |
+
+Links activate with `Enter` only — `Space` scrolls the page, which is native anchor behavior
+and another reason not to use a Link where a [Button](/components/button/) belongs. Focus shows
+a 2px brand-tinted outline with a 2px offset and no layout shift.
+
+### Screen readers
+
+- Renders a native `<a href>` — implicit `role="link"`, announced from the link text.
+- `external` appends a visually-hidden "(opens in new tab)" to the accessible name, so the
+  context change is announced; the new-tab glyph itself is `aria-hidden`.
+- Disabled links follow WAI guidance: a `<span aria-disabled="true">` with no `href` — removed
+  from the tab order rather than left as a focusable dead anchor.
+- Inline links keep their underline, so they are distinguishable from body text without relying
+  on color (WCAG 1.4.1).
+
+## Development considerations
+
+- Keep the `href`; a link without one is not keyboard-reachable. For client-side routing pass
+  the router's link component via `as` — anchor props are forwarded and router props (`to`)
+  pass through.
+- In plain HTML, build disabled links as the component does: swap the `<a>` for a
+  `<span class="lp-link lp-link--standalone lp-link--disabled" aria-disabled="true">` — never a
+  click-blocked anchor.
+- Always pair `target="_blank"` with `rel="noreferrer"` and the visually-hidden suffix (the
+  React `external` prop does all three).
+- The hover color transition is suppressed under `prefers-reduced-motion: reduce` — don't add
+  extra motion on top.
+
+## Content
+
+- Link text must describe the destination out of context — screen-reader users jump from link
+  to link, so "Billing settings" works where "here" does not.
+- Make the meaningful phrase the link, not the words around it: "Review your *billing
+  settings*", not "*Click here* to review billing settings".
+- Keep standalone links short (1–4 words); they read as labels, not sentences.

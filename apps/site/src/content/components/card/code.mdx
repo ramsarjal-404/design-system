@@ -1,0 +1,37 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@lepidus/react`) is shown for React projects. Both resolve to the
+same tokens, so they are pixel-identical in every theme.
+
+## Basic
+
+Block `lp-card` with the optional `lp-card__header` (holding `lp-card__title`) and the
+`lp-card__body`. Header, footer, and actions are all optional — body-only cards are valid.
+
+<Example snippet="card/basic" title="Title and body" story="data-display-card--default" />
+
+## Elevated
+
+`lp-card--elevated` adds the `shadow-card` drop shadow; `lp-card--borderless` drops the 1px
+border. They are usually combined.
+
+<Example snippet="card/elevated" title="Elevated + borderless" story="data-display-card--elevated" />
+
+## Title actions
+
+`lp-card__actions` sits on the right of the header row — the title stays left, actions pin
+right.
+
+<Example snippet="card/actions" title="Badge in the actions slot" story="data-display-card--with-actions" />
+
+## Footer
+
+`lp-card__footer` is a flex row for the card's actions — here the destructive confirmation
+pattern.
+
+<Example snippet="card/footer" title="Footer with Cancel / Delete" story="data-display-card--with-footer" />
+
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@lepidus/css</code> — see <a href="/get-started/">Get Started</a>. Card is pure CSS and
+  needs no <code>lepidus.js</code>.</p>
+</Callout>

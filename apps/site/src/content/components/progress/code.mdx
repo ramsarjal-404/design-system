@@ -1,0 +1,24 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical form.
+The React rendition (`@lepidus/react`) adds value clamping, the auto status flip and the ARIA
+wiring for you. Progress is pure CSS — no `lepidus.js` needed; in plain HTML you update the fill
+width and `aria-valuenow` from your own task code.
+
+## Basic bar
+
+The fill width is inline (`style="width:62%"`) and must match `aria-valuenow`.
+
+<Example snippet="progress/basic" title="In progress" story="data-display-progress--in-progress" />
+
+## All three states
+
+`lp-progress--completed` and `lp-progress--pending` retint the label and fill; pending swaps the
+percentage readout for the clock icon and renders a full-width gray bar.
+
+<Example snippet="progress/states" title="In progress, completed, pending" story="data-display-progress--all-states" />
+
+## Full width
+
+The bar is a fixed 274px by default (from Figma). Add `lp-progress--full-width` (React:
+`fullWidth`) to stretch it to the container — table cells, cards, modals.
+
+<Example snippet="progress/full-width" title="Stretched to a constrained container" />

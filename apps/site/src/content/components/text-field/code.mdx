@@ -1,0 +1,30 @@
+<Callout variant="info" title="React-only">
+  <p>This component has no <code>@lepidus/css</code> distribution yet — use
+  <code>@lepidus/react</code>. For plain HTML/CSS projects, the labeled
+  <a href="/components/input/">Input</a> field is available as <code>lp-input</code>.</p>
+</Callout>
+
+## Basic
+
+A native `<input>` in a 44px pill. Always pass an `aria-label` — the field has no visible
+label.
+
+<Example snippet="text-field/basic" codeOnly title="Search field" />
+
+<StoryEmbed id="forms-textfield--normal" height={120} caption="Live — focus to see the active fill" />
+
+## Full width
+
+`fullWidth` overrides the fixed 490px Figma width so the pill tracks its container.
+
+<Example snippet="text-field/full-width" codeOnly title="Full width in a toolbar" />
+
+<StoryEmbed id="forms-textfield--full-width" height={120} caption="Live full-width field" />
+
+## Disabled
+
+The native `disabled` attribute — gray fill and text, removed from the tab order.
+
+<Example snippet="text-field/disabled" codeOnly title="Disabled" />
+
+<StoryEmbed id="forms-textfield--disabled" height={120} caption="Live disabled state" />

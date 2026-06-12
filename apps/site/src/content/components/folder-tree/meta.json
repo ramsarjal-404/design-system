@@ -1,0 +1,6 @@
+{
+  "description": "Expandable report folders — plus/minus rows reveal selectable reports underneath, with an optional filter that auto-expands matching folders.",
+  "heroStory": "navigation-folder-tree--report-sidebar",
+  "heroHeight": 360,
+  "related": ["settings-panel", "sidebar", "accordion"]
+}

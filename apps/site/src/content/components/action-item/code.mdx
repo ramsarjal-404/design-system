@@ -1,0 +1,32 @@
+<Callout variant="info" title="React-only">
+  <p>This component has no <code>@lepidus/css</code> distribution yet — use
+  <code>@lepidus/react</code>.</p>
+</Callout>
+
+## Default set
+
+With no `actions` prop, ActionItem renders the Figma set: delete (danger) · upload · edit ·
+share. The exported `defaultActions` array is the same list, ready to extend.
+
+<Example snippet="action-item/default" title="Default Figma set" story="actions-actionitem--default" codeOnly />
+
+<StoryEmbed id="actions-actionitem--default" height={120} caption="Default set, live" />
+
+## Custom actions
+
+Each action is `{ id, label, icon, tone?, onClick?, disabled? }` — pass any ordered subset.
+Icons must be 24px SVGs using `currentColor` so the tone controls the fill; the four default
+glyphs are exported from `@lepidus/react`.
+
+<Example snippet="action-item/custom" title="Two-action subset with handlers" story="actions-actionitem--custom-subset" codeOnly />
+
+<StoryEmbed id="actions-actionitem--custom-subset" height={120} caption="Custom subset, live" />
+
+## Disabled action
+
+Set `disabled` on an individual action — the native attribute removes it from the tab order
+and dims it to 40%.
+
+<Example snippet="action-item/disabled" title="Disabling the destructive action" story="actions-actionitem--with-disabled" codeOnly />
+
+<StoryEmbed id="actions-actionitem--with-disabled" height={120} caption="Disabled action, live" />

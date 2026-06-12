@@ -1,0 +1,4 @@
+import { Textarea } from '@lepidus/react';
+
+{/* no visible label — aria-label is required for the accessible name */}
+<Textarea aria-label="Description" placeholder="Type Description here" />

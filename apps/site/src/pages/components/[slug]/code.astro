@@ -1,0 +1,41 @@
+---
+import { Code } from 'astro:components';
+import ComponentPage from '../../../layouts/ComponentPage.astro';
+import StoryEmbed from '../../../components/StoryEmbed.astro';
+import { components, bySlug } from '../../../lib/data';
+import { loadTab, mdxComponents } from '../../../lib/mdx-components';
+
+export async function getStaticPaths() {
+  return components.map((c) => ({ params: { slug: c.slug } }));
+}
+
+const c = bySlug.get(Astro.params.slug!)!;
+const mod = await loadTab(c.slug, 'code');
+const headings = mod?.getHeadings() ?? [];
+---
+
+<ComponentPage component={c} tab="code" headings={headings}>
+  {mod ? (
+    <mod.Content components={mdxComponents} />
+  ) : (
+    <>
+      <h2>React</h2>
+      <Code code={c.reactImport} lang="tsx" theme="github-dark" />
+      <p>
+        Full prop reference on the{' '}
+        <a href={`/components/${c.slug}/specifications/`}>Specifications tab</a>.
+      </p>
+      {c.storyFile && (
+        <>
+          <h2>Live variants</h2>
+          {c.storyFile.stories
+            .filter((s) => !/hover|focus/i.test(s.export))
+            .slice(0, 8)
+            .map((s) => (
+              <StoryEmbed id={s.id} caption={s.name} />
+            ))}
+        </>
+      )}
+    </>
+  )}
+</ComponentPage>

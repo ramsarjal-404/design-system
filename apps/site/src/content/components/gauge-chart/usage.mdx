@@ -1,0 +1,76 @@
+## Overview
+
+GaugeChart reports **one number judged against a scale** — health score, risk level, capacity —
+as a rounded arc sweeping a semi-circular track, with the reading rendered as text in the
+center and 0/max bounds under the ends. Values are clamped to `0…max` (default max 100). The
+arc is brand blue (`--color-chart-series-4`) by default, takes a fixed `color`, or bands by
+reading with `thresholds`: the first entry whose `upTo` is at or above the value wins — green
+up to 60, yellow up to 85, red beyond.
+
+## Best practices
+
+- Use for a **single KPI that needs instant judgment** — is this number fine, worrying, or
+  critical? The scale and bands do the judging for the reader.
+- Use `thresholds` with the chart palette (`CHART_COLORS` green/yellow/red — the
+  `--color-chart-series-3/2/1` tokens) so the band colors re-theme with everything else; never
+  hardcoded hex.
+- Always pass a `label` naming the metric ("Health Score", "Risk Score") — a bare number under
+  an arc is ambiguous.
+- Keep `max` honest: a gauge implies the value can fill the arc. If there's no natural maximum,
+  a gauge is the wrong chart.
+- Wrap in `ChartCard` like the other charts; one gauge per card.
+
+## When not to use
+
+- **Several readings side by side** — a row of gauges is hard to compare; use
+  [BarChart](/components/bar-chart/) so lengths line up.
+- **Part-to-whole composition** — use [DonutChart](/components/donut-chart/); a gauge shows one
+  fraction, not a breakdown.
+- **A value changing over time** — use [LineChart](/components/line-chart/); the gauge is a
+  snapshot.
+
+## Configurations
+
+### Default
+
+Brand-blue arc with the reading centered and the metric named by `label`.
+
+<StoryEmbed id="charts-gauge-chart--default" height={300} caption="Health score, default brand-blue arc" />
+
+### Threshold bands
+
+`thresholds` colors the arc by the reading — the same gauge turns green, yellow, or red as the
+value climbs through the bands.
+
+<StoryEmbed id="charts-gauge-chart--thresholds" height={340} caption="42 / 74 / 93 across green, yellow, and red bands" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Container | `role="img"` div with a generated `aria-label` ("Gauge: 72 of 100") |
+| 2 | Track | Semi-circular arc in `--color-chart-grid-subtle`, `thickness` px (default 18) |
+| 3 | Value arc | Rounded-cap arc from 0 to the reading; fixed `color` or threshold band |
+| 4 | Center value | The reading as text, formatted by `formatValue` |
+| 5 | Label *(optional)* | Caption under the value naming the metric |
+| 6 | Bounds | "0" and the formatted `max` under the arc ends |
+| 7 | Tooltip | Native SVG `title` on the arc: "72 / 100" |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Hover tooltip | The value arc carries an SVG `title` — "value / max" |
+| Clamping | Readings below 0 or above `max` are clamped before drawing and display |
+| Threshold coloring | First `thresholds` entry whose `upTo` ≥ value sets the arc color; `color` is ignored when `thresholds` is set |
+| Sizing | Fixed footprint — `size` sets the overall width (default 200px), `thickness` the arc weight |
+| Theming | Default arc is `--color-chart-series-4`, track is `--color-chart-grid-subtle` — re-resolved under `data-theme="dark"` and `"hc"`; pass token-based threshold colors to keep bands themable |
+
+<DoDont
+  do="Show one reading with a real maximum, named by label, with threshold bands from the chart palette tokens."
+  dont="Line up four gauges to compare servers — arcs at different angles defeat comparison; use a BarChart."
+/>
+
+## Related components
+
+<RelatedCards slugs={["donut-chart", "bar-chart", "card"]} />

@@ -1,0 +1,6 @@
+{
+  "description": "Large alert surface with a status icon, title, multi-line body and optional Ok/Cancel-style actions — for blocking or decision-requiring feedback.",
+  "heroStory": "feedback-message--error",
+  "heroHeight": 200,
+  "related": ["toast", "alert-panel", "modal"]
+}

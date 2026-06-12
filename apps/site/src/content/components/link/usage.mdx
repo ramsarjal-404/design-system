@@ -1,0 +1,91 @@
+## Overview
+
+Link navigates to another page or resource. It renders a native `<a>` (or any component you pass
+via `as`, such as a router link) in brand-blue text that darkens on hover — `--color-text-brand`
+→ `--color-brand-primary-hover`, all resolved through semantic tokens so the dark and
+high-contrast themes restyle it with no extra code. Two variants: `inline` is underlined for use
+inside running text; `standalone` is semibold without an underline for links that sit on their
+own.
+
+## Best practices
+
+- Write link text that **names the destination** — "Billing settings", "Migration guide" —
+  never "click here".
+- Use `inline` inside paragraphs and keep its underline; it is what makes the link identifiable
+  without relying on color.
+- Use `standalone` for links that stand alone (card footers, "View all" rows), where placement
+  carries the affordance and a trailing icon can reinforce direction.
+- Mark any link that leaves the product with `external` so the new tab is announced and
+  signposted.
+- Pass your router's link component via `as` for client-side navigation without losing the
+  system styling.
+
+## When not to use
+
+- **Actions** — if activating the element performs an action (submit, delete, toggle), use
+  [Button](/components/button/), even if it should look like a link. `onClick` with no `href`
+  is a button, not a link.
+- **Compact icon-only actions** — use [ActionItem](/components/action-item/); a Link's
+  accessible name must come from its text.
+- **Showing where the user is** in a page hierarchy — use
+  [Breadcrumb](/components/breadcrumb/), which composes links with the correct trail semantics.
+
+## Variants
+
+### Inline
+
+Underlined, inherits the surrounding type scale. **Use for** links inside running text — the
+underline (3px offset, thickening on hover) keeps it identifiable without color alone.
+
+<StoryEmbed id="actions-link--inline" height={120} caption="Inline, inside a paragraph" />
+
+### Standalone
+
+Body MD Semibold without an underline (it gains one on hover), with an optional trailing `icon`
+slot. **Use for** links that sit on their own — "View all projects", card footers.
+
+<StoryEmbed id="actions-link--standalone" height={120} caption="Standalone with trailing icon" />
+
+### External
+
+Adds `target="_blank"` + `rel="noreferrer"`, a visually-hidden "(opens in new tab)" suffix for
+screen readers, and a small decorative new-tab glyph.
+
+<StoryEmbed id="actions-link--external" height={120} caption="External link" />
+
+### Disabled
+
+Per WAI guidance a disabled link is not a link: it renders a non-focusable
+`<span aria-disabled="true">` with no `href`, styled with the disabled text color.
+
+<StoryEmbed id="actions-link--disabled" height={120} caption="Disabled" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Anchor | `<a>`, the `as` component, or a `<span aria-disabled="true">` when disabled |
+| 2 | Label | Required text — inherits the paragraph type scale (`inline`) or Body MD Semibold 14/19 (`standalone`) |
+| 3 | Trailing icon *(optional, standalone)* | 14px `aria-hidden` slot; SVG must use `currentColor` |
+| 4 | External suffix *(optional)* | Visually-hidden "(opens in new tab)" + 12px decorative glyph |
+| 5 | Focus outline | 2px `--color-focus-ring` outline with 2px offset on `:focus-visible` only |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Hover | Text darkens to `--color-brand-primary-hover`; `inline` thickens its underline 1px → 2px, `standalone` gains one |
+| Focus | 2px brand-tinted outline on `:focus-visible`; mouse clicks show no ring |
+| External | `target="_blank"` + `rel="noreferrer"`, screen-reader suffix, decorative glyph |
+| Disabled | `<span aria-disabled="true">` with no `href` — removed from the tab order, `cursor: not-allowed` |
+| Reduced motion | The 120ms color transition is suppressed under `prefers-reduced-motion: reduce` |
+| Theming | Brand, hover, and disabled text tokens re-resolve automatically under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Write link text that names the destination: “Billing settings”, “Migration guide”."
+  dont="Write “click here”, or wire actions to a Link — actions belong to Button."
+/>
+
+## Related components
+
+<RelatedCards slugs={["button", "breadcrumb", "action-item"]} />

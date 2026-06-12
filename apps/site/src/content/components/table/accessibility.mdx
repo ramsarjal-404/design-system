@@ -1,0 +1,54 @@
+## Interactions
+
+### Mouse
+
+- Sorting: the whole header label is a real `<button>` — clicking toggles ascending/descending;
+  the arrow flips for descending and turns brand blue when active.
+- Filtering: each search field filters its column as you type; the magnifier icon is decorative.
+- Selection: 16px checkboxes in the first column; the header checkbox selects/deselects all
+  visible rows and shows the indeterminate dash for partial selection.
+- Rows tint on hover; hover never moves or resizes content.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves through the interactive parts in column order: sort buttons, filter inputs, checkboxes |
+| `Enter` / `Space` | On a sort button: toggles the sort direction (native `<button>` behavior) |
+| `Space` | On a checkbox: toggles row / select-all selection (native checkbox behavior) |
+| Typing | In a filter input: filters the column as you type |
+
+All interactive parts are native elements — buttons, text inputs, checkboxes — so focus order,
+activation, and focus-visible styling come for free.
+
+### Screen readers
+
+- Semantic `<table>` / `<th scope="col">` markup — cells announce with their column headers.
+- The sorted column exposes `aria-sort="ascending"` / `"descending"` on the `th`, so the sort
+  state is announced when navigating the header.
+- Filter inputs carry per-column `aria-label`s ("Search IP Address"); checkboxes are labelled
+  "Select all rows" and "Select row N".
+- Selection and sort state are visible beyond color: the check mark / indeterminate dash and the
+  arrow direction carry the state, not just the blue tint.
+- The React component does not render a `<caption>` — name the table for screen-reader users by
+  wrapping it with a labelled region or adding `aria-label` to the table element in plain HTML
+  (add a `<caption>` element when hand-writing the markup).
+
+## Development considerations
+
+- Provide a stable `rowKey` whenever rows can reorder or page — index-based identity silently
+  attaches selection to the wrong rows after a sort.
+- In plain HTML, keep `aria-sort` in sync with the arrow classes (`--active`, `--desc`) when
+  your script re-sorts — the visual and announced state must match.
+- Keep the first column's cells to **one interactive element**: the selection checkbox. Put row
+  actions in their own column.
+- For server-driven tables, control `sort` and `filters` rather than letting the component sort
+  a single page client-side — a "sorted" page of unsorted data misleads everyone, including
+  screen-reader users.
+
+## Content
+
+- Column headers are short nouns ("Server", "IP Address", "Last scan") — they are read with
+  every cell.
+- Empty values render as "-"; provide a meaningful `emptyMessage` ("No servers found") instead
+  of the generic default when context allows.

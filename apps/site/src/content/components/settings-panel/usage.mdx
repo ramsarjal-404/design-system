@@ -1,0 +1,75 @@
+## Overview
+
+SettingsPanel lists the categories of a settings area, matching the Figma "side bar pannel"
+frame: a bordered surface with a 20px rounded top-left corner, a bold heading (default
+"Categories") on a divider, and one row per category — an optional 30px icon from the Lepidus
+icon set plus a body-lg label. Selection works uncontrolled (`defaultSelectedId`) or controlled
+(`selectedId` + `onSelect`); the active row gets the brand-light background and brand text,
+consistent with [FolderTree](/components/folder-tree/).
+
+## Best practices
+
+- Keep category labels to **1–3 words** — the 30px icon carries recognition.
+- Compose it as the left column of a settings layout and drive the right-hand form from
+  `onSelect` + `selectedId` (the Settings layout pattern below).
+- Use icons from the Lepidus icon set — they inherit `currentColor`, so the selected-state
+  brand tinting is automatic.
+- Keep one row selected at all times once the user is inside settings; the highlight is the
+  user's "you are here".
+
+## When not to use
+
+- **Two-level hierarchies** — categories never nest; use
+  [FolderTree](/components/folder-tree/) for folders containing items.
+- **App-level navigation** — use [Sidebar](/components/sidebar/) for the product's primary
+  rail.
+- **Switching content within one page section** — use [Tabs](/components/tabs/); SettingsPanel
+  is a persistent menu for a whole settings area.
+
+## Variants
+
+### Default
+
+The full Figma frame — sixteen categories with their 30px icons, no selection yet.
+
+<StoryEmbed id="navigation-settings-panel--default" height={480} caption="Default" />
+
+### With selection
+
+`defaultSelectedId` highlights a category with the brand-light background and brand text.
+
+<StoryEmbed id="navigation-settings-panel--with-selection" height={480} caption="Role management selected" />
+
+### Settings layout
+
+The intended composition: the panel as the left column, driving the settings form on the right.
+
+<StoryEmbed id="navigation-settings-panel--settings-layout" height={520} caption="Panel + form layout" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Panel | Bordered white surface with a 20px rounded top-left corner (`--radius-xl`) |
+| 2 | Heading | Bold h5-scale title (default "Categories") sitting on a divider |
+| 3 | Category rows | One `<button>` per category in a `<ul>` list — optional 30px icon + body-lg label |
+| 4 | Selected row | `--color-brand-light` background + `--color-text-brand` text, `aria-current` |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Selection | Clicking a row selects it — uncontrolled via `defaultSelectedId` or controlled via `selectedId` + `onSelect` |
+| Hover | Rows show a hover tint; the selected row keeps the brand-light treatment |
+| Icon tinting | Icons inherit `currentColor`, so the selected row's brand color tints the icon automatically |
+| Current semantics | The active row carries `aria-current` |
+| Theming | Surface, border, highlight, and text tokens re-resolve automatically under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Keep category labels to 1–3 words — “Logs”, “Backup & Restore” — and let the icon carry recognition."
+  dont="Nest categories — the panel is a flat menu; use FolderTree for a two-level tree."
+/>
+
+## Related components
+
+<RelatedCards slugs={["folder-tree", "sidebar", "tabs"]} />

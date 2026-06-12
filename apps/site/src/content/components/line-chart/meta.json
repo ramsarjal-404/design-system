@@ -1,0 +1,6 @@
+{
+  "description": "Multi-series line chart for trends over ordered points — optional soft area fill and point markers with native tooltips.",
+  "heroStory": "charts-line-chart--in-chart-card",
+  "heroHeight": 380,
+  "related": ["column-chart", "bar-chart", "card"]
+}

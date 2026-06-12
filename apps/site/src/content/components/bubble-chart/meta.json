@@ -1,0 +1,6 @@
+{
+  "description": "Scatter chart with magnitude — translucent rimmed bubbles plot x, y, and size over a light grid for three-dimensional comparisons.",
+  "heroStory": "charts-bubble-chart--in-chart-card",
+  "heroHeight": 380,
+  "related": ["line-chart", "column-chart", "card"]
+}

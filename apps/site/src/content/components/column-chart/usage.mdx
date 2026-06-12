@@ -1,0 +1,83 @@
+## Overview
+
+ColumnChart is the vertical counterpart of [BarChart](/components/bar-chart/) in the same visual
+grammar: thin columns (10px by default) with rounded tops, dashed horizontal gridlines, and a
+y-axis on the left. Reading left-to-right makes it the natural shape for **time buckets** —
+alerts per month, backups per day — answering "how does each bucket compare?". Columns scale to
+a "nice" ceiling of the data maximum (override with `max`), and series take the shared chart
+palette (`--color-chart-series-1…6`), so dark and high-contrast themes recolor everything
+automatically.
+
+## Best practices
+
+- Use for **time-bucketed comparisons** (per month, per day) and other short category labels
+  that fit under a column.
+- Keep to **2–3 series per group**; grouped columns get noisy fast. Widen segmented columns —
+  `columnWidth` of 18px reads better when `stacked`.
+- Use `stacked` when the **bucket total** is the headline (total alert volume per month) and the
+  breakdown is secondary.
+- With a **single series**, `colorByCategory` colors each column from the palette — use it only
+  when categories are distinct things, not points in time.
+- Wrap in `ChartCard`, name series with `ChartLegend`, and take colors from `CHART_COLORS`
+  (the `--color-chart-series-*` tokens) — never hardcoded hex.
+
+## When not to use
+
+- **Long category names or many categories** — use [BarChart](/components/bar-chart/);
+  horizontal bars give labels room.
+- **Continuous trends** where the shape of the line is the message — use
+  [LineChart](/components/line-chart/).
+- **Part-to-whole composition** (≤5 parts) — use [DonutChart](/components/donut-chart/).
+
+## Configurations
+
+### Grouped (default)
+
+One group of columns per category, series i = column i in every group.
+
+<StoryEmbed id="charts-column-chart--grouped" height={360} caption="Grouped columns in a ChartCard with legend" />
+
+### Stacked
+
+`stacked` joins each group into one segmented column sized by the category total. Pair with a
+wider `columnWidth` so segments stay legible.
+
+<StoryEmbed id="charts-column-chart--stacked" height={360} caption="Stacked, 18px columns" />
+
+### Single series
+
+One column per category with a per-series `color` override from the palette.
+
+<StoryEmbed id="charts-column-chart--single-series" height={360} caption="Single series, brand-blue override" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Container | `role="img"` div with a generated `aria-label` |
+| 2 | Y-axis | Numeric ticks on the left (default 4 divisions via `ticks`), 10px text |
+| 3 | Plot area | Height set by `height` (default 220px); width tracks the container |
+| 4 | Gridlines | Dashed horizontal lines at every tick — `--color-chart-grid` |
+| 5 | Columns | Rounded-top columns, `columnWidth` px wide (default 10); one segmented column when `stacked` |
+| 6 | Category labels | Centered under each group along the bottom |
+| 7 | Legend *(composed)* | `ChartLegend` placed below the chart inside the `ChartCard` |
+| 8 | Tooltip | Native browser tooltip per column: "Jan — Failed: 12" |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Hover tooltip | Every column/segment carries a native `title` — "category — series: value", formatted by `formatValue` |
+| Axis scaling | Y-axis max defaults to a nice ceiling of the data (stacked: of category totals); `max` and `ticks` override |
+| Legend | `ChartLegend` is a static key — it names series but does not toggle or filter them |
+| Responsive sizing | The plot stretches to the container width; column groups distribute evenly, column width stays fixed |
+| Theming | Series resolve through `--color-chart-series-1…6` and gridlines through `--color-chart-grid` — both re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Use ColumnChart for time buckets with short labels — months, days, hours — read left to right."
+  dont="Cram long server or department names under columns; switch to BarChart so labels get a full row."
+/>
+
+## Related components
+
+<RelatedCards slugs={["bar-chart", "line-chart", "card"]} />

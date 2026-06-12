@@ -1,0 +1,17 @@
+<div style="display: flex; flex-direction: column; gap: 6px">
+  <label class="lp-checkbox">
+    <span class="lp-checkbox__control">
+      <input class="lp-checkbox__input" type="checkbox" aria-invalid="true" aria-describedby="terms-err" />
+      <span class="lp-checkbox__box lp-checkbox__box--error" aria-hidden="true">
+        <svg class="lp-checkbox__check" viewBox="0 0 10 8" fill="none" stroke="currentColor"
+             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.2 3.8 7 9 1"/></svg>
+        <svg class="lp-checkbox__dash" viewBox="0 0 10 2" fill="none" stroke="currentColor"
+             stroke-width="1.8" stroke-linecap="round"><path d="M1 1h8"/></svg>
+      </span>
+    </span>
+    <span class="lp-checkbox__label">I accept the terms</span>
+  </label>
+  <span id="terms-err" style="font: 12px/16px 'Open Sans', sans-serif; color: var(--color-status-error-text)">
+    You must accept the terms to continue.
+  </span>
+</div>

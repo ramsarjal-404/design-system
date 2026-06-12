@@ -1,0 +1,49 @@
+## Overview
+
+ToastProvider is the **React-only** host for the imperative `toast()` API. Wrap your
+application once, then fire notifications from any descendant with the `useToast()` hook —
+the provider owns the stacking, timing and queueing that the
+[Toast](/components/toast/) pill itself delegates to the host app. For the pill's visual
+guidance (variants, anatomy, copy), see [Toast](/components/toast/). In plain HTML the
+equivalent is `Lepidus.toast(...)` from `lepidus.js`.
+
+<StoryEmbed id="feedback-toast-provider--live-demo" height={260} caption="Fire toasts imperatively — they stack top-right and queue beyond 5" />
+
+## Best practices
+
+- Mount **exactly one** ToastProvider near the app root; `useToast()` throws outside the
+  provider.
+- Go through `toast(...)` rather than rendering your own `<Toast>` into the stack, so
+  queueing and live-region semantics stay intact.
+- Keep the default 6000ms unless copy is unusually long; use `duration: 0` for toasts the
+  user must acknowledge.
+- Don't fire a toast per keystroke-level event; batch or debounce noisy sources.
+
+## When not to use
+
+- **Blocking feedback with actions** — use [Message](/components/message/).
+- **A single static inline status** — render [Toast](/components/toast/) directly.
+- **Plain HTML/JS products** — there is no `lp-` class for the provider; use
+  `Lepidus.toast(...)` (see [Toast](/components/toast/)).
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Stacking | Fixed top-right viewport (`--z-toast` layer) through the Portal primitive — one polite live region labelled "Notifications" |
+| Auto-dismiss | 6000ms default; per-toast override via `toast({ duration })`; `0` persists until dismissed |
+| Hover pause | The countdown pauses while a toast is hovered and resumes with the remaining time |
+| Queueing | At most `max` (5) visible; further toasts queue FIFO and surface as earlier ones leave |
+| Dismissal | Every toast gets a close button; `dismiss(id)` removes one programmatically |
+| Motion | 180ms enter/exit using motion tokens; skipped under `prefers-reduced-motion` |
+
+<StoryEmbed id="feedback-toast-provider--auto-dismiss" height={260} caption="Auto-dismiss with hover-pause" />
+
+<DoDont
+  do="Wrap the app once and fire everything through toast() — it returns an id you can pass to dismiss()."
+  dont="Mount multiple providers or render <Toast> elements into the stack by hand."
+/>
+
+## Related components
+
+<RelatedCards slugs={["toast", "message"]} />

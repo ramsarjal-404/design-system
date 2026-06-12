@@ -1,0 +1,97 @@
+## Overview
+
+Input is the labeled form-field primitive of the Lepidus design system — a native `<input>`
+inside a 25px-radius pill shell (`--component-input-radius`), with an inline-left label (the
+Figma form default, 171px column) or a stacked-top label, optional helper/error text, and
+icon adornment slots. The label is a real `<label for>` association, focus swaps the fill to
+light blue and the border to brand blue via `:focus-within`, and every visual property
+resolves through the `component/input/*` token chain — so dark and high-contrast themes
+restyle it with no extra code.
+
+## Best practices
+
+- **Keep labels short (1–3 words)** so the 171px inline label column stays aligned across a
+  form.
+- Provide an `errorMessage` whenever you set `status="error"` — the red border alone is not
+  sufficient feedback, and the message is announced via `aria-describedby`.
+- Use `fullWidth` inside modal/form layouts so fields align to the container grid.
+- Use `labelPosition="top"` in narrow containers where the inline label column would crowd
+  the field.
+- Treat placeholders as hints only — they disappear on entry and are never a substitute for
+  the label.
+
+## When not to use
+
+- **Label-less quick entry** (search bars, filter inputs, toolbar fields) — use
+  [TextField](/components/text-field/), the standalone 44px pill.
+- **Multi-line content** (descriptions, comments) — use [Textarea](/components/textarea/).
+- **Numeric values with increment/decrement** — use [Stepper](/components/stepper/).
+- **Choosing from a known set** — use [Dropdown](/components/dropdown/).
+
+## Variants
+
+### Label left (default)
+
+The Figma form default: the label sits in a fixed 171px column beside the field, so stacked
+fields in a form share one aligned label column.
+
+<StoryEmbed id="forms-input--default" height={120} caption="Inline-left label — click into the field to see the focus fill" />
+
+### Label top
+
+`labelPosition="top"` stacks the label above the field — for narrow containers.
+
+<StoryEmbed id="forms-input--label-top" height={140} caption="Stacked label" />
+
+### Error
+
+`status="error"` paints the border with the danger token, sets `aria-invalid`, and shows
+`errorMessage` (linked via `aria-describedby`) in danger red below the field.
+
+<StoryEmbed id="forms-input--error" height={140} caption="Error with message" />
+
+### Disabled
+
+The native `disabled` attribute plus the `component/input/bg-disabled` gray fill; text color
+is preserved for readability.
+
+<StoryEmbed id="forms-input--disabled" height={120} caption="Disabled" />
+
+### In a form
+
+Pixel-parity recreation of the Figma "Add Credentials for Lepide AI" modal — four `fullWidth`
+inline-label inputs sharing the 171px label column.
+
+<StoryEmbed id="forms-input--add-credentials-form" height={420} caption="Add Credentials form (Figma parity)" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Wrapper | Vertical flex column holding the row and the message line |
+| 2 | Label | Semibold 14/19 in `--component-input-label` (#555766); fixed 171px column when inline-left; real `<label for>` |
+| 3 | Field shell | 25px-radius pill with the background, 1px border, 12/20 padding; owns focus/error/disabled styling via `:focus-within` |
+| 4 | Input element | Transparent native `<input>`, 14/19 Open Sans, text `--component-input-text` |
+| 5 | Icon slots *(optional)* | `iconLeft` / `iconRight` adornments, 18×18 SVG in placeholder gray |
+| 6 | Message *(optional)* | 12/16 helper text below the field; swaps to `errorMessage` in danger red on error |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Focus | `:focus-within` swaps the fill to `--component-input-bg-focus` (#E1EAFD) and the border to brand blue — no ring, no layout shift |
+| Error | Danger border; on focus the fill stays white so the error state remains distinct |
+| Helper → error | `errorMessage` replaces `helperText` when `status="error"`; both are linked via `aria-describedby` |
+| Disabled | Native `disabled` — gray fill, removed from tab order, `cursor: not-allowed` |
+| Full width | `fullWidth` / `lp-input--full-width` stretches wrapper and field to the container |
+| Label width | `labelWidth` overrides the 171px column (sets `--component-input-label-width`) |
+| Theming | All `component/input/*` tokens re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Show errors as a message below the field — “Please enter a valid Site collection URL.”"
+  dont="Convey errors with placeholder text or border color alone; placeholders disappear on entry."
+/>
+
+## Related components
+
+<RelatedCards slugs={["text-field", "textarea", "stepper", "dropdown"]} />

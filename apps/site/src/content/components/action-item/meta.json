@@ -1,0 +1,6 @@
+{
+  "description": "Floating white toolbar of 24px icon actions — delete, upload, edit, share by default — for contextual per-item operations.",
+  "heroStory": "actions-actionitem--default",
+  "heroHeight": 140,
+  "related": ["button", "tooltip", "table", "dropdown"]
+}

@@ -1,0 +1,6 @@
+{
+  "description": "Dismissible chip for objects the user put there — applied filters, selected items — with an accessible remove button.",
+  "heroStory": "data-display-tag--filter-bar",
+  "heroHeight": 140,
+  "related": ["badge", "filter", "button"]
+}

@@ -1,0 +1,57 @@
+## Interactions
+
+### Mouse
+
+- Clicking the dimmed backdrop (the area outside the shell) fires `onClose`
+  (`closeOnOverlayClick`, default on). Clicks inside the shell never close the dialog.
+- The footer Buttons are standard Lepidus Buttons with full hover/active behavior.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Escape` | Closes the dialog via `onClose` (`closeOnEsc`, overlay mode only) |
+| `Tab` / `Shift+Tab` | Cycle through focusable elements **inside** the dialog — the trap wraps from last to first and back |
+| `Enter` / `Space` | Activate the focused Button (native behavior) |
+
+Focus management in overlay mode (React `FocusTrap` primitive / `lepidus.js`):
+
+- **On open** — focus moves to the first focusable element in the dialog (plain HTML: the
+  element marked `data-lp-autofocus`, else the first focusable; React: the first focusable,
+  else the shell itself).
+- **While open** — Tab and Shift+Tab cycle within the dialog; focus cannot leave.
+- **On close** — focus returns to the element that opened the dialog.
+
+Inline mode (`overlay={false}` / `lp-modal__shell--inline`) has no trap and no Escape
+handling — it is ordinary page content.
+
+### Screen readers
+
+- The shell renders `role="dialog"` with `aria-modal="true"` while the overlay is shown,
+  and `aria-labelledby` pointing at the title (React generates the id with `useId`; in
+  plain HTML give the title an `id` and reference it).
+- `aria-modal` is omitted in inline mode — an embedded shell is not modal.
+- Every `fields` row renders a real `<label htmlFor>` bound to its Input id, so each field
+  announces its label.
+- In plain HTML, `lepidus.js` additionally sets `inert` on the page content behind the
+  dialog, so screen-reader virtual cursors cannot wander out (keyboard focus is trapped
+  either way).
+
+## Development considerations
+
+- Always provide a `title` in overlay mode — without it the dialog has no accessible name.
+- Keep an obvious exit: if you disable Escape and backdrop close, the Cancel action is the
+  only way out — never remove all three.
+- Render the Modal conditionally (`open`) rather than permanently mounted and hidden, so
+  focus restore targets the real trigger.
+- In plain HTML, put the dialog markup directly under `<body>` (as in the demo) so the
+  `inert` treatment of sibling content works cleanly.
+
+## Content
+
+- Title the dialog with the task: "Please Enter Site Collection URL", "Add Credentials",
+  "Rename Item".
+- Primary action labels are verbs that finish the task ("Done", "Save", "Rename"); the
+  secondary is "Cancel".
+- Use field `helperText` for format hints and `errorMessage` for what to fix — not the
+  dialog title.

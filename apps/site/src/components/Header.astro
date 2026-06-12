@@ -1,0 +1,34 @@
+---
+const path = Astro.url.pathname;
+const nav = [
+  { href: '/get-started/', label: 'Get Started' },
+  { href: '/foundations/', label: 'Foundations' },
+  { href: '/components/', label: 'Components' },
+  { href: '/tokens/', label: 'Tokens' },
+  { href: '/ai/', label: 'AI' },
+];
+const isActive = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+---
+
+<header class="site-header">
+  <a class="site-header__logo" href="/">
+    <span class="site-header__mark" aria-hidden="true">L</span>
+    Lepidus
+  </a>
+  <nav class="site-header__nav" aria-label="Primary">
+    {nav.map((item) => (
+      <a href={item.href} aria-current={isActive(item.href) ? 'true' : undefined}>
+        {item.label}
+      </a>
+    ))}
+  </nav>
+  <span class="site-header__spacer"></span>
+  <a class="site-header__search" href="/search/">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    Search docs…
+  </a>
+  <a class="site-header__sb" href="/storybook/" target="_blank" rel="noopener">
+    Storybook
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+  </a>
+</header>

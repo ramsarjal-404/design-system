@@ -1,0 +1,6 @@
+{
+  "description": "Settings category menu — a bordered surface with a “Categories” heading and icon-led rows; the active category gets the brand-light highlight.",
+  "heroStory": "navigation-settings-panel--with-selection",
+  "heroHeight": 420,
+  "related": ["folder-tree", "sidebar", "tabs"]
+}

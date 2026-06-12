@@ -1,0 +1,41 @@
+## Interactions
+
+### Mouse
+
+- Hovering a ring segment shows a native tooltip — "Failed: 32" — from an SVG `<title>`
+  element. Segments do not grow, pop, or change color on hover.
+- Nothing in the chart is clickable.
+
+### Keyboard
+
+The chart contains **no focusable elements** — the ring is an SVG and the legend is a static
+list. Keyboard users cannot reach the per-segment tooltips, but unlike the other charts the
+built-in legend renders every label and exact value as plain text, so the data is at least
+readable in page flow.
+
+### Screen readers
+
+- The chart root is a single `role="img"` whose generated `aria-label` lists **every segment
+  with its value** — "Donut chart: Failed 32, Warning 58, Healthy 210" — making DonutChart the
+  most self-describing chart in the kit. Override `aria-label` when a conclusion reads better
+  than the list.
+- The center value and built-in legend are real text inside the `role="img"` container, so they
+  are subsumed by the label rather than read separately — keep the label complete.
+- SVG `<title>` tooltips are not reliably announced; don't rely on them.
+
+## Development considerations
+
+- Don't encode meaning in color alone: segment colors come from `--color-chart-series-*` tokens
+  that shift per theme. The built-in value legend is the mitigation — think twice before
+  `hideLegend`, and if you do hide it, place an external `ChartLegend` or data table adjacent.
+- Negative values are clamped to 0 when computing proportions — sanitize data upstream rather
+  than relying on that.
+- Use `formatValue` so the center stat, legend values, and tooltips agree on formatting.
+
+## Content
+
+- Segment labels should be the same status words used elsewhere in the product: "Failed",
+  "Warning", "Healthy".
+- Give the center stat a `centerLabel` that names the unit ("Total Alerts") — a bare number in
+  a hole is ambiguous.
+- State the scope and period in the `ChartCard` title ("Alert Status Breakdown — last 30 days").

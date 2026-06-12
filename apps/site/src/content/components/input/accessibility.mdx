@@ -1,0 +1,55 @@
+## Interactions
+
+### Mouse
+
+- The entire pill shell is the click target (`cursor: text`) — clicking the padding focuses
+  the input.
+- Clicking the label focuses the field too, via the native `for`/`id` association.
+- Focus feedback is a fill + border color change on `:focus-within`; the field never moves or
+  resizes.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus to / away from the input (native tab order) |
+| Typing keys | Native text editing — caret movement, selection, clipboard all standard |
+
+There is no separate focus ring — the focus state is the strong fill swap to light blue
+(#E1EAFD) plus the brand border, mirroring the Figma focus variant. Disabled fields use the
+native `disabled` attribute and are removed from the tab order.
+
+### Screen readers
+
+- Renders a native `<input>` with a real `<label htmlFor>` association — the id is
+  auto-generated via `useId()` when you don't supply one, so the label is always announced
+  with the field.
+- `status="error"` sets `aria-invalid` on the input.
+- The helper/error message is linked through `aria-describedby`, so screen readers announce
+  it when the field receives focus.
+- All native input attributes (`type`, `name`, `autocomplete`, `aria-*`) pass through to the
+  `<input>`.
+
+## Development considerations
+
+- **In plain HTML, wire `for`/`id` yourself** — every `lp-input__label` must point at its
+  `lp-input__input`, and error messages need an `id` referenced by the input's
+  `aria-describedby`.
+- Always pair `status="error"` with an `errorMessage`; `aria-invalid` alone tells the user
+  *that* something is wrong, not *what*. Set both at the same time, typically on
+  validation-on-blur or submit.
+- Use the right native `type` (`email`, `url`, `password`) and `autocomplete` tokens — they
+  drive mobile keyboards and password managers; the styling is type-agnostic.
+- Icon slots are decoration: keep `aria-hidden="true"` on the SVGs; if an adornment is
+  interactive (clear button), it must be a real `<button>` with its own accessible name.
+- The disabled fill (#C6C6C6) intentionally preserves the text color for readability — don't
+  override it with lighter gray text.
+
+## Content
+
+- Labels name the data, in 1–3 words: "API Key", "Server name" — not instructions ("Enter
+  your API key here").
+- Helper text states format expectations up front ("e.g. LDSP-FS-01"); error text says how to
+  fix the problem ("Please enter a valid Site collection URL.").
+- Don't repeat the label in the placeholder; use the placeholder for an example value or
+  leave it empty.

@@ -1,0 +1,46 @@
+## Interactions
+
+### Mouse
+
+- Hovering a bar or stacked segment shows a native browser tooltip — "FS1 — Failed: 312" —
+  via the element's `title` attribute. There is no custom hover state; bars do not change color
+  or size.
+- Nothing in the chart is clickable.
+
+### Keyboard
+
+The chart contains **no focusable elements**. Bars, gridlines, and axis labels are plain
+`div`/`span` elements — keyboard users cannot tab into the chart or reach the per-bar tooltips.
+The values must therefore be available somewhere keyboard-reachable: a data table or a text
+summary alongside the chart.
+
+### Screen readers
+
+- The chart root is a single `role="img"` with a generated `aria-label` — for example
+  "Bar chart of Failed, Warning, Healthy by 8 categories". Override `aria-label` with the actual
+  insight ("Failed audits highest on FS1 and FS4"), not just the series names.
+- Everything inside is presentation: gridlines and the numeric axis are `aria-hidden="true"`,
+  and per-bar `title` tooltips are not reliably announced.
+- The chart is effectively **visual-only beyond its label**. Pair it with a
+  [Table](/components/table/) of the same data, or a text summary, so the values themselves are
+  accessible.
+
+## Development considerations
+
+- Always pass a meaningful `aria-label` — the generated one names the series but carries no
+  values or conclusion.
+- Don't encode meaning in color alone: series are separated only by palette color, so keep the
+  `ChartLegend` visible, and remember the `--color-chart-series-*` tokens shift per theme — a
+  "red means failed" assumption breaks if you hardcode or reorder colors.
+- Provide the underlying data as a table or downloadable report for both keyboard and
+  screen-reader users.
+- Use `formatValue` so the tooltip and axis agree on units — raw numbers in one place and
+  formatted in another reads as two different datasets.
+
+## Content
+
+- Keep category labels short (server names, codes); widen `labelWidth` rather than truncating.
+- Put units in the card title or legend ("Alerts per server"), and format axis ticks with
+  `formatValue` — e.g. `(v) => v + 'k'` — so magnitude is never ambiguous.
+- Name series with nouns users filter by elsewhere in the product: "Failed", "Warning",
+  "Healthy".

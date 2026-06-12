@@ -1,0 +1,6 @@
+{
+  "description": "Multi-line free-text box — a 15px-radius card whose border and text turn brand blue while typing; for descriptions, comments, and notes. React-only for now.",
+  "heroStory": "forms-textarea--default",
+  "heroHeight": 280,
+  "related": ["input", "text-field"]
+}

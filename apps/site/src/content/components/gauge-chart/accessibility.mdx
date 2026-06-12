@@ -1,0 +1,43 @@
+## Interactions
+
+### Mouse
+
+- Hovering the value arc shows a native tooltip — "72 / 100" — from an SVG `<title>` element.
+  The track, value text, and bounds have no hover behavior.
+- Nothing in the chart is clickable.
+
+### Keyboard
+
+The gauge contains **no focusable elements**. That said, it is the least keyboard-hostile chart
+in the kit: the reading is rendered as real text in the center, so the essential value is
+readable in page flow without any pointer interaction.
+
+### Screen readers
+
+- The root is a single `role="img"` labeled "Gauge: 72 of 100" by default. **Always override
+  `aria-label` with the metric name** — "Risk score: 72 of 100" — since the generated label
+  doesn't know what is being measured.
+- The center value, `label`, and 0/max bounds are inside the `role="img"` container, so they are
+  subsumed by the label rather than read separately — keep the label complete.
+- The arc's SVG `<title>` tooltip is not reliably announced; don't rely on it.
+
+## Development considerations
+
+- Don't encode meaning in color alone: a threshold-banded arc that turns red carries no signal
+  for color-blind users or screen readers — the centered value plus a named `label` (and the
+  `aria-label`) are the real message. If the band itself matters ("critical"), say so in
+  adjacent text or a [Badge](/components/badge/).
+- Threshold colors are arbitrary strings — pass `CHART_COLORS` entries (the
+  `--color-chart-series-*` tokens) rather than hex so bands re-resolve in dark and
+  high-contrast themes.
+- Values are clamped to `0…max` for display — surface out-of-range data upstream instead of
+  letting the clamp hide it.
+- Use `formatValue` so the center value, max bound, and tooltip agree (e.g. "1.2k").
+
+## Content
+
+- `label` should name the metric in 1–3 words: "Health Score", "Risk Score", "Capacity Used".
+- Include the unit when the scale isn't 0–100: `formatValue={(v) => v + ' TB'}` keeps the
+  value, bounds, and tooltip consistent.
+- Put context (system, period) in the `ChartCard` title — "System Health", not in the gauge
+  label.

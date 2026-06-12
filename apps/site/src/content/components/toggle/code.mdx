@@ -1,0 +1,33 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@lepidus/react`) is shown for React projects. Both resolve to the
+same tokens, so they are pixel-identical in every theme.
+
+## Basic
+
+In plain HTML the switch is a `<button class="lp-toggle" role="switch">`; the on state is
+`lp-toggle--on` **plus** `aria-checked="true"` — flip both in your click handler (Toggle is
+not bound by `lepidus.js`; the two-line handler below is all it takes). In React the `Toggle`
+component manages this for you.
+
+<Example snippet="toggle/basic" title="Off and on (click to flip)" story="forms-toggle--off" />
+
+## With a visible label
+
+The switch is text-free — pair it with visible text and link them with `aria-labelledby`
+(plain HTML) or pass `aria-label` (React) so the switch always has an accessible name.
+
+<Example snippet="toggle/with-label" title="Settings-row pattern" story="forms-toggle--with-label" />
+
+## Disabled
+
+Always the native `disabled` attribute — it grays the track in either position and removes
+the switch from the tab order.
+
+<Example snippet="toggle/disabled" title="Disabled in both positions" story="forms-toggle--disabled" />
+
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@lepidus/css</code> — see <a href="/get-started/">Get Started</a>. Toggle's styling is pure
+  CSS; you wire the click handler that flips <code>lp-toggle--on</code> and
+  <code>aria-checked</code> together.</p>
+</Callout>

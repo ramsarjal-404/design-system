@@ -1,0 +1,43 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical form.
+The React rendition (`@lepidus/react`) is shown for React projects. Both resolve to the same
+tokens, so they are pixel-identical in every theme.
+
+<Callout variant="info" title="Requires lepidus.js">
+  <p>Dropdown is interactive: <code>lepidus.js</code> binds <code>[data-lp-dropdown]</code>
+  wrappers — the trigger opens the panel, outside click and Escape close it, and
+  <code>aria-expanded</code> is kept in sync. Use <code>data-lp-dropdown="single"</code> for
+  select-and-close or <code>"multi"</code> for checkbox toggling; every change fires an
+  <code>lp-dropdown-change</code> CustomEvent on the wrapper. See
+  <a href="/get-started/">Get Started</a> for the script tag.</p>
+</Callout>
+
+## Single select
+
+`data-lp-dropdown="single"` — clicking an option copies its label into the trigger and closes the
+panel. The panel starts `hidden`; `lepidus.js` toggles it.
+
+<Example snippet="dropdown/single" title="Single select" height={300} story="forms-dropdown--select" />
+
+## Multi-select
+
+`data-lp-dropdown="multi"` — option clicks toggle `aria-checked` and the checkmark glyph
+visibility while the panel stays open. The checkmark `<svg>` inside `lp-dropdown__checkbox` is
+shown for checked rows and `style="visibility:hidden"` for unchecked ones.
+
+<Example snippet="dropdown/multi" title="Multi-select with checkboxes" height={320} story="forms-dropdown--multi-without-buttons" />
+
+## With Cancel / Apply footer
+
+Add an `lp-dropdown__footer` with system [Button](/components/button/) classes. In plain HTML the
+footer buttons are yours to wire — listen for clicks and read the `aria-checked` rows (the React
+version manages the draft for you).
+
+<Example snippet="dropdown/with-buttons" title="Multi-select with footer" height={380} story="forms-dropdown--multi-with-buttons" />
+
+## Disabled
+
+Combine the `lp-dropdown__trigger--disabled` modifier with the native `disabled` attribute —
+`lepidus.js` refuses to open a trigger carrying the modifier, and the attribute removes it from
+the tab order.
+
+<Example snippet="dropdown/disabled" title="Disabled" height={100} story="forms-dropdown--disabled" />

@@ -1,0 +1,46 @@
+## Interactions
+
+### Mouse
+
+- By default nothing is clickable — Steps is a read-only progress indicator.
+- With `onStepClick`, only **completed** circles become click targets (24px circles inside a
+  borderless button); the current and upcoming dots stay inert, so users can never "jump ahead".
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus between the completed-step buttons (only when `onStepClick` is set) |
+| `Enter` | Activates the focused step button — navigates back to that step |
+| `Space` | Activates the focused step button (native button behavior) |
+
+Without `onStepClick` the component contains nothing focusable. Focused step buttons show a 2px
+brand outline with a 2px offset.
+
+### Screen readers
+
+- The root is `role="progressbar"` with `aria-valuemin={1}`, `aria-valuemax={total}`,
+  `aria-valuenow={current}`, and `aria-valuetext` of "Step n of m" — announced as a single
+  progress value, not a list of dots.
+- The circles, checks, and connectors are decorative `<span>`s; state lives in the
+  `aria-valuetext` and the visible "N of M" label.
+- Clickable completed steps are native buttons labelled "Go to step N".
+- State is conveyed by shape *and* text — check vs. dot vs. empty ring, plus the label — never
+  color alone.
+
+## Development considerations
+
+- `current` is 1-based and clamped into `1..total`; still, keep it in range so the label and
+  `aria-valuenow` stay truthful.
+- In plain HTML, mirror the React semantics: put `role="progressbar"`,
+  `aria-valuemin/max/now`, and `aria-valuetext` on the `lp-steps` root and update them together
+  with the `--done` / `--current` / `--upcoming` classes on every step change.
+- Only make steps clickable (`onStepClick` / `lp-steps__step-button`) when revisiting is safe —
+  back-navigation must not silently discard the user's work.
+- Pair Steps with explicit Back/Next [Button](/components/button/)s; the dots alone are not a
+  navigation control.
+
+## Content
+
+- Keep the trailing label as digits ("3 of 7") — the component renders it from
+  `current`/`total`; put step names in the wizard's heading, not in the indicator.

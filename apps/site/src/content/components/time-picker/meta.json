@@ -1,0 +1,6 @@
+{
+  "description": "Compact \"Enter Time\" card with large hour and minute boxes, an AM/PM toggle in 12-hour mode, and a Cancel/OK footer for capturing a single clock time.",
+  "heroStory": "forms-timepicker--default",
+  "heroHeight": 360,
+  "related": ["calendar", "dropdown", "stepper"]
+}

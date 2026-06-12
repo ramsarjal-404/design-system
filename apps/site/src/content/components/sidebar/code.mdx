@@ -1,0 +1,31 @@
+<Callout variant="info" title="React-only">
+  <p>This component has no <code>@lepidus/css</code> distribution yet — use
+  <code>@lepidus/react</code>.</p>
+</Callout>
+
+## Basic rail
+
+Each `SidebarItem` needs a stable `key`, a `label`, and an `icon` (use `currentColor` SVGs so
+the active tint applies). Slot the product logo into `header` and pinned controls into
+`footer`.
+
+<Example snippet="sidebar/basic" title="Rail with header, items, and active state" story="navigation-sidebar--default" codeOnly />
+
+<StoryEmbed id="navigation-sidebar--default" height={480} caption="Default rail, live" />
+
+## Rounded variant
+
+`variant="rounded"` switches to the 85px capsule rail with the circular active indicator;
+selection here is driven by `onClick` buttons.
+
+<Example snippet="sidebar/rounded" title="Capsule rail with stateful selection" story="navigation-sidebar--rounded" codeOnly />
+
+<StoryEmbed id="navigation-sidebar--rounded" height={480} caption="Rounded rail, live" />
+
+## Links as items
+
+Give items an `href` to render real anchors — browser history and middle-click work, and the
+active item still sets `aria-current="page"`. Disabled link items drop their `href` and set
+`aria-disabled`.
+
+<Example snippet="sidebar/links" title="Anchor items with a disabled entry" codeOnly />

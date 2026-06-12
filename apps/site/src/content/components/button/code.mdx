@@ -1,0 +1,38 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@lepidus/react`) is shown for React projects. Both resolve to the
+same tokens, so they are pixel-identical in every theme.
+
+## Variants
+
+Block `lp-button` + one variant modifier + one size modifier. Variant and size are independent
+axes — every combination is valid.
+
+<Example snippet="button/variants" title="All four variants" story="actions-button--all-variants" />
+
+## Sizes
+
+<Example snippet="button/sizes" title="sm / md / lg" />
+
+## With icons
+
+Icon slots are presentational (`aria-hidden` on the SVG) — the label remains the accessible
+name. Pass SVGs that stroke/fill with `currentColor` so theme switches recolor them.
+
+<Example snippet="button/icons" title="Icon left (lg, 24px) and icon right (md, 16px)" story="actions-button--primary-with-icons" />
+
+## Disabled
+
+Always the native `disabled` attribute — never a class alone. It removes the control from the
+tab order and screen readers announce it as dimmed.
+
+<Example snippet="button/disabled" title="Disabled" story="actions-button--primary-disabled" />
+
+## Full width
+
+<Example snippet="button/full-width" title="Full width inside a constrained container" />
+
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@lepidus/css</code> — see <a href="/get-started/">Get Started</a>. Button is pure CSS and
+  needs no <code>lepidus.js</code>.</p>
+</Callout>

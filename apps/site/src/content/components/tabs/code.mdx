@@ -1,0 +1,35 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical form.
+The React rendition (`@lepidus/react`) generates the same markup and ARIA wiring from a `tabs`
+array.
+
+<Callout variant="info" title="Requires lepidus.js">
+  <p>The plain-HTML tablist is interactive via <code>lepidus.js</code>: add
+  <code>data-lp-tabs</code> to the <code>role="tablist"</code> element and it wires click
+  activation, ArrowLeft/ArrowRight/Home/End with roving tabindex (RTL-aware), toggles
+  <code>aria-selected</code> + <code>lp-tabs__tab--active</code>, and shows/hides the panel each
+  tab names in <code>aria-controls</code>. Include the script once:
+  <code>&lt;script src="lepidus.js"&gt;&lt;/script&gt;</code>.</p>
+</Callout>
+
+## Basic tabs
+
+A `role="tablist"` of `role="tab"` buttons. Mark the initially active tab with
+`lp-tabs__tab--active` + `aria-selected="true"`; every other tab gets `tabindex="-1"` so Tab
+lands on the active one only.
+
+<Example snippet="tabs/basic" title="Three tabs, no panels" story="navigation-tabs--default" />
+
+## With panels
+
+Give each tab `aria-controls` pointing at a `role="tabpanel"` element labelled back via
+`aria-labelledby` — `lepidus.js` (or the React `hasPanels` wiring) hides every panel except the
+selected one.
+
+<Example snippet="tabs/with-panels" title="Tabs wired to tabpanels" story="navigation-tabs--with-panels" />
+
+## Disabled tab
+
+Use the native `disabled` attribute — the tab grays out, can't be clicked or focused, and
+arrow-key navigation skips it.
+
+<Example snippet="tabs/disabled" title="Disabled tab" story="navigation-tabs--with-disabled" />

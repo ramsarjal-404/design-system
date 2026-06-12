@@ -1,0 +1,78 @@
+## Overview
+
+DonutChart shows part-to-whole composition — how a total breaks down into a handful of named
+parts. Segments are drawn as a proportional ring on a subtle track, with a center stat (the sum
+of values by default — override with `centerValue` and `centerLabel`) and a built-in legend on
+the right that prints the **exact value** of every segment. It answers "what is this made of?":
+alert status breakdown, license distribution. Segments take the shared chart palette
+(`--color-chart-series-1…6`) in data order, so themes recolor the ring automatically.
+
+## Best practices
+
+- Keep to **~5 segments or fewer** — donut slices below roughly 10% become hard to compare.
+  Beyond that, a horizontal [BarChart](/components/bar-chart/) compares parts more honestly.
+- **Keep the legend** (it's on by default): it carries the exact values, so the ring never has
+  to be read by eye alone. Use `hideLegend` only when an external `ChartLegend` or table sits
+  next to the chart.
+- Use the **center stat** for the headline number — the total by default, or a derived figure
+  ("96% compliant") via `centerValue` + `centerLabel`.
+- Order segments meaningfully (severity, size) — palette colors are assigned by index, so order
+  is also color assignment.
+- Take per-segment `color` overrides from `CHART_COLORS` (the `--color-chart-series-*` tokens) —
+  never hardcoded hex.
+
+## When not to use
+
+- **More than ~5 parts** or parts of similar size — use [BarChart](/components/bar-chart/);
+  humans compare lengths far better than arc angles.
+- **Trends over time** — use [LineChart](/components/line-chart/); a donut is a single snapshot.
+- **One number judged against a scale** — use [GaugeChart](/components/gauge-chart/); a
+  one-segment donut is a gauge in disguise.
+- **Cross-category comparison** of independent values — use
+  [ColumnChart](/components/column-chart/).
+
+## Configurations
+
+### Default (with legend)
+
+Ring, center total, and the built-in value legend on the right, inside a `ChartCard`.
+
+<StoryEmbed id="charts-donut-chart--in-chart-card" height={340} caption="Alert status breakdown with center total and value legend" />
+
+### Thin ring, no legend
+
+`thickness`, `size`, and `hideLegend` tune it down to a compact dashboard stat — pair with an
+external `ChartLegend` or table.
+
+<StoryEmbed id="charts-donut-chart--thin-ring" height={300} caption="12px ring at 140px, legend hidden" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Container | `role="img"` div with a generated `aria-label` listing every segment and value |
+| 2 | Track | Full circle in `--color-chart-grid-subtle` behind the segments |
+| 3 | Segments | Proportional ring arcs, `thickness` px (default 22), palette colors in data order |
+| 4 | Center value | Big number in the hole — sum of values by default, `centerValue` overrides |
+| 5 | Center label *(optional)* | Caption under the value via `centerLabel` |
+| 6 | Legend *(default on)* | Built-in list on the right: swatch, label, exact value; `hideLegend` removes it |
+| 7 | Tooltip | Native SVG `title` per segment: "Failed: 32" |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Hover tooltip | Each segment carries an SVG `title` — "label: value", formatted by `formatValue` |
+| Center stat | Defaults to the formatted sum of all values; `centerValue` accepts any node |
+| Legend | Built-in and static — it prints exact values but does not toggle or filter segments |
+| Sizing | Fixed-diameter ring (`size`, default 180px); the legend wraps beside it as space allows |
+| Theming | Segments resolve through `--color-chart-series-1…6` and the track through `--color-chart-grid-subtle` — re-resolved under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Show one composition with up to ~5 segments, largest or most severe first, with the legend visible."
+  dont="Pack 8+ near-equal segments into the ring — switch to a BarChart where lengths do the comparing."
+/>
+
+## Related components
+
+<RelatedCards slugs={["bar-chart", "gauge-chart", "card"]} />

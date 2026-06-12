@@ -1,0 +1,32 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@lepidus/react`) is shown for React projects. Both resolve to the
+same tokens, so they are pixel-identical in every theme.
+
+## Group
+
+In plain HTML the group is a `role="radiogroup"` wrapper whose label is linked via
+`aria-labelledby`; native radios sharing a `name` give you one-of-many selection and arrow-key
+movement for free. In React, `RadioGroup` renders all of that and manages the value.
+
+<Example snippet="radio/group" title="Labeled vertical group" story="forms-radio--group" />
+
+## Horizontal
+
+Add `lp-radio-group__options--horizontal` to the options row (React:
+`orientation="horizontal"`).
+
+<Example snippet="radio/horizontal" title="Horizontal group" story="forms-radio--horizontal" />
+
+## Error and disabled
+
+`lp-radio__circle--error` paints the status-error border — set `aria-invalid="true"` on the
+input too. Disabled options use the native `disabled` attribute plus the `lp-radio--disabled`
+root modifier.
+
+<Example snippet="radio/states" title="Error and disabled options" story="forms-radio--all-states" />
+
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@lepidus/css</code> — see <a href="/get-started/">Get Started</a>. Radio is pure CSS and
+  needs no <code>lepidus.js</code> — selection is native browser behavior.</p>
+</Callout>

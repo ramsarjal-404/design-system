@@ -1,0 +1,34 @@
+<Callout variant="info" title="React-only">
+  <p>This component has no <code>@lepidus/css</code> distribution yet — use
+  <code>@lepidus/react</code>.</p>
+</Callout>
+
+Filter is controlled by the required `open` prop and reports only through `onApply` /
+`onCancel` — keep the committed conditions in your page state.
+
+## Basic drawer
+
+Fields carry their candidate `values`; the committed `conditions` re-seed the draft every time
+the drawer opens.
+
+<Example snippet="filter/basic" codeOnly title="Open the drawer and commit on Apply" story="forms-filter--default" />
+
+<StoryEmbed id="forms-filter--default" height={480} caption="Live: pick a field, build a condition, Apply" />
+
+## Filtering a list
+
+Use the exported `applyFilterConditions` helper to apply committed conditions to your rows —
+`values: ['All']` matches everything, `Not Equals` excludes, `Contains` substring-matches.
+
+<Example snippet="filter/filtering-a-list" codeOnly title="applyFilterConditions over page data" story="forms-filter--filtering-a-list" />
+
+<StoryEmbed id="forms-filter--filtering-a-list" height={480} caption="Live: conditions filtering rows on Apply" />
+
+## Custom criteria and title
+
+`criteriaOptions` replaces the default Equals / Not Equals / Contains set, and `title` / `width`
+restyle the drawer shell. Note that `applyFilterConditions` implements exactly those three
+criteria — any other string falls back to Equals semantics, so custom criteria need your own
+filtering logic.
+
+<Example snippet="filter/custom" codeOnly title="Custom criteria, title, and width" />

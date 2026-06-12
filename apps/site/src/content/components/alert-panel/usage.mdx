@@ -1,0 +1,85 @@
+## Overview
+
+AlertPanel is the **heaviest of the three feedback weights** — Toast (transient) → Message
+(inline strip) → AlertPanel (standing announcement). Use it when an alert deserves the full
+stage: an alert detail view, a notification landing page, or the web rendering of an alert
+notification. A severity triangle sits over the big "Attention!" headline, followed by the
+alert name, a rich summary, an optional evidence slot, a call to action and a footnote — all
+centered on a soft-shadow card. It announces itself to assistive tech via `role="alert"`.
+
+## Best practices
+
+- **Bold the variable facts** in the summary ("**5 change(s)**", "**File Server**") so the
+  payload of the alert is scannable.
+- Keep the `details` slot to a handful of evidence rows (a small table or key/value grid);
+  link to the full report via the `action` slot.
+- Use the standard **primary Button** as the call to action — the Figma frame's one-off cyan
+  is not a system color.
+- Use the footnote for the "what now" line ("Now you can check the report directly on LDSP
+  web - console").
+
+## When not to use
+
+- **Inline form or operation feedback** — use [Message](/components/message/), the inline
+  alert strip with title, body and Ok/Cancel actions.
+- **Fleeting confirmations** ("saved", "scan started") — use [Toast](/components/toast/),
+  the transient notification pill.
+- **Tasks that need input before continuing** — use [Modal](/components/modal/); AlertPanel
+  is an announcement, not a dialog.
+- **A feed of many alerts** — AlertPanel is one announcement per viewport; lists belong in a
+  [Table](/components/table/).
+
+## Types
+
+### Warning (default)
+
+Yellow triangle — the default severity and the Figma frame. For detected threats and
+suspicious activity that needs review.
+
+<StoryEmbed id="feedback-alert-panel--with-details" height={560} caption="Warning with an evidence table, CTA and footnote (the Figma frame)" />
+
+### Success
+
+Green triangle (`--color-status-success-text`) — a completed operation worth a standing
+announcement, e.g. the web rendering of a "completed" alert notification.
+
+<StoryEmbed id="feedback-alert-panel--success" height={420} caption="Success — green triangle, no evidence table" />
+
+### All severities
+
+`warning` (illustrative yellow), `success`, `error` and `info` (brand blue). Only the
+triangle color changes; layout and type stay constant.
+
+<StoryEmbed id="feedback-alert-panel--all-severities" height={620} caption="warning / success / error / info" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Card | Soft-shadow surface, `--radius-m` corners, max-width 801px (Figma frame), centered content |
+| 2 | Severity triangle | 92×85px `aria-hidden` SVG — yellow / green / red / brand-blue fill per `severity` |
+| 3 | Headline | 64px bold "Attention!" by default (`headline` prop) |
+| 4 | Title | The alert name, body-lg in `--color-text-dark` — required |
+| 5 | Summary *(optional)* | Rich body copy (`children`) — bold the inline facts |
+| 6 | Details *(optional)* | Evidence slot between summary and action, e.g. a small table |
+| 7 | Action *(optional)* | Call to action — pass a primary Button |
+| 8 | Footnote *(optional)* | Small body-md line under the action |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Announcement | The root renders `role="alert"` — announced immediately and assertively when it mounts |
+| Severity | `severity` colors the triangle only: warning #FFCA28 (illustrative, tokenless), success/error → status tokens, info → brand |
+| Dismissal | None — AlertPanel is a standing announcement with no close button or timer |
+| Slots | `details`, `action` and `footnote` render only when provided |
+| Theming | Card surface, text and status colors re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Bold the variable facts in the summary and route to the full report via a primary Button in the action slot."
+  dont="Stack several AlertPanels in one viewport or use one for inline form feedback — it's an announcement, not a feed item."
+/>
+
+## Related components
+
+<RelatedCards slugs={["message", "toast", "modal", "button"]} />

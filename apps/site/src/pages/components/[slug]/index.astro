@@ -1,0 +1,34 @@
+---
+import ComponentPage from '../../../layouts/ComponentPage.astro';
+import StoryEmbed from '../../../components/StoryEmbed.astro';
+import { components, bySlug } from '../../../lib/data';
+import { loadTab, mdxComponents } from '../../../lib/mdx-components';
+
+export async function getStaticPaths() {
+  return components.map((c) => ({ params: { slug: c.slug } }));
+}
+
+const c = bySlug.get(Astro.params.slug!)!;
+const mod = await loadTab(c.slug, 'usage');
+const headings = mod?.getHeadings() ?? [];
+const heroStory = c.meta.heroStory ?? c.storyFile?.stories[0]?.id;
+---
+
+<ComponentPage component={c} tab="usage" headings={headings}>
+  {heroStory && (
+    <StoryEmbed id={heroStory} height={c.meta.heroHeight ?? 200} caption={`${c.name} — live`} />
+  )}
+  {mod ? (
+    <mod.Content components={mdxComponents} />
+  ) : (
+    <>
+      <h2>Overview</h2>
+      <p>{c.description.replace(/ — Lepidus Design System\.?$/, '')}</p>
+      <p>
+        Usage guidance for this component is being written. Meanwhile, explore the live variants
+        on the <a href={`/components/${c.slug}/code/`}>Code tab</a> and the full prop/class
+        reference on the <a href={`/components/${c.slug}/specifications/`}>Specifications tab</a>.
+      </p>
+    </>
+  )}
+</ComponentPage>

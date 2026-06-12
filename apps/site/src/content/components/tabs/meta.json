@@ -1,0 +1,6 @@
+{
+  "description": "Pill tabs for switching between peer views in place — brand-filled active pill, ARIA tabs pattern with roving tabindex and arrow-key navigation.",
+  "heroStory": "navigation-tabs--with-panels",
+  "heroHeight": 280,
+  "related": ["accordion", "steps", "sidebar", "breadcrumb"]
+}

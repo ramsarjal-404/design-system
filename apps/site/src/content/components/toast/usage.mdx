@@ -1,0 +1,90 @@
+## Overview
+
+Toast is the Lepidus surface for **lightweight, passive notifications**: "saved", "session
+expiring", "credentials failed". It is a self-contained pill — circular status badge, bold
+title, one-line message and close button on a white-to-accent gradient — that typically
+appears in a corner, lives for a few seconds and never blocks the user. The pill itself
+renders `role="status"` with `aria-live="polite"`.
+
+Toast is the lightest of the three feedback weights: **Toast** (transient) →
+[Message](/components/message/) (inline strip) → [AlertPanel](/components/alert-panel/)
+(standing announcement). Rule of thumb: **notify with Toast, interrupt with Message.**
+
+The stacking, auto-dismiss timing and queueing live one level up: in React use
+[ToastProvider](/components/toast-provider/) and its `toast()` API; in plain HTML use
+`Lepidus.toast(...)` from `lepidus.js`.
+
+## Best practices
+
+- Keep copy to **one short sentence** — the pill is single-line by design.
+- Provide `onClose` so keyboard users can dismiss the toast before any auto-timeout.
+- Fire toasts through the provider/`Lepidus.toast` rather than hand-stacking pills, so
+  queueing and live-region semantics stay intact.
+- Allow enough reading time before auto-dismissing (the provider default is 6s).
+
+## When not to use
+
+- **The user must read details or decide** — use [Message](/components/message/): heading,
+  multi-line body and primary/secondary actions.
+- **Blocking errors** — polite live regions are easy to miss; failures that stop the
+  workflow belong in a [Message](/components/message/) or [Modal](/components/modal/) flow.
+- **Standing announcements** that should persist on the page — use
+  [AlertPanel](/components/alert-panel/).
+- **Actions or links** — don't put them inside a Toast; if the user must act, it isn't a
+  toast.
+
+## Types
+
+### Info (default)
+
+Brand-blue accents with an "i" glyph — the Figma instance.
+
+<StoryEmbed id="feedback-toast--info" height={140} caption="Info — brand badge, border and gradient tail" />
+
+### Success
+
+Green status accent with a check glyph — confirmations like saves.
+
+<StoryEmbed id="feedback-toast--success" height={140} caption="Success" />
+
+### Warning
+
+Orange status accent with a "!" glyph — time-sensitive but non-blocking notices.
+
+<StoryEmbed id="feedback-toast--warning" height={140} caption="Warning" />
+
+### Error
+
+Red status accent with a "!" glyph. For blocking failures that need user action, prefer
+Message.
+
+<StoryEmbed id="feedback-toast--error" height={140} caption="Error" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Pill | 69px-radius capsule, 1px accent border, white→accent gradient, drop shadow |
+| 2 | Badge | 52px circle in the variant accent with a white glyph (check / "i" / "!") — hide with `icon={false}` or pass a custom node |
+| 3 | Title | Bold 20px accent-colored heading (e.g. "Success !") |
+| 4 | Message | 14px supporting line in the body color |
+| 5 | Close button *(optional)* | × on the trailing edge, rendered only when `onClose` is set |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Announcement | `role="status"` + `aria-live="polite"` — announced without interrupting the current task |
+| Auto-dismiss | Not built into the pill — owned by [ToastProvider](/components/toast-provider/) (6s default, hover pauses) or `Lepidus.toast` (5s default, `duration: 0` persists) |
+| Dismissible | Close button renders only when `onClose` is provided |
+| Variants | `info` / `success` / `warning` / `error` swap the badge, border, gradient tail and title accent |
+| Theming | All accents re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Notify with one short sentence and a close button: “Success ! your changes have been saved.”"
+  dont="Put actions or links in a toast, or announce workflow-blocking errors there — polite live regions are easy to miss."
+/>
+
+## Related components
+
+<RelatedCards slugs={["toast-provider", "message", "alert-panel"]} />

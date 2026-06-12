@@ -1,0 +1,45 @@
+## Interactions
+
+### Mouse
+
+- The pill itself is not clickable — the only target is the dismiss "×", a 16px circular hit
+  area with a hover tint.
+- Disabled tags block dismissal: the button takes the native `disabled` attribute and shows no
+  hover feedback.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus to / away from the dismiss button (the only focusable part) |
+| `Enter` / `Space` | Activates the dismiss button (native `<button>` behavior) |
+
+The dismiss button shows the brand focus ring on `:focus-visible`. A tag without `onRemove` (or
+without the `lp-tag__remove` button) contributes nothing to the tab order. Disabled dismiss
+buttons are removed from the tab order by the native attribute.
+
+### Screen readers
+
+- The pill is a plain `<span>` — the label is read as regular text in document flow.
+- The dismiss control is a native `<button>` whose accessible name comes from `aria-label`
+  (`removeLabel` in React, default "Remove"). **Name it per item** —
+  `removeLabel="Remove filter: Errors"` — so users jumping by control know which tag each "×"
+  belongs to.
+- The "×" icon inside the button is `aria-hidden`; only the label is announced.
+- Status is conveyed by the label text, not color alone.
+
+## Development considerations
+
+- When a tag is removed, the focused button disappears — **move focus somewhere sensible** in
+  your handler (the next tag, or the input that created the tags), otherwise focus drops to the
+  document body.
+- Use the native `disabled` attribute on the dismiss button (React does this for you); never
+  fake it with CSS — only the attribute conveys the state to assistive technology.
+- Don't make the whole tag clickable; one accessible control per pill keeps the interaction
+  model predictable. For clickable pills, use a [Button](/components/button/).
+
+## Content
+
+- Tag labels name the item, not the action: "Errors only", "Last 24 hours".
+- Dismiss labels follow the pattern "Remove" + what: "Remove filter: Errors".
+- Keep labels short — the pill does not wrap.

@@ -1,0 +1,55 @@
+## Interactions
+
+### Mouse
+
+- The whole component is a real `<label>` wrapper — clicking the box **or the label text**
+  toggles, giving a much larger target than the 16px box alone.
+- The native input is visually hidden but stretched over the box, so it stays the actual
+  click target; hit-testing is native.
+- Clicking does not show the focus ring (`:focus-visible` semantics).
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus to / away from the checkbox (native tab order) |
+| `Space` | Toggles checked / unchecked (native behavior) |
+
+Focus shows a 3px brand-tinted ring (`--color-focus-ring`) around the box on `:focus-visible`
+only. Disabled checkboxes use the native `disabled` attribute and are removed from the tab
+order.
+
+### Screen readers
+
+- Renders a native `<input type="checkbox">` — implicit `role="checkbox"`, state announced
+  natively as checked / not checked.
+- The accessible name comes from the wrapping `<label>` when you pass `label`; without one
+  you must supply `aria-label`. The box and its SVG glyphs are `aria-hidden="true"`
+  decoration.
+- `indeterminate` sets both the DOM property **and** `aria-checked="mixed"` — announced as
+  "mixed" / "partially checked".
+- `error` sets `aria-invalid` on the input.
+
+## Development considerations
+
+- **Label association is structural** — the input sits inside the `<label>`, so no `for`/`id`
+  pair is needed in the React component. In plain HTML keep the input inside
+  `<label class="lp-checkbox">` (or wire `for`/`id` if you must separate them).
+- For the error state, place the message in the DOM and link it with `aria-describedby` on
+  the input — `aria-invalid` alone tells the user *that* something is wrong, not *what*.
+- `indeterminate` is presentation for a parent control; the underlying submitted value is
+  still only checked/unchecked. Compute group state in your code (see the
+  [Group story](/components/checkbox/)).
+- Group related checkboxes in a `<fieldset>` with a `<legend>` so screen readers announce the
+  group context.
+- Never replicate "disabled" with CSS alone; only the native attribute conveys the state to
+  assistive technology.
+
+## Content
+
+- Labels state the positive outcome of checking: "Enable audit trail", "Include subfolders" —
+  never negations the user must mentally invert ("Don't send notifications").
+- Keep labels short and self-sufficient out of context; a screen-reader user jumping by form
+  control hears only the label.
+- Error text says how to fix the problem ("You must accept the terms to continue"), not just
+  "Invalid".

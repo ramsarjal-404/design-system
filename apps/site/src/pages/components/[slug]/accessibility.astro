@@ -1,0 +1,37 @@
+---
+import ComponentPage from '../../../layouts/ComponentPage.astro';
+import Callout from '../../../components/Callout.astro';
+import { components, bySlug } from '../../../lib/data';
+import { loadTab, mdxComponents } from '../../../lib/mdx-components';
+
+export async function getStaticPaths() {
+  return components.map((c) => ({ params: { slug: c.slug } }));
+}
+
+const c = bySlug.get(Astro.params.slug!)!;
+const mod = await loadTab(c.slug, 'accessibility');
+const headings = mod?.getHeadings() ?? [];
+---
+
+<ComponentPage component={c} tab="accessibility" headings={headings}>
+  <Callout variant="success" title="Tested in CI">
+    <p>
+      Every {c.name} story is checked with axe (WCAG 2.1 AA) on each run of the Storybook test
+      suite, and all token color pairs pass the contrast gate in light, dark, and high-contrast
+      themes. The plain-HTML demo page is additionally axe-scanned in all three themes, including
+      open overlay states.
+    </p>
+  </Callout>
+  {mod ? (
+    <mod.Content components={mdxComponents} />
+  ) : (
+    <>
+      <h2>Interactions</h2>
+      <p>
+        Detailed keyboard, screen-reader, and pointer guidance for {c.name} is being written. The
+        component ships with the ARIA semantics shown in its markup — see the{' '}
+        <a href={`/components/${c.slug}/code/`}>Code tab</a> for the exact attributes.
+      </p>
+    </>
+  )}
+</ComponentPage>

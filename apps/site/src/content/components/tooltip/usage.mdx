@@ -1,0 +1,89 @@
+## Overview
+
+Tooltip attaches a small dark text bubble to a single trigger element, appearing 300ms after
+hover **and** keyboard focus, and disappearing on leave, blur, or `Escape`. The bubble renders
+on an inverted surface — `--color-text-primary` background with `--color-text-inverse` text —
+so it adapts per theme. In React it is built on the shared Popover primitive: it renders
+through a portal, tracks the trigger on scroll/resize, and flips vertically when it would leave
+the viewport. The trigger is cloned, not wrapped — Tooltip attaches its handlers and
+`aria-describedby` to your own element.
+
+## Best practices
+
+- Use Tooltip for **supplementary** description of a control — keyboard shortcuts, the name of
+  an icon-only button, one clarifying sentence.
+- Keep content to a short phrase; the bubble caps at 280px wide and wraps.
+- Pair it with `aria-label` on icon-only triggers — the tooltip *describes* for sighted users,
+  the label *names* for the accessibility tree.
+- Make sure the trigger is focusable and hoverable (button, link, input) so keyboard users get
+  the same information.
+
+## When not to use
+
+- **Required information** — validation rules, errors, anything needed to complete the task
+  belongs in visible text (Input helper text, inline copy), not in a bubble that disappears.
+- **Interactive or rich content** — links and buttons inside a tooltip are unreachable (the
+  bubble is `pointer-events: none` and vanishes on blur). Use
+  [Dropdown](/components/dropdown/) for anchored menus or [Modal](/components/modal/) for
+  rich surfaces.
+- **Passive notifications** — use [Toast](/components/toast/); a tooltip only exists while its
+  trigger is hovered or focused.
+- **Disabled controls** — they fire no hover/focus events, so the tooltip never shows.
+
+## Variants
+
+### Default
+
+A Button trigger: the bubble appears 300ms after hover or focus, and the trigger gains
+`aria-describedby` pointing at it.
+
+<StoryEmbed id="overlays-tooltip--default" height={160} caption="Default (bottom-start)" />
+
+### Placements
+
+Four placements — `top-start`, `top-end`, `bottom-start`, `bottom-end` — each flipping to the
+opposite vertical side automatically when the preferred side would overflow the viewport.
+
+<StoryEmbed id="overlays-tooltip--placements" height={320} caption="All four placements" />
+
+### On an icon button
+
+The canonical use: naming an icon-only control for sighted users while `aria-label` still names
+it for assistive technology.
+
+<StoryEmbed id="overlays-tooltip--on-icon-button" height={160} caption="Icon-only trigger" />
+
+### Long content
+
+Longer copy wraps inside the 280px max width — if you are writing this much, consider visible
+helper text instead.
+
+<StoryEmbed id="overlays-tooltip--long-content" height={180} caption="Wrapping content" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Trigger | Your own element — cloned to receive hover/focus handlers, ref, and `aria-describedby`; no wrapper element is added |
+| 2 | Bubble | `role="tooltip"` surface — `--color-text-primary` background, `--color-text-inverse` 12px text, `--radius-tooltip` corners, `--shadow-flyout` elevation, 280px max width |
+| 3 | Offset | 4px gap between trigger and bubble (`offset` prop) |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Hover / focus reveal | Shows 300ms (`delay`) after pointer enter **or** keyboard focus; cancelled if the pointer leaves first |
+| Dismiss | Hides on pointer leave, blur, or `Escape` — without activating the trigger |
+| Flip | Flips to the opposite vertical side when out of viewport space; tracks the trigger on scroll and resize |
+| Non-interactive | The bubble is `pointer-events: none` — it never traps the pointer or receives clicks |
+| Motion | Opacity + 4px slide on enter (120ms), suppressed under `prefers-reduced-motion: reduce` |
+| Theming | The inverted surface re-resolves automatically under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Keep tooltip copy to one short phrase, and pair it with aria-label on icon-only triggers."
+  dont="Put links, buttons, or required information inside a tooltip — it vanishes on blur and can't be reached."
+/>
+
+## Related components
+
+<RelatedCards slugs={["action-item", "dropdown", "toast"]} />

@@ -1,0 +1,87 @@
+## Overview
+
+Tag is a bordered pill for objects the **user put there** — applied filters, selected servers,
+chosen recipients — optionally dismissible via the "×" button. It is the interactive counterpart
+to [Badge](/components/badge/): the two share the same pill shape and the same
+`component/status/*` colors, but Badge is what the *system* says about an object and is inert by
+design, while Tag is owned by the user and can be removed. The dismiss "×" is a real `<button>`
+with a focus ring and an accessible label, and `disabled` exists because interaction exists.
+
+Reach for Tag when "can the user take this off?" is a sensible question.
+
+## Best practices
+
+- Use Tag for **removable user input**: applied table filters, multi-select values, chosen
+  recipients.
+- Name the dismiss button **per item** — `removeLabel="Remove filter: Errors"`, not the generic
+  default "Remove".
+- After a tag is removed, **move focus somewhere sensible** (the next tag or the input that
+  created them) in your handler.
+- Pair `disabled` with a reason (tooltip or help text) — a chip you can't remove is a question.
+- Pick the variant by meaning — the same `success` / `warning` / `error` / `neutral` semantics
+  as Badge.
+
+## When not to use
+
+- **Read-only status labels** — that's [Badge](/components/badge/); it deliberately has no focus
+  or interaction.
+- **Triggering actions** — the "×" is the only action a Tag carries; for anything else use
+  [Button](/components/button/).
+- **Building the filter UI itself** — use [Filter](/components/filter/) for choosing criteria;
+  Tags then display what was applied.
+
+## Variants
+
+### Status colors
+
+`error`, `success`, `warning`, and `neutral` (the default) bind to the same `component/status/*`
+tokens as Badge, so the two palettes can never drift apart.
+
+<StoryEmbed id="data-display-tag--error" height={100} caption="Error variant" />
+
+### Dismissible
+
+Pass `onRemove` (React) or append the `lp-tag__remove` button (HTML) and the "×" appears. Any
+variant becomes dismissible.
+
+<StoryEmbed id="data-display-tag--dismissible" height={100} caption="Dismissible error tag" />
+
+### Disabled
+
+Grays the pill with the shared disabled tokens and disables the dismiss button — dismissal is
+blocked, and the button leaves the tab order.
+
+<StoryEmbed id="data-display-tag--disabled" height={100} caption="Disabled tag" />
+
+### Filter bar
+
+The canonical Tag use case — applied filters the user can take off one by one.
+
+<StoryEmbed id="data-display-tag--filter-bar" height={120} caption="Applied filters, each removable" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Pill | 28px radius, 15px/5px padding, 1px border in the status color (`currentColor`) |
+| 2 | Label | Semibold 14/19, tinted by variant — the tag's meaning |
+| 3 | Dismiss button *(optional)* | 16px circular hit area with an 8px "×", hover tint, brand focus ring; a real `<button>` with `aria-label` |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Dismiss | The "×" button calls `onRemove`; removal itself (and focus management) is your handler's job |
+| Disabled | Gray fill/text via the shared disabled tokens; the dismiss button gets the native `disabled` attribute |
+| Hover | The dismiss button shows a hover tint; the pill itself has no hover state |
+| Focus | The dismiss button shows the brand focus ring on `:focus-visible` |
+| Theming | Status and disabled tokens re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Label each dismiss button per item: removeLabel=&quot;Remove filter: Errors&quot;."
+  dont="Make the whole tag clickable — the “×” is the only action; a clickable pill is a Button."
+/>
+
+## Related components
+
+<RelatedCards slugs={["badge", "filter", "button"]} />

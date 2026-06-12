@@ -1,0 +1,50 @@
+## Interactions
+
+### Mouse
+
+- The action Buttons and the close × are the only interactive parts; the card itself takes
+  no clicks.
+- The close control is a real button with its own hover/focus styling — not a decorative
+  icon.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves through the action Buttons and the close button in DOM order |
+| `Enter` / `Space` | Activates the focused Button or the close control (native behavior) |
+
+All controls show the brand `:focus-visible` outline; Message adds no focus trapping —
+users can tab past it freely.
+
+### Screen readers
+
+- The React root renders `role="alert"` — an assertive live region announced immediately
+  when it mounts, interrupting the current task. Only use it for genuinely important
+  content. In plain HTML, choose the role per urgency: `role="alert"` for errors and
+  warnings, `role="status"` for polite confirmations.
+- Status glyphs are `aria-hidden` SVGs; meaning must also be conveyed by the title/body
+  text, never by color alone.
+- The close control is a real `<button type="button">` with `aria-label="Close"`.
+- Actions reuse the Lepidus Button, so they are natively focusable and operable with
+  Enter/Space.
+- The title is a semantic `<h3>` — keep the surrounding heading hierarchy in mind.
+
+## Development considerations
+
+- Don't mount low-importance persistent content with this component — `role="alert"` will
+  interrupt screen-reader users every time it appears.
+- Render the Message when the event happens rather than toggling visibility with CSS;
+  hidden-then-shown alerts are not reliably announced.
+- If the user must decide, omit `onClose` so the only ways out are the explicit actions.
+- Color is never the only signal: an error Message must say it failed in the title, not
+  rely on the red badge.
+
+## Content
+
+- Titles state the fact, specifically: "The network path was not found", "License expiring
+  soon" — not "Error!".
+- Put remediation steps in the body, one per line (`\n` breaks render as lines).
+- Action labels match the decision: "Renew" / "Remind me later", not "Yes" / "No".
+- Severity-appropriate tone: errors explain how to fix, warnings state the deadline,
+  successes confirm the result and what happens next.

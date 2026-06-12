@@ -1,0 +1,29 @@
+<div style="display: flex; gap: 8px; align-items: center">
+  <span class="lp-tag lp-tag--neutral">
+    <span class="lp-tag__label">Errors only</span>
+    <button type="button" class="lp-tag__remove" aria-label="Remove filter: Errors only">
+      <svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.5"
+           aria-hidden="true"><path d="M1 1l6 6M7 1L1 7" /></svg>
+    </button>
+  </span>
+  <span class="lp-tag lp-tag--neutral">
+    <span class="lp-tag__label">Last 24 hours</span>
+    <button type="button" class="lp-tag__remove" aria-label="Remove filter: Last 24 hours">
+      <svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.5"
+           aria-hidden="true"><path d="M1 1l6 6M7 1L1 7" /></svg>
+    </button>
+  </span>
+  <span class="lp-tag lp-tag--neutral">
+    <span class="lp-tag__label">AD-Primary</span>
+    <button type="button" class="lp-tag__remove" aria-label="Remove filter: AD-Primary">
+      <svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.5"
+           aria-hidden="true"><path d="M1 1l6 6M7 1L1 7" /></svg>
+    </button>
+  </span>
+</div>
+
+<script>
+  document.querySelectorAll('.lp-tag__remove').forEach((btn) =>
+    btn.addEventListener('click', () => btn.closest('.lp-tag').remove())
+  );
+</script>

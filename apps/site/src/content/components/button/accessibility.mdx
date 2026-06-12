@@ -1,0 +1,47 @@
+## Interactions
+
+### Mouse
+
+- The entire pill surface is the click target — minimum 29px (`sm`) / 41px (`md`, `lg`) tall.
+- Hover feedback is a fill change only; the button never moves or resizes, so the target stays
+  stable mid-click.
+- Clicking with the mouse does **not** show the focus ring (`:focus-visible` semantics).
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus to / away from the button (native tab order) |
+| `Enter` | Activates the button |
+| `Space` | Activates the button (on key-up, native behavior) |
+
+Focus shows a 3px brand-tinted ring (`rgba(28, 69, 153, 0.35)`) with no layout shift. Disabled
+buttons use the native `disabled` attribute and are **removed from the tab order** — keyboard
+users never land on an inert control.
+
+### Screen readers
+
+- Renders a native `<button>` — implicit `role="button"`, no ARIA required for the base case.
+- The accessible name is the text label. Icon slots are presentational (`aria-hidden="true"` on
+  the SVG) and never contribute to the name — which is why icon-only Buttons are not allowed
+  (use [ActionItem](/components/action-item/) which requires `aria-label`).
+- `disabled` is announced as "dimmed"/"unavailable" automatically by the native attribute.
+
+## Development considerations
+
+- Inside a `<form>`, remember the default is `type="submit"` — set `type="button"` on
+  non-submitting buttons to avoid accidental form submission.
+- For toggle-style buttons (pressed/unpressed) add `aria-pressed`; for buttons that open menus
+  or dialogs add `aria-haspopup` and `aria-expanded` — see
+  [Dropdown](/components/dropdown/) and [Modal](/components/modal/), which wire these for you.
+- Never replicate "disabled" with CSS alone; only the native attribute conveys the state to
+  assistive technology.
+- Color is never the only signal: danger buttons must carry a destructive verb in the label
+  ("Delete report", not just a red "OK").
+
+## Content
+
+- Labels are the accessible name — make them self-sufficient out of context: "Delete report"
+  rather than "Delete", when the surrounding context might be ambiguous to a screen-reader user
+  jumping by control.
+- Use sentence case ("Save changes"), keep to 1–3 words where possible.

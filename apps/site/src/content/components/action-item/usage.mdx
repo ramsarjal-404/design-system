@@ -1,0 +1,77 @@
+## Overview
+
+ActionItem is a compact white toolbar that floats over or beside a row, card, or canvas item
+and exposes its quick actions as 24px icon buttons — by default the Figma set of delete
+(danger tone), upload, edit, and share. The surface is `role="toolbar"` with `--shadow-low`
+elevation and shrinks to fit its actions. Each glyph has exactly two tones: `brand` (default,
+blue) and `danger` (red) for destructive actions.
+
+## Best practices
+
+- Give every action a clear, **verb-first `label`** — it is both the accessible name and the
+  native tooltip (`title`).
+- Reserve `tone: 'danger'` for destructive operations (delete, remove) and keep it first or
+  last in the row, not mixed mid-row.
+- Pass a custom `actions` subset when an item supports fewer operations — the surface shrinks
+  to fit.
+- Set a specific `aria-label` ("Report actions") when more than one toolbar can be on screen.
+
+## When not to use
+
+- **A page's primary actions** — use [Button](/components/button/); ActionItem actions are
+  icon-only and carry less weight than a labelled CTA.
+- **More than about five actions** — overflow into a [Dropdown](/components/dropdown/) menu
+  instead of widening the toolbar.
+- **Status display** — a toolbar invites clicks; use [Badge](/components/badge/) or
+  [Tag](/components/tag/) for read-only state.
+
+## Variants
+
+### Default set
+
+The exact Figma set — delete (danger tone) followed by upload, edit, and share in the brand
+tone, on the white `shadow/low` surface.
+
+<StoryEmbed id="actions-actionitem--default" height={120} caption="Default Figma set" />
+
+### Custom subset
+
+`actions` accepts any ordered list; the surface shrinks to fit while keeping the 30px gap.
+
+<StoryEmbed id="actions-actionitem--custom-subset" height={120} caption="Two-action subset" />
+
+### Disabled action
+
+Per-action `disabled`: the button dims to 40% opacity, loses its hover fill, and is removed
+from the tab order via the native attribute.
+
+<StoryEmbed id="actions-actionitem--with-disabled" height={120} caption="Disabled delete action" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Surface | White `role="toolbar"` container — `--radius-s` 6px corners, `--shadow-low` elevation, 3px/4px padding, `width: fit-content` |
+| 2 | Icon buttons | One native `<button type="button">` per action — 24px glyph, `aria-label` + `title` from the action's `label`, 30px apart |
+| 3 | Tone | `brand` glyphs in `--color-text-brand` blue; `danger` glyphs in `--color-text-danger` red |
+| 4 | Focus ring | 2px brand outline with 2px offset on `:focus-visible` |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Hover | Brand actions fill with `--color-brand-secondary` (light blue); danger actions with `--color-status-error-bg` (light red) |
+| Focus | 2px brand outline per button on `:focus-visible` only |
+| Tooltip | Each action's `label` doubles as a native `title` tooltip |
+| Disabled | Native `disabled` per action — 40% opacity, no hover fill, removed from the tab order |
+| Click | Each action fires its own `onClick`; the toolbar itself has no handler |
+| Theming | Surface, glyph, and hover-fill tokens re-resolve automatically under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Give every action a verb-first label (“Delete”, “Share”) — it is the accessible name and the tooltip."
+  dont="Pack more than about five actions into the toolbar — overflow into a Dropdown menu instead."
+/>
+
+## Related components
+
+<RelatedCards slugs={["button", "tooltip", "table", "dropdown"]} />

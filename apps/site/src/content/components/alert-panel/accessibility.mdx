@@ -1,0 +1,48 @@
+## Interactions
+
+### Mouse
+
+- The panel itself is not interactive — only the optional Button in the `action` slot takes
+  clicks (full Button hover/active behavior applies).
+- The evidence `details` slot renders whatever you pass; keep embedded tables read-only.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus to / away from the action Button (the only focusable part by default) |
+| `Enter` / `Space` | Activates the action Button (native button behavior) |
+
+The panel adds no focus traps and no keyboard handling of its own — there is nothing to
+dismiss.
+
+### Screen readers
+
+- The root renders `role="alert"` — an assertive live region. When the panel mounts, its
+  full content is announced immediately, interrupting the current task. Only mount it for
+  genuinely important announcements.
+- The severity triangle is an `aria-hidden` SVG — severity must also be carried by the
+  title/summary text, never by the triangle color alone.
+- The headline is a semantic `<h2>` — keep the surrounding heading hierarchy in mind when
+  placing the panel in a page.
+
+## Development considerations
+
+- Render the panel into the page when the alert arrives (so `role="alert"` fires), not
+  hidden-then-revealed with CSS — visibility toggles are not reliably announced.
+- Don't put the only path to the report behind hover or color: the `action` Button label
+  should say where it goes ("View Report").
+- If the panel replaces async content (e.g. an alert detail loading in), it still announces
+  itself — avoid double-announcing with a separate live region.
+- One AlertPanel per viewport: multiple simultaneous `role="alert"` regions race each other
+  in the screen-reader queue.
+
+## Content
+
+- The `title` is the alert name, not a sentence — "Mass files copied", "Mass file deletion
+  detected".
+- Put the facts in the summary and bold them with `<strong>` ("**5 change(s)**" on
+  "**File Server**") — bolding is also announced as emphasis by most screen readers.
+- Keep the headline short; "Attention!" is the default and rarely needs changing.
+- The footnote is for the follow-up hint ("Now you can check the report directly on LDSP
+  web - console"), not for additional warnings.

@@ -1,0 +1,98 @@
+## Overview
+
+Card groups related content — settings panels, status summaries, and form shells — on the
+light-blue card surface that distinguishes it from the page background. It composes an optional
+header (title + actions), a body, and a footer in a vertical 24px-gap stack, and is the standard
+shell for in-page forms and confirmations. Every visual property resolves through the
+`component/card/*` tokens (with `shadow-card/*` for the elevated variant), so the dark and
+high-contrast themes restyle it with no extra code.
+
+Card is a static layout surface: it has no behavior of its own, and its interactive children
+(Buttons, Inputs) keep their own focus order and styles.
+
+## Best practices
+
+- Use `elevated` + `borderless` **together** for floating/raised cards (e.g. dialog-like form
+  shells on the page surface).
+- Put the **primary action last** in the footer (Cancel then Confirm), and status pills in the
+  header `actions` slot.
+- Keep **titles short and descriptive** — they label the whole card.
+- Use a [Badge](/components/badge/) in the `actions` slot for one-line status next to the title,
+  rather than a nested card.
+
+## When not to use
+
+- **Blocking flows** that need a backdrop and focus trapping — use [Modal](/components/modal/);
+  Card is in-page and never traps focus.
+- **Transient notifications** — use [Toast](/components/toast/) or
+  [Message](/components/message/); a Card is persistent page structure.
+- **Form-heavy settings screens** with their own navigation — see
+  [SettingsPanel](/components/settings-panel/).
+
+## Variants
+
+### Default
+
+The baseline surface: card background, 1px border, 15px radius, 20px padding, with the title and
+body text tokens. **Use for** most grouped content sitting directly on the page.
+
+<StoryEmbed id="data-display-card--default" height={200} caption="Default card with title and body" />
+
+### Elevated
+
+`elevated` raises the card with the `shadow-card` tokens; pair it with `borderless` to drop the
+1px border. **Use for** surfaces that should float above the page — form shells, prominent
+summaries.
+
+<StoryEmbed id="data-display-card--elevated" height={200} caption="Elevated + borderless" />
+
+### With title actions
+
+The header row uses space-between: the title stays left and the `actions` slot pins right —
+typically a Badge or a small Button.
+
+<StoryEmbed id="data-display-card--with-actions" height={220} caption="Success Badge in the actions slot" />
+
+### With footer
+
+The `footer` slot carries the card's actions — here the destructive confirmation pattern with a
+secondary Cancel and a danger Delete.
+
+<StoryEmbed id="data-display-card--with-footer" height={260} caption="Footer with Cancel / Delete" />
+
+### Composed form shell
+
+The full "Add Credentials" composition: an elevated borderless Card as the form shell, stacked
+Inputs in the body, and Cancel/Done Buttons centered in the footer.
+
+<StoryEmbed id="data-display-card--credentials-card" height={420} caption="Card as a form shell" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Container | `<div>` surface — 15px radius, 20px padding, 24px vertical gap, 1px border |
+| 2 | Header *(optional)* | Flex row with space-between: title left, actions right |
+| 3 | Title | 16px Semibold via the `component/card/title-text` token — a styled `<div>`, not a heading element |
+| 4 | Actions *(optional)* | Right side of the title row — typically a Badge or a small Button |
+| 5 | Body | Main content area, secondary text color (`component/card/body-text`) |
+| 6 | Footer *(optional)* | Flex row for actions such as Cancel / Confirm Buttons |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Elevated | `elevated` / `lp-card--elevated` adds the soft `shadow-card` drop shadow (0 2px 9px) |
+| Borderless | `borderless` / `lp-card--borderless` hides the 1px border — usually combined with `elevated` |
+| Static surface | The card itself is not focusable and has no hover or click behavior |
+| Children | Interactive children keep their own focus order and focus-visible styles |
+| Theming | Surface, border, and text tokens re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Compose one level of Card: title, a status Badge in actions, content, and footer buttons."
+  dont="Nest cards inside cards, or make the entire card clickable while it contains interactive children."
+/>
+
+## Related components
+
+<RelatedCards slugs={["modal", "badge", "button"]} />

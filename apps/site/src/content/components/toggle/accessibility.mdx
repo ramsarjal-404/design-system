@@ -1,0 +1,49 @@
+## Interactions
+
+### Mouse
+
+- The whole 56×20 track is the click target; the thumb is decoration.
+- Hover gives no separate state — the switch is either on or off; the thumb slides and the
+  track recolors only on flip.
+- Clicking does not show the focus outline (`:focus-visible` semantics).
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus to / away from the switch (native button tab order) |
+| `Space` | Flips the switch (native button activation) |
+| `Enter` | Flips the switch (native button activation) |
+
+Focus shows a 2px brand outline offset 2px from the track. Disabled switches use the native
+`disabled` attribute and are removed from the tab order.
+
+### Screen readers
+
+- Renders a native `<button type="button" role="switch" aria-checked>` — announced as a
+  switch that is "on" or "off", and `aria-checked` is kept in sync with the visual state on
+  every flip.
+- The switch is text-free, so the accessible name **must** come from `aria-label` or
+  `aria-labelledby` pointing at a visible label — the component renders no name of its own.
+- `disabled` is announced as "dimmed"/"unavailable" automatically by the native attribute.
+
+## Development considerations
+
+- In plain HTML, flip `lp-toggle--on` and `aria-checked` **together** in your click handler —
+  if they drift, sighted users and screen-reader users see different states.
+- State is conveyed by thumb position *and* track color (light blue off / brand blue on), so
+  color is never the only signal; the high-contrast theme strengthens both.
+- Because the switch applies its effect immediately, never pair it with a Save button — users
+  who hear "switch, on" expect the setting to already be active.
+- The React component is a controlled/uncontrolled hybrid: pass `defaultChecked` for
+  uncontrolled use, or `checked` + `onChange` to own the state.
+- Thumb motion respects `prefers-reduced-motion` — do not re-add transitions for those users.
+
+## Content
+
+- Name the setting, not the state: "Auto-backup", "Email notifications" — the switch role
+  already announces on/off.
+- Keep labels short noun phrases; if the setting needs explanation, put helper text nearby
+  rather than lengthening the label.
+- If a switch must be disabled, say why in visible text near it ("Archived settings can't be
+  changed").

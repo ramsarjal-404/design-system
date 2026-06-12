@@ -1,0 +1,23 @@
+<Callout variant="info" title="React-only">
+  <p>This component has no <code>@lepidus/css</code> distribution yet — use
+  <code>@lepidus/react</code>.</p>
+</Callout>
+
+## Basic
+
+`items` is an array of `{ id, label, icon? }`. Icons are 30px Lepidus icon-set components —
+they inherit `currentColor`, so selected-state tinting is automatic. `defaultSelectedId` keeps
+the selection internal.
+
+<Example snippet="settings-panel/basic" title="Category menu" story="navigation-settings-panel--with-selection" codeOnly />
+
+<StoryEmbed id="navigation-settings-panel--with-selection" height={480} caption="Settings panel, live" />
+
+## Controlled layout
+
+Own the selection with `selectedId` + `onSelect` and render the matching form beside the panel
+— the intended settings-page composition.
+
+<Example snippet="settings-panel/controlled" title="Panel driving the settings form" story="navigation-settings-panel--settings-layout" codeOnly />
+
+<StoryEmbed id="navigation-settings-panel--settings-layout" height={520} caption="Settings layout, live" />

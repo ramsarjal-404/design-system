@@ -1,0 +1,6 @@
+{
+  "description": "Semi-circular KPI dial for one reading against a scale — fixed color or threshold bands that follow the value.",
+  "heroStory": "charts-gauge-chart--thresholds",
+  "heroHeight": 380,
+  "related": ["donut-chart", "bar-chart", "card"]
+}

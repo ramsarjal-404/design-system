@@ -1,0 +1,94 @@
+## Overview
+
+Button is the primary interactive control for triggering actions — submitting forms, confirming
+dialogs, and starting flows. It renders a native `<button>`, is pill-shaped by token
+(`--component-button-radius` → 50px), and every visual property resolves through the three-tier
+token chain **component → semantic → primitive**, so the dark and high-contrast themes restyle it
+with no extra code.
+
+## Best practices
+
+- Use **one `primary` button per view** — it marks the single most important action.
+- Pair `primary` with `secondary` for the alternative action (e.g. *Done / Cancel*), in that order.
+- Write concise, **verb-first labels**: "Save changes", "Add credentials" — never "Click here".
+- Use `danger` only for destructive confirmations (Delete, Remove), typically in a Card footer or
+  Modal.
+- Reserve `white` for dark or brand-colored surfaces (hero bars, brand panels).
+
+## When not to use
+
+- **Navigation that looks like a link** — use [Link](/components/link/) (an anchor) instead; it
+  keeps the page semantics and open-in-new-tab behavior users expect.
+- **Compact icon-only actions** in table rows or toolbars — use
+  [ActionItem](/components/action-item/); Button's accessible name must come from its text label.
+- **Status display** — a Button invites a click; use [Badge](/components/badge/) or
+  [Tag](/components/tag/) for read-only state.
+
+## Types
+
+### Primary
+
+The brand-blue filled button (`#1c4599` in light theme). **Use for** the single most important
+action on the screen — Save, Submit, Confirm. **Avoid** more than one per view; competing
+primaries dilute the call to action.
+
+<StoryEmbed id="actions-button--primary" height={120} caption="Primary" />
+
+### Secondary
+
+Light brand-tinted fill with a brand border and text. **Use for** supporting actions next to a
+primary (Cancel, Back, Export). It is the workhorse variant for toolbars and card actions.
+
+<StoryEmbed id="actions-button--secondary" height={120} caption="Secondary" />
+
+### Danger
+
+Red-tinted fill with red text and border. **Use for** destructive operations the user must
+notice — Delete workspace, Remove agent. Confirm irreversible operations in a
+[Modal](/components/modal/) whose confirming button is `danger`.
+
+<StoryEmbed id="actions-button--danger" height={120} caption="Danger" />
+
+### White
+
+White fill with neutral text. **Use on** dark or brand-colored surfaces where primary/secondary
+would not have enough contrast. **Don't use** on light page backgrounds — it disappears.
+
+<StoryEmbed id="actions-button--white" height={120} caption="White (shown on dark surface)" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Container | Pill-shaped `<button>` — 50px radius, 1px border, 41px min-height (`md`/`lg`), 29px (`sm`) |
+| 2 | Label | Required text — Open Sans 14px bold; the accessible name |
+| 3 | Icon left *(optional)* | 16px in `md`, 24px in `lg`; SVG must use `currentColor` |
+| 4 | Icon right *(optional)* | 16px slot |
+| 5 | Focus ring | 3px brand-tinted ring on `:focus-visible` only |
+
+## Sizes
+
+| Size | Padding | Min-height | Use for |
+| --- | --- | --- | --- |
+| `sm` | 5 / 16 | 29px | Dense UI — table rows, card headers, inline actions |
+| `md` *(default)* | 12 / 20 | 41px | Forms, dialogs, page-level actions |
+| `lg` | 10 / 24 | 41px | With-icon buttons; the left icon slot grows to 24px |
+
+<DoDont
+  do="Keep button text short and verb-first: “Save changes”, “Export report”."
+  dont="Write long sentences or vague labels: “Click here to save the changes you made”."
+/>
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Hover | Fill darkens via `--component-button-{variant}-hover-fill`; no size change |
+| Focus | 3px brand-tinted ring on `:focus-visible`; mouse clicks show no ring |
+| Disabled | Native `disabled` attribute — gray fill/text tokens, removed from tab order, `cursor: not-allowed` |
+| Full width | `fullWidth` / `lp-button--full-width` stretches to the container — sign-in forms, mobile layouts |
+| Theming | All variants re-resolve automatically under `data-theme="dark"` and `"hc"` |
+
+## Related components
+
+<RelatedCards slugs={["action-item", "link", "badge"]} />

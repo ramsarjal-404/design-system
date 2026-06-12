@@ -1,0 +1,6 @@
+{
+  "description": "Surface container that groups related content with optional header, title actions, body, and footer slots.",
+  "heroStory": "data-display-card--with-footer",
+  "heroHeight": 280,
+  "related": ["modal", "badge", "button"]
+}

@@ -1,0 +1,20 @@
+<div style="display: flex; gap: 24px; align-items: center">
+  <!-- native disabled + the root modifier: gray label, not-allowed cursor -->
+  <label class="lp-checkbox lp-checkbox--disabled">
+    <span class="lp-checkbox__control">
+      <input class="lp-checkbox__input" type="checkbox" disabled />
+      <span class="lp-checkbox__box" aria-hidden="true"></span>
+    </span>
+    <span class="lp-checkbox__label">Disabled</span>
+  </label>
+  <label class="lp-checkbox lp-checkbox--disabled">
+    <span class="lp-checkbox__control">
+      <input class="lp-checkbox__input" type="checkbox" disabled checked />
+      <span class="lp-checkbox__box" aria-hidden="true">
+        <svg class="lp-checkbox__check" viewBox="0 0 10 8" fill="none" stroke="currentColor"
+             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.2 3.8 7 9 1"/></svg>
+      </span>
+    </span>
+    <span class="lp-checkbox__label">Disabled checked</span>
+  </label>
+</div>

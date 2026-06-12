@@ -1,0 +1,14 @@
+<!-- Requires lepidus.js. Toasts stack top-right in one polite live region and
+     auto-dismiss after 5s (duration overrides; 0 persists until closed). -->
+<button class="lp-button lp-button--primary lp-button--md"
+        onclick="Lepidus.toast({ title: 'Scan started', message: 'LDSP-FS-01 is being scanned.', variant: 'info' })">
+  Show toast
+</button>
+<button class="lp-button lp-button--secondary lp-button--md"
+        onclick="Lepidus.toast({ title: 'Scan complete', message: 'No violations found.', variant: 'success' })">
+  Success toast
+</button>
+<button class="lp-button lp-button--secondary lp-button--md"
+        onclick="Lepidus.toast({ title: 'Error !', message: 'Provided credentials failed to authenticate.', variant: 'error', duration: 0 })">
+  Persistent error
+</button>

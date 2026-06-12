@@ -1,0 +1,44 @@
+## Interactions
+
+### Mouse
+
+- The **whole folder row** toggles expansion — not just the 24px plus — keeping the hit target
+  large.
+- Report rows are full-width buttons; the selected one keeps its brand-light highlight.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus through folder rows and visible report rows in DOM order |
+| `Enter` | Expands/collapses the focused folder, or selects the focused report |
+| `Space` | Same as `Enter` (native button behavior) |
+
+FolderTree uses native buttons in document order — it does **not** implement the ARIA
+`tree`/`treeitem` roving-tabindex pattern, so there is no arrow-key navigation; every visible
+row is a regular tab stop. Folder rows show the brand focus ring on `:focus-visible`.
+
+### Screen readers
+
+- Folder rows are real `<button>`s carrying `aria-expanded`, so the open/closed state is
+  announced; the plus/minus glyphs are decorative.
+- Report rows are buttons inside nested lists; the selected report carries `aria-current`.
+- Filtering announces nothing by itself — pair the search input with `aria-controls` and a
+  visible/live results count in product code so screen-reader users know the tree changed.
+
+## Development considerations
+
+- Choose one expansion mode: `defaultExpandedIds` (uncontrolled) or `expandedIds` +
+  `onExpandedChange` (controlled) — passing `expandedIds` switches the component to controlled
+  behavior.
+- Collapsed reports are unmounted, not visually hidden — they are neither focusable nor
+  announced until their folder expands.
+- `filter` matching is case-insensitive on folder and report labels; folders whose reports
+  match are force-expanded even if not in the expanded ids.
+- Keep `id`s stable — they key React rendering, expansion state, and selection.
+- Custom per-item `icon`s should use `currentColor` so the selected-state tinting applies.
+
+## Content
+
+- Folder and report labels should be short noun phrases that fit on one line — the rows do not
+  wrap gracefully.

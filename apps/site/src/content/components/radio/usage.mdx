@@ -1,0 +1,81 @@
+## Overview
+
+Radio picks exactly one option from a small visible set — scan scope, severity level, export
+format. Each option is a native `<input type="radio">` visually hidden over a 16px round
+control with a brand-blue inner dot, so selection, arrow-key movement, and form submission are
+all native behavior. Wrap options in **`RadioGroup`** to get `role="radiogroup"`, a shared
+`name`, and controlled (`value` + `onChange`) or uncontrolled (`defaultValue`) selection
+without manual wiring. The circle reuses the dropdown checkbox border token
+(`--component-dropdown-checkbox-border`) so selection controls stay consistent across themes.
+
+## Best practices
+
+- **Preselect a sensible default** — radio groups should rarely start empty.
+- Keep groups to **2–5 options**; beyond that, reach for [Dropdown](/components/dropdown/).
+- Give the group a label (`RadioGroup label`, wired via `aria-labelledby`) and every option a
+  `label` — clicking the text selects, and screen readers need both names.
+- Stack options vertically by default; use `orientation="horizontal"` only for short labels
+  (Low / Medium / High).
+- When a single option is disabled, explain why nearby ("requires Enterprise plan").
+
+## When not to use
+
+- **Multi-select** — independent yes/no choices are [Checkbox](/components/checkbox/)es.
+- **An instant on/off setting** — use [Toggle](/components/toggle/).
+- **5+ options or constrained space** — use [Dropdown](/components/dropdown/); a long radio
+  list dominates the layout.
+
+## Variants
+
+### Group (vertical)
+
+The default arrangement — a labeled `role="radiogroup"` with stacked options. **Use for**
+nearly every radio set; vertical lists scan fastest.
+
+<StoryEmbed id="forms-radio--group" height={160} caption="Controlled group — exactly one option stays selected" />
+
+### Horizontal
+
+`orientation="horizontal"` lays the options in a row. **Use for** 2–3 short labels where
+vertical space is tight; avoid with long labels that wrap.
+
+<StoryEmbed id="forms-radio--horizontal" height={120} caption="Horizontal group" />
+
+### Disabled option
+
+A single option can be disabled inside an otherwise interactive group (the whole group can
+also be disabled via `RadioGroup disabled`).
+
+<StoryEmbed id="forms-radio--disabled-option" height={160} caption="One disabled option — explain why nearby" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Group wrapper | `role="radiogroup"`, labelled via `aria-labelledby`; vertical by default |
+| 2 | Group label *(optional)* | Semibold 14px in `--color-text-secondary` |
+| 3 | Option label wrapper | Real `<label>` root per option — clicking the text selects |
+| 4 | Input | Native radio, visually hidden over the circle; shares the group `name` |
+| 5 | Circle | 16px round outline, 1px brand border, white fill |
+| 6 | Dot | 8px `--color-brand-primary` inner circle, scales in when selected |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Select | Click (circle or label text) selects; exactly one option per `name` stays checked |
+| Arrow keys | Move selection between options — native browser behavior via the shared `name` |
+| Focus | The group is one Tab stop; 3px brand-tinted ring on `:focus-visible` |
+| Error | `error` switches the circle border to the status-error token and sets `aria-invalid` |
+| Disabled | Native `disabled` per option or whole group — gray circle/dot/label, removed from tab order |
+| Motion | Dot scales in over 120ms; transitions collapse under `prefers-reduced-motion` |
+| Theming | All tokens re-resolve automatically under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Preselect the safest or most common option — “Changed files only” for a scan scope."
+  dont="Use radios for independent yes/no choices; users expect selecting one to deselect the others."
+/>
+
+## Related components
+
+<RelatedCards slugs={["checkbox", "toggle", "dropdown"]} />

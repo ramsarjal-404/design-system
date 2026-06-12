@@ -1,6 +1,21 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm run build-storybook",
-  "outputDirectory": "storybook-static",
-  "framework": null
+  "buildCommand": "npm run build:site",
+  "outputDirectory": "apps/site/dist",
+  "framework": null,
+  "redirects": [
+    { "source": "/iframe.html", "destination": "/storybook/iframe.html", "permanent": false },
+    {
+      "source": "/",
+      "has": [{ "type": "query", "key": "path" }],
+      "destination": "/storybook/",
+      "permanent": false
+    },
+    {
+      "source": "/index.html",
+      "has": [{ "type": "query", "key": "path" }],
+      "destination": "/storybook/",
+      "permanent": false
+    }
+  ]
 }

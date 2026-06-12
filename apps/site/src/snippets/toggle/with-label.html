@@ -1,0 +1,16 @@
+<div style="display: flex; align-items: center; gap: 12px;
+            font: 14px 'Open Sans', sans-serif; color: var(--color-text-primary)">
+  <button class="lp-toggle lp-toggle--on" role="switch" aria-checked="true" aria-labelledby="backup-label">
+    <span class="lp-toggle__thumb"></span>
+  </button>
+  <span id="backup-label">Auto-backup</span>
+</div>
+
+<script>
+  document.querySelectorAll('.lp-toggle:not([disabled])').forEach((el) => {
+    el.addEventListener('click', () => {
+      const on = el.classList.toggle('lp-toggle--on');
+      el.setAttribute('aria-checked', String(on));
+    });
+  });
+</script>

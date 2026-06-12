@@ -1,0 +1,84 @@
+## Overview
+
+Textarea is the multi-line free-text entry of the Lepidus design system — a native
+`<textarea>` inside a 481px, 15px-radius card-style box (`--radius-card`) with 20px padding,
+matching the Figma "Type Field Box" component. While the user types, `:focus-within` swaps
+the border and entered text to brand blue (`component/textarea/active-*` tokens). Use it for
+descriptions, comments, notes — any content expected to span several lines. Textarea is
+currently React-only — there is no `@lepidus/css` distribution yet.
+
+## Best practices
+
+- **Size the box to the expected content** with `rows` (default 6) — a too-small box hides
+  context, a too-large one dominates the form.
+- Pair the box with a visible external label or an `aria-label` describing the expected
+  content — the placeholder is not an accessible name.
+- Use `fullWidth` in form layouts so the box aligns to the container grid instead of the
+  fixed 481px Figma width.
+- Leave vertical resize alone — users rely on it for longer content (it is disabled
+  automatically when the field is disabled).
+
+## When not to use
+
+- **Single-line values inside forms** — use [Input](/components/input/), which adds a label,
+  helper text, and error messaging.
+- **Label-less quick entry** like search — use [TextField](/components/text-field/).
+- **Structured values** (dates, numbers, options) — picking beats typing; see
+  [Calendar](/components/calendar/), [Stepper](/components/stepper/), or
+  [Dropdown](/components/dropdown/).
+
+## Variants
+
+### Default
+
+The resting state — white fill with the light-blue brand border (`--color-brand-light`).
+
+<StoryEmbed id="forms-textarea--default" height={240} caption="Default — click in and type to see the typing state" />
+
+### Typing
+
+`:focus-within` mirrors the Figma "Typing state" variant: the fill stays white while the
+border and entered text turn brand blue.
+
+<StoryEmbed id="forms-textarea--typing" height={240} caption="Focus the box to trigger the typing state" />
+
+### Disabled
+
+Subtle gray fill, gray text, vertical resize disabled, removed from the tab order via the
+native `disabled` attribute.
+
+<StoryEmbed id="forms-textarea--disabled" height={240} caption="Disabled" />
+
+### Full width
+
+`fullWidth` overrides the fixed 481px width so the box tracks its container.
+
+<StoryEmbed id="forms-textarea--full-width" height={240} caption="Full width" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Box wrapper | 15px-radius card shell with the surface fill, 1px light-blue border, 20px padding; owns typing/disabled styling via `:focus-within` |
+| 2 | Textarea element | Transparent native `<textarea>`, 16/22 Open Sans regular, vertically resizable |
+| 3 | Placeholder | `"Type Description here"` by default, in the disabled-gray text token |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Typing | `:focus-within` turns border and entered text brand blue; the fill stays white |
+| Resize | Vertical resize is native and enabled; disabled fields can't be resized |
+| Rows | `rows` (default 6) sets the initial visible line count |
+| Disabled | Native `disabled` — subtle gray fill, gray text, `cursor: not-allowed`, removed from tab order |
+| Full width | `fullWidth` stretches past the fixed 481px Figma width to fill the container |
+| Theming | All `component/textarea/*` tokens re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Match rows to the expected content — 3 for a short note, 6+ for a description."
+  dont="Use Textarea for single-line values — that's Input (labeled) or TextField (standalone)."
+/>
+
+## Related components
+
+<RelatedCards slugs={["input", "text-field"]} />

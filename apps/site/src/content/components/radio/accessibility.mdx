@@ -1,0 +1,54 @@
+## Interactions
+
+### Mouse
+
+- Each option is a real `<label>` wrapper — clicking the circle **or the label text**
+  selects, giving a much larger target than the 16px circle alone.
+- The native input is visually hidden but stretched over the circle, so hit-testing stays
+  native.
+- Selecting one option natively deselects the previous one — exactly one radio per `name` is
+  ever checked.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Enters / leaves the group as **one stop** (the selected option takes focus) |
+| `↓` / `→` | Moves to and selects the next option (native, wraps around) |
+| `↑` / `←` | Moves to and selects the previous option (native, wraps around) |
+| `Space` | Selects the focused option when none is selected yet |
+
+Arrow-key movement is native browser behavior via the shared `name` — no script involved.
+Focus shows a 3px brand-tinted ring (`--color-focus-ring`) around the circle on
+`:focus-visible` only.
+
+### Screen readers
+
+- Each option is a native `<input type="radio">` — implicit `role="radio"`, announced as
+  "selected, x of y" within the group.
+- `RadioGroup` renders `role="radiogroup"` and wires its visible label through
+  `aria-labelledby`, so the group context ("Scan scope") is announced on entry.
+- Option names come from the wrapping `<label>`; without a `label` prop you must supply
+  `aria-label`. The circle and dot are `aria-hidden="true"` decoration.
+- `error` sets `aria-invalid` on the input.
+
+## Development considerations
+
+- **Share one `name` across the group** — that is what makes arrow keys and
+  exactly-one-selection work. `RadioGroup` sets it for you; in plain HTML set it on every
+  input.
+- Keep the `role="radiogroup"` wrapper and `aria-labelledby` link in plain HTML — a bare list
+  of radios loses the announced group context.
+- A disabled option is skipped by arrow-key movement automatically (native behavior); only
+  the native `disabled` attribute does this, never CSS alone.
+- For an invalid group, set `aria-invalid` on the inputs and link visible error text with
+  `aria-describedby` — color alone is not a signal.
+- Avoid starting a group with nothing selected where possible: keyboard users who Tab in and
+  arrow will immediately change the form value.
+
+## Content
+
+- Group labels name the question ("Scan scope", "Export format"); option labels name the
+  answers ("Full scan", "CSV") — short, parallel, mutually exclusive.
+- If a disabled option needs justification, put it in the visible label
+  ("XML (requires Enterprise plan)") so every user hears it.

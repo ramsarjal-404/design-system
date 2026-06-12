@@ -1,0 +1,6 @@
+{
+  "description": "Labeled progress bar for long-running tasks — pending, in-progress and completed states with a percentage readout, auto-flipping to green at 100%.",
+  "heroStory": "data-display-progress--in-progress",
+  "heroHeight": 140,
+  "related": ["spinner", "skeleton", "toast", "steps"]
+}

@@ -1,0 +1,57 @@
+---
+import { categories } from '../lib/data';
+
+interface Props {
+  /** slug of the component page we're on (expands its tab sub-nav) */
+  current?: string;
+}
+const { current } = Astro.props;
+const path = Astro.url.pathname;
+
+const TABS = [
+  { suffix: '', label: 'Usage' },
+  { suffix: 'code/', label: 'Code' },
+  { suffix: 'specifications/', label: 'Specifications' },
+  { suffix: 'accessibility/', label: 'Accessibility' },
+];
+---
+
+<nav class="site-sidebar" aria-label="Components">
+  <div class="sidenav__group">
+    <p class="sidenav__heading">Overview</p>
+    <ul class="sidenav__list">
+      <li><a href="/components/" aria-current={path === '/components/' ? 'page' : undefined}>All components</a></li>
+    </ul>
+  </div>
+  {categories.map((group) => (
+    <div class="sidenav__group">
+      <p class="sidenav__heading">{group.name}</p>
+      <ul class="sidenav__list">
+        {group.components.map((c) => (
+          <li>
+            <a
+              href={`/components/${c.slug}/`}
+              aria-current={current === c.slug && path === `/components/${c.slug}/` ? 'page' : undefined}
+            >
+              {c.name}
+            </a>
+            {current === c.slug && (
+              <ul class="sidenav__tabs">
+                {TABS.map((t) => (
+                  <li>
+                    <a
+                      href={`/components/${c.slug}/${t.suffix}`}
+                      aria-current={path === `/components/${c.slug}/${t.suffix}` ? 'page' : undefined}
+                    >
+                      {t.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</nav>

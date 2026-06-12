@@ -1,0 +1,47 @@
+## Interactions
+
+### Mouse
+
+- The whole padded box focuses the native textarea inside.
+- The resize grip in the bottom corner is native — users can drag the box taller for longer
+  content (disabled fields can't be resized).
+- Focus feedback is the brand border + brand text color change; the box never shifts layout.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus to / away from the box — Tab moves focus rather than inserting a tab character |
+| `Enter` | Inserts a newline (native multi-line behavior) |
+| Typing keys | Native text editing — caret movement, selection, clipboard all standard |
+
+The typing state renders via `:focus-within` for both keyboard and mouse focus. Disabled
+boxes use the native `disabled` attribute and are removed from the tab order.
+
+### Screen readers
+
+- Renders a native `<textarea>` — implicit `role="textbox"` with `aria-multiline`; all
+  standard textarea attributes (`name`, `maxLength`, `aria-*`) pass through.
+- **There is no built-in label.** The placeholder is not an accessible name — supply
+  `aria-label` or pair the box with an external `<label>` / `aria-labelledby`.
+- `disabled` is announced as "dimmed"/"unavailable" automatically by the native attribute.
+
+## Development considerations
+
+- Treat the missing label as a hard requirement to fill: every Textarea needs `aria-label` or
+  a wired external `<label>` — this is the component's only a11y gap and it is yours to
+  close.
+- Textarea has no error state of its own; for validated multi-line fields set `aria-invalid`
+  and `aria-describedby` yourself and render visible error text near the box.
+- If you enforce a `maxLength`, show a visible character count — silent truncation is
+  confusing, especially for screen-reader users.
+- Don't disable vertical resize via custom CSS; users rely on it for longer content.
+- Remember `Enter` inserts a newline — don't hijack it to submit the form; users expect
+  multi-line editing semantics.
+
+## Content
+
+- The label names the expected content: "Description", "Remediation notes" — and helper text
+  near the box can state length or format expectations.
+- Placeholders show a short prompt ("Type Description here"); they disappear on entry, so
+  never put required instructions in them.

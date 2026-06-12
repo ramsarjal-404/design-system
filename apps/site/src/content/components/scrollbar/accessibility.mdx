@@ -1,0 +1,41 @@
+## Interactions
+
+### Mouse
+
+The component renders no pointer behavior of its own — it does not capture wheel, click or drag
+events. If your container lets users drag the thumb or click the track, you implement those
+handlers in the host and feed the resulting position back into `thumbOffset`.
+
+### Keyboard
+
+Scrollbar is not focusable and handles no keys. The WAI-ARIA scrollbar pattern expects the host
+integration to provide keyboard scrolling on the scrollable region itself:
+
+| Key | Expected host behavior |
+| --- | --- |
+| `ArrowUp` / `ArrowDown` (vertical) | Scroll the controlled region by a line |
+| `ArrowLeft` / `ArrowRight` (horizontal) | Scroll the controlled region by a line |
+| `PageUp` / `PageDown` | Scroll by a viewport |
+| `Home` / `End` | Scroll to start / end |
+
+After any of these, update `thumbOffset` so the visual matches the new scroll position.
+
+### Screen readers
+
+- The root renders `role="scrollbar"` with `aria-orientation` matching the `orientation` prop.
+- Position is exposed via `aria-valuenow` (rounded `thumbOffset`) with `aria-valuemin={0}` /
+  `aria-valuemax={100}`.
+- `aria-disabled` is set automatically when `variant="disabled"`.
+- The ARIA pattern also requires `aria-controls` referencing the scrolled element — pass it
+  through as a prop on the root, since only the host knows the target id.
+
+## Development considerations
+
+- This component is presentation-only by design: never ship it as the sole scrolling affordance.
+  The underlying region must remain scrollable by native means (keyboard, wheel, touch).
+- Keep `thumbSize` honest — viewport ÷ content × 100 — so the thumb communicates how much
+  content exists; a decorative fixed-size thumb misleads users.
+- Don't restyle the thumb with ad-hoc colors; the three variants (`default`, `active`,
+  `disabled`) cover the sanctioned states and re-theme automatically.
+- If the custom scrollbar is purely decorative duplication of a native scrollbar, consider
+  hiding it from assistive tech instead (`aria-hidden`) to avoid announcing two scrollbars.

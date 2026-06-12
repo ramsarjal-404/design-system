@@ -1,0 +1,85 @@
+## Overview
+
+EmptyState fills a region that has nothing to show — an empty table, no search results,
+nothing to download — with centered line art and a brand-blue statement underneath. The
+default art is the sleeping-server illustration from the Figma frame, shipped as a single
+SVG (221×221 by default) so it scales crisply with no asset hosting; swap it via the
+`illustration` slot when the situation calls for different art. Pass `action` when there is
+an obvious next step.
+
+## Best practices
+
+- **Say why it's empty and what to do next** — "Sorry, No exported file to download!" beats
+  "No data".
+- Pair with `action` when a next step exists: a primary Button to create, import, or clear
+  filters.
+- Pick **one illustration per situation, never per page**: sleeping server for "nothing
+  here", open folder for upload prompts, hand-and-target for drag targets, server-and-
+  magnifier for "no results".
+- Scale the illustration down (`illustrationSize`) in inline contexts like a table body.
+
+## When not to use
+
+- **Loading** — the region will have content soon; use [Skeleton](/components/skeleton/)
+  (known shape) or [Spinner](/components/spinner/) (indeterminate), or
+  [Progress](/components/progress/) for measurable progress.
+- **Errors and failed operations** — use [Message](/components/message/) (blocking, with
+  actions) or [Toast](/components/toast/) (passive).
+- **Decorative filler** — if the region is intentionally blank, leave it blank; EmptyState
+  asserts "you expected content here".
+
+## Variants
+
+### Default
+
+The Figma frame verbatim: sleeping-server illustration above the brand-blue statement.
+
+<StoryEmbed id="feedback-empty-state--default" height={360} caption="Nothing to show — the default sleeping-server art" />
+
+### With action
+
+When there is an obvious next step, surface it as a Button in the `action` slot.
+
+<StoryEmbed id="feedback-empty-state--with-action" height={400} caption="Statement plus a primary call to action" />
+
+### Custom illustration
+
+The `illustration` slot swaps the art — here the open-folder upload prompt. New situations
+should get a frame in the Lepidus Figma file first (same line style), then be exported the
+same way.
+
+<StoryEmbed id="feedback-empty-state--upload-file" height={320} caption="UploadFileIllustration — awaiting user input" />
+
+### Inside Table
+
+Composed into Table via its `emptyMessage` slot — a smaller illustration suits the inline
+context.
+
+<StoryEmbed id="feedback-empty-state--in-table" height={420} caption="Filtered-to-nothing results inside a Table" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Container | Centered flex column, 15px gap, 20px padding |
+| 2 | Illustration | Decorative (`aria-hidden`) SVG, 221px by default — swappable via `illustration` |
+| 3 | Message | Required — body-lg (16/22) in `--color-text-brand`, centered, max-width 455px |
+| 4 | Action *(optional)* | Slot below the message, typically a primary Button |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Static surface | No hover, focus or dismiss behavior of its own — only an action Button is interactive |
+| Illustration sizing | `illustrationSize` scales the default art; custom art controls its own size |
+| Announcement | None built in — wrap in an `aria-live="polite"` region when it replaces async content |
+| Theming | Message and illustration colors re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Say why the region is empty and offer the next step: “No reports have been generated yet” + a Generate Report button."
+  dont="Show a generic “No data” for every empty region, or use EmptyState as a loading placeholder."
+/>
+
+## Related components
+
+<RelatedCards slugs={["table", "skeleton", "message", "button"]} />

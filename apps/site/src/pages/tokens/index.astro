@@ -1,0 +1,144 @@
+---
+/**
+ * Token reference — generated from the built tokens.css on every build.
+ * Color tokens render swatches for all three themes; any token name is
+ * click-to-copy. This page is the central token documentation; component
+ * pages link here instead of repeating token tables (SLDS model).
+ */
+import Page from '../../layouts/Page.astro';
+import { loadTokens, isColor, type Token } from '../../lib/tokens';
+
+const tokens = loadTokens();
+
+// resolve var() chains so swatches show real colors per theme
+const light = new Map(tokens.map((t) => [t.name, t.light]));
+const darkM = new Map(tokens.map((t) => [t.name, t.dark ?? t.light]));
+const hcM = new Map(tokens.map((t) => [t.name, t.hc ?? t.light]));
+function resolve(value: string | undefined, map: Map<string, string>, depth = 0): string {
+  if (!value || depth > 10) return value ?? '';
+  const m = value.match(/^var\((--[\w-]+)(?:,\s*([^)]+))?\)$/);
+  if (!m) return value;
+  return resolve(map.get(m[1]) ?? m[2] ?? '', map, depth + 1);
+}
+
+const GROUPS = [
+  'Color (semantic)',
+  'Component',
+  'Spacing',
+  'Radius',
+  'Typography',
+  'Shadow',
+  'Motion',
+  'Z-index',
+  'Breakpoints',
+  'Primitives',
+];
+const grouped = GROUPS.map((g) => ({ group: g, tokens: tokens.filter((t) => t.group === g) })).filter(
+  (g) => g.tokens.length > 0
+);
+const anchor = (g: string) => g.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const themed = (t: Token) => Boolean(t.dark || t.hc);
+---
+
+<Page
+  title="Design tokens"
+  eyebrow="Reference"
+  lede={`All ${tokens.length} CSS variables generated from the Figma DTCG sources by Style Dictionary — primitive → semantic → component, themed via data-theme="light" | "dark" | "hc". Click any token name to copy it.`}
+  wide
+>
+  <input
+    type="search"
+    class="token-filter"
+    placeholder={`Filter ${tokens.length} tokens… (name or value)`}
+    aria-label="Filter tokens"
+    id="token-filter"
+  />
+  <p>
+    Jump to: {grouped.map((g, i) => (
+      <>
+        <a href={`#${anchor(g.group)}`}>{g.group}</a>{i < grouped.length - 1 ? ' · ' : ''}
+      </>
+    ))}
+  </p>
+
+  {grouped.map((g) => (
+    <section data-token-group>
+      <h2 id={anchor(g.group)}>{g.group} <small style="color:var(--color-text-secondary);font-weight:400">({g.tokens.length})</small></h2>
+      <table class="doc-table">
+        <thead>
+          <tr>
+            <th>Token</th>
+            <th>Light</th>
+            <th>Dark</th>
+            <th>High contrast</th>
+          </tr>
+        </thead>
+        <tbody>
+          {g.tokens.map((t) => {
+            const lv = resolve(t.light, light);
+            const dv = resolve(t.dark ?? t.light, darkM);
+            const hv = resolve(t.hc ?? t.light, hcM);
+            const color = isColor(lv) || isColor(t.light);
+            return (
+              <tr data-token-row data-haystack={`${t.name} ${t.light} ${lv}`.toLowerCase()}>
+                <td>
+                  <code class="token-name" title="Click to copy" tabindex="0">var({t.name})</code>
+                </td>
+                <td>
+                  {color && <span class="swatch" style={`background:${lv}`}></span>}
+                  <code> {t.light}</code>
+                  {t.light !== lv && <small style="color:var(--color-text-secondary)"> → {lv}</small>}
+                </td>
+                <td>
+                  {themed(t) ? (
+                    <>
+                      {color && <span class="swatch" style={`background:${dv}`}></span>}
+                      <code> {t.dark ?? '—'}</code>
+                    </>
+                  ) : (
+                    <span style="color:var(--color-text-secondary)">same</span>
+                  )}
+                </td>
+                <td>
+                  {themed(t) ? (
+                    <>
+                      {color && <span class="swatch" style={`background:${hv}`}></span>}
+                      <code> {t.hc ?? '—'}</code>
+                    </>
+                  ) : (
+                    <span style="color:var(--color-text-secondary)">same</span>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </section>
+  ))}
+
+  <script>
+    // click-to-copy token names
+    document.addEventListener('click', (e) => {
+      const el = (e.target as HTMLElement).closest<HTMLElement>('.token-name');
+      if (!el) return;
+      navigator.clipboard.writeText(el.textContent?.replace(/^var\(|\)$/g, '') ?? '').then(() => {
+        const orig = el.textContent;
+        el.textContent = 'copied ✓';
+        setTimeout(() => (el.textContent = orig), 900);
+      });
+    });
+    // live filter
+    const input = document.getElementById('token-filter') as HTMLInputElement;
+    input?.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      document.querySelectorAll<HTMLElement>('[data-token-row]').forEach((row) => {
+        row.style.display = !q || row.dataset.haystack!.includes(q) ? '' : 'none';
+      });
+      document.querySelectorAll<HTMLElement>('[data-token-group]').forEach((sec) => {
+        const any = sec.querySelector('[data-token-row]:not([style*="none"])');
+        sec.style.display = any ? '' : 'none';
+      });
+    });
+  </script>
+</Page>

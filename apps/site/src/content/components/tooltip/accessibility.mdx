@@ -1,0 +1,51 @@
+## Interactions
+
+### Mouse
+
+- The bubble appears 300ms (`delay`) after the pointer enters the trigger; leaving before the
+  delay elapses cancels it.
+- Leaving the trigger hides the bubble immediately.
+- The bubble itself is `pointer-events: none` — it can never trap the pointer, occlude a click,
+  or be hovered to keep it open.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` (focus lands on the trigger) | Shows the tooltip after the same 300ms delay as hover |
+| `Escape` | Dismisses the tooltip without activating the trigger; focus stays on the trigger |
+| `Tab` / `Shift+Tab` away (blur) | Hides the tooltip |
+
+Keyboard users get exactly the same information as mouse users — the tooltip is focus-triggered,
+not hover-only. The same applies to the plain-HTML `data-lp-tooltip` binding (`focusin` shows,
+`focusout` and `Escape` hide).
+
+### Screen readers
+
+- The bubble renders `role="tooltip"`.
+- While open, the trigger carries `aria-describedby` pointing at the bubble (merged with any
+  `aria-describedby` the trigger already had), so the content is announced as the control's
+  **description**.
+- A tooltip is a *description*, not a *name*: icon-only triggers still need their own
+  `aria-label` — the accessible name must never live only in the tooltip.
+
+## Development considerations
+
+- The React component takes a **single focusable/hoverable child** and clones it — no wrapper
+  element is added, so layout is unaffected; existing handlers, ref, and `aria-describedby` on
+  the child are preserved.
+- Never put interactive content (links, buttons) in `content` — the bubble disappears on blur
+  and ignores pointer events, so it would be unreachable. Plain text or text-level markup only.
+- Don't attach tooltips to disabled elements — they fire no hover/focus events and the tooltip
+  never shows. Use visible helper text instead.
+- In plain HTML, `lepidus.js` generates the bubble, the `lp-tooltip` class, the `role`, and the
+  `aria-describedby` wiring from the `data-lp-tooltip` attribute — don't hand-build bubbles.
+- The enter transition is suppressed under `prefers-reduced-motion: reduce`.
+
+## Content
+
+- One short phrase or sentence; the bubble caps at 280px and wraps.
+- Never put **required** information (validation rules, errors, instructions) only in a
+  tooltip — if users must read it to proceed, it belongs in visible text.
+- Don't repeat the trigger's visible label verbatim — add information ("Exports the current
+  report as PDF"), or omit the tooltip.

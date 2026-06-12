@@ -1,0 +1,6 @@
+{
+  "description": "Horizontal bar chart for comparing one or more series across categories — grouped by default, stacked when the total matters.",
+  "heroStory": "charts-bar-chart--in-chart-card",
+  "heroHeight": 380,
+  "related": ["column-chart", "donut-chart", "card"]
+}

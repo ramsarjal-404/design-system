@@ -1,0 +1,72 @@
+---
+import '../styles/site.css';
+import Header from '../components/Header.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'Lepidus — the Lepide enterprise design system.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title} · Lepidus Design System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    />
+    <link rel="stylesheet" href="/lepidus/tokens.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231C4599'/><text x='16' y='22' font-size='18' font-family='sans-serif' font-weight='bold' fill='white' text-anchor='middle'>L</text></svg>" />
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <footer class="site-footer">
+      <div class="site-footer__cols">
+        <div class="site-footer__brand">
+          <a class="site-header__logo" href="/">
+            <span class="site-header__mark" aria-hidden="true">L</span>
+            Lepidus
+          </a>
+          <p>
+            Lepide's design system — tokens, components, and guidelines for building
+            consistent, accessible products.
+          </p>
+        </div>
+        <div>
+          <h4>Docs</h4>
+          <ul>
+            <li><a href="/get-started/">Get started</a></li>
+            <li><a href="/foundations/">Foundations</a></li>
+            <li><a href="/components/">Components</a></li>
+            <li><a href="/tokens/">Tokens</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Workshop</h4>
+          <ul>
+            <li><a href="/storybook/" target="_blank" rel="noopener">Storybook ↗</a></li>
+            <li><a href="/components/">All components</a></li>
+            <li><a href="/foundations/theming/">Theming</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>For machines</h4>
+          <ul>
+            <li><a href="/ai/">AI surface</a></li>
+            <li><a href="/llms.txt">llms.txt</a></li>
+            <li><a href="/component-manifest.json">Component manifest</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__legal">Lepidus Design System · Lepide</div>
+    </footer>
+  </body>
+</html>

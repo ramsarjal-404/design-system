@@ -1,0 +1,6 @@
+{
+  "description": "Titled scheduling card with a month grid, H/M/S time row, and optional weekday and date recurrence selectors — composes a full daily, weekly, or monthly schedule.",
+  "heroStory": "forms-calendar--daily",
+  "heroHeight": 400,
+  "related": ["time-picker", "dropdown", "modal"]
+}

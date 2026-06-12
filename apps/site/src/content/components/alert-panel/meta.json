@@ -1,0 +1,6 @@
+{
+  "description": "Page-level alert announcement — severity triangle, big headline, summary, optional evidence and a call to action on a soft-shadow card.",
+  "heroStory": "feedback-alert-panel--with-details",
+  "heroHeight": 220,
+  "related": ["message", "toast", "modal", "button"]
+}

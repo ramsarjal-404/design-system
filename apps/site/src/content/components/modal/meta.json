@@ -1,0 +1,6 @@
+{
+  "description": "Popup dialog for focused, short data-entry tasks — brand-titled header, declarative input rows and a centered action footer over a dimmed backdrop.",
+  "heroStory": "feedback-modal--default",
+  "heroHeight": 480,
+  "related": ["message", "input", "button", "toast"]
+}

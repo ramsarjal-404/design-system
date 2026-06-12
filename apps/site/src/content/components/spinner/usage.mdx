@@ -1,0 +1,73 @@
+## Overview
+
+Spinner signals an **indeterminate wait with no known shape**: submitting a form,
+refreshing a table, a button working. A brand-blue SVG arc rotates over a subtle gray
+track; the root renders `role="status"` with a visually hidden label ("Loading…" by
+default), so screen readers announce the wait with no extra wiring. Under
+`prefers-reduced-motion` the rotation is replaced by a slow opacity pulse — the indicator
+never goes fully static while loading.
+
+## Best practices
+
+- Use `size="sm"` (16px) inside Buttons and inline with text; `md` (24px) is the default;
+  reserve `lg` (32px) for empty page regions.
+- Keep the spinner visible until the action **genuinely completes** — don't hide it
+  optimistically.
+- Make the hidden `label` specific when context helps: `label="Saving changes…"`.
+- One announced spinner per region is enough.
+
+## When not to use
+
+- **Known content shape** — if you know what's coming (a card, a table, a paragraph), use
+  [Skeleton](/components/skeleton/); it holds the layout steady.
+- **Measurable progress** — use [Progress](/components/progress/) when you can show a
+  percentage.
+- **Permanently empty regions** — use [EmptyState](/components/empty-state/).
+
+## Variants
+
+### Sizes
+
+Three diameters: sm 16px, md 24px (default), lg 32px.
+
+<StoryEmbed id="feedback-spinner--sizes" height={120} caption="sm / md / lg" />
+
+### In a Button
+
+Composed with a disabled Button via its `iconLeft` slot — the canonical "working"
+affordance while a submit is in flight.
+
+<StoryEmbed id="feedback-spinner--in-button" height={120} caption="Saving… with a sm spinner in the icon slot" />
+
+### Inline with text
+
+`size="sm"` next to body copy; the visible text mirrors the hidden label.
+
+<StoryEmbed id="feedback-spinner--inline" height={100} caption="Refreshing results…" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Track | Full circle, `--color-background-subtle`, 3px stroke |
+| 2 | Arc | ~28% of the circumference, `--color-brand-primary`, round caps, rotating |
+| 3 | Hidden label | Visually hidden span (clip-rect) inside the `role="status"` root — the announcement |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Rotation | Continuous, ~1s per turn (`--duration-slow` × 4, linear) |
+| Reduced motion | Rotation stops; the arc pulses opacity slowly instead (`--opacity-disabled`) |
+| Announcement | `role="status"` is an implicit polite live region — the hidden label is announced when the spinner appears |
+| Sizing | `sm` 16px / `md` 24px / `lg` 32px — fixed diameters, no free sizing |
+| Theming | Arc and track colors re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Give the spinner a specific hidden label — “Saving changes…” — and keep it visible until the work is done."
+  dont="Render several labelled spinners side by side, or use a spinner when the incoming layout is known — that's Skeleton."
+/>
+
+## Related components
+
+<RelatedCards slugs={["skeleton", "progress", "button"]} />

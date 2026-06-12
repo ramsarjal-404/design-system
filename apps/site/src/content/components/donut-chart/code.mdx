@@ -1,0 +1,30 @@
+<Callout variant="info" title="React-only">
+  <p>Charts have no @lepidus/css distribution — use <code>@lepidus/react</code>.</p>
+</Callout>
+
+## Default with legend
+
+`data` is an array of `{ label, value }` segments; the center shows the sum and the built-in
+legend prints exact values.
+
+<Example snippet="donut-chart/breakdown" codeOnly title="Alert status breakdown" />
+
+<StoryEmbed id="charts-donut-chart--with-legend" height={320} caption="Live render" />
+
+## Custom center stat
+
+`centerValue` and `centerLabel` replace the default sum — here a derived compliance figure with
+`formatValue` keeping the legend consistent.
+
+<Example snippet="donut-chart/center-stat" codeOnly title="Derived center value" />
+
+<StoryEmbed id="charts-donut-chart--in-chart-card" height={340} caption="Live render (default center: sum of values)" />
+
+## Thin ring, no legend
+
+A compact dashboard stat: thinner ring, smaller diameter, `hideLegend` — pair with an external
+legend or table.
+
+<Example snippet="donut-chart/thin-ring" codeOnly title="Compact ring" />
+
+<StoryEmbed id="charts-donut-chart--thin-ring" height={300} caption="Live render" />

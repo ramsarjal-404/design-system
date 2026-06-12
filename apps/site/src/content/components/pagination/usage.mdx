@@ -1,0 +1,86 @@
+## Overview
+
+Pagination is the navigation bar placed under data tables: a "Total Records - N" count,
+First/Previous/Next/Last buttons, an editable current-page input ("3 /5") and an "N/Page"
+rows-per-page selector. It renders a `role="navigation"` landmark labelled "Pagination" and is
+fully controlled — you own `currentPage` / `pageSize` and respond to `onPageChange` /
+`onPageSizeChange`. Navigation is clamped to `1…totalPages`, and the boundary buttons disable
+themselves automatically.
+
+## Best practices
+
+- **Reset to page 1 when the page size changes** — `totalPages` shrinks and the old page may no
+  longer exist.
+- Derive `totalPages` from `totalRecords / pageSize` in one place so the count, "/N" label and
+  clamping all stay consistent.
+- Keep the bar directly adjacent to the [Table](/components/table/) it controls so the record
+  count reads in context.
+- Offer only `pageSizeOptions` your API can actually serve (default `[10, 25, 50, 100]`).
+
+## When not to use
+
+- **Step-by-step wizards** — use [Steps](/components/steps/); pagination implies interchangeable
+  pages of the same data, not a sequence with dependencies.
+- **Infinite-scroll feeds** where no page model exists — a pagination bar promising "page 3 of
+  120" must be honest.
+- **Tiny datasets** that fit on one page — render the table without a bar rather than a bar
+  where everything is disabled.
+
+## Types
+
+### Middle page
+
+All four nav buttons enabled; the page input commits on Enter or blur.
+
+<StoryEmbed id="data-display-pagination--default" height={120} caption="Interactive bar on a middle page" />
+
+### First page
+
+First and Previous auto-disable on page 1 while Next and Last remain active (the Figma "right
+enabled" state).
+
+<StoryEmbed id="data-display-pagination--first-page" height={120} caption="First page — left buttons disabled" />
+
+### Last page
+
+Next and Last auto-disable on the final page while First and Previous remain active (the Figma
+"left enabled" state).
+
+<StoryEmbed id="data-display-pagination--last-page" height={120} caption="Last page — right buttons disabled" />
+
+### Disabled
+
+The `disabled` prop grays every control — buttons, page input and page-size selector — regardless
+of page position, e.g. while the table is loading.
+
+<StoryEmbed id="data-display-pagination--disabled" height={120} caption="Whole-control disabled state" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Record count | "Total Records - N" plain text label |
+| 2 | Nav buttons | First, Previous, Next, Last — brand-filled 16px-radius pills |
+| 3 | Page input | Bordered numeric field showing the current page, `aria-label="Current page"` |
+| 4 | Total label | "/N" text after the input |
+| 5 | Page-size selector | "N/Page" trigger with chevron, opening a listbox popover of `pageSizeOptions` |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Navigation | Buttons call `onPageChange` with the target page, clamped to `1…totalPages`; no event fires if the page wouldn't change |
+| Auto-disable | First/Previous disable on page 1; Next/Last disable on the last page — never disable them yourself |
+| Page input | Accepts digits only; the draft commits (clamped) on Enter or blur, and re-syncs when `currentPage` changes externally |
+| Page-size popover | Trigger toggles a listbox; picking an option fires `onPageSizeChange` and closes it; closes on outside click and Escape |
+| Disabled | The `disabled` prop grays all controls via the native attribute |
+| RTL | Segments flow right-to-left under `dir="rtl"`; the popover hangs off the trigger's inline-end edge |
+
+<DoDont
+  do="Reset currentPage to 1 from onPageSizeChange — the old page may not exist at the new size."
+  dont="Disable individual nav buttons yourself; boundary disabling is automatic from currentPage and totalPages."
+/>
+
+## Related components
+
+<RelatedCards slugs={["table", "dropdown", "steps"]} />

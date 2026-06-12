@@ -1,0 +1,6 @@
+{
+  "description": "Right-hand \"Modify Filters\" drawer for building field conditions — pick a field, choose criteria and values, and commit the whole draft with Apply.",
+  "heroStory": "forms-filter--default",
+  "heroHeight": 360,
+  "related": ["dropdown", "table", "checkbox", "button"]
+}

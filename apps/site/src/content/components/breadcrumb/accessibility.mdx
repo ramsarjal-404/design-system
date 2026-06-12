@@ -1,0 +1,45 @@
+## Interactions
+
+### Mouse
+
+- Each ancestor crumb is an independent click target; with `href` it is a real anchor, so
+  middle-click (new tab) and right-click → copy link work as users expect.
+- The current page is plain text — no hover affordance, nothing to click.
+- Hovering a crumb link underlines it; nothing moves or resizes.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus through the ancestor crumbs in trail order (native tab order); the current page is skipped — it is not interactive |
+| `Enter` | Follows the focused crumb (anchor navigation or button `onClick`) |
+| `Space` | Activates button crumbs (native button behavior; anchors ignore Space) |
+
+Focused crumbs show the standard brand-tinted `:focus-visible` ring.
+
+### Screen readers
+
+- The trail is a `<nav aria-label="Breadcrumb">` landmark — discoverable via landmark navigation
+  and announced as "Breadcrumb navigation".
+- The `<ol>` conveys both the count and the order of levels ("list, 4 items").
+- The last crumb carries `aria-current="page"`, announced as the current page — it is plain
+  text, never a dead link.
+- Separators are `aria-hidden="true"` decoration; screen readers hear only the labels.
+
+## Development considerations
+
+- Prefer `href` over `onClick` wherever a URL exists — anchors keep the full set of native
+  browser behaviors for every user.
+- Keep `aria-label="Breadcrumb"` unique on the page; if you render a second trail (e.g. in a
+  modal), give it a distinct label.
+- The current page must come last in `items` and have neither `href` nor `onClick`; the
+  component renders it non-interactive automatically.
+- In plain HTML, replicate the full pattern from the snippet: `<nav>` + `<ol>` + `aria-hidden`
+  separators + `aria-current="page"` — not a div of slash-separated links.
+
+## Content
+
+- Crumb labels should match the title of the page they lead to — users build a mental map from
+  the correspondence.
+- Keep labels short; shorten the text itself rather than CSS-truncating ("AD Reports", not
+  "Active Directory Audit & Compliance Reports…").

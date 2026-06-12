@@ -1,0 +1,76 @@
+## Overview
+
+Tabs switch between views in place: the active tab is a brand pill
+(`--component-tabs-active-indicator`, 50px radius, white label) and the rest are semibold
+brand-blue labels with a 20px rhythm. It implements the ARIA tabs pattern — `role="tablist"` /
+`role="tab"`, `aria-selected`, roving tabindex and Arrow/Home/End keyboard navigation. The React
+component works uncontrolled (`defaultValue`, first enabled tab by default) or controlled
+(`value` + `onChange`); individual tabs can be `disabled`.
+
+## Best practices
+
+- Use Tabs for **peer views of the same context** — Overview / Permissions / Activity of one
+  report, not navigation to different places.
+- Keep labels to one or two words; the active pill has an 80px minimum width and labels should
+  not wrap.
+- Render the matching `role="tabpanel"` elements and set `hasPanels` so each tab's
+  `aria-controls` points at its panel.
+- Put the most likely starting view first — it is the default active tab.
+
+## When not to use
+
+- **Sequential flows** the user completes in order — use [Steps](/components/steps/).
+- **Stacked sections users may want open simultaneously** — use
+  [Accordion](/components/accordion/); tabs show exactly one view at a time.
+- **Navigating away** to another page or area — use [Sidebar](/components/sidebar/) or
+  [Breadcrumb](/components/breadcrumb/); a tab change must never feel like leaving the page.
+
+## Variants
+
+### Default
+
+The base tablist — first enabled tab active, brand pill indicator.
+
+<StoryEmbed id="navigation-tabs--default" height={120} caption="Default — first tab active" />
+
+### With disabled tab
+
+`disabled: true` renders a gray, non-interactive tab that arrow-key navigation skips.
+
+<StoryEmbed id="navigation-tabs--with-disabled" height={120} caption="Disabled tab at the end" />
+
+### With panels
+
+The full ARIA contract: controlled tabs wired to real `tabpanel` elements via the generated ids
+(`{idPrefix}-tab-{id}` / `{idPrefix}-panel-{id}`).
+
+<StoryEmbed id="navigation-tabs--with-panels" height={200} caption="Controlled tabs with tabpanels" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Tablist | `role="tablist"` container with a 20px gap between tabs |
+| 2 | Tab | Native `<button role="tab">` — 14px semibold brand-blue label |
+| 3 | Active pill | The selected tab fills with `--component-tabs-active-indicator` (brand blue, 50px radius, white text, 80px min-width) |
+| 4 | Tab panel *(yours)* | `role="tabpanel"` element you render below, shown/hidden by selection |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Selection | Click or arrow keys select a tab; selection follows focus (panels render instantly) |
+| Keyboard | Tab lands on the active tab only (roving tabindex); ArrowLeft/ArrowRight cycle with wrap; Home/End jump to first/last enabled tab |
+| Controlled / uncontrolled | `value` + `onChange` for controlled; `defaultValue` (or first enabled tab) for uncontrolled |
+| Disabled tab | Native `disabled` — unclickable, unfocusable, skipped by arrow keys |
+| RTL | The plain-HTML layer flips ArrowLeft/ArrowRight under `direction: rtl` |
+| Theming | Pill, labels and disabled colors re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Use tabs for parallel views of one context, with short one-word labels: Overview, Activity."
+  dont="Use tabs as a wizard — if step 2 depends on step 1, that is Steps, not Tabs."
+/>
+
+## Related components
+
+<RelatedCards slugs={["accordion", "steps", "sidebar", "breadcrumb"]} />

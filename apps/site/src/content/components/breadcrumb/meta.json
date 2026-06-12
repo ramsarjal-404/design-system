@@ -1,0 +1,6 @@
+{
+  "description": "Trail navigation — brand-blue ancestor links separated by a bold slash, ending in a non-interactive current page marked aria-current.",
+  "heroStory": "navigation-breadcrumb--default",
+  "heroHeight": 100,
+  "related": ["tabs", "sidebar", "link"]
+}

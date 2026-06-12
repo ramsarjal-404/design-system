@@ -1,0 +1,39 @@
+## Interactions
+
+### Mouse
+
+Progress is a read-only indicator — it has no click, hover or drag behavior. The pending clock
+icon carries `title="Pending"` as a courtesy tooltip.
+
+### Keyboard
+
+The component is not focusable and adds nothing to the tab order; there is nothing to operate.
+Keep it that way — wrapping the bar in a button or link confuses the progressbar semantics.
+
+### Screen readers
+
+- The track renders `role="progressbar"` with `aria-valuemin={0}`, `aria-valuemax={100}` and
+  `aria-valuenow` set to the current value.
+- `aria-valuetext` provides the human-readable form — "75%", or "Pending" for the queued state,
+  where `aria-valuenow` is omitted so the bar reads as indeterminate.
+- The visible label is associated via `aria-labelledby` in React; in plain HTML give the track an
+  `aria-label` matching the visible label text (as in the snippets).
+- State is conveyed by text — the label copy plus the percentage or clock — never by color alone.
+
+## Development considerations
+
+- Keep the inline fill width and `aria-valuenow` in sync when driving the plain-HTML bar from
+  script; the React component does this for you.
+- For task progress that updates live, consider wrapping the region in `aria-live="polite"` with
+  throttled announcements (e.g. every 25%) — announcing every percent is noise.
+- Don't repurpose `pending` for error states; an all-gray bar reads as "queued" to every user.
+  Surface failures with [Message](/components/message/) or [Toast](/components/toast/).
+- When several bars stack in one region (multi-server scan), each label must be unique so the
+  progressbars are distinguishable in the accessibility tree.
+
+## Content
+
+- Labels are short status lines that pair with the readout: "Restore in Progress" + "75%",
+  "Queued" + clock.
+- Update the label text when the state changes ("Scan complete"), not just the colors — the copy
+  is the accessible state signal.

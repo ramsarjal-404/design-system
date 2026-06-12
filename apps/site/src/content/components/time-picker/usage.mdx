@@ -1,0 +1,77 @@
+## Overview
+
+TimePicker is a compact card for typing a clock time: large editable hour and minute boxes split
+by a colon, an AM/PM toggle in 12-hour mode, and a Cancel / OK footer. Use it when a flow needs a
+**single standalone time entry** — alarms, reminders, deadlines. State is internal
+(uncontrolled), seeded by the `default*` props; the result is reported once through
+`onConfirm({ hour, minute, period })`.
+
+## Best practices
+
+- Read the result **only from `onConfirm`** — intermediate keystrokes are draft state that clamps
+  and re-pads on blur.
+- Match `defaultHour` to the mode: 1–12 in 12-hour mode, 0–23 when `use24Hour` is set.
+- Branch on `period === null` when persisting — that is how 24-hour values identify themselves.
+- Keep the `label` task-shaped ("Enter Time", "Remind me at") — it is the card's accessible name.
+
+## When not to use
+
+- **Composing a full recurring schedule** — date, time, and recurrence together — use
+  [Calendar](/components/calendar/), which embeds its own H/M/S dropdowns.
+- **Durations or time ranges** — TimePicker captures one clock time; model durations with a
+  [Stepper](/components/stepper/) (e.g. "minutes") or two separate pickers.
+- **Choosing from a short fixed list of times** (e.g. only on the hour) — a
+  [Dropdown](/components/dropdown/) shows the valid options directly.
+
+## Types
+
+### 12-hour (default)
+
+The AM/PM toggle is visible and hours clamp to 1–12. This is the Figma-canonical frame (07:00
+AM).
+
+<StoryEmbed id="forms-timepicker--default" height={300} caption="12-hour mode, AM active" />
+
+### PM selection
+
+Same mode with the PM segment active — the selected segment takes the tinted fill and brand text
+via `aria-pressed`.
+
+<StoryEmbed id="forms-timepicker--pm" height={300} caption="09:30 PM" />
+
+### 24-hour
+
+`use24Hour` hides the AM/PM toggle, clamps hours to 0–23, and reports `period: null` in
+`onConfirm`.
+
+<StoryEmbed id="forms-timepicker--twenty-four-hour" height={300} caption="24-hour clock — no AM/PM toggle" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Overline label | Uppercase letter-spaced caption — defaults to "Enter Time"; also the card's accessible name |
+| 2 | Hour and minute boxes | 80×64px tinted numeric inputs with "Hour" / "Minute" captions below |
+| 3 | Colon | Two stacked dots separating the boxes (`aria-hidden`) |
+| 4 | AM/PM toggle | Vertical bordered two-segment switch — 12-hour mode only |
+| 5 | Footer | Brand clock glyph on the left; Cancel and OK text buttons on the right |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Typing | Hour/minute inputs accept digits only, capped at 2 characters; non-digits are stripped as you type |
+| Blur clamp | Each box clamps into range (hour 1–12 or 0–23, minute 0–59) and re-pads to two digits |
+| AM/PM | Simple toggle — clicking a segment selects it; hidden entirely in 24-hour mode |
+| Commit | OK clamps the current values and fires `onConfirm({ hour, minute, period })`; Cancel fires `onCancel` |
+| State | Internal (uncontrolled), seeded by `defaultHour` / `defaultMinute` / `defaultPeriod` |
+| Theming | Card, boxes, and toggle resolve through component/semantic tokens in all three themes |
+
+<DoDont
+  do="Read the chosen time once from onConfirm and branch on period === null for 24-hour values."
+  dont="Pair defaultPeriod with use24Hour — the toggle is hidden and the value ignored."
+/>
+
+## Related components
+
+<RelatedCards slugs={["calendar", "dropdown", "stepper"]} />

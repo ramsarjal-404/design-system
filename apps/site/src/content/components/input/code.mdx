@@ -1,0 +1,46 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@lepidus/react`) is shown for React projects. Both resolve to the
+same tokens, so they are pixel-identical in every theme.
+
+## Label left (default)
+
+The row carries `lp-input__row--label-left`; the `<label>` and `<input>` are linked with
+`for`/`id`. Click into the field — `:focus-within` on the shell drives the focus fill and
+brand border with no JavaScript.
+
+<Example snippet="input/label-left" title="Inline-left label (Figma form default)" story="forms-input--default" />
+
+## Label top
+
+Swap the row modifier to `lp-input__row--label-top` (React: `labelPosition="top"`). Helper
+text goes in `lp-input__message` and is linked to the input via `aria-describedby`.
+
+<Example snippet="input/label-top" title="Stacked label with helper text" story="forms-input--label-top" />
+
+## Error
+
+Add `lp-input__field--error` to the shell, `aria-invalid="true"` + `aria-describedby` on the
+input, and render the message with `lp-input__message--error` (plus
+`lp-input__message--indent` to align it under the field when the label is inline-left).
+
+<Example snippet="input/error" title="Error with linked message" story="forms-input--error" />
+
+## Disabled
+
+The native `disabled` attribute plus `lp-input__field--disabled` on the shell.
+
+<Example snippet="input/disabled" title="Disabled" story="forms-input--disabled" />
+
+## With icons
+
+Icon slots sit inside the pill before/after the input (`lp-input__icon-left` /
+`lp-input__icon-right`, 18×18 SVG). They are presentational — keep `aria-hidden` on the SVG
+and use `currentColor` so themes recolor them.
+
+<Example snippet="input/icons" title="Left and right adornments" />
+
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@lepidus/css</code> — see <a href="/get-started/">Get Started</a>. Input is pure CSS and
+  needs no <code>lepidus.js</code>.</p>
+</Callout>

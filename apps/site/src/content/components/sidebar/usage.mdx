@@ -1,0 +1,89 @@
+## Overview
+
+Sidebar is the app-level primary navigation rail — a fixed-width brand-blue `<nav>` column of
+icon + label items with optional header (logo) and footer (settings/avatar) slots, driven
+end-to-end by `component/nav/*` tokens. Use it as the single navigation landmark for top-level
+product areas (Auditor, Trust, Detect, …) with exactly one item marked `active`. Items render
+as an `<a>` when given `href`, or an `onClick` `<button>` otherwise. A second `rounded` variant
+turns the rail into a capsule with a circular active indicator.
+
+## Best practices
+
+- Keep **exactly one** `active` item — it sets `aria-current="page"` and the white-square
+  indicator.
+- Prefer `href` items for real routes, so browser history, middle-click, and open-in-new-tab
+  all work.
+- Keep labels to one or two short words; they render at 14px under a 49px icon square.
+- Give each item a stable `key` — the list re-renders on selection changes.
+- Anything focusable in `header`/`footer` needs its own accessible name (e.g. `aria-label` on
+  an icon-only settings button).
+
+## When not to use
+
+- **In-page or sectional navigation** — use [Tabs](/components/tabs/); the rail is for
+  top-level product areas only.
+- **Settings categories** — use [SettingsPanel](/components/settings-panel/).
+- **Hierarchical content** (folders, reports) — use [FolderTree](/components/folder-tree/).
+- **Showing the current location** in a hierarchy — use
+  [Breadcrumb](/components/breadcrumb/); don't nest rails.
+
+## Variants
+
+### Default
+
+The full Lepide AI rail: logo header, eight nav items with one active (white square + cyan
+icon), and a settings + avatar footer pinned to the bottom.
+
+<StoryEmbed id="navigation-sidebar--default" height={480} caption="Default rail" />
+
+### Rounded
+
+The capsule rail — 85px wide with a subtle border stroke; the active item becomes a 50px
+dark-blue circle inside a dashed ring, with 12px semibold labels.
+
+<StoryEmbed id="navigation-sidebar--rounded" height={480} caption="Rounded (capsule) rail" />
+
+### Interactive
+
+Stateful selection: items are `onClick` buttons and the active indicator (with
+`aria-current="page"`) follows the clicked item.
+
+<StoryEmbed id="navigation-sidebar--interactive" height={480} caption="Click items to move the selection" />
+
+### RTL
+
+Under `dir="rtl"` the rail docks on the right edge; labels, the active square, and the focus
+ring render identically to LTR.
+
+<StoryEmbed id="navigation-sidebar--rtl" height={480} caption="Right-to-left" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Rail | `<nav>` column on `--component-nav-sidebar-bg` — 100px wide by default, 85px for `rounded` (override with `width`) |
+| 2 | Header slot *(optional)* | Centered top area, typically the product logo |
+| 3 | Item list | `<ul>` of items — 49px icon square (`--radius-ms`) above a 14px label; scrolls with hidden scrollbars on overflow |
+| 4 | Active indicator | Default: white square with the icon tinted cyan. Rounded: 50px dark-blue circle inside a dashed ring |
+| 5 | Footer slot *(optional)* | Pinned to the rail end — settings button, account avatar |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Active | `item.active` paints the indicator and sets `aria-current="page"` |
+| Hover | Non-active items show a faint translucent square; no movement |
+| Link vs button | `item.href` renders an `<a>`; otherwise an `onClick` `<button>` |
+| Disabled | 45% opacity + `cursor: not-allowed`; buttons get native `disabled`, links drop their `href` and set `aria-disabled` |
+| Width | Any CSS length via `width` (default 100px; the rounded variant defaults to 85px) |
+| Overflow | The item list scrolls with hidden scrollbars when it exceeds the rail height |
+| Theming | All `component/nav/*` tokens re-resolve automatically under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Mark exactly one item active and prefer href items for real routes — history and middle-click work for free."
+  dont="Exceed roughly nine top-level items — the rail has no grouping or overflow affordance."
+/>
+
+## Related components
+
+<RelatedCards slugs={["settings-panel", "folder-tree", "breadcrumb", "tabs"]} />

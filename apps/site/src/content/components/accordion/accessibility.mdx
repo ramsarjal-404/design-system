@@ -1,0 +1,52 @@
+## Interactions
+
+### Mouse
+
+- The full-width trigger row is the click target — title text, chevron and the empty space
+  between them all toggle the item.
+- Hover tints the trigger background only; nothing moves or resizes.
+- Disabled triggers ignore clicks (native `disabled` attribute).
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus between enabled triggers and any focusable content in open panels |
+| `Enter` / `Space` | Toggles the focused trigger (native button activation) |
+| `ArrowDown` | Moves focus to the next enabled trigger, wrapping to the first |
+| `ArrowUp` | Moves focus to the previous enabled trigger, wrapping to the last |
+| `Home` | Moves focus to the first enabled trigger |
+| `End` | Moves focus to the last enabled trigger |
+
+Focus shows a 3px inset brand-tinted ring on `:focus-visible` only. Arrow/Home/End roving focus
+is implemented by the React component; the plain-HTML layer (`lepidus.js`) binds click and the
+native Enter/Space only — Tab still reaches every trigger.
+
+### Screen readers
+
+- Each trigger is a real `<button>` inside a heading (`headingLevel`, default `h3`), so users
+  browsing by headings or by form controls both find every section.
+- `aria-expanded` on the trigger announces the collapsed/expanded state; `aria-controls` points
+  at the panel.
+- Each panel is `role="region"` with `aria-labelledby` referencing its trigger — open panels are
+  announced as named landmarks.
+- Collapsed panels are `visibility: hidden`, removing their content from the accessibility tree
+  and the tab order.
+
+## Development considerations
+
+- Set `headingLevel` to one below the surrounding section's heading so the accordion fits the
+  document outline; in plain HTML, choose the heading tag (`<h2>`–`<h6>`) yourself.
+- Use a unique `idPrefix` (React) or unique panel `id`s (HTML) when several accordions share a
+  page — duplicated ids break the `aria-controls` wiring.
+- Never auto-collapse on blur or hover; expansion must only change on explicit toggle.
+- The height and chevron animations are disabled under `prefers-reduced-motion: reduce` —
+  don't reintroduce motion with custom CSS.
+- Don't replicate a disabled item with CSS alone; only the native `disabled` attribute conveys
+  the state to assistive technology.
+
+## Content
+
+- Trigger titles are the accessible names of both the button and the panel region — keep them
+  short, specific noun phrases ("Warranty", "Returns & exchanges").
+- Don't put the only path to a critical action or an error message inside a collapsed panel.

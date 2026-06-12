@@ -1,0 +1,58 @@
+---
+import Page from '../../layouts/Page.astro';
+import { loadTokens } from '../../lib/tokens';
+
+const tokens = loadTokens();
+const sizes = tokens
+  .filter((t) => /^--font-size-\d+$/.test(t.name))
+  .sort((a, b) => parseInt(b.name.slice(12)) - parseInt(a.name.slice(12)));
+const weights = tokens.filter((t) => t.name.startsWith('--font-weight-'));
+---
+
+<Page
+  title="Typography"
+  eyebrow="Foundations"
+  lede="One family — Open Sans — with a tokenized size and weight scale. Components never set font sizes directly; they consume the tokens below."
+>
+  <h2>Family</h2>
+  <p>
+    <code>var(--font-family-primary)</code> →{' '}
+    <code>{tokens.find((t) => t.name === '--font-family-primary')?.light}</code>
+  </p>
+
+  <h2>Size scale</h2>
+  <table class="doc-table">
+    <thead><tr><th>Token</th><th>Value</th><th>Preview</th></tr></thead>
+    <tbody>
+      {sizes.map((t) => (
+        <tr>
+          <td><code>var({t.name})</code></td>
+          <td><code>{t.light}</code></td>
+          <td><span style={`font-size:${t.light};font-family:var(--font-family-primary)`}>Lepide protects data</span></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>Weights</h2>
+  <table class="doc-table">
+    <thead><tr><th>Token</th><th>Value</th><th>Preview</th></tr></thead>
+    <tbody>
+      {weights.map((t) => (
+        <tr>
+          <td><code>var({t.name})</code></td>
+          <td><code>{t.light}</code></td>
+          <td><span style={`font-weight:${t.light};font-size:16px`}>Lepide protects data</span></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <h2>Usage</h2>
+  <ul>
+    <li>Body text is 14px (<code>--font-size-14</code>) — enterprise-dense, AA-checked.</li>
+    <li>Buttons use 14px bold; labels 14px semibold; supporting text 12px.</li>
+    <li>Don't introduce sizes outside the scale — if Figma adds one, it arrives via the token
+      pipeline, not a hardcoded value.</li>
+  </ul>
+</Page>

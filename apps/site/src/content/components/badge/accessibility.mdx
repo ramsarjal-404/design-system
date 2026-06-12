@@ -1,0 +1,43 @@
+## Interactions
+
+### Mouse
+
+- Badge is **not interactive** — no hover effect, no pointer cursor, no click behavior. If a
+  Badge appears to invite a click, the design is wrong: wrap the action in a
+  [Button](/components/button/) instead.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` | Skips the Badge — it is not focusable and adds nothing to the tab order |
+
+There is no keyboard behavior to document because there is no interaction: Badge is a plain
+inline `<span>`.
+
+### Screen readers
+
+- Renders a plain `<span>` with **no implicit role** — the label is read as regular text in
+  document flow ("Active", "Failed"), exactly where it sits next to the object it describes.
+- The status dot is `aria-hidden="true"` and is never announced — the text label must carry the
+  full meaning on its own.
+- Icons passed into the icon slot should be decorative (`aria-hidden="true"` on the SVG); the
+  label already provides the accessible text.
+
+## Development considerations
+
+- Never attach click handlers expecting button semantics — Badge exposes no role, no focus, and
+  no keyboard activation. Use [Button](/components/button/) or [Tag](/components/tag/) (which has
+  a real dismiss `<button>`) for anything interactive.
+- Color is never the only signal: all four status variants pair a distinct label with the color,
+  and the dot is reinforcement only.
+- The variant pairs (status text on light status background) come from the token palette designed
+  for legible contrast; the `hc` theme swaps in higher-contrast values automatically — don't
+  override the colors per-instance.
+
+## Content
+
+- One or two words: "Active", "Pending", "Sync failed". The pill never wraps, so long labels
+  overflow their context.
+- Make the label state the status explicitly — "Failed", not a red "Status".
+- Use sentence case and avoid punctuation.

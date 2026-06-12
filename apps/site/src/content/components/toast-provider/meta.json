@@ -1,0 +1,6 @@
+{
+  "description": "React-only app-level manager for Toast — wrap your app once, then fire stacked, auto-dismissing notifications imperatively via useToast().",
+  "heroStory": "feedback-toast-provider--live-demo",
+  "heroHeight": 200,
+  "related": ["toast", "message"]
+}

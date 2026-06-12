@@ -1,0 +1,81 @@
+## Overview
+
+Accordion stacks sections of content behind headed triggers so users can scan titles and expand
+only what they need — FAQs, settings groups, long-form detail on dense pages. Each trigger is a
+real `<button>` inside a heading (`headingLevel`, default `h3`) carrying `aria-expanded`, and each
+panel is a labelled `role="region"` landmark, per the WAI-ARIA accordion pattern. Panel height
+animates via the `grid-template-rows` 0fr→1fr trick and collapses instantly under
+`prefers-reduced-motion`.
+
+## Best practices
+
+- Write trigger titles as **short noun phrases** users can scan: "Returns & exchanges", not
+  "Click to read about our returns policy".
+- Keep `single` mode (the default) for FAQs — opening an item closes the previous one, like a
+  spotlight. Switch to `multiple` when users compare sections (specs, pricing tiers).
+- Set `headingLevel` to one below the surrounding section's heading so the accordion slots into
+  the page outline.
+- Give each accordion on a page a unique `idPrefix` — the generated trigger/panel ids must not
+  collide.
+
+## When not to use
+
+- **Mutually exclusive *views* of the same thing** — use [Tabs](/components/tabs/); an accordion
+  is for stacked, independently readable sections.
+- **A sequential flow** the user must complete in order — use [Steps](/components/steps/).
+- **Short content** — hiding two lines of text behind a click is friction, not focus; show it in
+  a plain section or a [Card](/components/card/).
+
+## Variants
+
+### Single mode
+
+The default. Opening an item closes the previously open one, and clicking an open trigger
+collapses it — zero items open is allowed.
+
+<StoryEmbed id="data-display-accordion--single" height={280} caption="Single mode — at most one item open" />
+
+### Multiple mode
+
+Every item toggles independently, so several panels can stay open at once for comparison.
+
+<StoryEmbed id="data-display-accordion--multiple" height={380} caption="Multiple mode — two items start open via defaultValue" />
+
+### Default open
+
+Uncontrolled with `defaultValue` — chosen items start expanded and the component manages state
+internally from there. For external control (URL sync, "collapse all" buttons) use
+`value` + `onValueChange` instead.
+
+<StoryEmbed id="data-display-accordion--default-open" height={300} caption="defaultValue opens the first item on mount" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Root | `<div>` list; items divided by 1px `--color-border-default` borders |
+| 2 | Heading | `<h2>`–`<h6>` via `headingLevel` (default `<h3>`), style-neutral wrapper |
+| 3 | Trigger | Full-width native `<button>` with `aria-expanded` + `aria-controls` |
+| 4 | Title | 14px semibold label inside the trigger; the accessible name |
+| 5 | Chevron | 16px glyph, rotates 180° when expanded; `aria-hidden` |
+| 6 | Panel | `role="region"` labelled by its trigger; height animates 0fr→1fr |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Expand modes | `single` (default) auto-closes the previous item; `multiple` toggles items independently |
+| Keyboard | Enter/Space toggle the focused trigger; ArrowDown/ArrowUp rove focus between triggers (wrapping); Home/End jump to first/last |
+| Hover | Trigger background tints to `--color-background-subtle` |
+| Disabled item | `disabled: true` renders a non-interactive trigger at `--opacity-disabled`, skipped by Tab and arrow keys |
+| Motion | Panel height and chevron animate over `--duration-base`; instant under `prefers-reduced-motion: reduce` |
+| Theming | All colors re-resolve automatically under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Use multiple mode when users compare sections, and set headingLevel to match the page outline."
+  dont="Nest accordions or hide critical-path content (errors, primary actions) inside a collapsed panel."
+/>
+
+## Related components
+
+<RelatedCards slugs={["tabs", "steps", "card", "folder-tree"]} />

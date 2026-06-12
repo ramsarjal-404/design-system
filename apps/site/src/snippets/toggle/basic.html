@@ -1,0 +1,18 @@
+<div style="display: flex; gap: 16px; align-items: center">
+  <button class="lp-toggle" role="switch" aria-checked="false" aria-label="Email notifications">
+    <span class="lp-toggle__thumb"></span>
+  </button>
+  <button class="lp-toggle lp-toggle--on" role="switch" aria-checked="true" aria-label="Audit trail">
+    <span class="lp-toggle__thumb"></span>
+  </button>
+</div>
+
+<script>
+  // flip the class and aria-checked together — that's the whole behavior
+  document.querySelectorAll('.lp-toggle:not([disabled])').forEach((el) => {
+    el.addEventListener('click', () => {
+      const on = el.classList.toggle('lp-toggle--on');
+      el.setAttribute('aria-checked', String(on));
+    });
+  });
+</script>

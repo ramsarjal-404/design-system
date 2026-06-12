@@ -1,0 +1,43 @@
+---
+import { Code } from 'astro:components';
+import Page from '../../layouts/Page.astro';
+import Example from '../../components/Example.astro';
+import { loadTokens } from '../../lib/tokens';
+
+const tokens = loadTokens();
+const themedCount = tokens.filter((t) => t.dark || t.hc).length;
+---
+
+<Page
+  title="Theming"
+  eyebrow="Foundations"
+  lede={`Three themes — light, dark, high contrast — driven by one attribute. ${themedCount} tokens carry per-theme overrides; everything else inherits.`}
+>
+  <h2>How it works</h2>
+  <Code
+    code={`<html data-theme="light">  <!-- or "dark" or "hc" -->`}
+    lang="html"
+    theme="github-dark"
+  />
+  <p>
+    <code>tokens.css</code> defines every variable in <code>:root</code> (light), then overrides
+    the themed subset under <code>[data-theme="dark"]</code> and <code>[data-theme="hc"]</code>.
+    Because components reference variables — never values — switching the attribute restyles the
+    entire page with zero JavaScript and zero extra CSS.
+  </p>
+
+  <h2>Try it</h2>
+  <Example snippet="foundations/theming-demo" title="The same markup under each theme — use the switcher" />
+
+  <h2>Rules</h2>
+  <ul>
+    <li><strong>Never write per-theme color values by hand.</strong> If a color doesn't look right
+      in dark mode, the fix is a token override in the Figma source / <code>figma-gaps</code>, not
+      a <code>[data-theme="dark"] .my-thing</code> rule.</li>
+    <li><strong>Test all three.</strong> Every Storybook story, the VRT suite, and the plain-HTML
+      axe gate run in light, dark, and hc.</li>
+    <li><strong>High contrast is a real theme,</strong> not a browser hack — it has its own token
+      values tuned for WCAG contrast, verified by the contrast gate in CI.</li>
+  </ul>
+  <p>See every themed value in the <a href="/tokens/">token reference</a>.</p>
+</Page>

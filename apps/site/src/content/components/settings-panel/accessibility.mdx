@@ -1,0 +1,40 @@
+## Interactions
+
+### Mouse
+
+- The whole row — icon and label — is one click target.
+- Hover shows a tint; selecting a row moves the brand-light highlight without any layout shift.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus through the category rows in list order (each row is a regular tab stop) |
+| `Enter` | Selects the focused category |
+| `Space` | Selects the focused category (native button behavior) |
+
+Rows are native buttons in DOM order — there is no arrow-key menu pattern; every category is
+reachable with `Tab`.
+
+### Screen readers
+
+- The panel heading renders as an `<h3>`, so the menu is discoverable by heading navigation.
+- Rows are real `<button>`s inside a semantic `<ul>`/`<li>` list — announced with the list
+  context ("3 of 16").
+- The active row carries `aria-current`, announced as the current item.
+- Icons inherit `currentColor` and sit next to visible labels — the label is the accessible
+  name; selection is conveyed by background *and* text color, not color alone.
+
+## Development considerations
+
+- Choose one selection mode: `defaultSelectedId` (uncontrolled) or `selectedId` + `onSelect`
+  (controlled) — passing `selectedId` switches the component to controlled behavior.
+- When the panel drives a content pane, move the user's context clearly on selection — update
+  the pane's heading so screen-reader users hear where they landed.
+- `title` accepts any `ReactNode`; keep it a short text heading — it is the menu's label.
+- Keep `id`s stable; they key rendering and selection.
+
+## Content
+
+- Category labels are 1–3 word noun phrases ("Logs", "Manage Domains"); the icon, not the
+  text, carries the visual differentiation.

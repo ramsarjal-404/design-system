@@ -1,0 +1,33 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical form.
+The React rendition (`@lepidus/react`) adds `single` mode and roving arrow-key focus on top of the
+same markup and tokens.
+
+<Callout variant="info" title="Requires lepidus.js">
+  <p>The plain-HTML accordion is interactive via <code>lepidus.js</code>: add
+  <code>data-lp-accordion</code> to the root and it toggles <code>aria-expanded</code> on each
+  trigger and <code>lp-accordion__panel--open</code> on the panel named by
+  <code>aria-controls</code>. Items toggle independently (multiple mode) — single-open mode and
+  arrow-key focus movement are React-only. Include the script once:
+  <code>&lt;script src="lepidus.js"&gt;&lt;/script&gt;</code>.</p>
+</Callout>
+
+## Basic accordion
+
+Each item is a heading-wrapped trigger plus a panel; the trigger's `aria-controls` must match the
+panel's `id`.
+
+<Example snippet="accordion/basic" title="Two collapsed items" story="data-display-accordion--single" />
+
+## Default open
+
+Start an item expanded by setting `aria-expanded="true"` on the trigger **and**
+`lp-accordion__panel--open` on its panel (in React, pass `defaultValue`).
+
+<Example snippet="accordion/default-open" title="First item open on load" story="data-display-accordion--default-open" />
+
+## Disabled item
+
+A disabled trigger uses the native `disabled` attribute — it can't be toggled and is removed from
+the tab order.
+
+<Example snippet="accordion/disabled-item" title="Disabled item in the list" story="data-display-accordion--all-states" />

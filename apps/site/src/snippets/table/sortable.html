@@ -1,0 +1,69 @@
+<!-- the classes style the table; sort/filter logic is your script's job -->
+<div class="lp-table">
+  <table class="lp-table__table">
+    <thead>
+      <tr>
+        <th class="lp-table__th" scope="col" aria-sort="ascending">
+          <div class="lp-table__header-inner">
+            <button type="button" class="lp-table__sort-button">
+              <span class="lp-table__header-label">Server</span>
+              <span class="lp-table__sort-arrow lp-table__sort-arrow--active">
+                <svg viewBox="0 0 10 15" fill="none" stroke="currentColor" stroke-width="1.3"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 1.5v12M1 5.5l4-4 4 4" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </th>
+        <th class="lp-table__th" scope="col">
+          <div class="lp-table__header-inner">
+            <button type="button" class="lp-table__sort-button">
+              <span class="lp-table__header-label">IP Address</span>
+              <span class="lp-table__sort-arrow">
+                <svg viewBox="0 0 10 15" fill="none" stroke="currentColor" stroke-width="1.3"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 1.5v12M1 5.5l4-4 4 4" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </th>
+      </tr>
+      <tr>
+        <td class="lp-table__filter-cell">
+          <div class="lp-table__filter-field">
+            <input type="text" class="lp-table__filter-input" aria-label="Search Server" />
+            <span class="lp-table__search-icon">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="6" cy="6" r="5.25" /><path d="M13.25 13.25 9.7 9.7" />
+              </svg>
+            </span>
+          </div>
+        </td>
+        <td class="lp-table__filter-cell">
+          <div class="lp-table__filter-field">
+            <input type="text" class="lp-table__filter-input" aria-label="Search IP Address" />
+            <span class="lp-table__search-icon">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"
+                   stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="6" cy="6" r="5.25" /><path d="M13.25 13.25 9.7 9.7" />
+              </svg>
+            </span>
+          </div>
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-table__cell-text">LDSP-FS-01</span></div></td>
+        <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-table__cell-text">192.168.30.180</span></div></td>
+      </tr>
+      <tr>
+        <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-table__cell-text">LDSP-FS-02</span></div></td>
+        <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-table__cell-text">192.168.30.92</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

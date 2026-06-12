@@ -1,0 +1,103 @@
+## Overview
+
+Table renders tabular data with the three header behaviors from the design built in: **sorting**
+(every column header is a button with an arrow indicator), **per-column search** (the magnifier
+row under the header), and **row selection** (brand-bordered checkboxes inside the first column,
+with a select-all checkbox in the header). All three work client-side out of the box on the data
+you pass; `sort`, `filters`, and `selectedKeys` can each be controlled instead for server-driven
+tables.
+
+Cells render the row's value by default; use a custom `render` for content like Badges and
+Buttons, and keep `value` alongside it so the column stays sortable and filterable. For paging,
+compose with [Pagination](/components/pagination/).
+
+## Best practices
+
+- Provide a stable `rowKey` whenever rows can **reorder or page** — index identity breaks
+  selection.
+- Pass `value` next to `render` so custom-cell columns **keep sorting and filtering**.
+- Use [Badge](/components/badge/) in status columns — variant by meaning, label stating the
+  status.
+- Switch `sortable: false` / `filterable: false` per column for action columns that have no
+  meaningful order.
+- Compose with [Pagination](/components/pagination/) for long datasets.
+
+## When not to use
+
+- **Large server-paged datasets with client-side sort/filter** — control `sort`/`filters` and
+  feed them to your query layer instead; sorting only the visible page misleads users.
+- **Hierarchical data** — use [FolderTree](/components/folder-tree/) for parent/child
+  structures.
+- **No data at all** — render an [EmptyState](/components/empty-state/) for first-run screens;
+  the table's built-in empty message is for "no rows survived filtering".
+
+## Variants
+
+### Default
+
+The full-featured table: checkbox selection in the first column, the per-column search row, and
+an actively sorted column (blue arrow). Type in a search field or click a header to see
+filtering and sorting work.
+
+<StoryEmbed id="data-display-table--default" height={360} caption="Selection, search row, and active sort" />
+
+### Plain
+
+Headers stay sortable; selection and the search row are opt-in. Columns flex evenly without
+explicit widths.
+
+<StoryEmbed id="data-display-table--plain-table" height={280} caption="No selection, no filter row" />
+
+### Controlled selection
+
+Selection driven from outside via `selectedKeys` + `onSelectionChange`. The header checkbox
+shows the indeterminate dash while only some rows are selected.
+
+<StoryEmbed id="data-display-table--controlled-selection" height={400} caption="Controlled selection with external state" />
+
+### Custom cells
+
+Compose other components into cells with `render` — a Badge for status and a secondary Button
+action column with sorting/filtering switched off.
+
+<StoryEmbed id="data-display-table--custom-cells" height={340} caption="Badges and Buttons inside cells" />
+
+### Empty
+
+With no surviving rows the body collapses to a single full-width message cell
+(`emptyMessage`, default "No matching records").
+
+<StoryEmbed id="data-display-table--empty" height={240} caption="Empty message cell" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Wrapper | `lp-table` div around a semantic `<table>` (`lp-table__table`) |
+| 2 | Header row | 43px strip on the header background with 15px rounded top corners; bold 14px labels |
+| 3 | Sort button | Real `<button>` wrapping the label, with a 9×14 arrow — brand blue when active, gray otherwise, flipped for descending |
+| 4 | Filter row | One search field per column: borderless input + magnifier icon, filtering as you type |
+| 5 | Checkbox *(optional)* | 16px, 3px radius, brand border; solid brand fill with a white check/dash when checked/indeterminate |
+| 6 | Data rows | 43px, regular 14px text, hover tint; empty values render as "-" |
+| 7 | Empty cell | Single full-width cell shown when no rows survive filtering |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Sorting | Clicking a header toggles asc/desc; the sorted column exposes `aria-sort` and the blue arrow |
+| Filtering | Each search field filters its column as you type (case-insensitive substring) |
+| Selection | Row checkboxes plus a select-all in the header; partial selection shows the indeterminate dash |
+| Row hover | Rows tint on hover; selected rows hold the same tint via `lp-table__row--selected` |
+| Controlled modes | `sort`, `filters`, and `selectedKeys` can each be controlled for server-driven tables |
+| Empty state | No surviving rows collapse the body to the `emptyMessage` cell |
+| RTL | Under `dir="rtl"` columns, corners, sort arrows, and the search row mirror automatically |
+
+<DoDont
+  do="Provide rowKey and keep value alongside render so selection, sorting, and filtering stay correct."
+  dont="Put a second interactive element inside the first column's cells — the selection checkbox owns it."
+/>
+
+## Related components
+
+<RelatedCards slugs={["pagination", "checkbox", "badge"]} />

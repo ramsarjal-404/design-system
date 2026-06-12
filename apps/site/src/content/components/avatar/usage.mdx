@@ -1,0 +1,96 @@
+## Overview
+
+Avatar represents a person (or entity) as an image with a guaranteed graceful fallback: when the
+image is missing or fails to load, it renders up to two initials derived from the name on a
+background deterministically hashed from the name onto the six chart-series tokens — the same
+person always gets the same color, everywhere in the product. An optional presence dot pins to
+the bottom-right corner, and **AvatarGroup** stacks collaborators with an overlap and a "+N"
+overflow chip.
+
+Avatar is non-interactive. To make it clickable, wrap it in a [Button](/components/button/) or a
+[Link](/components/link/) — don't attach click handlers directly.
+
+## Best practices
+
+- **Always pass `name`**, even with an image — it powers the initials fallback and the
+  accessible name.
+- Keep **one size per context**: `sm` (24px) in tables, `md` (32px) in lists, `lg` (40px) in
+  page headers, `xl` (56px) for profiles.
+- Let the hash pick the fallback color — it keeps colors **stable and consistent** across the
+  product.
+- In groups, set `max` and let the "+N" chip summarize — don't stack more than ~5 visible
+  avatars.
+
+## When not to use
+
+- **Status text next to a name** ("Online") — prefer a [Badge](/components/badge/) with a dot;
+  the Avatar `status` dot is for compact presence on the thumbnail itself.
+- **Clickable profile entry points** — wrap the Avatar in a [Button](/components/button/) or
+  [Link](/components/link/); the Avatar itself has no interactive semantics.
+- **Decorative imagery** that isn't an identity — use a plain image.
+
+## Variants
+
+### Image
+
+The image covers the container (`object-fit: cover`) and inherits its radius. `alt` provides
+the accessible name.
+
+<StoryEmbed id="data-display-avatar--image" height={120} caption="Image avatar" />
+
+### Initials fallback
+
+No image (or a failed load) renders 1–2 initials — first word + last word of the name — on the
+chart-series background the name hashes to. The same name always yields the same color.
+
+<StoryEmbed id="data-display-avatar--initials" height={120} caption="Initials fallback" />
+
+### Sizes and shapes
+
+Four sizes (`sm` 24px, `md` 32px, `lg` 40px, `xl` 56px) and two shapes (`circle`, `square`).
+Initials scale with the container.
+
+<StoryEmbed id="data-display-avatar--sizes" height={130} caption="sm / md / lg / xl, circle and square" />
+
+### With status
+
+A presence dot pinned bottom-right with a 2px surface ring: `online` is success green, `away`
+is chart yellow, `offline` is disabled gray — each announced via an `aria-label`.
+
+<StoryEmbed id="data-display-avatar--with-status" height={120} caption="Online presence dot" />
+
+### Group
+
+AvatarGroup stacks avatars with a −8px overlap and a 2px surface ring per item; `max` collapses
+the remainder into a "+N" chip labelled "N more".
+
+<StoryEmbed id="data-display-avatar--group" height={120} caption="Group of five, max 3 visible" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Container | Inline `<span>`, 24/32/40/56px square; circle (full radius) or square (9px radius) |
+| 2 | Image | `<img>` with `object-fit: cover`, inherits the container radius |
+| 3 | Initials fallback | `role="img"` with the person's name as `aria-label`; the 1–2 characters themselves are `aria-hidden` |
+| 4 | Status dot *(optional)* | Bottom-right circle with a 2px surface ring and an `aria-label` |
+| 5 | Group | `role="group"` flex row, −8px overlap, 2px surface ring per item, "+N" overflow chip |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Image fallback | A missing or failed `src` automatically swaps to initials — layout never jumps |
+| Deterministic color | The name hashes onto `--color-chart-series-1…6`; the same name always gets the same background |
+| Initials | First word + last word, max 2 characters, uppercased ("Ada Lovelace" → "AL") |
+| Group overflow | Children beyond `max` collapse into a "+N" chip; `size`/`shape` push down onto every child |
+| Theming | Series, ring, and status colors re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Always pass name, even with an image — it powers the fallback and the accessible name."
+  dont="Hand-pick fallback colors or rely on the status dot color as the only carrier of presence information."
+/>
+
+## Related components
+
+<RelatedCards slugs={["badge", "link", "button"]} />

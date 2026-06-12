@@ -1,0 +1,41 @@
+## Interactions
+
+### Mouse
+
+- Hovering a data-point dot shows a native tooltip — "Jan — Failed: 12" — from an SVG
+  `<title>` element. Dots are the only tooltip targets; the line itself has none, and turning
+  `dots` off removes tooltips entirely.
+- Nothing in the chart is clickable.
+
+### Keyboard
+
+The chart contains **no focusable elements** — it is a single inline SVG with no tabbable
+content. Keyboard users cannot reach the per-point tooltips, so the values must be available in
+a keyboard-reachable form: a data table or a text summary alongside the chart.
+
+### Screen readers
+
+- The chart root is a single `role="img"` with a generated `aria-label` — for example
+  "Line chart of Failed, Warning, Healthy over 8 points". Override `aria-label` with the actual
+  insight ("Failed logins trending up since March, peaking at 38 in July").
+- The SVG internals — axis text, gridlines, lines, dots — are not exposed as structured
+  content, and SVG `<title>` tooltips are not reliably announced.
+- The chart is effectively **visual-only beyond its label**. Pair it with a
+  [Table](/components/table/) of the same data, or a text summary of the trend.
+
+## Development considerations
+
+- Always pass a meaningful `aria-label` describing the trend, not just the series names.
+- Don't encode meaning in color alone: series differ only by stroke color, so keep the
+  `ChartLegend` adjacent — and consider one series per chart when the comparison is subtle.
+  The `--color-chart-series-*` tokens shift per theme, so never hardcode hex per series.
+- Provide the underlying data as a table or report download.
+- Keep `dots` on when exact values matter — they are the only per-point affordance the chart
+  has.
+
+## Content
+
+- X-axis labels should be short and evenly meaningful — "Jan", "Feb", not full dates.
+- Put the unit and period in the card title ("Permission changes per month"); format y-ticks
+  with `formatValue` when raw numbers are ambiguous.
+- Name series consistently with product status vocabulary: "Failed", "Warning", "Healthy".

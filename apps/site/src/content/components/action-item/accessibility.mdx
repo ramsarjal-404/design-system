@@ -1,0 +1,41 @@
+## Interactions
+
+### Mouse
+
+- Each 24px glyph sits in a rounded hit target; hovering fills it with the tone's light color
+  (blue for `brand`, red for `danger`) without moving anything.
+- Hovering also reveals the native `title` tooltip with the action's label.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus through each action button in order (native tab order — no roving-tabindex arrow-key pattern) |
+| `Enter` | Activates the focused action |
+| `Space` | Activates the focused action (native button behavior) |
+
+Every action is a separate tab stop. Focus draws a 2px brand outline with a 2px offset around
+the individual action. Disabled actions use the native `disabled` attribute and are removed
+from the tab order.
+
+### Screen readers
+
+- The root is `role="toolbar"` with a configurable `aria-label` (default "Item actions"), so
+  the group is announced as a named toolbar.
+- Each action is a native `<button type="button">` whose accessible name is its `aria-label`
+  (from the action's `label`); the 24px glyphs are purely visual.
+- Disabled actions are announced as "dimmed"/"unavailable" automatically by the native
+  attribute.
+
+## Development considerations
+
+- The `label` is **required** for the accessible name — every action is icon-only, so an action
+  without a meaningful label is invisible to assistive technology.
+- Give the toolbar a contextual `aria-label` ("Report actions", "Agent actions") when several
+  ActionItems can be on screen — "Item actions" twice is ambiguous.
+- Pass icons that draw with `currentColor`; the tone classes only set the color, they cannot
+  recolor hardcoded fills.
+- Tone is a visual signal only — destructive actions still need a destructive verb in their
+  `label` ("Delete"), never just a red glyph.
+- If the toolbar floats over content on hover, make sure the actions are also reachable without
+  a pointer (e.g. the row itself is focusable and reveals the toolbar on focus).

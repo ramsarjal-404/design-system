@@ -1,0 +1,6 @@
+{
+  "description": "Pill-shaped numeric stepper with stacked up / down chevrons — bounded counts, thresholds, and retention-day settings with min/max clamping.",
+  "heroStory": "forms-stepper--all-states",
+  "heroHeight": 140,
+  "related": ["input", "dropdown", "text-field"]
+}

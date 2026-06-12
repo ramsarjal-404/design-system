@@ -1,0 +1,100 @@
+## Overview
+
+Message is the Lepidus alert surface for **important, blocking or decision-requiring
+feedback**: failed operations with remediation steps, expiring licenses, confirmations of
+long-running jobs. It is a full card — status icon, heading, multi-line body, optional
+Ok/Cancel-style Buttons and a close button — meant to sit inline in the page or inside a
+dialog flow until the user acts on it. It announces itself assertively via `role="alert"`.
+
+The middle of the three feedback weights: [Toast](/components/toast/) (transient) →
+**Message** (inline strip) → [AlertPanel](/components/alert-panel/) (standing announcement).
+Rule of thumb: **if the user must read and act, use Message; if you are just notifying, use
+Toast.**
+
+## Best practices
+
+- **Lead with a clear, specific title** ("The network path was not found") and put
+  remediation steps in the body.
+- Order actions secondary-then-primary; the primary action is the safe or expected
+  resolution.
+- Body copy honors `\n` line breaks (`white-space: pre-line`) — use them for stepwise
+  remediation lists.
+- Provide `onClose` when the user may dismiss without deciding; omit it when a decision is
+  required.
+
+## When not to use
+
+- **Transient "saved!"-style feedback** — that is [Toast](/components/toast/)'s job: a
+  compact, self-expiring pill with no action buttons.
+- **A standing, page-level announcement** (alert detail view, notification landing page) —
+  use [AlertPanel](/components/alert-panel/).
+- **Collecting input before continuing** — use [Modal](/components/modal/); Message presents
+  information and a decision, not a form.
+- **Low-importance persistent content** — `role="alert"` interrupts screen-reader users;
+  don't mount one for routine copy.
+
+## Types
+
+### Error (default)
+
+Red triangle-exclamation badge. The default variant and the Figma instance — failed
+operations with remediation steps.
+
+<StoryEmbed id="feedback-message--error" height={280} caption="Error with multi-line remediation copy, Ok/Cancel actions and close" />
+
+### Warning
+
+Orange triangle badge — time-sensitive notices that warrant a decision, like an expiring
+license.
+
+<StoryEmbed id="feedback-message--warning" height={220} caption="Warning with a primary call to action and a deferral secondary" />
+
+### Success
+
+Green check badge — confirmation of a completed operation, often with a single primary
+action.
+
+<StoryEmbed id="feedback-message--success" height={220} caption="Success with a single Done action" />
+
+### Info
+
+Brand-blue "i" badge — neutral announcements that still warrant a decision.
+
+<StoryEmbed id="feedback-message--info" height={220} caption="Info with View report / Dismiss actions" />
+
+### Text only
+
+No actions and no close button — a passive inline composition. Omitting `onClose` hides the
+× entirely.
+
+<StoryEmbed id="feedback-message--text-only" height={180} caption="Minimal composition: icon, title and body" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Card | White surface (`--component-modal-bg`), 15px radius, 1px border |
+| 2 | Status icon | 45px rounded-square badge in the variant accent, white glyph — hide with `icon={false}` or pass a custom node |
+| 3 | Title | Semantic `<h3>` in heading/h3 (24/36 bold) |
+| 4 | Body | Multi-line copy — `white-space: pre-line`, so `\n` makes line breaks |
+| 5 | Actions row *(optional)* | Secondary (outline) then primary (filled) Lepidus Buttons |
+| 6 | Close button *(optional)* | × in the top-right, rendered only when `onClose` is set |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Announcement | `role="alert"` — announced immediately and assertively when it mounts |
+| Dismissible | Only when `onClose` is provided — a real `<button>` with `aria-label="Close"`; no auto-dismiss timer |
+| Variants | `info` / `success` / `warning` / `error` swap only the icon glyph and its accent color |
+| Actions | `primaryAction` / `secondaryAction` take `{ label, onClick }` and render real Lepidus Buttons |
+| Theming | Surface, text and status accents re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Pair a specific title with remediation steps in the body: “The network path was not found” + how to fix it."
+  dont="Use Message for fleeting confirmations or stack more than two actions — notify with Toast, and move extra options behind the primary action."
+/>
+
+## Related components
+
+<RelatedCards slugs={["toast", "alert-panel", "modal"]} />

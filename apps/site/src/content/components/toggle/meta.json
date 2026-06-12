@@ -1,0 +1,6 @@
+{
+  "description": "On/off switch — a 56×20 pill track with a sliding white thumb that applies a setting immediately. Renders a native button with role=\"switch\".",
+  "heroStory": "forms-toggle--all-states",
+  "heroHeight": 200,
+  "related": ["checkbox", "radio", "settings-panel"]
+}

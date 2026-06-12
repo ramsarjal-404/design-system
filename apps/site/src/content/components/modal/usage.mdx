@@ -1,0 +1,97 @@
+## Overview
+
+Modal is the Lepidus dialog for **focused, short data-entry tasks**: entering a URL,
+renaming an item, supplying credentials. It composes the Lepidus
+[Input](/components/input/) (via the `fields` array) and [Button](/components/button/) (via
+`primaryAction` / `secondaryAction`) on a tinted shell with a white, brand-titled header
+bar, and traps the user's attention behind a dimmed backdrop. In overlay mode the shell
+renders `role="dialog"` with `aria-modal="true"`, and focus is trapped inside until it
+closes.
+
+## Best practices
+
+- **Keep modals to one short task**; prefer the `fields` array over hand-rolled inputs so
+  labels and spacing stay aligned (the label column auto-sizes to the widest label).
+- Give the primary action a verb label ("Done", "Save", "Rename"), with Cancel as the
+  secondary — the secondary defaults to firing `onClose`, so "Cancel" works without extra
+  wiring.
+- Render the Modal conditionally (`open`) so focus restore can find the trigger that opened
+  it.
+- Always leave an obvious way out: don't disable both `closeOnEsc` and
+  `closeOnOverlayClick` unless data loss is at stake.
+
+## When not to use
+
+- **Pure status or alerts** — use [Message](/components/message/) for blocking feedback
+  with actions, or [Toast](/components/toast/) for passive notifications. A Modal collects
+  input; it doesn't just announce.
+- **Long or multi-step tasks** — prefer an inline form or a dedicated page; modals are for
+  tasks finished in seconds.
+- **Standing announcements** — use [AlertPanel](/components/alert-panel/).
+
+## Variants
+
+### Default
+
+The Figma "URL Popup": lg shell, one labeled field with helper text, Done/Cancel footer
+(rendered inline here so the docs canvas can show it).
+
+<StoryEmbed id="feedback-modal--default" height={400} caption="One field, helper text, Done/Cancel" />
+
+### Multiple inputs
+
+A credentials form built declaratively from the `fields` array — all inputs stay aligned.
+
+<StoryEmbed id="feedback-modal--multiple-inputs" height={520} caption="Add Credentials — four field rows from one array" />
+
+### With validation
+
+Each `fields` row supports the full Input API, including `status="error"` plus
+`errorMessage`.
+
+<StoryEmbed id="feedback-modal--with-validation" height={400} caption="Field-level validation via the Input error state" />
+
+### Left-aligned header
+
+`headerAlign="left"` on the medium shell — for utility dialogs like renames.
+
+<StoryEmbed id="feedback-modal--left-header" height={380} caption="Left header, md width" />
+
+### Sizes
+
+Three width presets: sm (520px), md (680px, default) and lg (743px — the Figma frame
+width).
+
+<StoryEmbed id="feedback-modal--sizes" height={900} caption="sm / md / lg stacked" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Backdrop | Fixed, 50% `--component-modal-overlay` dim; click-to-close (configurable); omitted with `overlay={false}` |
+| 2 | Shell | Tinted (`--color-background-page`) rounded card, 25px radius, card shadow; width from `size` |
+| 3 | Header bar | White strip with the brand-blue title, center- or left-aligned; omitted when `title` is absent |
+| 4 | Body — fields | Auto-sized label column + full-width Inputs, one row per `fields` entry |
+| 5 | Body — custom | `children`, rendered after any fields |
+| 6 | Footer | Centered secondary (outline) then primary (filled) Buttons |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Open/close | `open` controls visibility — when false the modal renders nothing |
+| Escape | Closes via `onClose` (`closeOnEsc`, overlay mode only) |
+| Backdrop click | Closes via `onClose` (`closeOnOverlayClick`, overlay mode only) |
+| Focus trap | Overlay mode: focus moves to the first focusable element on open, Tab/Shift+Tab cycle inside, and focus returns to the opener on close |
+| Secondary action | With no `onClick` of its own it falls back to firing `onClose` — instant Cancel |
+| Inline mode | `overlay={false}` embeds the shell in the page flow — no backdrop, no trap, no `aria-modal` |
+| Theming | Shell, header and field tokens re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Keep the modal to one short task with a verb-labeled primary action — “Save”, “Rename”, “Done”."
+  dont="Use a Modal to display status text or a long multi-step form — announce with Message/Toast, and give long forms a page."
+/>
+
+## Related components
+
+<RelatedCards slugs={["message", "input", "button", "toast"]} />

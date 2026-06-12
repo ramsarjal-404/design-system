@@ -1,0 +1,44 @@
+## Interactions
+
+### Mouse
+
+- Hovering any toast in the stack **pauses its auto-dismiss countdown**; moving away
+  resumes it with the remaining time — slow readers don't lose the message mid-read.
+- Each toast's close × dismisses it immediately.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Reaches each visible toast's close button in stacking order |
+| `Enter` / `Space` | Activates the focused close button |
+
+Every toast gets a close button wired to `dismiss`, so keyboard users can dismiss before
+the timeout. The provider adds no focus stealing — firing a toast never moves focus.
+
+### Screen readers
+
+- All toasts render inside **one polite live region**: the viewport is `role="region"`
+  with `aria-live="polite"` and `aria-label="Notifications"` — announcements never
+  interrupt the current task, and the region is a navigable landmark.
+- Each pill keeps its own `role="status"` semantics (see
+  [Toast](/components/toast/)).
+- Enter/exit animations are disabled under `prefers-reduced-motion: reduce`; removal is
+  then immediate.
+
+## Development considerations
+
+- **Don't put critical actions only in auto-dismissing toasts** — route decisions through
+  [Message](/components/message/) or [Modal](/components/modal/), and use
+  `duration: 0` when a toast must be acknowledged.
+- Never auto-dismiss faster than a user can read; 6000ms is the floor for a full sentence.
+- Keep messages self-contained text — actions and links belong in Message, not in the
+  stack.
+- One provider per app: nested providers create competing live regions and split queues.
+
+## Content
+
+- Same rules as [Toast](/components/toast/): one short, severity-appropriate sentence;
+  title carries the severity ("Success !"), message carries the fact.
+- Queued toasts announce when they surface — write each message to stand alone, in any
+  order.

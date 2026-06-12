@@ -1,0 +1,30 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical form.
+The React rendition (`@lepidus/react`) is fully controlled and adds the clamped page input and the
+page-size popover behavior.
+
+<Callout variant="info" title="Bring your own navigation logic">
+  <p><code>lepidus.js</code> has no pagination behavior — the bar is pure CSS. Wire the button
+  clicks, page-input commit and disabled states to your own data layer. The
+  <code>lp-pagination__page-size-*</code> classes style a popover for the rows-per-page selector
+  if you build one; otherwise render the current size as a plain label as below.</p>
+</Callout>
+
+## Basic bar
+
+A middle page — all four nav buttons enabled. Disable First/Previous on page 1 and Next/Last on
+the final page with the native `disabled` attribute.
+
+<Example snippet="pagination/basic" title="Middle page" story="data-display-pagination--default" />
+
+## Disabled
+
+Gray the whole bar while the table is loading: `disabled` on every button and the input (React:
+the `disabled` prop).
+
+<Example snippet="pagination/disabled" title="Whole bar disabled" story="data-display-pagination--disabled" />
+
+## Custom page sizes
+
+`pageSizeOptions` controls what the popover offers; reset to page 1 whenever the size changes.
+
+<Example snippet="pagination/page-sizes" title="Controlled with custom page sizes" story="data-display-pagination--default" />

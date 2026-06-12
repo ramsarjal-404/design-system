@@ -1,0 +1,81 @@
+## Overview
+
+Steps shows where the user is in a multi-step flow, matching the Figma "Steps" component set:
+completed steps are solid success-green discs with a white check, the current step is a green
+ring with a green dot, upcoming steps are gray rings, and the 52px connectors turn green once
+crossed. A "N of M" label trails the dots (hide it with `showLabel`). The root carries
+`role="progressbar"` with "Step n of m" `aria-valuetext` — the dots themselves are decorative.
+
+## Best practices
+
+- Drive `current` from the **same state** as your wizard content and footer (Back/Next
+  [Button](/components/button/)s) so the dots never disagree with the page.
+- Pass `onStepClick` only when revisiting completed steps is safe (saved drafts) — it turns
+  completed discs into "Go to step N" back-navigation buttons.
+- Keep the "N of M" label visible; it is the textual statement of progress and the primary cue
+  for screen readers.
+- Place Steps at the top of the wizard surface — typically a [Modal](/components/modal/) or a
+  full-page flow.
+
+## When not to use
+
+- **Numeric input** — [Stepper](/components/stepper/) is the increment/decrement number field;
+  Steps is read-only progress.
+- **Task or loading completion** — use [Progress](/components/progress/) for percentage-style
+  feedback; Steps counts discrete stages.
+- **Unordered sections** the user can visit in any order — that is
+  [Tabs](/components/tabs/), not a wizard.
+
+## Variants
+
+### Default
+
+A seven-step flow with step 3 current — two green check discs, the ringed dot, four upcoming
+gray rings, and the "3 of 7" label.
+
+<StoryEmbed id="navigation-steps--default" height={120} caption="Default (3 of 7)" />
+
+### All states
+
+Every position of the Figma set, Step-1 through Step-7 — how the discs, connectors, and label
+advance together.
+
+<StoryEmbed id="navigation-steps--all-states" height={380} caption="All seven positions" />
+
+### Wizard
+
+Wired to Back/Next buttons; completed dots are clickable back-navigation via `onStepClick`.
+
+<StoryEmbed id="navigation-steps--wizard" height={220} caption="Live wizard" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Container | `role="progressbar"` row with `aria-valuenow/min/max` and "Step n of m" `aria-valuetext` |
+| 2 | Circle | 24px, `--radius-m` — solid success-green disc (done), 2px green ring (current), 2px gray ring (upcoming) |
+| 3 | Check | White 12×10 check glyph inside completed discs |
+| 4 | Dot | 9px green dot inside the current ring |
+| 5 | Connector | 52px × 2px line between circles; success-green once crossed |
+| 6 | Label *(optional)* | "N of M" — 18px semibold brand text, hidden with `showLabel={false}` |
+| 7 | Step button *(optional)* | Wraps completed circles when `onStepClick` is set; labelled "Go to step N" |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Current-step semantics | `aria-valuenow` and `aria-valuetext` ("Step 2 of 5") update with `current`; the dots are decorative |
+| Back-navigation | With `onStepClick`, completed circles become buttons; the current and upcoming dots are never interactive |
+| Clamping | `current` is clamped into the `1..total` range — out-of-range values never break the row |
+| Label | "N of M" trails the dots; `showLabel={false}` removes it |
+| Focus | Clickable steps draw a 2px brand outline with 2px offset on `:focus-visible` |
+| Theming | The success-green, border, and label tokens re-resolve automatically under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Drive current from the same state as the wizard content and its Back/Next buttons."
+  dont="Use Steps for unordered sections (that's Tabs) or as a numeric input (that's Stepper)."
+/>
+
+## Related components
+
+<RelatedCards slugs={["stepper", "progress", "modal", "button"]} />

@@ -1,0 +1,6 @@
+{
+  "description": "Vertically stacked disclosure list — headed triggers that expand one panel at a time (or many), following the WAI-ARIA accordion pattern.",
+  "heroStory": "data-display-accordion--default-open",
+  "heroHeight": 320,
+  "related": ["tabs", "steps", "card", "folder-tree"]
+}

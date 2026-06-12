@@ -1,0 +1,43 @@
+## Interactions
+
+### Mouse
+
+- Hovering a column or stacked segment shows a native browser tooltip — "Jan — Failed: 12" —
+  via the element's `title` attribute. Columns do not change color or size on hover.
+- Nothing in the chart is clickable.
+
+### Keyboard
+
+The chart contains **no focusable elements**. Columns, gridlines, and labels are plain
+`div`/`span` elements — keyboard users cannot tab into the chart or reach the per-column
+tooltips. Provide the values in a keyboard-reachable form: a data table or a text summary next
+to the chart.
+
+### Screen readers
+
+- The chart root is a single `role="img"` with a generated `aria-label` — for example
+  "Column chart of Failed, Warning, Healthy by 6 categories". Override `aria-label` with the
+  real insight ("Alert volume peaked in June at 123"), not just the series names.
+- The y-axis, gridlines, and x-axis labels are `aria-hidden="true"`; per-column `title`
+  tooltips are not reliably announced.
+- The chart is effectively **visual-only beyond its label**. Pair it with a
+  [Table](/components/table/) of the same data, or a text summary, so the values themselves are
+  accessible.
+
+## Development considerations
+
+- Always pass a meaningful `aria-label` — the generated one names the series but carries no
+  values or conclusion.
+- Don't encode meaning in color alone: keep the `ChartLegend` adjacent, and remember the
+  `--color-chart-series-*` tokens shift per theme, so never hardcode hex per series.
+- Provide the underlying data as a table or report download for keyboard and screen-reader
+  users.
+- Use `formatValue` consistently so y-axis ticks and tooltips agree on units.
+
+## Content
+
+- Keep x-axis labels short — month or day abbreviations ("Jan", "Mon"); long names belong on a
+  [BarChart](/components/bar-chart/).
+- State the unit in the card title ("Alerts per month") rather than repeating it on every tick.
+- Name series with the same status words used elsewhere in the product: "Failed", "Warning",
+  "Healthy".

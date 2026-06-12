@@ -1,0 +1,29 @@
+<Callout variant="info" title="React-only">
+  <p>Charts have no @lepidus/css distribution — use <code>@lepidus/react</code>.</p>
+</Callout>
+
+## Grouped in a ChartCard
+
+`ChartCard` supplies the surface, `ColumnChart` plots the data, `ChartLegend` names the series.
+
+<Example snippet="column-chart/grouped" codeOnly title="Grouped columns in a ChartCard" />
+
+<StoryEmbed id="charts-column-chart--grouped" height={360} caption="Live render" />
+
+## Stacked
+
+`stacked` joins each group into one segmented column sized by the bucket total; widen
+`columnWidth` so segments stay legible.
+
+<Example snippet="column-chart/stacked" codeOnly title="Stacked columns" />
+
+<StoryEmbed id="charts-column-chart--stacked" height={360} caption="Live render" />
+
+## Single series
+
+One series with a per-series `color` from the palette tokens. With a single series you can also
+set `colorByCategory` to color each column from the palette instead.
+
+<Example snippet="column-chart/single-series" codeOnly title="Single series" />
+
+<StoryEmbed id="charts-column-chart--single-series" height={360} caption="Live render" />

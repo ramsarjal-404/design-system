@@ -1,0 +1,85 @@
+## Overview
+
+BarChart compares one or more data series across named categories, drawn horizontally: category
+labels down the left, a group of thin rounded bars per category, dashed vertical gridlines, and a
+numeric axis along the bottom. It answers "which category has more?" — failed audits per file
+server, alerts per department. Bar lengths scale to a "nice" ceiling of the data maximum
+(override with `max`), and series take the shared chart palette
+(`--color-chart-series-1…6`), so the dark and high-contrast themes recolor every bar with no
+extra code.
+
+## Best practices
+
+- **Horizontal is for names** — bars leave room for long category labels (server names,
+  departments) that would collide under columns. Widen the label gutter with `labelWidth`.
+- Keep to **2–3 series per group**; more than that and groups blur together — split into
+  multiple charts instead.
+- Use `stacked` when the **category total** is the headline and the breakdown is secondary.
+- Wrap every chart in `ChartCard` and name series with `ChartLegend` — color alone is the only
+  thing separating series.
+- Take series colors from `CHART_COLORS` (the `--color-chart-series-*` tokens) — never hardcoded
+  hex, which would break in dark and high-contrast themes.
+
+## When not to use
+
+- **Time buckets** (per month, per day) — use [ColumnChart](/components/column-chart/); vertical
+  columns read naturally left-to-right as time.
+- **Trends over ordered points** — use [LineChart](/components/line-chart/); bars hide the shape
+  of a trend.
+- **Part-to-whole with few parts** (≤5) — use [DonutChart](/components/donut-chart/) when the
+  composition, not the comparison, is the message.
+- **A single number against a scale** — use [GaugeChart](/components/gauge-chart/).
+
+## Configurations
+
+### Grouped (default)
+
+One group of bars per category, series i = bar i in every group. The full Figma composition sits
+on a `ChartCard` with a `ChartLegend` underneath.
+
+<StoryEmbed id="charts-bar-chart--in-chart-card" height={360} caption="Grouped bars in a ChartCard with legend" />
+
+### Stacked
+
+`stacked` joins each group into one segmented bar sized by the category total. **Use when** the
+sum matters more than series-to-series comparison — total alerts per server, with the breakdown
+as texture.
+
+<StoryEmbed id="charts-bar-chart--stacked" height={360} caption="Stacked — one segmented bar per category" />
+
+### Single series
+
+One series with a per-series `color` override and a wider `labelWidth` for long server names.
+
+<StoryEmbed id="charts-bar-chart--single-series" height={300} caption="Single series, brand-blue override, 90px labels" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Container | `role="img"` div with a generated `aria-label` |
+| 2 | Category labels | Down the left, 10px text; gutter width set by `labelWidth` (default 40px) |
+| 3 | Bars | 6px bars with rounded right ends, grouped per category; one segmented bar when `stacked` |
+| 4 | Gridlines | Dashed vertical lines at every tick — `--color-chart-grid` |
+| 5 | Axis | Numeric ticks along the bottom (default 6 divisions via `ticks`) |
+| 6 | Legend *(composed)* | `ChartLegend` placed below the chart inside the `ChartCard` |
+| 7 | Tooltip | Native browser tooltip per bar: "FS1 — Failed: 312" |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Hover tooltip | Every bar/segment carries a native `title` — "category — series: value", formatted by `formatValue` |
+| Axis scaling | Axis max defaults to a nice ceiling of the data (stacked: of category totals); `max` and `ticks` override |
+| Legend | `ChartLegend` is a static key — it names series but does not toggle or filter them |
+| Responsive sizing | Bars are percentage-width, so the chart fills its container; only `labelWidth` is fixed |
+| Theming | Series resolve through `--color-chart-series-1…6` and gridlines through `--color-chart-grid` — both re-resolve under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Pass series colors from CHART_COLORS or per-series color overrides that reference --color-chart-series-* tokens."
+  dont="Hardcode hex colors per series — they stay fixed when the dark and high-contrast themes re-resolve the palette."
+/>
+
+## Related components
+
+<RelatedCards slugs={["column-chart", "donut-chart", "card"]} />

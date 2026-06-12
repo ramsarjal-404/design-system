@@ -1,0 +1,50 @@
+## Interactions
+
+### Mouse
+
+- Each nav button is a separate pill-shaped click target; disabled boundary buttons
+  (First/Previous on page 1, Next/Last on the last page) ignore clicks via the native attribute.
+- Clicking the "N/Page" trigger toggles the page-size popover; clicking outside it closes the
+  popover without changing the selection.
+- The page input is a normal text field — click to place the caret and type a page number.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves through the enabled controls in order: First, Previous, page input, Next, Last, page-size trigger |
+| `Enter` (in page input) | Commits the typed page, clamped to `1…totalPages` |
+| `Enter` / `Space` (on buttons) | Activates the button (native behavior) |
+| `Escape` | Closes the page-size popover |
+
+The page input also commits on blur, so tabbing away never loses a typed page. Disabled controls
+use the native `disabled` attribute and are removed from the tab order. All controls show a
+brand-tinted `:focus-visible` outline.
+
+### Screen readers
+
+- The root is `role="navigation"` with `aria-label="Pagination"` — a discoverable landmark. When
+  several pagination bars share a page, give each a unique label (e.g.
+  `aria-label="Pagination (alerts table)"`).
+- The page input has `aria-label="Current page"` and `inputMode="numeric"`, raising the numeric
+  keyboard on touch devices.
+- The page-size trigger exposes `aria-label="Rows per page"`, `aria-haspopup="listbox"` and
+  `aria-expanded`; the popover is `role="listbox"` with `role="option"` + `aria-selected` items.
+- Button names are real text ("First", "Previous", "Next", "Last") — no icon-only controls.
+
+## Development considerations
+
+- The component is fully controlled — update `currentPage` from `onPageChange` or the bar will
+  appear frozen to every user.
+- Reset to page 1 in `onPageSizeChange`; a stale `currentPage` beyond the new `totalPages` gets
+  clamped on the next interaction but reads wrong until then.
+- In plain HTML, keep the native `disabled` attribute as the only disabling mechanism, and keep
+  the `role="navigation"` + `aria-label` wrapper from the snippet.
+- Announce table refreshes separately (e.g. a `role="status"` region with "Page 3 of 5 loaded")
+  if the page change isn't otherwise perceivable to screen-reader users.
+
+## Content
+
+- Keep the canonical labels — "Total Records - N", "First/Previous/Next/Last", "N/Page" — so the
+  bar reads identically across Lepide products.
+- The record count is plain text, not a control; don't make it a link.

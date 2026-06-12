@@ -1,0 +1,50 @@
+## Interactions
+
+### Mouse
+
+- Month, Year, and H/M/S pickers open as listbox panels under their triggers; clicking an option
+  selects it and closes the panel.
+- Clicking a day cell selects it (single selection); clicking a chip-field popover option or an
+  existing chip adds/removes that weekday or date.
+- Outside clicks close any open dropdown or chip popover.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves through triggers, day cells, chip fields, and footer buttons in document order |
+| `Enter` / `Space` | Activates the focused control — opens a dropdown, selects a day (they are native buttons), toggles a chip field (`role="button"`, `tabIndex={0}`) |
+| `Escape` | Closes the open Month/Year/H/M/S dropdown or chip popover |
+| Arrow keys | Not handled — there is no roving focus across the grid; day cells are individual tab stops |
+
+Day cells and footer buttons show visible brand `:focus-visible` outlines.
+
+### Screen readers
+
+- The card is `role="dialog"` labelled by the heading text — don't wrap it in another dialog
+  role.
+- Month/Year/H/M/S triggers expose `aria-haspopup="listbox"` + `aria-expanded`; their panels are
+  `role="listbox"` with `role="option"` + `aria-selected` items.
+- The month grid is a `role="group"` labelled "`<Month> <Year>`" — a flat set of day **toggle
+  buttons**, not an ARIA grid of rows. Day buttons use `aria-pressed` for selection, and event
+  dots carry `aria-label="has event"`.
+- Chip fields are `role="button"` with Enter/Space toggling, and each chip's remove control is
+  labelled "Remove `<label>`".
+- Empty leading grid cells are `aria-hidden` spacers.
+
+## Development considerations
+
+- Treat `onDone` as the single source of truth: it delivers the whole `CalendarValue` (`year`,
+  `month`, `day`, `time {h,m,s}`, `weekdays`, `dates`). `onCancel` does **not** reset internal
+  state — unmount/remount the card (or key it) to start fresh.
+- `month` is zero-based (0–11) everywhere — in `defaultMonth`, `onSelectDate`, and `onDone`.
+- `weekdays` use 0=Sunday … 6=Saturday; `dates` are days of month 1–31. Validate impossible
+  combinations (e.g. date 31 in February) in your scheduler, not in the card.
+- The card announces itself as a dialog but does not trap focus; if you present it in an overlay,
+  manage focus entry/exit in the host.
+
+## Content
+
+- The default title is "`<Variant>` Schedule" — override `title` with the actual job name
+  ("Weekly Backup") when the context isn't obvious.
+- Keep titles to a few words; the header is a single bold line.

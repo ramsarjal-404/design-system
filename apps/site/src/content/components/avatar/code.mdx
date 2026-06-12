@@ -1,0 +1,47 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@lepidus/react`) is shown for React projects. Both resolve to the
+same tokens, so they are pixel-identical in every theme. In plain HTML you pick the size,
+shape, series color, and initials yourself; the React component derives them from `name`.
+
+## Initials
+
+Root `lp-avatar` + size + shape + one `lp-avatar--series1`…`--series6` background. The wrapper
+carries `role="img"` and the person's name as `aria-label`; the `lp-avatar__fallback` initials
+are `aria-hidden` decoration.
+
+<Example snippet="avatar/initials" title="Initials on a series background" story="data-display-avatar--initials" />
+
+## Image
+
+An `lp-avatar__image` inside the container — it covers the avatar and inherits the radius. In
+React, a failed load automatically falls back to initials.
+
+<Example snippet="avatar/image" title="Image avatar" story="data-display-avatar--image" />
+
+## Sizes and shapes
+
+Sizes `lp-avatar--sm|--md|--lg|--xl` (24/32/40/56px); shapes `lp-avatar--circle|--square`.
+
+<Example snippet="avatar/sizes" title="All four sizes, both shapes" story="data-display-avatar--sizes" />
+
+## Status
+
+Append an `lp-avatar__status` dot with `--online`, `--away`, or `--offline`. In plain HTML the
+dot is `aria-hidden` and the presence goes into the wrapper's `aria-label`; in React the dot
+carries its own `aria-label` ("Online" / "Away" / "Offline").
+
+<Example snippet="avatar/status" title="Presence dots" story="data-display-avatar--with-status" />
+
+## Group
+
+Wrap avatars in `lp-avatar-group`, add `lp-avatar-group__item` to each, and use
+`lp-avatar--overflow` for the "+N" chip. In React, `AvatarGroup max={3}` does the collapsing
+for you.
+
+<Example snippet="avatar/group" title="Stack with overflow chip" story="data-display-avatar--group" />
+
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@lepidus/css</code> — see <a href="/get-started/">Get Started</a>. Avatar is pure CSS and
+  needs no <code>lepidus.js</code>.</p>
+</Callout>

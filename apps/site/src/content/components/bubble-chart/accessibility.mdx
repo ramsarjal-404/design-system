@@ -1,0 +1,45 @@
+## Interactions
+
+### Mouse
+
+- Hovering a bubble shows a native tooltip — "Product 1 — FS1: (12, 30)" — from an SVG
+  `<title>` element. The tooltip states the coordinates and optional point `label`, but not the
+  radius; magnitude is conveyed visually only.
+- Nothing in the chart is clickable.
+
+### Keyboard
+
+The chart contains **no focusable elements** — it is a single inline SVG. Keyboard users cannot
+reach the per-bubble tooltips, and unlike DonutChart or GaugeChart there is no text rendering of
+the values at all. A data table or text summary alongside the chart is **required**, not
+optional, for this component.
+
+### Screen readers
+
+- The chart root is a single `role="img"` with a generated `aria-label` — for example
+  "Bubble chart of Product 1, Product 2, Product 3" — which names the series and nothing else.
+  Override `aria-label` with the actual finding ("Security group changes cluster on FS1, the
+  largest at 24 events").
+- The grid is `aria-hidden="true"`; bubbles and their SVG `<title>` tooltips are not reliably
+  announced.
+- This is the **most visual-only chart in the kit**: no axis labels, no rendered values. Always
+  accompany it with a [Table](/components/table/) of the underlying data or a text summary.
+
+## Development considerations
+
+- Always pass a meaningful `aria-label` — the generated one carries no data whatsoever.
+- Don't encode meaning in color alone: series differ only by bubble color, so keep the
+  `ChartLegend` adjacent, and remember the `--color-chart-series-*` tokens shift per theme —
+  never hardcode hex per series.
+- The axes have no tick labels — if readers need to know what x and y mean (they do), state the
+  dimensions in the card title or a caption: "Changes by hour (x) and scope (y), sized by
+  volume".
+- Map magnitudes to the `r` pixel radius deliberately — by area, not radius, if honest size
+  comparison matters (a 2× radius reads as 4× the quantity).
+
+## Content
+
+- Name the x, y, and size dimensions explicitly in the `ChartCard` title or adjacent text —
+  the chart itself never will.
+- Give notable points a `label` so their tooltips identify them ("FS1"), not just coordinates.
+- Use the same series names as the rest of the product so the legend and report tables line up.

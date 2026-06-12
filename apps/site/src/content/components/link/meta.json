@@ -1,0 +1,6 @@
+{
+  "description": "Token-bound navigation anchor — an underlined inline variant for running text and a standalone variant with an optional trailing icon.",
+  "heroStory": "actions-link--inline",
+  "heroHeight": 120,
+  "related": ["button", "breadcrumb", "action-item"]
+}

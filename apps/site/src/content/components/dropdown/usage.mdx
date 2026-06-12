@@ -1,0 +1,96 @@
+## Overview
+
+Dropdown is the system's pill-shaped select for choosing one or many values from a fixed list —
+filters, form selects, and table controls where the option set is known and short enough to scan.
+The trigger is a rounded (`--radius-6xl` → 30px) bordered pill; when open, a panel with a blue
+header replaces the trigger in place and lists 40px option rows. Every color resolves through the
+`component/dropdown/*` tokens, so dark and high-contrast themes restyle it with no extra code.
+
+## Best practices
+
+- Keep the option set **short and scannable** — roughly 3–10 items; the panel does not search or
+  filter.
+- Use `multiple` + `showButtons` (Cancel / Apply) when the selection drives an **expensive
+  operation** — e.g. refetching a filtered table — so users commit once via Apply.
+- Keep option labels short: the trigger joins selected labels with commas and truncates with an
+  ellipsis.
+- Give every option a stable, unique `value` — it is the selection identity (and the React key).
+- Set a `placeholder` that names the choice ("Select servers", not just "Select") — it also titles
+  the blue header while the panel is open.
+
+## When not to use
+
+- **Free-text entry** — use [Input](/components/input/); Dropdown only picks from the list you
+  give it.
+- **Long or searchable lists** — this component does not filter; build the criteria flow with
+  [Filter](/components/filter/) instead, which pairs a Dropdown with a search field and value
+  checkboxes.
+- **Two-state settings** — a [Toggle](/components/toggle/) or [Checkbox](/components/checkbox/)
+  is faster than opening a panel for on/off.
+- **Rows-per-page selection** — [Pagination](/components/pagination/) already ships that popover;
+  don't rebuild it.
+
+## Variants
+
+### Single select
+
+The default. Clicking an option commits it immediately and closes the panel; the trigger shows
+the chosen label. Option rows render plain labels with no leading checkbox (the Figma "Without
+checkbox" variant is this same rendering).
+
+<StoryEmbed id="forms-dropdown--select" height={320} caption="Single select — click to open" />
+
+### Multi-select
+
+`multiple` adds a leading brand-blue checkbox to every row. Each click toggles the option and
+commits instantly through `onChange`; the panel stays open so users can pick several values in
+one visit.
+
+<StoryEmbed id="forms-dropdown--multi-without-buttons" height={320} caption="Multi-select — every toggle commits instantly" />
+
+### Multi-select with buttons
+
+`multiple` + `showButtons` adds a Cancel / Apply footer and switches the panel to a
+**draft-then-Apply** model: checkbox clicks edit a draft, Apply commits it (firing `onChange` and
+`onApply`) and closes, Cancel discards it. The draft re-syncs to the committed selection each
+time the panel opens.
+
+<StoryEmbed id="forms-dropdown--multi-with-buttons" height={380} caption="Cancel / Apply footer — nothing commits until Apply" />
+
+### Disabled
+
+`disabled` greys the whole control via the `component/dropdown/disabled-*` tokens; the panel can
+never open. Individual options can also be disabled via `options[].disabled`.
+
+<StoryEmbed id="forms-dropdown--disabled" height={120} caption="Disabled" />
+
+## Anatomy
+
+| # | Part | Notes |
+| --- | --- | --- |
+| 1 | Trigger pill | Rounded (30px) bordered `<button>` with the selection (or placeholder) and a chevron; `aria-haspopup="listbox"` + `aria-expanded` |
+| 2 | Panel | Absolutely positioned overlay that replaces the trigger in place while open |
+| 3 | Blue header | `header-bg` bar repeating the placeholder text with an inverted chevron; clicking it closes the panel |
+| 4 | Option rows | 40px rows (`role="option"`); with `multiple`, each leads with an outlined brand-blue checkbox |
+| 5 | Cancel / Apply footer *(optional)* | `showButtons` mode — reuses the system [Button](/components/button/) (secondary + primary) |
+
+## Behaviors
+
+| Behavior | Description |
+| --- | --- |
+| Open / close | Trigger click toggles the panel; the trigger is visually hidden (layout preserved) while open so the blue header sits exactly in its slot |
+| Dismiss | Outside click and `Escape` close the panel; clicking the blue header also closes it |
+| Single select | Clicking an option commits it and closes the panel immediately |
+| Multi-select | Toggles commit instantly (`onChange`) and the panel stays open; with `showButtons`, toggles edit a draft until Apply |
+| Disabled | Whole-control `disabled` (grey pill, panel never opens) or per-option `disabled` (native button state) |
+| State model | Works controlled (`value` + `onChange`) or uncontrolled (`defaultValue`); trigger text joins selected labels with commas and ellipsizes |
+| Theming | All parts re-resolve automatically under `data-theme="dark"` and `"hc"` |
+
+<DoDont
+  do="Use showButtons when a multi-select drives an expensive operation, so users review the draft and commit once with Apply."
+  dont="Use Dropdown for long lists that need search or async loading — it renders a fixed, unfiltered option list."
+/>
+
+## Related components
+
+<RelatedCards slugs={["filter", "input", "checkbox", "button"]} />

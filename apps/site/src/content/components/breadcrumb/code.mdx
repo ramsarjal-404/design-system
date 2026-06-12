@@ -1,0 +1,17 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical form.
+The React rendition (`@lepidus/react`) generates the same `<nav>` + `<ol>` markup from an `items`
+array. Breadcrumb is pure CSS — no `lepidus.js` needed.
+
+## Basic trail
+
+Each ancestor crumb is an `<li>` holding a link plus an `aria-hidden` separator; the last item is
+a `<span aria-current="page">`.
+
+<Example snippet="breadcrumb/basic" title="Three-level trail" story="navigation-breadcrumb--default" />
+
+## Button crumbs
+
+When there is no routable URL — client-side routers, wizard steps — render the crumb as a
+`<button>` with the same `lp-breadcrumb__link` class (React: items with `onClick` and no `href`).
+
+<Example snippet="breadcrumb/button-crumbs" title="Router-driven crumbs" story="navigation-breadcrumb--button-crumbs" />

@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import { categories, components } from '../../lib/data';
+
+const clean = (d: string) => d.replace(/ — Lepidus Design System\.?$/, '');
+---
+
+<Base title="Components" description="All Lepidus components — usage, code, specifications, and accessibility.">
+  <div class="site-shell">
+    <Sidebar />
+    <main class="site-main" data-pagefind-body>
+      <p class="page-eyebrow">Library</p>
+      <h1>Components</h1>
+      <p class="page-lede">
+        {components.length} accessible, token-driven components. Every one ships as plain
+        HTML/CSS (<code>@lepidus/css</code>) where marked, and as React (<code>@lepidus/react</code>).
+        Each page covers Usage, Code, Specifications, and Accessibility.
+      </p>
+      {categories.map((group) => (
+        <>
+          <h2>{group.name}</h2>
+          <ul class="tile-grid">
+            {group.components.map((c) => (
+              <li>
+                <a class="tile" href={`/components/${c.slug}/`}>
+                  <p class="tile__title">{c.name}</p>
+                  <p class="tile__desc">{clean(c.description)}</p>
+                  <span class="tile__meta">
+                    {c.plainCss ? 'HTML + CSS · React' : 'React'}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      ))}
+    </main>
+  </div>
+</Base>

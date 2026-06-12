@@ -1,0 +1,26 @@
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. Block `lp-message` + one variant modifier; the icon, actions and close button are
+optional elements.
+
+## Error with actions
+
+The full composition: status icon, title, body, Ok/Cancel actions and a close button.
+
+<Example snippet="message/error" title="Error with actions and close" story="feedback-message--error" />
+
+## Success with a single action
+
+<Example snippet="message/success" title="Success confirmation" story="feedback-message--success" />
+
+## Text only
+
+Drop the actions row and the close button for a passive inline message.
+
+<Example snippet="message/text-only" title="Icon, title and body only" story="feedback-message--text-only" />
+
+<Callout variant="info" title="Pure CSS — no lepidus.js needed">
+  <p>Message is a static surface; wire the action and close buttons yourself. One
+  <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> is enough — see
+  <a href="/get-started/">Get Started</a>. Use <code>role="alert"</code> for urgent
+  errors/warnings and <code>role="status"</code> for polite confirmations.</p>
+</Callout>

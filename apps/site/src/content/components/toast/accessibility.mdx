@@ -1,0 +1,50 @@
+## Interactions
+
+### Mouse
+
+- The close × is the only interactive part of the pill; it's a real button with hover and
+  focus styling.
+- Inside [ToastProvider](/components/toast-provider/), hovering a toast **pauses its
+  auto-dismiss countdown** — slow readers don't lose the message mid-read.
+
+### Keyboard
+
+| Key | Behavior |
+| --- | --- |
+| `Tab` / `Shift+Tab` | Moves focus to / away from the close button (the pill's only focusable part) |
+| `Enter` / `Space` | Activates the close button (native behavior) |
+
+The pill adds no other keyboard handling. Always provide a close button on auto-dismissing
+toasts so keyboard users can dismiss on their own schedule.
+
+### Screen readers
+
+- The pill renders `role="status"` with `aria-live="polite"` — announced without
+  interrupting the current task (unlike Message's assertive `role="alert"`).
+- The badge and close glyphs are `aria-hidden` SVGs; the meaning must be carried by the
+  title and message text, never by color alone.
+- The close control is a real `<button type="button">` with `aria-label="Close"`
+  (`"Close notification"` in the `lepidus.js` API) and a visible `:focus-visible` outline.
+- `Lepidus.toast` and ToastProvider stack all pills inside **one** polite live region, so
+  announcements queue cleanly.
+
+## Development considerations
+
+- **Never put critical actions only in an auto-dismissing toast** — the user may miss it
+  entirely; anything requiring a decision belongs in [Message](/components/message/) or
+  [Modal](/components/modal/).
+- Don't auto-dismiss faster than a user can read; keep the 5–6s defaults unless copy is
+  very short, and use `duration: 0` for toasts the user must acknowledge.
+- Polite announcements can be skipped when the screen reader is busy — pair an error toast
+  with persistent inline state if the failure matters later.
+- Don't stack many toasts manually; go through the provider/`Lepidus.toast` so queueing
+  (max 5 visible in ToastProvider, FIFO) stays intact.
+
+## Content
+
+- One short sentence, severity-appropriate: "your changes have been saved." (success),
+  "your session is about to expire." (warning).
+- The title carries the severity word ("Success !", "Warning !") — the message carries the
+  fact.
+- Don't bury instructions in a toast; it disappears. If the user must do something, say it
+  somewhere persistent.

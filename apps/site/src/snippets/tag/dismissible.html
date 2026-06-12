@@ -1,0 +1,14 @@
+<span class="lp-tag lp-tag--error">
+  <span class="lp-tag__label">Critical</span>
+  <button type="button" class="lp-tag__remove" aria-label="Remove Critical">
+    <svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.5"
+         aria-hidden="true"><path d="M1 1l6 6M7 1L1 7" /></svg>
+  </button>
+</span>
+
+<script>
+  // Tag is pure CSS — removal is your handler's job
+  document.querySelectorAll('.lp-tag__remove').forEach((btn) =>
+    btn.addEventListener('click', () => btn.closest('.lp-tag').remove())
+  );
+</script>
