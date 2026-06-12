@@ -20,15 +20,22 @@ const clean = (d: string) => d.replace(/ — Lepidus Design System\.?$/, '');
       {categories.map((group) => (
         <>
           <h2>{group.name}</h2>
-          <ul class="tile-grid">
+          <ul class="comp-grid">
             {group.components.map((c) => (
               <li>
-                <a class="tile" href={`/components/${c.slug}/`}>
-                  <p class="tile__title">{c.name}</p>
-                  <p class="tile__desc">{clean(c.description)}</p>
-                  <span class="tile__meta">
-                    {c.plainCss ? 'HTML + CSS · React' : 'React'}
-                  </span>
+                <a class="comp-card" href={`/components/${c.slug}/`}>
+                  {c.meta.heroStory && (
+                    <div class="comp-card__thumb">
+                      <img src={`/thumbs/${c.slug}.png`} alt="" loading="lazy" />
+                    </div>
+                  )}
+                  <div class="comp-card__body">
+                    <p class="tile__title">{c.name}</p>
+                    <p class="tile__desc">{c.meta.description ?? clean(c.description)}</p>
+                    <span class="tile__meta">
+                      {c.plainCss ? 'HTML + CSS · React' : 'React'}
+                    </span>
+                  </div>
                 </a>
               </li>
             ))}

@@ -92,6 +92,27 @@ for (const dir of readdirSync(componentsDir).sort()) {
 const outPath = join(siteRoot, 'src/data/stories-index.json');
 mkdirSync(dirname(outPath), { recursive: true });
 writeFileSync(outPath, JSON.stringify(index, null, 2) + '\n');
+
+// ------------------------------------------------------------- thumbnails
+// Card previews on the component index reuse the committed VRT baseline
+// screenshot of each component's heroStory (light theme) — real renders,
+// zero extra tooling, and they can never drift from the shipped UI.
+const contentDir = join(siteRoot, 'src/content/components');
+const thumbsDir = join(siteRoot, 'public/thumbs');
+mkdirSync(thumbsDir, { recursive: true });
+let thumbs = 0;
+for (const slug of readdirSync(contentDir)) {
+  const metaPath = join(contentDir, slug, 'meta.json');
+  if (!existsSync(metaPath)) continue;
+  const meta = JSON.parse(readFileSync(metaPath, 'utf8'));
+  if (!meta.heroStory) continue;
+  const shot = join(repoRoot, '.vrt/baseline/light', `${meta.heroStory}.png`);
+  if (existsSync(shot)) {
+    cpSync(shot, join(thumbsDir, `${slug}.png`));
+    thumbs++;
+  }
+}
+
 console.log(
-  `✓ site data ready — ${Object.keys(index).length} story files indexed, artifacts copied to apps/site/public`
+  `✓ site data ready — ${Object.keys(index).length} story files indexed, ${thumbs} thumbnails, artifacts copied to apps/site/public`
 );
