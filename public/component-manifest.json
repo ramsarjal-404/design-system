@@ -587,6 +587,411 @@
       }
     },
     {
+      "name": "BarChart",
+      "description": "BarChart — Lepidus Design System",
+      "reactImport": "import { BarChart } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "categories",
+          "type": "string[]",
+          "required": true,
+          "defaultValue": null,
+          "description": "Row labels down the left (e.g. server names)"
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Format axis ticks and tooltip values"
+        },
+        {
+          "name": "labelWidth",
+          "type": "number",
+          "required": false,
+          "defaultValue": 40,
+          "description": "Width reserved for category labels, px (default 40)"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Axis maximum — defaults to a \"nice\" ceiling of the data max"
+        },
+        {
+          "name": "series",
+          "type": "ChartSeries[]",
+          "required": true,
+          "defaultValue": null,
+          "description": "One group of bars per category; series i = bar i in every group"
+        },
+        {
+          "name": "stacked",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "One segmented bar per category instead of a group of bars"
+        },
+        {
+          "name": "ticks",
+          "type": "number",
+          "required": false,
+          "defaultValue": 6,
+          "description": "Number of axis divisions (default 6)"
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "BubbleChart",
+      "description": "BubbleChart — Lepidus Design System",
+      "reactImport": "import { BubbleChart } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "defaultValue": 240,
+          "description": "Plot height in px (default 240); width tracks the container"
+        },
+        {
+          "name": "series",
+          "type": "BubbleSeries[]",
+          "required": true,
+          "defaultValue": null
+        },
+        {
+          "name": "showGrid",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": true,
+          "description": "Light background grid (default true)"
+        },
+        {
+          "name": "xMax",
+          "type": "number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Axis maxima — default to a \"nice\" ceiling of the data"
+        },
+        {
+          "name": "yMax",
+          "type": "number",
+          "required": false,
+          "defaultValue": null
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "ChartCard",
+      "description": "ChartCard — Lepidus Design System",
+      "reactImport": "import { ChartCard } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Icon buttons / controls on the right of the header"
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Remove the default 1160px max-width from the Figma frame"
+        },
+        {
+          "name": "headingLevel",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "h3",
+          "description": "Heading element used for the card title — pick the level that fits the page outline (default 'h3')"
+        },
+        {
+          "name": "lastUpdated",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Timestamp line next to the title (e.g. \"Last Updated on 21/08/2022 1:08 PM\")"
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": "Card heading, brand blue (e.g. \"Most Inactive Department On Copilot\")"
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "ChartLegend",
+      "description": "Swatch legend shared by all chart types.",
+      "reactImport": "import { ChartLegend } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "items",
+          "type": "ChartLegendItem[]",
+          "required": true,
+          "defaultValue": null
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "ColumnChart",
+      "description": "ColumnChart — Lepidus Design System",
+      "reactImport": "import { ColumnChart } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "categories",
+          "type": "string[]",
+          "required": true,
+          "defaultValue": null,
+          "description": "Labels under the columns"
+        },
+        {
+          "name": "colorByCategory",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "With a single series, color each category's column from the palette"
+        },
+        {
+          "name": "columnWidth",
+          "type": "number",
+          "required": false,
+          "defaultValue": 10,
+          "description": "Column width in px (default 10)"
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "defaultValue": null
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "defaultValue": 220,
+          "description": "Plot height in px (default 220)"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Axis maximum — defaults to a \"nice\" ceiling of the data max"
+        },
+        {
+          "name": "series",
+          "type": "ChartSeries[]",
+          "required": true,
+          "defaultValue": null,
+          "description": "One group of columns per category; series i = column i in every group"
+        },
+        {
+          "name": "stacked",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "One segmented column per category instead of a group"
+        },
+        {
+          "name": "ticks",
+          "type": "number",
+          "required": false,
+          "defaultValue": 4,
+          "description": "Number of y-axis divisions (default 4)"
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "DonutChart",
+      "description": "DonutChart — Lepidus Design System",
+      "reactImport": "import { DonutChart } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "centerLabel",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Caption under the center value (e.g. \"Total Alerts\")"
+        },
+        {
+          "name": "centerValue",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Big number in the hole — defaults to the sum of values"
+        },
+        {
+          "name": "data",
+          "type": "DonutDatum[]",
+          "required": true,
+          "defaultValue": null
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "defaultValue": null
+        },
+        {
+          "name": "hideLegend",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Hide the built-in legend (values + labels on the right)"
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "required": false,
+          "defaultValue": 180,
+          "description": "Outer diameter, px (default 180)"
+        },
+        {
+          "name": "thickness",
+          "type": "number",
+          "required": false,
+          "defaultValue": 22,
+          "description": "Ring thickness, px (default 22)"
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "GaugeChart",
+      "description": "GaugeChart — Lepidus Design System",
+      "reactImport": "import { GaugeChart } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "color",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Arc color (default brand blue). Ignored when `thresholds` is set."
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "defaultValue": null
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Caption under the center value (e.g. \"Health Score\")"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "defaultValue": 100,
+          "description": "Gauge maximum (default 100)"
+        },
+        {
+          "name": "size",
+          "type": "number",
+          "required": false,
+          "defaultValue": 200,
+          "description": "Overall width in px (default 200)"
+        },
+        {
+          "name": "thickness",
+          "type": "number",
+          "required": false,
+          "defaultValue": 18,
+          "description": "Arc thickness in px (default 18)"
+        },
+        {
+          "name": "thresholds",
+          "type": "{ upTo: number; color: string; }[]",
+          "required": false,
+          "defaultValue": null,
+          "description": "Color by reading: first entry whose `upTo` ≥ value wins (e.g. green/yellow/red bands)"
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "required": true,
+          "defaultValue": null,
+          "description": "Current reading"
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "LineChart",
+      "description": "LineChart — Lepidus Design System",
+      "reactImport": "import { LineChart } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "area",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Soft fill under each line"
+        },
+        {
+          "name": "dots",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": true,
+          "description": "Markers on data points (default true)"
+        },
+        {
+          "name": "formatValue",
+          "type": "((value: number) => string)",
+          "required": false,
+          "defaultValue": null
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "required": false,
+          "defaultValue": 240,
+          "description": "Plot height in px (default 240); width tracks the container"
+        },
+        {
+          "name": "labels",
+          "type": "string[]",
+          "required": true,
+          "defaultValue": null,
+          "description": "X-axis labels — every series should have one value per label"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Axis maximum — defaults to a \"nice\" ceiling of the data max"
+        },
+        {
+          "name": "series",
+          "type": "ChartSeries[]",
+          "required": true,
+          "defaultValue": null
+        },
+        {
+          "name": "ticks",
+          "type": "number",
+          "required": false,
+          "defaultValue": 4,
+          "description": "Number of y-axis divisions (default 4)"
+        }
+      ],
+      "plainCss": null
+    },
+    {
       "name": "Checkbox",
       "description": "Checkbox — Lepidus Design System",
       "reactImport": "import { Checkbox } from '@lepidus/react'",
@@ -768,6 +1173,21 @@
       }
     },
     {
+      "name": "DragDropIllustration",
+      "description": "Drag-and-drop illustration from the Figma \"Drag-and-Drop\" frame (node\n631:3498) — a hand dragging a card toward a dashed drop target. Unlike the\nother empty-state illustrations this one is a raster in Figma (237×212\nPNG), so it ships as an image asset; avoid rendering it above its native\nsize or it will soften. Decorative (aria-hidden) — the EmptyState message\ncarries the meaning.",
+      "reactImport": "import { DragDropIllustration } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "size",
+          "type": "number",
+          "required": false,
+          "defaultValue": 212,
+          "description": "Rendered height in px (default 212, the source size; width keeps the 237:212 ratio)"
+        }
+      ],
+      "plainCss": null
+    },
+    {
       "name": "EmptyState",
       "description": "EmptyState — Lepidus Design System",
       "reactImport": "import { EmptyState } from '@lepidus/react'",
@@ -810,6 +1230,51 @@
           "lp-empty-state__message"
         ]
       }
+    },
+    {
+      "name": "EmptyStateIllustration",
+      "description": "Sleeping-server illustration from the Figma \"Empty-Page-Statement-with-\nIllustration\" frame (node 133:155), exported as a single SVG. Decorative by\ndefault (aria-hidden) -- the EmptyState message carries the meaning.",
+      "reactImport": "import { EmptyStateIllustration } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "size",
+          "type": "number",
+          "required": false,
+          "defaultValue": 221,
+          "description": "Width and height in px (default 221, the Figma frame size)"
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "NoRecordsIllustration",
+      "description": "\"No Records Found\" illustration from the Design Essentials report page\n(node 4:3532) -- a server stack under a magnifying glass in the brand\nblues. The no-results situation of the EmptyState set: a query/generation\nran (or hasn't run yet) and there is nothing to show. Decorative\n(aria-hidden); the EmptyState message carries the meaning.",
+      "reactImport": "import { NoRecordsIllustration } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "size",
+          "type": "number",
+          "required": false,
+          "defaultValue": 204,
+          "description": "Rendered height in px (default 204; width keeps the 257:204 ratio)"
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "UploadFileIllustration",
+      "description": "Open-folder upload illustration from the Figma \"Upload-File\" frame (node\n631:3919), exported as a single SVG — papers rising out of a light-blue\nfolder with green leaves. Decorative by default (aria-hidden); pair it with\nan EmptyState message like \"Click here to upload your file!\".",
+      "reactImport": "import { UploadFileIllustration } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "size",
+          "type": "number",
+          "required": false,
+          "defaultValue": 214,
+          "description": "Rendered height in px (default 214, the Figma export; width keeps the 181:214 ratio)"
+        }
+      ],
+      "plainCss": null
     },
     {
       "name": "Filter",
@@ -1527,6 +1992,70 @@
           "lp-radio__label"
         ]
       }
+    },
+    {
+      "name": "RadioGroup",
+      "description": "RadioGroup — Lepidus Design System",
+      "reactImport": "import { RadioGroup } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": "`Radio` options (other nodes are allowed and rendered as-is)."
+        },
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Uncontrolled initial value."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Disables every option in the group."
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Visible group label, rendered above the options and wired via `aria-labelledby`."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "defaultValue": null,
+          "description": "Shared `name` applied to every `Radio` inside, wiring native arrow-key behavior."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: string) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Called with the newly selected option's value."
+        },
+        {
+          "name": "orientation",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "vertical",
+          "description": "Stacking direction of the options (default vertical)."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Controlled selected value. Pair with `onChange`."
+        }
+      ],
+      "plainCss": null
     },
     {
       "name": "Scrollbar",
@@ -2315,6 +2844,42 @@
           "lp-toast__title"
         ]
       }
+    },
+    {
+      "name": "useToast",
+      "description": "useToast — access the imperative toast API from any descendant of\n`<ToastProvider>`: `const { toast, dismiss } = useToast()`.",
+      "reactImport": "import { useToast } from '@lepidus/react'",
+      "props": [],
+      "plainCss": null
+    },
+    {
+      "name": "ToastProvider",
+      "description": "ToastProvider — Lepidus Design System",
+      "reactImport": "import { ToastProvider } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Application subtree that gains access to `useToast()`."
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "required": false,
+          "defaultValue": 6000,
+          "description": "Default auto-dismiss timeout in ms (overridable per toast via\n`toast({ duration })`; `0` persists). Default 6000."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "defaultValue": 5,
+          "description": "Maximum number of toasts visible at once; further toasts queue and\nsurface as earlier ones leave. Default 5."
+        }
+      ],
+      "plainCss": null
     },
     {
       "name": "Toggle",

@@ -1,0 +1,90 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Lepidus/AI & Vibe Coding" />
+
+# AI & vibe coding with Lepidus
+
+Lepidus treats AI coding assistants as a **first-class consumer** of the
+design system, on equal footing with human developers. If you describe a
+screen to Claude Code, Cursor, or Copilot, the goal is that the generated
+code is *already on-brand*: right components, right tokens, right
+accessibility patterns — no cleanup pass.
+
+This page explains what's in place, how it works, and how to set it up.
+
+## The three layers
+
+| Layer | File | What it does |
+|---|---|---|
+| **Rules** | [`llms.txt`](/llms.txt) (served on this site) | Plain-language instructions for any AI: "default to `lp-` classes, never hardcode colors, themes via `data-theme`" plus the full class inventory |
+| **Facts** | [`component-manifest.json`](/component-manifest.json) | Machine-readable API of all 56 components: every prop with type/default/description, plus the plain-CSS classes |
+| **Live lookup** | Lepidus MCP server (`packages/mcp/`) | Lets the assistant *query* the system mid-task: component props, token values per theme, usage rules |
+
+There is also a `CLAUDE.md` in the repo root — rules for assistants working
+**on the design system itself** (token chain, quality gates, conventions).
+
+## How a vibe-coding session actually works
+
+Say a Lepide developer types into their assistant:
+
+> "Build a settings page with a server-name input, a scan-frequency radio
+> group, and a danger button to delete the server. Dark mode must work."
+
+What happens with the Lepidus AI surface in place:
+
+1. The assistant reads the **rules** (from `llms.txt` via MCP, or from a
+   `CLAUDE.md` in the product repo) and learns: plain HTML with `lp-`
+   classes, tokens only, `data-theme` for theming.
+2. It looks up the **facts**: `get_component("Input")` returns the exact
+   markup contract (`lp-input__row--label-top`, error/disabled states,
+   ARIA wiring); `search_tokens("danger")` returns the real token names.
+3. It generates markup that matches the documented patterns on the
+   **HTML & CSS** page of this site — the same patterns the axe CI gate
+   audits in all three themes.
+4. Dark mode works for free, because nothing was hardcoded.
+
+Without these layers, the same prompt produces a plausible-looking page with
+invented class names, hex colors, and broken dark mode.
+
+## Setup in a product repo
+
+1. **Get the CSS**: copy `packages/css/dist/lepidus.css` (+ `lepidus.js` for
+   interactive components) into the project, or reference a checkout.
+2. **Add the rules file**: create a `CLAUDE.md` (works for Claude Code;
+   Cursor reads `.cursorrules`) in the product repo saying:
+
+   ```markdown
+   # UI rules
+   This project uses the Lepidus Design System.
+   - Build UI with the documented lp- classes:
+     https://lepidus-design-system-button.vercel.app/llms.txt
+   - Never hardcode colors/radii/spacing — use var(--component-*) /
+     var(--color-*) tokens from lepidus.css.
+   - Interactive components (modal, tabs, dropdown, toast, tooltip,
+     accordion, stepper) use lepidus.js data attributes.
+   - Themes: set data-theme="light|dark|hc" on <html>; never write
+     per-theme colors by hand.
+   ```
+
+3. **Wire the MCP server** (optional but recommended): copy the
+   `mcpServers` block from this repo's `.mcp.json`, pointing at a checkout
+   of the design system. See `packages/mcp/README.md` for details.
+
+## Verifying generated code
+
+The same checks that gate this repo can sanity-check generated output:
+
+- No hex colors outside `var()` fallbacks (grep `#[0-9a-f]{3,6}` finds
+  violations fast).
+- Only documented `lp-` classes — the manifest's `plainCss.classes` arrays
+  are the complete legal set.
+- The axe patterns: toggles are `role="switch"`, checkboxes/radios keep the
+  real `<input>`, listboxes have `aria-label`, avatars carry `role="img"` +
+  `aria-label`, modals get focus-trap + inert background from `lepidus.js`.
+
+## For designers
+
+The same surface answers designer questions: paste a Figma value
+(e.g. `#1C4599`) into `search_tokens` and get every token bound to it; ask
+`get_component("Tag")` to see exactly which states engineering supports
+before designing a new one.

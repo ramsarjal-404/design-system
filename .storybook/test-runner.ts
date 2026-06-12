@@ -38,15 +38,28 @@ const config: TestRunnerConfig = {
     }
 
     // Scope to the story root; fail (skipFailures = false) on violations.
-    await checkA11y(
-      page,
-      '#storybook-root',
-      {
-        detailedReport: true,
-        detailedReportOptions: { html: false },
-      },
-      false,
-    );
+    // axe-core refuses concurrent runs; when a story navigates while the
+    // previous story's audit is still flushing, checkA11y throws "Axe is
+    // already running". That's a runner race, not a component violation —
+    // wait for the in-flight run to finish and retry.
+    for (let attempt = 1; ; attempt++) {
+      try {
+        await checkA11y(
+          page,
+          '#storybook-root',
+          {
+            detailedReport: true,
+            detailedReportOptions: { html: false },
+          },
+          false,
+        );
+        return;
+      } catch (err) {
+        const isBusy = String(err).includes('Axe is already running');
+        if (!isBusy || attempt >= 5) throw err;
+        await page.waitForTimeout(300 * attempt);
+      }
+    }
   },
 };
 

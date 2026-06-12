@@ -7,7 +7,7 @@ const preview: Preview = {
       storySort: {
         order: [
           'Lepidus',
-          ['Introduction', 'Releases', 'Design Tokens', 'Contributing'],
+          ['Introduction', 'Releases', 'Design Tokens', 'AI & Vibe Coding', 'Contributing'],
           'Foundations',
           ['Getting Started', 'Typography', 'Iconography', 'Elevation & Motion', 'Theming', 'HTML & CSS', 'UX Writing', 'Choosing Components'],
           'Actions',

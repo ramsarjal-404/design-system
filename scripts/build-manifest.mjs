@@ -31,11 +31,19 @@ const cssByReactName = new Map(
 );
 
 const components = [];
+const seen = new Set();
 for (const dir of readdirSync(componentsDir).sort()) {
-  const file = join(componentsDir, dir, `${dir}.tsx`);
-  if (!existsSync(file)) continue;
-  const parsed = parser.parse(file);
+  const dirPath = join(componentsDir, dir);
+  if (!existsSync(join(dirPath, 'index.ts'))) continue;
+  // every PascalCase .tsx in the folder (Charts/ holds several chart
+  // components), excluding stories and icon helpers
+  const files = readdirSync(dirPath)
+    .filter((f) => /^[A-Z][A-Za-z]*\.tsx$/.test(f) && !f.includes('.stories.'))
+    .map((f) => join(dirPath, f));
+  const parsed = files.flatMap((f) => parser.parse(f));
   for (const doc of parsed) {
+    if (seen.has(doc.displayName)) continue;
+    seen.add(doc.displayName);
     const props = Object.entries(doc.props ?? {})
       .map(([name, p]) => ({
         name,
