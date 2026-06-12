@@ -16,7 +16,13 @@ const heroStory = c.meta.heroStory ?? c.storyFile?.stories[0]?.id;
 
 <ComponentPage component={c} tab="usage" headings={headings}>
   {heroStory && (
-    <StoryEmbed id={heroStory} height={c.meta.heroHeight ?? 200} caption={`${c.name} — live`} />
+    <StoryEmbed
+      id={heroStory}
+      height={c.meta.heroHeight ?? 200}
+      caption={`${c.name} — live`}
+      codeFor={c.slug}
+      viewports={c.meta.viewports ?? false}
+    />
   )}
   {mod ? (
     <mod.Content components={mdxComponents} />

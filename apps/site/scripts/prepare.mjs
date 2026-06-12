@@ -105,8 +105,9 @@ for (const slug of readdirSync(contentDir)) {
   const metaPath = join(contentDir, slug, 'meta.json');
   if (!existsSync(metaPath)) continue;
   const meta = JSON.parse(readFileSync(metaPath, 'utf8'));
-  if (!meta.heroStory) continue;
-  const shot = join(repoRoot, '.vrt/baseline/light', `${meta.heroStory}.png`);
+  const thumbStory = meta.thumbStory ?? meta.heroStory;
+  if (!thumbStory) continue;
+  const shot = join(repoRoot, '.vrt/baseline/light', `${thumbStory}.png`);
   if (existsSync(shot)) {
     cpSync(shot, join(thumbsDir, `${slug}.png`));
     thumbs++;

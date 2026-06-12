@@ -1,6 +1,11 @@
 {
-  "description": "One-of-many form control built on native radio inputs — pick exactly one option from a small visible set, with a RadioGroup wrapper for labeling and wiring.",
-  "heroStory": "forms-radio--all-states",
+  "description": "One-of-many form control built on native radio inputs \u2014 pick exactly one option from a small visible set, with a RadioGroup wrapper for labeling and wiring.",
+  "heroStory": "forms-radio--group",
   "heroHeight": 200,
-  "related": ["checkbox", "toggle", "dropdown"]
+  "related": [
+    "checkbox",
+    "toggle",
+    "dropdown"
+  ],
+  "thumbStory": "forms-radio--all-states"
 }

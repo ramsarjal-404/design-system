@@ -1,6 +1,11 @@
 {
-  "description": "Presentational scrollbar track and thumb — a fully-rounded pill whose thumb size, position and state are driven by props; the host owns the scroll math.",
-  "heroStory": "data-display-scrollbar--all-variants",
+  "description": "Presentational scrollbar track and thumb \u2014 a fully-rounded pill whose thumb size, position and state are driven by props; the host owns the scroll math.",
+  "heroStory": "data-display-scrollbar--default",
   "heroHeight": 300,
-  "related": ["table", "pagination", "sidebar"]
+  "related": [
+    "table",
+    "pagination",
+    "sidebar"
+  ],
+  "thumbStory": "data-display-scrollbar--all-variants"
 }

@@ -1,6 +1,12 @@
 {
-  "description": "Brand-blue vertical icon-rail navigation with header and footer slots — the Lepide app-level nav, driven end-to-end by component/nav tokens.",
+  "description": "Brand-blue vertical icon-rail navigation with header and footer slots \u2014 the Lepide app-level nav, driven end-to-end by component/nav tokens.",
   "heroStory": "navigation-sidebar--default",
   "heroHeight": 480,
-  "related": ["settings-panel", "folder-tree", "breadcrumb", "tabs"]
+  "related": [
+    "settings-panel",
+    "folder-tree",
+    "breadcrumb",
+    "tabs"
+  ],
+  "viewports": true
 }

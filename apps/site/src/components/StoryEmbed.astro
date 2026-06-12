@@ -1,57 +1,217 @@
 ---
 /**
- * Live Storybook embed with a 3-theme switcher.
- * Renders /storybook/iframe.html?id=…&globals=theme:… — the same global the
- * Storybook toolbar drives, so the embed is always behavior-identical.
+ * Live Storybook embed — the canonical "specimen" display.
+ *
+ * - Auto-fits the iframe to the story's real height (same-origin), so
+ *   previews never clip; `height` is only the pre-load placeholder.
+ * - Theme (light/dark/hc) and direction (LTR/RTL) switchers drive the same
+ *   Storybook globals the toolbar uses, so embeds stay behavior-identical.
+ * - Optional width presets (`viewports`) for layout-sensitive components.
+ * - Optional "Show code" expander (`codeFor`) surfacing the component's
+ *   representative HTML/React snippet inline, with copy.
  */
+import { Code } from 'astro:components';
 import { STORYBOOK_BASE } from '../lib/data';
 
 interface Props {
   id: string;
   height?: number;
   caption?: string;
+  /** component slug — attaches the "Show code" expander from its snippets */
+  codeFor?: string;
+  /** show width presets (mobile / full) for layout-sensitive components */
+  viewports?: boolean;
 }
-const { id, height = 200, caption = 'Live example' } = Astro.props;
-const src = `${STORYBOOK_BASE}/iframe.html?id=${id}&viewMode=story&globals=theme:light`;
+const { id, height = 200, caption = 'Live example', codeFor, viewports = false } = Astro.props;
+const src = `${STORYBOOK_BASE}/iframe.html?id=${id}&viewMode=story&globals=theme:light;direction:ltr`;
+
+// Representative snippet for the expander: prefer variants.html, else the
+// first snippet alphabetically. Both renditions are shown when present.
+const htmlFiles = import.meta.glob<string>('/src/snippets/**/*.html', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+const jsxFiles = import.meta.glob<string>('/src/snippets/**/*.jsx', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+let codeHtml: string | undefined;
+let codeJsx: string | undefined;
+if (codeFor) {
+  const mine = Object.keys(htmlFiles)
+    .filter((p) => p.startsWith(`/src/snippets/${codeFor}/`))
+    .sort();
+  const pick = mine.find((p) => p.endsWith('/variants.html')) ?? mine[0];
+  if (pick) {
+    codeHtml = htmlFiles[pick]?.trim();
+    codeJsx = jsxFiles[pick.replace(/\.html$/, '.jsx')]?.trim();
+  }
+}
+const uid = `sb-${id.replace(/[^a-z0-9]+/gi, '-')}`;
 ---
 
 <figure class="example" data-story-embed style="margin-inline:0">
   <div class="example__bar">
+    <span class="live-pill" title="Rendered live from Storybook — hover, focus and keyboard all work">
+      <span class="live-pill__dot" aria-hidden="true"></span>Live
+    </span>
     <span class="example__title">{caption}</span>
     <div class="theme-switch" role="group" aria-label="Example theme">
       <button type="button" aria-pressed="true" data-theme="light">Light</button>
       <button type="button" aria-pressed="false" data-theme="dark">Dark</button>
       <button type="button" aria-pressed="false" data-theme="hc">High contrast</button>
     </div>
+    <div class="theme-switch" role="group" aria-label="Text direction">
+      <button type="button" aria-pressed="true" data-dir="ltr">LTR</button>
+      <button type="button" aria-pressed="false" data-dir="rtl">RTL</button>
+    </div>
+    {viewports && (
+      <div class="theme-switch" role="group" aria-label="Preview width">
+        <button type="button" aria-pressed="true" data-vp="full">Full</button>
+        <button type="button" aria-pressed="false" data-vp="mobile">Mobile</button>
+      </div>
+    )}
     <span class="example__links">
       <a href={`${STORYBOOK_BASE}/?path=/story/${id}`} target="_blank" rel="noopener">
         Open in Storybook ↗
       </a>
     </span>
   </div>
-  <iframe
-    class="example__frame"
-    src={src}
-    height={height}
-    loading="lazy"
-    title={`${caption} — Storybook story ${id}`}></iframe>
+  <div class="example__stage">
+    <iframe
+      class="example__frame"
+      src={src}
+      height={height}
+      loading="lazy"
+      title={`${caption} — Storybook story ${id}`}></iframe>
+  </div>
+
+  {codeHtml && (
+    <details class="example__code">
+      <summary>Show code</summary>
+      <div class="code-tabs">
+        <div class="code-tabs__bar" role="tablist" aria-label="Code language">
+          <button type="button" role="tab" id={`${uid}-tab-html`} aria-selected="true" aria-controls={`${uid}-panel-html`} data-code-tab="html">
+            HTML + lp- classes
+          </button>
+          {codeJsx && (
+            <button type="button" role="tab" id={`${uid}-tab-jsx`} aria-selected="false" aria-controls={`${uid}-panel-jsx`} data-code-tab="jsx">
+              React
+            </button>
+          )}
+          <button type="button" class="code-tabs__copy" data-copy>Copy</button>
+        </div>
+        <div class="code-tabs__panel" role="tabpanel" id={`${uid}-panel-html`} aria-labelledby={`${uid}-tab-html`}>
+          <Code code={codeHtml} lang="html" theme="github-dark" />
+        </div>
+        {codeJsx && (
+          <div class="code-tabs__panel" role="tabpanel" id={`${uid}-panel-jsx`} aria-labelledby={`${uid}-tab-jsx`} hidden>
+            <Code code={codeJsx} lang="jsx" theme="github-dark" />
+          </div>
+        )}
+      </div>
+    </details>
+  )}
 </figure>
 
 <script>
-  // One delegated handler for every Storybook embed on the page.
-  document.addEventListener('click', (e) => {
-    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(
-      '[data-story-embed] .theme-switch button'
-    );
-    if (!btn) return;
-    const figure = btn.closest('[data-story-embed]')!;
+  // ---- auto-fit: size every embed to its story's real height -------------
+  // Same-origin (/storybook/), so we can measure #storybook-root directly.
+  // Falls back to the placeholder height if the document isn't reachable.
+  const fit = (iframe: HTMLIFrameElement) => {
+    try {
+      const doc = iframe.contentDocument;
+      const root = doc?.getElementById('storybook-root');
+      if (!root) return;
+      const h = Math.ceil(root.getBoundingClientRect().bottom) + 20;
+      if (h > 40) iframe.height = String(Math.min(Math.max(h, 72), 920));
+    } catch {
+      /* cross-origin dev setup — keep placeholder height */
+    }
+  };
+  const watch = (iframe: HTMLIFrameElement) => {
+    fit(iframe);
+    // fonts and late layout settle
+    setTimeout(() => fit(iframe), 300);
+    setTimeout(() => fit(iframe), 900);
+  };
+  document.querySelectorAll<HTMLIFrameElement>('[data-story-embed] iframe').forEach((f) => {
+    f.addEventListener('load', () => watch(f));
+    if (f.contentDocument?.readyState === 'complete') watch(f);
+  });
+
+  // ---- one delegated handler for every embed control ----------------------
+  const setGlobal = (figure: Element, patch: Record<string, string>) => {
     const iframe = figure.querySelector('iframe')!;
-    const theme = btn.dataset.theme!;
-    figure
-      .querySelectorAll('.theme-switch button')
-      .forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
     const url = new URL(iframe.src, location.href);
-    url.searchParams.set('globals', `theme:${theme}`);
+    const globals = Object.fromEntries(
+      (url.searchParams.get('globals') ?? '')
+        .split(';')
+        .filter(Boolean)
+        .map((kv) => kv.split(':') as [string, string])
+    );
+    Object.assign(globals, patch);
+    url.searchParams.set(
+      'globals',
+      Object.entries(globals)
+        .map(([k, v]) => `${k}:${v}`)
+        .join(';')
+    );
     iframe.src = url.toString();
+  };
+  const press = (btn: HTMLButtonElement) =>
+    btn.parentElement!
+      .querySelectorAll('button')
+      .forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const figure = target.closest('[data-story-embed]');
+    if (!figure) return;
+
+    const themeBtn = target.closest<HTMLButtonElement>('button[data-theme]');
+    if (themeBtn) {
+      press(themeBtn);
+      setGlobal(figure, { theme: themeBtn.dataset.theme! });
+      return;
+    }
+    const dirBtn = target.closest<HTMLButtonElement>('button[data-dir]');
+    if (dirBtn) {
+      press(dirBtn);
+      setGlobal(figure, { direction: dirBtn.dataset.dir! });
+      return;
+    }
+    const vpBtn = target.closest<HTMLButtonElement>('button[data-vp]');
+    if (vpBtn) {
+      press(vpBtn);
+      const iframe = figure.querySelector<HTMLIFrameElement>('iframe')!;
+      const mobile = vpBtn.dataset.vp === 'mobile';
+      iframe.style.width = mobile ? '375px' : '';
+      figure.querySelector('.example__stage')!.classList.toggle('example__stage--mobile', mobile);
+      setTimeout(() => fit(iframe), 250);
+      return;
+    }
+    const tabBtn = target.closest<HTMLButtonElement>('[data-code-tab]');
+    if (tabBtn) {
+      figure.querySelectorAll('[data-code-tab]').forEach((b) => {
+        const selected = b === tabBtn;
+        b.setAttribute('aria-selected', String(selected));
+        const panel = figure.querySelector(`#${b.getAttribute('aria-controls')}`);
+        if (panel) (panel as HTMLElement).hidden = !selected;
+      });
+      return;
+    }
+    const copyBtn = target.closest<HTMLButtonElement>('[data-copy]');
+    if (copyBtn) {
+      const visible = figure.querySelector('.code-tabs__panel:not([hidden]) pre');
+      if (visible) {
+        navigator.clipboard.writeText(visible.textContent ?? '').then(() => {
+          copyBtn.textContent = 'Copied ✓';
+          setTimeout(() => (copyBtn.textContent = 'Copy'), 1400);
+        });
+      }
+    }
   });
 </script>

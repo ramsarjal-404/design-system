@@ -1,6 +1,11 @@
 {
-  "description": "Read-only status pill that labels the state or category of an object inline — bound to the shared status tokens so colors never drift.",
-  "heroStory": "data-display-badge--all-variants",
+  "description": "Read-only status pill that labels the state or category of an object inline \u2014 bound to the shared status tokens so colors never drift.",
+  "heroStory": "data-display-badge--default",
   "heroHeight": 160,
-  "related": ["tag", "button", "message"]
+  "related": [
+    "tag",
+    "button",
+    "message"
+  ],
+  "thumbStory": "data-display-badge--all-variants"
 }

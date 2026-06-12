@@ -1,6 +1,12 @@
 {
-  "description": "Pill-shaped select for choosing one or many values from a fixed list — single-select, multi-select with checkboxes, and a draft-then-Apply mode.",
-  "heroStory": "forms-dropdown--all-variants",
+  "description": "Pill-shaped select for choosing one or many values from a fixed list \u2014 single-select, multi-select with checkboxes, and a draft-then-Apply mode.",
+  "heroStory": "forms-dropdown--select",
   "heroHeight": 320,
-  "related": ["filter", "input", "checkbox", "button"]
+  "related": [
+    "filter",
+    "input",
+    "checkbox",
+    "button"
+  ],
+  "thumbStory": "forms-dropdown--all-variants"
 }

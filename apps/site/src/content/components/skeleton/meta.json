@@ -1,6 +1,12 @@
 {
-  "description": "Loading placeholder that mirrors the shape of incoming content — shimmering text lines, circles and rects that hold the layout steady.",
-  "heroStory": "feedback-skeleton--all-variants",
+  "description": "Loading placeholder that mirrors the shape of incoming content \u2014 shimmering text lines, circles and rects that hold the layout steady.",
+  "heroStory": "feedback-skeleton--paragraph",
   "heroHeight": 240,
-  "related": ["spinner", "progress", "card", "table"]
+  "related": [
+    "spinner",
+    "progress",
+    "card",
+    "table"
+  ],
+  "thumbStory": "feedback-skeleton--all-variants"
 }

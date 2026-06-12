@@ -34,6 +34,10 @@ export interface ComponentMeta {
   status?: string;
   heroStory?: string;
   heroHeight?: number;
+  /** index-card thumbnail story when it should differ from the hero (e.g. variant grids) */
+  thumbStory?: string;
+  /** hero shows width presets (mobile / full) — layout-sensitive components */
+  viewports?: boolean;
   related?: string[];
   a11yNotes?: string[];
 }

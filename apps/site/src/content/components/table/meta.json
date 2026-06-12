@@ -1,6 +1,11 @@
 {
-  "description": "Data table with sortable headers, a per-column search row, and checkbox row selection — client-side by default, controllable for server-driven data.",
+  "description": "Data table with sortable headers, a per-column search row, and checkbox row selection \u2014 client-side by default, controllable for server-driven data.",
   "heroStory": "data-display-table--default",
   "heroHeight": 360,
-  "related": ["pagination", "checkbox", "badge"]
+  "related": [
+    "pagination",
+    "checkbox",
+    "badge"
+  ],
+  "viewports": true
 }

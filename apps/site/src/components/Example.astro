@@ -70,6 +70,11 @@ const uid = `ex-${snippet.replace(/[^a-z0-9]+/gi, '-')}`;
 
 <figure class="example" data-live-example style="margin-inline:0">
   <div class="example__bar">
+    {srcdoc && !codeOnly && (
+      <span class="live-pill" title="Rendered live from @lepidus/css — hover, focus and keyboard all work">
+        <span class="live-pill__dot" aria-hidden="true"></span>Live
+      </span>
+    )}
     <span class="example__title">{title}</span>
     {srcdoc && !codeOnly && (
       <div class="theme-switch" role="group" aria-label="Example theme">

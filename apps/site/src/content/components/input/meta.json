@@ -1,6 +1,12 @@
 {
-  "description": "Labeled single-line form field — a 25px-radius pill with an inline-left or stacked label, helper/error messaging, and icon slots, bound to the component/input tokens.",
-  "heroStory": "forms-input--all-states",
+  "description": "Labeled single-line form field \u2014 a 25px-radius pill with an inline-left or stacked label, helper/error messaging, and icon slots, bound to the component/input tokens.",
+  "heroStory": "forms-input--label-top",
   "heroHeight": 360,
-  "related": ["text-field", "textarea", "stepper", "dropdown"]
+  "related": [
+    "text-field",
+    "textarea",
+    "stepper",
+    "dropdown"
+  ],
+  "thumbStory": "forms-input--all-states"
 }
