@@ -68,6 +68,16 @@ Components available as plain CSS (copy-paste markup on the
 - Message — `lp-message` + `--info|--success|--warning|--error`; `__icon`,
   `__content`, `__text`, `__title`, `__body`, `__actions`, `__close`
 - Empty state — `lp-empty-state`; `__illustration`, `__message`, `__action`
+- Radio — `lp-radio` (+`--disabled`); `__control`, `__input`, `__circle`
+  (+`--error`), `__dot`, `__label`; groups: `lp-radio-group` + `__label` +
+  `__options` (+`--horizontal`)
+- Progress — `lp-progress` (+`--completed|--pending|--full-width`); `__label`,
+  `__row`, `__track` (role=progressbar), `__fill` (inline width %), `__value`,
+  `__clock`
+- Steps — `lp-steps`; `__item`, `__step-button`, `__circle`
+  (+`--done|--current|--upcoming`), `__dot`, `__connector` (+`--done`), `__label`
+- Pagination — `lp-pagination`; `__label`, `__button`, `__page-input`,
+  `__page-size` + `__page-size-trigger/chevron/panel/option` (+`--selected`)
 
 ## Interactive components (include lepidus.js)
 
@@ -84,11 +94,26 @@ Components available as plain CSS (copy-paste markup on the
   `data-lp-modal-open="<id>"`, close with `data-lp-modal-close` / Escape /
   backdrop click; focus is trapped and restored; `data-lp-autofocus` picks the
   initial focus. JS API: `Lepidus.openModal(id)`, `Lepidus.closeModal()`.
+- Accordion — `lp-accordion` with `data-lp-accordion`; `__item`, `__heading`,
+  `__trigger` (aria-expanded + aria-controls), `__title`, `__chevron`,
+  `__panel` (+`--open`) > `__panel-inner` > `__panel-content`
+- Dropdown — `lp-dropdown` with `data-lp-dropdown="multi"|"single"`;
+  `__trigger` (+`--disabled`) > `__trigger-label` + `__chevron` (+`--open`);
+  `__panel` (hidden) > `__header` + `__header-label`, `__list` (role=listbox) >
+  `__option` (role=option, aria-checked) > `__checkbox` + `__option-label`,
+  `__footer`. Fires "lp-dropdown-change" CustomEvent.
+- Stepper — `lp-stepper` (+`--full-width|--disabled`) with `data-lp-stepper`;
+  `__input` (type=number), `__controls` > two `__control` buttons (up, down)
+- Toast — JS API: `Lepidus.toast({title, message, variant:
+  'info'|'success'|'warning'|'error', duration})`; markup `lp-toast`
+  (+`--success|--warning|--error`); `__badge`, `__content`, `__title`,
+  `__body`, `__close`
+- Tooltip — `data-lp-tooltip="text"` on any element; bubble class `lp-tooltip`
+  with role=tooltip and aria-describedby wiring, hover + focus + Escape
 
 Components not yet converted to plain CSS (use the React package or wait):
-Accordion, ActionItem, Calendar, Charts, Dropdown, Filter, FolderTree,
-Pagination, Progress, Radio, Scrollbar, SettingsPanel, Sidebar, Stepper,
-Steps, TextField, Textarea, TimePicker, Toast, Tooltip.
+ActionItem, Calendar, Charts, Filter, FolderTree, Scrollbar, SettingsPanel,
+Sidebar, TextField, Textarea, TimePicker.
 
 ## React usage
 

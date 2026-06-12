@@ -488,13 +488,185 @@ close. Shell sizes: `--sm` (520px), `--md` (680px), `--lg` (743px); use
 `lp-modal__shell--inline` without the overlay for embedded panels. Also
 callable from code: `Lepidus.openModal('add-server')` / `Lepidus.closeModal()`.
 
+## Accordion — interactive, needs lepidus.js
+
+```html
+<div class="lp-accordion" data-lp-accordion>
+  <div class="lp-accordion__item">
+    <h3 class="lp-accordion__heading">
+      <button class="lp-accordion__trigger" aria-expanded="false" aria-controls="faq-1">
+        <span class="lp-accordion__title">What does Lepide audit?</span>
+        <svg class="lp-accordion__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>
+      </button>
+    </h3>
+    <div class="lp-accordion__panel" id="faq-1">
+      <div class="lp-accordion__panel-inner">
+        <div class="lp-accordion__panel-content">…answer…</div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+Open items get `aria-expanded="true"` on the trigger and
+`lp-accordion__panel--open` on the panel — `lepidus.js` toggles both, with the
+height animation coming from the CSS.
+
+## Dropdown — interactive, needs lepidus.js
+
+```html
+<div class="lp-dropdown" data-lp-dropdown="multi"> <!-- or "single" -->
+  <button class="lp-dropdown__trigger" aria-expanded="false" aria-haspopup="listbox">
+    <span class="lp-dropdown__trigger-label">Select servers</span>
+    <svg class="lp-dropdown__chevron" viewBox="0 0 12 6" fill="none" stroke="currentColor"
+         stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 1l5 4 5-4"/></svg>
+  </button>
+  <div class="lp-dropdown__panel" hidden>
+    <div class="lp-dropdown__header"><span class="lp-dropdown__header-label">Select servers</span></div>
+    <div class="lp-dropdown__list" role="listbox" aria-multiselectable="true">
+      <button class="lp-dropdown__option" role="option" aria-checked="false">
+        <span class="lp-dropdown__checkbox"><svg style="visibility:hidden" viewBox="0 0 11 11" fill="none"
+          stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+          aria-hidden="true"><path d="M1.5 6 4.3 8.8 9.5 2"/></svg></span>
+        <span class="lp-dropdown__option-label">LDSP-FS-01</span>
+      </button>
+    </div>
+    <div class="lp-dropdown__footer">
+      <button class="lp-button lp-button--secondary lp-button--sm">Cancel</button>
+      <button class="lp-button lp-button--primary lp-button--sm">Apply</button>
+    </div>
+  </div>
+</div>
+```
+
+`lepidus.js` opens/closes the panel (trigger click, Escape, outside click).
+`multi` toggles each option's `aria-checked` and check glyph; `single` writes
+the chosen label into the trigger and closes. Selection changes fire an
+`lp-dropdown-change` CustomEvent on the wrapper.
+
+## Radio
+
+```html
+<div class="lp-radio-group" role="radiogroup" aria-labelledby="rg">
+  <span class="lp-radio-group__label" id="rg">Scan frequency</span>
+  <div class="lp-radio-group__options lp-radio-group__options--horizontal">
+    <label class="lp-radio">
+      <span class="lp-radio__control">
+        <input class="lp-radio__input" type="radio" name="freq" checked />
+        <span class="lp-radio__circle" aria-hidden="true"><span class="lp-radio__dot"></span></span>
+      </span>
+      <span class="lp-radio__label">Hourly</span>
+    </label>
+  </div>
+</div>
+```
+
+Same hidden-native-input pattern as Checkbox — states come from `:checked` /
+`:disabled`. Error: `lp-radio__circle--error`; disabled: `lp-radio--disabled`
+on the label + `disabled` on the input.
+
+## Progress
+
+```html
+<div class="lp-progress"> <!-- modifiers: --completed, --pending, --full-width -->
+  <span class="lp-progress__label">Scanning LDSP-FS-01</span>
+  <div class="lp-progress__row">
+    <div class="lp-progress__track" role="progressbar" aria-valuenow="62"
+         aria-valuemin="0" aria-valuemax="100" aria-label="Scanning LDSP-FS-01">
+      <div class="lp-progress__fill" style="width: 62%"></div>
+    </div>
+    <span class="lp-progress__value">62%</span>
+  </div>
+</div>
+```
+
+Set the fill width inline (or from JS). `--pending` shows a full gray bar —
+add a `lp-progress__clock` icon instead of the value.
+
+## Stepper — interactive, needs lepidus.js
+
+```html
+<div class="lp-stepper" data-lp-stepper> <!-- --full-width, --disabled -->
+  <input class="lp-stepper__input" type="number" value="30" min="0" max="365" aria-label="Retention days" />
+  <span class="lp-stepper__controls">
+    <button class="lp-stepper__control" aria-label="Increase"><!-- chevron-up svg --></button>
+    <button class="lp-stepper__control" aria-label="Decrease"><!-- chevron-down svg --></button>
+  </span>
+</div>
+```
+
+`lepidus.js` steps the input from the up/down buttons, respecting
+`min`/`max`/`step`, and fires a `change` event.
+
+## Steps
+
+```html
+<div class="lp-steps">
+  <span class="lp-steps__item">
+    <span class="lp-steps__circle lp-steps__circle--done"><!-- check svg --></span>
+    <span class="lp-steps__connector lp-steps__connector--done"></span>
+  </span>
+  <span class="lp-steps__item">
+    <span class="lp-steps__circle lp-steps__circle--current"><span class="lp-steps__dot"></span></span>
+    <span class="lp-steps__connector"></span>
+  </span>
+  <span class="lp-steps__item">
+    <span class="lp-steps__circle lp-steps__circle--upcoming"></span>
+    <span class="lp-steps__label">Configure alerts</span>
+  </span>
+</div>
+```
+
+## Pagination
+
+```html
+<div class="lp-pagination">
+  <span class="lp-pagination__label">Total Records - 248</span>
+  <button class="lp-pagination__button" disabled>First</button>
+  <button class="lp-pagination__button" disabled>Previous</button>
+  <input class="lp-pagination__page-input" type="number" value="1" aria-label="Current page" />
+  <span class="lp-pagination__label">/25</span>
+  <button class="lp-pagination__button">Next</button>
+  <button class="lp-pagination__button">Last</button>
+  <span class="lp-pagination__label">10/Page</span>
+</div>
+```
+
+Wire the buttons and input to your data layer. The page-size popover uses
+`lp-pagination__page-size` → `__page-size-trigger` → `__page-size-panel` →
+`__page-size-option` (+`--selected`).
+
+## Toast — JS API
+
+```js
+Lepidus.toast({
+  title: 'Scan complete',
+  message: 'No violations found.',
+  variant: 'success',   // info | success | warning | error
+  duration: 5000,       // ms; 0 = stays until closed
+});
+```
+
+Stacks notifications in a fixed top-end region with the status badge, close
+button, and auto-dismiss. Returns a function that dismisses the toast early.
+
+## Tooltip — data attribute
+
+```html
+<button class="lp-button lp-button--white lp-button--md"
+        data-lp-tooltip="Runs a full permissions scan">Run scan</button>
+```
+
+`lepidus.js` shows the bubble on hover and keyboard focus, positions it above
+the target (flipping below when there's no room), wires `aria-describedby`,
+and hides on leave/blur/Escape.
+
 ## What's covered so far
 
-**18 components** ship as plain CSS today: Button, Badge, Tag, Card, Input,
-Toggle, Checkbox, Breadcrumb, Table, Alert panel, Link, Avatar, Skeleton,
-Spinner, Message, Empty state, plus interactive Tabs and Modal via
-`lepidus.js`. Still React-only: Accordion, ActionItem, Calendar, Charts,
-Dropdown, Filter, FolderTree, Pagination, Progress, Radio, Scrollbar,
-SettingsPanel, Sidebar, Stepper, Steps, TextField, Textarea, TimePicker,
-Toast, Tooltip. The full one-page showcase lives at
+**27 components** ship as plain CSS today — everything except the React-only
+specialties (ActionItem, Calendar, Charts, Filter, FolderTree, Scrollbar,
+SettingsPanel, Sidebar, TextField, Textarea, TimePicker). Interactive behavior
+(Tabs, Modal, Accordion, Dropdown, Stepper, Toast, Tooltip) comes from
+`lepidus.js`. The full one-page showcase lives at
 `packages/css/demo/index.html`.

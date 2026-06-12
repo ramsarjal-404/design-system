@@ -320,6 +320,162 @@
   </div>
 </div>
 
+<h2>Accordion (interactive — lepidus.js)</h2>
+<div class="lp-accordion" data-lp-accordion style="max-width: 560px;">
+  <div class="lp-accordion__item">
+    <h3 class="lp-accordion__heading">
+      <button class="lp-accordion__trigger" aria-expanded="true" aria-controls="acc-p1">
+        <span class="lp-accordion__title">What does Lepide audit?</span>
+        <svg class="lp-accordion__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>
+      </button>
+    </h3>
+    <div class="lp-accordion__panel lp-accordion__panel--open" id="acc-p1">
+      <div class="lp-accordion__panel-inner"><div class="lp-accordion__panel-content">File servers, Active Directory, Exchange, SharePoint and Microsoft 365 activity.</div></div>
+    </div>
+  </div>
+  <div class="lp-accordion__item">
+    <h3 class="lp-accordion__heading">
+      <button class="lp-accordion__trigger" aria-expanded="false" aria-controls="acc-p2">
+        <span class="lp-accordion__title">How long is data retained?</span>
+        <svg class="lp-accordion__chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>
+      </button>
+    </h3>
+    <div class="lp-accordion__panel" id="acc-p2">
+      <div class="lp-accordion__panel-inner"><div class="lp-accordion__panel-content">Retention is configurable per data source; the default policy keeps 12 months.</div></div>
+    </div>
+  </div>
+</div>
+
+<h2>Dropdown (interactive — lepidus.js)</h2>
+<div style="display:flex; gap:24px; align-items:flex-start; min-height:60px;">
+  <div class="lp-dropdown" data-lp-dropdown="multi">
+    <button class="lp-dropdown__trigger" aria-expanded="false" aria-haspopup="listbox">
+      <span class="lp-dropdown__trigger-label">Select servers</span>
+      <svg class="lp-dropdown__chevron" viewBox="0 0 12 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 1l5 4 5-4"/></svg>
+    </button>
+    <div class="lp-dropdown__panel" hidden>
+      <div class="lp-dropdown__header"><span class="lp-dropdown__header-label">Select servers</span>
+        <svg class="lp-dropdown__chevron lp-dropdown__chevron--open" viewBox="0 0 12 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 1l5 4 5-4"/></svg>
+      </div>
+      <div class="lp-dropdown__list" role="listbox" aria-multiselectable="true">
+        <button class="lp-dropdown__option" role="option" aria-checked="true">
+          <span class="lp-dropdown__checkbox"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 6 4.3 8.8 9.5 2"/></svg></span>
+          <span class="lp-dropdown__option-label">LDSP-FS-01</span>
+        </button>
+        <button class="lp-dropdown__option" role="option" aria-checked="false">
+          <span class="lp-dropdown__checkbox"><svg style="visibility:hidden" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 6 4.3 8.8 9.5 2"/></svg></span>
+          <span class="lp-dropdown__option-label">LDSP-FS-02</span>
+        </button>
+        <button class="lp-dropdown__option" role="option" aria-checked="false">
+          <span class="lp-dropdown__checkbox"><svg style="visibility:hidden" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 6 4.3 8.8 9.5 2"/></svg></span>
+          <span class="lp-dropdown__option-label">LDSP-FS-03</span>
+        </button>
+      </div>
+      <div class="lp-dropdown__footer">
+        <button class="lp-button lp-button--secondary lp-button--sm">Cancel</button>
+        <button class="lp-button lp-button--primary lp-button--sm">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Radio group</h2>
+<div class="lp-radio-group" role="radiogroup" aria-labelledby="rg-label">
+  <span class="lp-radio-group__label" id="rg-label">Scan frequency</span>
+  <div class="lp-radio-group__options lp-radio-group__options--horizontal">
+    <label class="lp-radio">
+      <span class="lp-radio__control">
+        <input class="lp-radio__input" type="radio" name="freq" checked />
+        <span class="lp-radio__circle" aria-hidden="true"><span class="lp-radio__dot"></span></span>
+      </span>
+      <span class="lp-radio__label">Hourly</span>
+    </label>
+    <label class="lp-radio">
+      <span class="lp-radio__control">
+        <input class="lp-radio__input" type="radio" name="freq" />
+        <span class="lp-radio__circle" aria-hidden="true"><span class="lp-radio__dot"></span></span>
+      </span>
+      <span class="lp-radio__label">Daily</span>
+    </label>
+    <label class="lp-radio lp-radio--disabled">
+      <span class="lp-radio__control">
+        <input class="lp-radio__input" type="radio" name="freq" disabled />
+        <span class="lp-radio__circle" aria-hidden="true"><span class="lp-radio__dot"></span></span>
+      </span>
+      <span class="lp-radio__label">Weekly</span>
+    </label>
+  </div>
+</div>
+
+<h2>Progress</h2>
+<div style="display:flex; flex-direction:column; gap:16px;">
+  <div class="lp-progress">
+    <span class="lp-progress__label">Scanning LDSP-FS-01</span>
+    <div class="lp-progress__row">
+      <div class="lp-progress__track" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" aria-label="Scanning LDSP-FS-01"><div class="lp-progress__fill" style="width:62%"></div></div>
+      <span class="lp-progress__value">62%</span>
+    </div>
+  </div>
+  <div class="lp-progress lp-progress--completed">
+    <span class="lp-progress__label">Scan complete</span>
+    <div class="lp-progress__row">
+      <div class="lp-progress__track" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="Scan complete"><div class="lp-progress__fill" style="width:100%"></div></div>
+      <span class="lp-progress__value">100%</span>
+    </div>
+  </div>
+  <div class="lp-progress lp-progress--pending">
+    <span class="lp-progress__label">Queued</span>
+    <div class="lp-progress__row">
+      <div class="lp-progress__track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Queued"><div class="lp-progress__fill" style="width:100%"></div></div>
+      <span class="lp-progress__clock"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="9" cy="9" r="7.5"/><path d="M9 5v4l3 2" stroke-linecap="round"/></svg></span>
+    </div>
+  </div>
+</div>
+
+<h2>Stepper (interactive — lepidus.js)</h2>
+<div class="lp-stepper" data-lp-stepper>
+  <input class="lp-stepper__input" type="number" value="30" min="0" max="365" aria-label="Retention days" />
+  <span class="lp-stepper__controls">
+    <button class="lp-stepper__control" aria-label="Increase"><svg viewBox="0 0 12 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 6l5-4.5L11 6"/></svg></button>
+    <button class="lp-stepper__control" aria-label="Decrease"><svg viewBox="0 0 12 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 1l5 4.5L11 1"/></svg></button>
+  </span>
+</div>
+
+<h2>Steps</h2>
+<div class="lp-steps">
+  <span class="lp-steps__item">
+    <span class="lp-steps__circle lp-steps__circle--done"><svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 5.2 4.4 8.5 11 1.5"/></svg></span>
+    <span class="lp-steps__connector lp-steps__connector--done"></span>
+  </span>
+  <span class="lp-steps__item">
+    <span class="lp-steps__circle lp-steps__circle--current"><span class="lp-steps__dot"></span></span>
+    <span class="lp-steps__connector"></span>
+  </span>
+  <span class="lp-steps__item">
+    <span class="lp-steps__circle lp-steps__circle--upcoming"></span>
+    <span class="lp-steps__label">Configure alerts</span>
+  </span>
+</div>
+
+<h2>Pagination</h2>
+<div class="lp-pagination">
+  <span class="lp-pagination__label">Total Records - 248</span>
+  <button class="lp-pagination__button" disabled>First</button>
+  <button class="lp-pagination__button" disabled>Previous</button>
+  <input class="lp-pagination__page-input" type="number" value="1" aria-label="Current page" />
+  <span class="lp-pagination__label">/25</span>
+  <button class="lp-pagination__button">Next</button>
+  <button class="lp-pagination__button">Last</button>
+  <span class="lp-pagination__label">10/Page</span>
+</div>
+
+<h2>Toast &amp; Tooltip (interactive — lepidus.js)</h2>
+<div class="demo-row">
+  <button class="lp-button lp-button--primary lp-button--md" onclick="Lepidus.toast({ title: 'Scan started', message: 'LDSP-FS-01 is being scanned.', variant: 'info' })">Show toast</button>
+  <button class="lp-button lp-button--secondary lp-button--md" onclick="Lepidus.toast({ title: 'Scan complete', message: 'No violations found.', variant: 'success' })">Success toast</button>
+  <button class="lp-button lp-button--white lp-button--md" data-lp-tooltip="Runs a full permissions scan on all monitored servers">Hover me (tooltip)</button>
+</div>
+
 <script src="../dist/lepidus.js"></script>
 <script>
   function setTheme(t) { document.documentElement.setAttribute('data-theme', t); }
