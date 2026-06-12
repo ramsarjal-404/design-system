@@ -1,0 +1,73 @@
+/* Skeleton.module.css — Lepidus Design System
+   Loading placeholder. Base fill --color-background-subtle (#F6F6F6) with a
+   shimmer highlight of --color-background-surface (white) sweeping across via
+   background-position; the sweep runs on a --duration-slow (240ms) base
+   stretched 8x. Under prefers-reduced-motion the animation is removed and the
+   block stays a static subtle fill. */
+
+.skeleton {
+  display: block;
+  background-color: var(--color-background-subtle, #f6f6f6);
+  background-image: linear-gradient(
+    90deg,
+    var(--color-background-subtle, #f6f6f6) 0%,
+    var(--color-background-surface, #ffffff) 50%,
+    var(--color-background-subtle, #f6f6f6) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 150% 0;
+  animation: shimmer calc(var(--duration-slow, 240ms) * 8) var(--easing-standard, cubic-bezier(0.2, 0, 0, 1)) infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 150% 0;
+  }
+  to {
+    background-position: -50% 0;
+  }
+}
+
+/* === VARIANTS === */
+
+/* Rounded line matching body text — defaults to a full-width 14px-ish bar. */
+.text {
+  width: 100%;
+  height: var(--space-18, 14px);
+  border-radius: var(--radius-xs, 4px);
+}
+
+.circle {
+  width: var(--space-12, 40px);
+  height: var(--space-12, 40px);
+  border-radius: var(--radius-circle, 9999px);
+  flex-shrink: 0;
+}
+
+.rect {
+  width: 100%;
+  height: var(--space-14, 64px);
+  border-radius: var(--radius-sm, 8px);
+}
+
+/* === MULTI-LINE PARAGRAPH === */
+
+.paragraph {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 8px);
+  width: 100%;
+}
+
+.paragraph .lastLine {
+  width: 60%;
+}
+
+/* === REDUCED MOTION — static fill, no sweep === */
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background-image: none;
+  }
+}

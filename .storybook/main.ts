@@ -9,6 +9,7 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
     '@storybook/addon-designs',
+    'storybook-addon-pseudo-states',
   ],
   framework: {
     name: '@storybook/react-vite',

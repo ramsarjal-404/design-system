@@ -70,8 +70,8 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: var(--chart-label-width, 40px);
-  right: 0;
+  inset-inline-start: var(--chart-label-width, 40px);
+  inset-inline-end: 0;
   pointer-events: none;
 }
 
@@ -80,7 +80,7 @@
   top: 0;
   bottom: 0;
   width: 0;
-  border-left: 1px dashed var(--color-chart-grid, #e0e0e0);
+  border-inline-start: 1px dashed var(--color-chart-grid, #e0e0e0);
 }
 
 /* === BAR CHART === */
@@ -93,7 +93,7 @@
   width: 100%;
   padding-top: var(--space-5, 10px);
   /* room for the last centered axis label so it can't overflow the card */
-  padding-right: 14px;
+  padding-inline-end: 14px;
   font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
 }
 
@@ -114,10 +114,10 @@
 .barRowLabel {
   flex-shrink: 0;
   width: var(--chart-label-width, 40px);
-  padding-right: var(--space-16, 7px);
+  padding-inline-end: var(--space-16, 7px);
   font-size: 10px;
   color: var(--component-card-title-text, #364765);
-  text-align: right;
+  text-align: end;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -132,15 +132,16 @@
 
 .bar {
   height: 6px;
-  border-top-right-radius: 44px;
-  border-bottom-right-radius: 44px;
+  /* round the growing (trailing) end of the bar */
+  border-start-end-radius: 44px;
+  border-end-end-radius: 44px;
   transition: width 240ms ease;
 }
 
 .barAxis {
   position: relative;
   height: 14px;
-  margin-left: var(--chart-label-width, 40px);
+  margin-inline-start: var(--chart-label-width, 40px);
 }
 
 .barAxisTick {
@@ -156,8 +157,9 @@
   display: flex;
   width: 100%;
   height: 8px;
-  border-top-right-radius: 44px;
-  border-bottom-right-radius: 44px;
+  /* round the growing (trailing) end of the stack */
+  border-start-end-radius: 44px;
+  border-end-end-radius: 44px;
   overflow: hidden;
 }
 
@@ -190,7 +192,7 @@
 
 .columnYTick {
   position: absolute;
-  right: var(--space-16, 7px);
+  inset-inline-end: var(--space-16, 7px);
   transform: translateY(50%);
   font-size: 10px;
   color: var(--component-card-title-text, #364765);
@@ -213,8 +215,7 @@
 
 .columnGridline {
   position: absolute;
-  left: 0;
-  right: 0;
+  inset-inline: 0;
   height: 0;
   border-top: 1px dashed var(--color-chart-grid, #e0e0e0);
 }
@@ -231,8 +232,8 @@
 
 .column {
   flex-shrink: 0;
-  border-top-left-radius: 44px;
-  border-top-right-radius: 44px;
+  border-start-start-radius: 44px;
+  border-start-end-radius: 44px;
   transition: height 240ms ease;
 }
 
@@ -241,8 +242,8 @@
   flex-direction: column-reverse;
   justify-content: flex-start;
   height: 100%;
-  border-top-left-radius: 44px;
-  border-top-right-radius: 44px;
+  border-start-start-radius: 44px;
+  border-start-end-radius: 44px;
   overflow: hidden;
 }
 
@@ -253,7 +254,7 @@
 
 .columnXLabels {
   display: flex;
-  margin-left: var(--chart-label-width, 36px);
+  margin-inline-start: var(--chart-label-width, 36px);
   padding-top: var(--space-3, 5px);
 }
 
@@ -309,8 +310,7 @@
 
 .gaugeCenter {
   position: absolute;
-  left: 0;
-  right: 0;
+  inset-inline: 0;
   bottom: 0;
   display: flex;
   flex-direction: column;
@@ -459,4 +459,14 @@
   font-size: var(--font-size-12, 12px);
   font-weight: var(--font-weight-semibold, 600);
   color: var(--color-text-secondary, #555766);
+}
+
+/* Motion accessibility — collapse transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .bar,
+  .stackedSegment,
+  .column,
+  .stackedColumnSegment {
+    transition-duration: 0.01ms;
+  }
 }

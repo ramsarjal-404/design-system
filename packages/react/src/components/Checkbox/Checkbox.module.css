@@ -1,0 +1,132 @@
+/* Checkbox.module.css — Lepidus Design System
+   16px box reusing the dropdown checkbox token pair so multi-select surfaces
+   never drift: border --component-dropdown-checkbox-border (#1C4599), checked
+   fill --component-dropdown-checkbox-fill (#1C4599), white glyphs. Native
+   input is visually hidden over the box; :checked / :indeterminate /
+   :focus-visible / :disabled drive every visual state. */
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4, 8px);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+  cursor: pointer;
+  user-select: none;
+}
+
+.root.disabled {
+  cursor: not-allowed;
+}
+
+.control {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+/* Native input — visually hidden but covering the box, so it stays the
+   click / focus / a11y target. */
+.input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+/* === BOX === */
+
+.box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--component-dropdown-checkbox-border, #1c4599);
+  border-radius: var(--radius-3xs, 3px);
+  background-color: var(--color-background-surface, #ffffff);
+  color: var(--color-text-inverse, #ffffff);
+  transition:
+    background-color var(--duration-fast, 120ms) var(--easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    border-color var(--duration-fast, 120ms) var(--easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    box-shadow var(--duration-fast, 120ms) var(--easing-standard, cubic-bezier(0.2, 0, 0, 1));
+}
+
+.check,
+.dash {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity var(--duration-fast, 120ms) var(--easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    transform var(--duration-fast, 120ms) var(--easing-standard, cubic-bezier(0.2, 0, 0, 1));
+}
+
+/* === CHECKED / INDETERMINATE === */
+
+.input:checked + .box,
+.input:indeterminate + .box {
+  background-color: var(--component-dropdown-checkbox-fill, #1c4599);
+  border-color: var(--component-dropdown-checkbox-border, #1c4599);
+}
+
+.input:checked:not(:indeterminate) + .box .check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.input:indeterminate + .box .dash {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* === FOCUS === */
+
+.input:focus-visible + .box {
+  box-shadow: 0 0 0 3px var(--color-focus-ring, rgba(28, 69, 153, 0.35));
+}
+
+/* === ERROR === */
+
+.box.error {
+  border-color: var(--color-status-error-text, #f72b2b);
+}
+
+/* === DISABLED === */
+
+.input:disabled + .box {
+  background-color: var(--color-background-subtle, #f6f6f6);
+  border-color: var(--color-text-disabled, #727171);
+  opacity: var(--opacity-disabled, 0.5);
+}
+
+.input:disabled:checked + .box,
+.input:disabled:indeterminate + .box {
+  background-color: var(--color-button-disabled-bg, #c6c6c6);
+}
+
+/* === LABEL === */
+
+.label {
+  font-size: var(--typography-body-md-fontSize, 14px);
+  line-height: var(--typography-body-md-lineHeight, 1.2);
+  color: var(--color-text-primary, #364765);
+}
+
+.root.disabled .label {
+  color: var(--color-text-disabled, #727171);
+}
+
+/* === REDUCED MOTION === */
+
+@media (prefers-reduced-motion: reduce) {
+  .box,
+  .check,
+  .dash {
+    transition: none;
+  }
+}

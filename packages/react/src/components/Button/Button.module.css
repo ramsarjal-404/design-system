@@ -152,3 +152,10 @@
 .fullWidth {
   width: 100%;
 }
+
+/* Motion accessibility — collapse transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition-duration: 0.01ms;
+  }
+}

@@ -12,9 +12,18 @@
     "build-storybook": "storybook build",
     "check:tokens": "node scripts/check-tokens.mjs",
     "test-storybook": "test-storybook --url http://localhost:6006",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:contrast": "node scripts/check-contrast.mjs",
+    "tokens:diff": "node scripts/token-diff.mjs",
+    "vrt": "node scripts/vrt.mjs",
+    "vrt:update": "node scripts/vrt.mjs --update",
+    "usage-report": "node scripts/usage-report.mjs",
+    "build:react": "cd packages/react && npx vite build && npx tsc -p tsconfig.build.json",
+    "changeset": "changeset",
+    "version-packages": "changeset version"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.31.0",
     "@storybook/addon-a11y": "^8.6.0",
     "@storybook/addon-designs": "^8.2.1",
     "@storybook/addon-essentials": "^8.6.0",
@@ -23,10 +32,19 @@
     "@storybook/test": "^8.6.18",
     "@storybook/test-runner": "^0.19.1",
     "@types/react": "^18.3.0",
+    "axe-playwright": "^2.2.2",
+    "http-server": "^14.1.1",
+    "pixelmatch": "^7.2.0",
+    "pngjs": "^7.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "storybook": "^8.6.0",
+    "storybook-addon-pseudo-states": "^4.0.4",
     "style-dictionary": "^4.4.0",
-    "typescript": "^5.5.0"
-  }
+    "typescript": "^5.5.0",
+    "wait-on": "^9.0.10"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

@@ -39,17 +39,40 @@ const preview: Preview = {
         { name: 'Brand', value: '#1C4599' },
       ],
     },
+    viewport: {
+      viewports: {
+        // mirror the --breakpoint-* tokens (packages/tokens/src/base.tokens.json)
+        sm: { name: 'sm — 640', styles: { width: '640px', height: '900px' } },
+        md: { name: 'md — 768', styles: { width: '768px', height: '1024px' } },
+        lg: { name: 'lg — 1024', styles: { width: '1024px', height: '768px' } },
+        xl: { name: 'xl — 1280', styles: { width: '1280px', height: '800px' } },
+      },
+    },
   },
   globalTypes: {
     theme: {
       name: 'Theme',
-      description: 'Lepidus theme (Light / Dark)',
+      description: 'Lepidus theme (Light / Dark / High contrast)',
       defaultValue: 'light',
       toolbar: {
         icon: 'paintbrush',
         items: [
           { value: 'light', title: 'Light' },
           { value: 'dark', title: 'Dark' },
+          { value: 'hc', title: 'High contrast' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+    direction: {
+      name: 'Direction',
+      description: 'Document text direction',
+      defaultValue: 'ltr',
+      toolbar: {
+        icon: 'transfer',
+        items: [
+          { value: 'ltr', title: 'LTR' },
+          { value: 'rtl', title: 'RTL' },
         ],
         dynamicTitle: true,
       },
@@ -58,7 +81,9 @@ const preview: Preview = {
   decorators: [
     (Story, context) => {
       const theme = context.globals.theme || 'light';
+      const direction = context.globals.direction || 'ltr';
       document.documentElement.setAttribute('data-theme', theme);
+      document.documentElement.setAttribute('dir', direction);
       // keep the canvas behind the story in step with the token theme
       document.body.style.backgroundColor = theme === 'dark' ? '#1a202c' : '';
       return (

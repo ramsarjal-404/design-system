@@ -1,0 +1,128 @@
+/* Avatar.module.css — Lepidus Design System
+   Identity thumbnail bound to semantic tokens:
+   - fallback backgrounds: --color-chart-series-1…6 (deterministic hash of name)
+   - fallback text: --color-text-inverse
+   - shapes: --radius-avatar (circle) / --radius-ms (square)
+   - status dot: --color-status-success-text / --chart-yellow / --color-text-disabled
+   No component/avatar/* tokens exist yet — semantic bindings only. */
+
+.avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  vertical-align: middle;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+  font-weight: var(--font-weight-semibold, 600);
+  user-select: none;
+}
+
+/* === SIZES (sm 24 / md 32 / lg 40 / xl 56) === */
+.sm {
+  width: var(--space-10, 24px);
+  height: var(--space-10, 24px);
+  font-size: var(--font-size-11, 11px);
+}
+
+.md {
+  width: 32px; /* no 32px token in the scale */
+  height: 32px;
+  font-size: var(--font-size-12, 12px);
+}
+
+.lg {
+  width: var(--space-12, 40px);
+  height: var(--space-12, 40px);
+  font-size: var(--font-size-14, 14px);
+}
+
+.xl {
+  width: 56px; /* no 56px token in the scale */
+  height: 56px;
+  font-size: var(--font-size-20, 20px);
+}
+
+/* === SHAPES === */
+.circle {
+  border-radius: var(--radius-avatar, 9999px);
+}
+
+.square {
+  border-radius: var(--radius-ms, 9px);
+}
+
+/* === IMAGE === */
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  display: block;
+}
+
+/* === INITIALS FALLBACK === */
+.fallback {
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  color: var(--color-text-inverse, #ffffff);
+  line-height: 1;
+  letter-spacing: var(--font-letter-spacing-wide, 0.5px);
+  overflow: hidden;
+}
+
+/* Deterministic backgrounds — name hashed onto the chart series ramp */
+.series1 { background-color: var(--color-chart-series-1, #f94144); }
+.series2 { background-color: var(--color-chart-series-2, #f9c74f); }
+.series3 { background-color: var(--color-chart-series-3, #1aa367); }
+.series4 { background-color: var(--color-chart-series-4, #1c4599); }
+.series5 { background-color: var(--color-chart-series-5, #0072c3); }
+.series6 { background-color: var(--color-chart-series-6, #7096d1); }
+
+/* === STATUS DOT === */
+.status {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 25%;
+  height: 25%;
+  min-width: var(--space-23, 6px);
+  min-height: var(--space-23, 6px);
+  border-radius: var(--radius-circle, 9999px);
+  box-shadow: 0 0 0 2px var(--color-background-surface, #ffffff);
+}
+
+.square .status {
+  /* nudge into the rounded corner */
+  right: calc(-1 * var(--space-20, 1px));
+  bottom: calc(-1 * var(--space-20, 1px));
+}
+
+.status-online { background-color: var(--color-status-success-text, #1caa52); }
+.status-away { background-color: var(--chart-yellow, #f9c74f); }
+.status-offline { background-color: var(--color-text-disabled, #727171); }
+
+/* === GROUP === */
+.group {
+  display: inline-flex;
+  align-items: center;
+}
+
+.groupItem {
+  box-shadow: 0 0 0 2px var(--color-background-surface, #ffffff);
+}
+
+.groupItem + .groupItem {
+  margin-left: calc(-1 * var(--space-4, 8px));
+}
+
+/* "+N" overflow chip */
+.overflow {
+  background-color: var(--color-background-subtle, #f6f6f6);
+  color: var(--color-text-secondary, #555766);
+  border: 1px solid var(--color-border-default, #c7c7c7);
+}

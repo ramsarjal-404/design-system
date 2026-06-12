@@ -26,7 +26,7 @@
 }
 
 .item:not(:last-child) {
-  margin-right: -10px; /* Figma overlaps the 10px paddings into one 10px gap */
+  margin-inline-end: -10px; /* Figma overlaps the 10px paddings into one 10px gap */
 }
 
 .link {

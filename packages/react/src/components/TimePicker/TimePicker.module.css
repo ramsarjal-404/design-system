@@ -131,7 +131,7 @@
 .clock {
   display: inline-flex;
   color: var(--color-text-brand, #1c4599);
-  margin-right: auto;
+  margin-inline-end: auto;
 }
 
 .textButton {

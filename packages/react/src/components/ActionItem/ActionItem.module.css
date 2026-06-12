@@ -86,3 +86,10 @@
 .danger:hover {
   background-color: var(--color-status-error-bg, #ffebee);
 }
+
+/* Motion accessibility — collapse transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .action {
+    transition-duration: 0.01ms;
+  }
+}

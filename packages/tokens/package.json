@@ -1,0 +1,20 @@
+{
+  "name": "@lepidus/tokens",
+  "version": "1.0.0",
+  "description": "Lepidus design tokens — DTCG sources and the generated themed CSS custom properties",
+  "license": "UNLICENSED",
+  "files": [
+    "build/css/tokens.css",
+    "tokens.json",
+    "src",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./tokens.json",
+    "./css": "./build/css/tokens.css",
+    "./src/*": "./src/*"
+  },
+  "scripts": {
+    "build": "node build-json.mjs && node build-sd.mjs"
+  }
+}

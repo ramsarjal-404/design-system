@@ -74,3 +74,10 @@
 .box.disabled .textarea::placeholder {
   color: var(--component-textarea-disabled-text, #727171);
 }
+
+/* Motion accessibility — collapse transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .box {
+    transition-duration: 0.01ms;
+  }
+}

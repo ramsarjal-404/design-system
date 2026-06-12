@@ -13,7 +13,7 @@
   padding: var(--space-5, 10px) 0;
   background-color: var(--color-background-surface, #ffffff);
   border: 1px solid var(--color-border-strong, #e2dbdb);
-  border-top-left-radius: var(--radius-xl, 20px);
+  border-start-start-radius: var(--radius-xl, 20px);
   font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
 }
 
@@ -49,7 +49,7 @@
   border: none;
   background: none;
   font: inherit;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
 }
 

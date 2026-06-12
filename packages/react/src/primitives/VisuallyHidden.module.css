@@ -1,0 +1,17 @@
+/* VisuallyHidden.module.css — Lepidus Design System primitive
+   Standard clip-rect pattern: the element is removed from the visual layout
+   (1×1px, clipped, no overflow) while staying in the accessibility tree.
+   Purely structural — no color/space/radius/typography values involved. */
+
+.root {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

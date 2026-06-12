@@ -31,22 +31,22 @@
   background-color: var(--component-table-header-bg, #f6f6f6);
   border-top: 1px solid var(--component-table-border, #e2dbdb);
   border-bottom: 1px solid var(--component-table-border, #e2dbdb);
-  border-right: 1px solid var(--component-table-border, #e2dbdb);
+  border-inline-end: 1px solid var(--component-table-border, #e2dbdb);
   font-size: var(--component-table-header-fontSize, 14px);
   line-height: var(--typography-table-header-lineHeight, 19px);
   font-weight: var(--font-weight-bold, 700);
   color: var(--color-text-primary, #364765);
-  text-align: left;
+  text-align: start;
   vertical-align: middle;
 }
 
 .th:first-child {
-  border-left: 1px solid var(--component-table-border, #e2dbdb);
-  border-top-left-radius: var(--radius-lg, 15px);
+  border-inline-start: 1px solid var(--component-table-border, #e2dbdb);
+  border-start-start-radius: var(--radius-lg, 15px);
 }
 
 .th:last-child {
-  border-top-right-radius: var(--radius-lg, 15px);
+  border-start-end-radius: var(--radius-lg, 15px);
 }
 
 .headerInner {
@@ -77,7 +77,7 @@
   background: none;
   font: inherit;
   color: inherit;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
 }
 
@@ -116,12 +116,12 @@
   padding: 0 var(--space-9, 20px);
   background-color: var(--component-table-cell-bg, #ffffff);
   border-bottom: 1px solid var(--component-table-border, #e2dbdb);
-  border-right: 1px solid var(--component-table-border, #e2dbdb);
+  border-inline-end: 1px solid var(--component-table-border, #e2dbdb);
   vertical-align: middle;
 }
 
 .filterCell:first-child {
-  border-left: 1px solid var(--component-table-border, #e2dbdb);
+  border-inline-start: 1px solid var(--component-table-border, #e2dbdb);
 }
 
 .filterField {
@@ -171,17 +171,17 @@
   padding: 0 var(--space-9, 20px);
   background-color: var(--component-table-cell-bg, #ffffff);
   border-bottom: 1px solid var(--component-table-border, #e2dbdb);
-  border-right: 1px solid var(--component-table-border, #e2dbdb);
+  border-inline-end: 1px solid var(--component-table-border, #e2dbdb);
   font-size: var(--component-table-cell-fontSize, 14px);
   line-height: var(--typography-table-cell-lineHeight, 19px);
   font-weight: var(--font-weight-regular, 400);
   color: var(--component-table-cell-text, #364765);
-  text-align: left;
+  text-align: start;
   vertical-align: middle;
 }
 
 .td:first-child {
-  border-left: 1px solid var(--component-table-border, #e2dbdb);
+  border-inline-start: 1px solid var(--component-table-border, #e2dbdb);
 }
 
 .cellInner {
@@ -257,4 +257,11 @@ tbody tr:hover .td {
   width: 8px;
   height: 2px;
   background-color: var(--component-checkbox-check-mark, #ffffff);
+}
+
+/* Motion accessibility — collapse transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .sortArrow {
+    transition-duration: 0.01ms;
+  }
 }

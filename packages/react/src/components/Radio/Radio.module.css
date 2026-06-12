@@ -1,0 +1,144 @@
+/* Radio.module.css — Lepidus Design System
+   16px round control reusing the dropdown checkbox token pair for the border
+   (--component-dropdown-checkbox-border, #1C4599); the inner dot is
+   --color-brand-primary on a white circle. Native input is visually hidden
+   over the circle; :checked / :focus-visible / :disabled drive every state.
+   Also styles the RadioGroup wrapper (role="radiogroup"). */
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4, 8px);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+  cursor: pointer;
+  user-select: none;
+}
+
+.root.disabled {
+  cursor: not-allowed;
+}
+
+.control {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+/* Native input — visually hidden but covering the circle, so it stays the
+   click / focus / a11y target. */
+.input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+/* === CIRCLE === */
+
+.circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--component-dropdown-checkbox-border, #1c4599);
+  border-radius: var(--radius-circle, 9999px);
+  background-color: var(--color-background-surface, #ffffff);
+  transition:
+    border-color var(--duration-fast, 120ms) var(--easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    box-shadow var(--duration-fast, 120ms) var(--easing-standard, cubic-bezier(0.2, 0, 0, 1));
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-circle, 9999px);
+  background-color: var(--color-brand-primary, #1c4599);
+  opacity: 0;
+  transform: scale(0.4);
+  transition:
+    opacity var(--duration-fast, 120ms) var(--easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    transform var(--duration-fast, 120ms) var(--easing-standard, cubic-bezier(0.2, 0, 0, 1));
+}
+
+/* === CHECKED === */
+
+.input:checked + .circle .dot {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* === FOCUS === */
+
+.input:focus-visible + .circle {
+  box-shadow: 0 0 0 3px var(--color-focus-ring, rgba(28, 69, 153, 0.35));
+}
+
+/* === ERROR === */
+
+.circle.error {
+  border-color: var(--color-status-error-text, #f72b2b);
+}
+
+/* === DISABLED === */
+
+.input:disabled + .circle {
+  background-color: var(--color-background-subtle, #f6f6f6);
+  border-color: var(--color-text-disabled, #727171);
+  opacity: var(--opacity-disabled, 0.5);
+}
+
+.input:disabled + .circle .dot {
+  background-color: var(--color-text-disabled, #727171);
+}
+
+/* === LABEL === */
+
+.label {
+  font-size: var(--typography-body-md-fontSize, 14px);
+  line-height: var(--typography-body-md-lineHeight, 1.2);
+  color: var(--color-text-primary, #364765);
+}
+
+.root.disabled .label {
+  color: var(--color-text-disabled, #727171);
+}
+
+/* === GROUP (role="radiogroup") === */
+
+.group {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-4, 8px);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.groupLabel {
+  font-size: var(--typography-body-md-fontSize, 14px);
+  line-height: var(--typography-body-md-lineHeight, 1.2);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-secondary, #555766);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 8px);
+}
+
+.options.horizontal {
+  flex-direction: row;
+  gap: var(--space-8, 16px);
+}
+
+/* === REDUCED MOTION === */
+
+@media (prefers-reduced-motion: reduce) {
+  .circle,
+  .dot {
+    transition: none;
+  }
+}

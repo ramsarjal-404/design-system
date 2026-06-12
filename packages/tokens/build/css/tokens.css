@@ -8,6 +8,23 @@
 /* PRIMITIVES + SEMANTIC (Light) + COMPONENT */
 :root {
   --font-family-primary: 'Open Sans', system-ui, sans-serif;
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --duration-slow: 240ms;
+  --easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --easing-decelerate: cubic-bezier(0, 0, 0, 1);
+  --easing-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --z-base: 0;
+  --z-sticky: 100;
+  --z-dropdown: 1000;
+  --z-overlay: 1300;
+  --z-modal: 1400;
+  --z-toast: 1600;
+  --z-tooltip: 1700;
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
   --white: #ffffff;
   --black: #000000;
   --blue-50: #eef2fa;
@@ -52,6 +69,7 @@
   --orange-400: #ffa726;
   --orange-600: #f57f17;
   --orange-800: #e65100;
+  --orange-900: #bf360c;
   --yellow-100: #fffde7;
   --yellow-400: #ffee58;
   --yellow-600: #f9a825;
@@ -202,8 +220,8 @@
   --color-button-secondary-text: var(--blue-600);
   --color-button-disabled-bg: var(--gray-400);
   --color-button-disabled-text: var(--gray-500);
-  --color-button-danger-bg: var(--red-200);
-  --color-button-danger-text: var(--red-400);
+  --color-button-danger-bg: var(--red-100);
+  --color-button-danger-text: var(--red-600);
   --color-input-border: var(--gray-200);
   --color-input-border-focus: var(--blue-600);
   --color-input-bg-focus: var(--blue-150);
@@ -222,11 +240,11 @@
   --color-nav-item-active-text: var(--lightblue-400);
   --color-nav-item-selected-rounded: var(--blue-650);
   --color-status-success-bg: var(--green-100);
-  --color-status-success-text: var(--green-400);
+  --color-status-success-text: var(--green-600);
   --color-status-error-bg: var(--red-100);
-  --color-status-error-text: var(--red-400);
+  --color-status-error-text: var(--red-600);
   --color-status-warning-bg: var(--orange-100);
-  --color-status-warning-text: var(--orange-600);
+  --color-status-warning-text: var(--orange-900);
   --color-status-na-bg: var(--gray-50);
   --color-status-na-text: var(--gray-600);
   --color-icon-default: var(--blue-800);
@@ -558,7 +576,7 @@
   --color-button-disabled-bg: var(--gray-700);
   --color-button-disabled-text: var(--gray-600);
   --color-button-danger-bg: var(--red-800);
-  --color-button-danger-text: var(--red-200);
+  --color-button-danger-text: var(--red-100);
   --color-input-border: var(--gray-600);
   --color-input-border-focus: var(--blue-400);
   --color-input-bg-focus: var(--blue-800);
@@ -577,11 +595,11 @@
   --color-nav-item-active-text: var(--lightblue-400);
   --color-nav-item-selected-rounded: var(--blue-800);
   --color-status-success-bg: var(--green-800);
-  --color-status-success-text: var(--green-400);
+  --color-status-success-text: var(--green-100);
   --color-status-error-bg: var(--red-800);
-  --color-status-error-text: var(--red-200);
-  --color-status-warning-bg: var(--orange-800);
-  --color-status-warning-text: var(--orange-400);
+  --color-status-error-text: var(--red-100);
+  --color-status-warning-bg: var(--orange-900);
+  --color-status-warning-text: var(--orange-100);
   --color-status-na-bg: var(--gray-800);
   --color-status-na-text: var(--gray-400);
   --color-icon-default: var(--blue-200);
@@ -589,7 +607,7 @@
   --color-pill-active-bg: var(--blue-800);
   --color-progress-track: var(--gray-700);
   --color-progress-fill: var(--cyan-500);
-  --color-progress-text: var(--cyan-500);
+  --color-progress-text: var(--lightblue-300);
   --color-progress-pending-icon: var(--gray-400);
   --color-chart-series-1: var(--chart-red);
   --color-chart-series-2: var(--chart-yellow);
@@ -765,7 +783,7 @@
   --color-status-error-bg: var(--red-100);
   --color-status-error-text: var(--red-800);
   --color-status-warning-bg: var(--orange-100);
-  --color-status-warning-text: var(--orange-800);
+  --color-status-warning-text: var(--orange-900);
   --color-status-na-bg: var(--gray-100);
   --color-status-na-text: var(--gray-700);
   --color-icon-default: var(--black);

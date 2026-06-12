@@ -1,0 +1,79 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Typecheck, tokens, contrast
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Rebuild tokens from sources
+        run: npm run tokens:import && npm run tokens:css
+      - name: Token sources committed and in sync
+        run: git diff --exit-code packages/tokens
+      - run: npm run typecheck
+      - run: npm run check:tokens
+      - run: npm run check:contrast
+
+  storybook:
+    name: Build, interaction + a11y tests, VRT
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build-storybook
+      - name: Interaction + axe tests (serial — parallel workers are flaky)
+        run: |
+          npx http-server storybook-static -p 6006 --silent &
+          npx wait-on http://localhost:6006
+          npx test-storybook --url http://localhost:6006 --maxWorkers 1
+      - name: Visual regression (3 themes)
+        run: npm run vrt
+      - name: Upload VRT diffs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vrt-diffs
+          path: |
+            .vrt/diff
+            .vrt/actual
+          if-no-files-found: ignore
+      - name: Publish Storybook artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-static
+          path: storybook-static
+
+  build:
+    name: Library build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build:react
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lepidus-react-dist
+          path: packages/react/dist

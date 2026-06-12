@@ -117,3 +117,10 @@
   outline: 2px solid var(--color-border-brand, #1c4599);
   outline-offset: 2px;
 }
+
+/* Motion accessibility — collapse transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .close {
+    transition-duration: 0.01ms;
+  }
+}

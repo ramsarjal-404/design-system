@@ -80,6 +80,17 @@
             }
           }
         }
+      },
+      "orange": {
+        "900": {
+          "$type": "color",
+          "$value": "#BF360C",
+          "$extensions": {
+            "com.figma.codeSyntax": {
+              "WEB": "var(--orange-900)"
+            }
+          }
+        }
       }
     },
     "number": {
@@ -317,6 +328,55 @@
               }
             }
           }
+        },
+        "status": {
+          "success-text": {
+            "$type": "color",
+            "$value": "{primitive.color.green.600}",
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--color-status-success-text)"
+              }
+            }
+          },
+          "error-text": {
+            "$type": "color",
+            "$value": "{primitive.color.red.600}",
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--color-status-error-text)"
+              }
+            }
+          },
+          "warning-text": {
+            "$type": "color",
+            "$value": "{primitive.color.orange.900}",
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--color-status-warning-text)"
+              }
+            }
+          }
+        },
+        "button": {
+          "danger-bg": {
+            "$type": "color",
+            "$value": "{primitive.color.red.100}",
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--color-button-danger-bg)"
+              }
+            }
+          },
+          "danger-text": {
+            "$type": "color",
+            "$value": "{primitive.color.red.600}",
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--color-button-danger-text)"
+              }
+            }
+          }
         }
       }
     },
@@ -343,7 +403,7 @@
           },
           "text": {
             "$type": "color",
-            "$value": "{primitive.color.cyan.500}",
+            "$value": "{primitive.color.lightblue.300}",
             "$extensions": {
               "com.figma.codeSyntax": {
                 "WEB": "var(--color-progress-text)"
@@ -452,6 +512,55 @@
             "$extensions": {
               "com.figma.codeSyntax": {
                 "WEB": "var(--color-focus-ring)"
+              }
+            }
+          }
+        },
+        "status": {
+          "success-text": {
+            "$type": "color",
+            "$value": "{primitive.color.green.100}",
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--color-status-success-text)"
+              }
+            }
+          },
+          "error-text": {
+            "$type": "color",
+            "$value": "{primitive.color.red.100}",
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--color-status-error-text)"
+              }
+            }
+          },
+          "warning-bg": {
+            "$type": "color",
+            "$value": "{primitive.color.orange.900}",
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--color-status-warning-bg)"
+              }
+            }
+          },
+          "warning-text": {
+            "$type": "color",
+            "$value": "{primitive.color.orange.100}",
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--color-status-warning-text)"
+              }
+            }
+          }
+        },
+        "button": {
+          "danger-text": {
+            "$type": "color",
+            "$value": "{primitive.color.red.100}",
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--color-button-danger-text)"
               }
             }
           }
@@ -590,6 +699,17 @@
             "$extensions": {
               "com.figma.codeSyntax": {
                 "WEB": "var(--color-focus-ring)"
+              }
+            }
+          }
+        },
+        "status": {
+          "warning-text": {
+            "$type": "color",
+            "$value": "{primitive.color.orange.900}",
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--color-status-warning-text)"
               }
             }
           }

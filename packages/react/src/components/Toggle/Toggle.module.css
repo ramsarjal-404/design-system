@@ -25,6 +25,8 @@
 .thumb {
   position: absolute;
   top: 50%;
+  /* physical: thumb travel (3px -> 36px) is px-tuned slide math; kept
+     physical rather than mirrored to inline-start/end */
   left: 3px;
   width: 15px;
   height: 15px;
@@ -52,4 +54,12 @@
   background-color: var(--component-toggle-disabled-bg, #c6c6c6);
   border-color: var(--color-text-disabled, #727171);
   cursor: not-allowed;
+}
+
+/* Motion accessibility — collapse transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .toggle,
+  .thumb {
+    transition-duration: 0.01ms;
+  }
 }

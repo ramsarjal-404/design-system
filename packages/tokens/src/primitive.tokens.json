@@ -407,6 +407,15 @@
               "WEB": "var(--orange-800)"
             }
           }
+        },
+        "900": {
+          "$type": "color",
+          "$value": "#BF360C",
+          "$extensions": {
+            "com.figma.codeSyntax": {
+              "WEB": "var(--orange-900)"
+            }
+          }
         }
       },
       "yellow": {

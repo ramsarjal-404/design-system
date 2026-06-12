@@ -1,10 +1,12 @@
 import { addons } from '@storybook/manager-api';
 import { create } from '@storybook/theming';
+// version badge in the sidebar brand — kept in step with the release version
+import { version } from '../package.json';
 
 addons.setConfig({
   theme: create({
     base: 'light',
-    brandTitle: 'Lepidus Design System',
+    brandTitle: `Lepidus Design System <span style="font-size:11px;opacity:.65">v${version}</span>`,
     brandUrl: 'https://www.figma.com/design/Ck7BIRlRw2bwHRk8PL5IfC/Lepidus',
     brandTarget: '_blank',
 

@@ -147,7 +147,7 @@
   position: absolute;
   z-index: 20;
   top: calc(100% + 6px);
-  right: 0;
+  inset-inline-end: 0;
   min-width: 96px;
   display: flex;
   flex-direction: column;
@@ -172,7 +172,7 @@
   line-height: inherit;
   font-weight: inherit;
   cursor: pointer;
-  text-align: left;
+  text-align: start;
   white-space: nowrap;
 }
 
@@ -183,4 +183,11 @@
 .pageSizeOptionSelected {
   color: var(--color-text-brand, #1c4599);
   font-weight: var(--font-weight-bold, 700);
+}
+
+/* Motion accessibility — collapse transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition-duration: 0.01ms;
+  }
 }

@@ -99,3 +99,10 @@
   color: var(--component-stepper-disabled-text, #727171);
   cursor: not-allowed;
 }
+
+/* Motion accessibility — collapse transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .stepper {
+    transition-duration: 0.01ms;
+  }
+}

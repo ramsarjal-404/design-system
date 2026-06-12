@@ -146,11 +146,18 @@
   color: var(--component-input-placeholder, #727171);
 }
 
-/* Align helper under the field when the label sits inline-left */
+/* Align helper under the field when the label sits inline-start */
 .messageIndent {
-  margin-left: calc(var(--component-input-label-width, 171px) + var(--space-4, 8px));
+  margin-inline-start: calc(var(--component-input-label-width, 171px) + var(--space-4, 8px));
 }
 
 .errorMessage {
   color: var(--color-text-danger, #f72b2b);
+}
+
+/* Motion accessibility — collapse transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .field {
+    transition-duration: 0.01ms;
+  }
 }

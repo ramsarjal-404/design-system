@@ -83,7 +83,7 @@
 }
 
 .label {
-  padding-left: var(--space-18, 14px);
+  padding-inline-start: var(--space-18, 14px);
   font-size: var(--font-size-18, 18px);
   font-weight: var(--font-weight-semibold, 600);
   color: var(--color-text-brand, #1c4599);

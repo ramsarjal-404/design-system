@@ -300,7 +300,7 @@
         },
         "danger-text": {
           "$type": "color",
-          "$value": "{primitive.color.red.200}",
+          "$value": "{primitive.color.red.100}",
           "$extensions": {
             "com.figma.codeSyntax": {
               "WEB": "var(--color-button-danger-text)"
@@ -479,7 +479,7 @@
         },
         "success-text": {
           "$type": "color",
-          "$value": "{primitive.color.green.400}",
+          "$value": "{primitive.color.green.100}",
           "$extensions": {
             "com.figma.codeSyntax": {
               "WEB": "var(--color-status-success-text)"
@@ -497,7 +497,7 @@
         },
         "error-text": {
           "$type": "color",
-          "$value": "{primitive.color.red.200}",
+          "$value": "{primitive.color.red.100}",
           "$extensions": {
             "com.figma.codeSyntax": {
               "WEB": "var(--color-status-error-text)"
@@ -506,7 +506,7 @@
         },
         "warning-bg": {
           "$type": "color",
-          "$value": "{primitive.color.orange.800}",
+          "$value": "{primitive.color.orange.900}",
           "$extensions": {
             "com.figma.codeSyntax": {
               "WEB": "var(--color-status-warning-bg)"
@@ -515,7 +515,7 @@
         },
         "warning-text": {
           "$type": "color",
-          "$value": "{primitive.color.orange.400}",
+          "$value": "{primitive.color.orange.100}",
           "$extensions": {
             "com.figma.codeSyntax": {
               "WEB": "var(--color-status-warning-text)"
@@ -593,7 +593,7 @@
         },
         "text": {
           "$type": "color",
-          "$value": "{primitive.color.cyan.500}",
+          "$value": "{primitive.color.lightblue.300}",
           "$extensions": {
             "com.figma.codeSyntax": {
               "WEB": "var(--color-progress-text)"

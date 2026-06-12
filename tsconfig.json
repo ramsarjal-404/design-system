@@ -13,10 +13,22 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@lepidus/tokens/*": ["packages/tokens/*"],
-      "@lepidus/react/*": ["packages/react/src/*"]
-    }
+      "@lepidus/tokens/*": [
+        "packages/tokens/*"
+      ],
+      "@lepidus/react/*": [
+        "packages/react/src/*"
+      ]
+    },
+    "resolveJsonModule": true
   },
-  "include": ["global.d.ts", "packages/react/src/**/*", ".storybook/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "global.d.ts",
+    "packages/react/src/**/*",
+    ".storybook/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

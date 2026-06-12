@@ -50,3 +50,10 @@
   color: var(--color-text-inverse, #ffffff);
   text-align: center;
 }
+
+/* Motion accessibility — collapse transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .tab {
+    transition-duration: 0.01ms;
+  }
+}

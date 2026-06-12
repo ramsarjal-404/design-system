@@ -33,8 +33,7 @@
 }
 
 .vertical .thumb {
-  left: 0;
-  right: 0;
+  inset-inline: 0;
   height: var(--thumb-size, 26%);
   top: var(--thumb-offset, 0%);
 }
@@ -43,6 +42,8 @@
   top: 0;
   bottom: 0;
   width: var(--thumb-size, 26%);
+  /* physical: --thumb-offset tracks the physical scroll position supplied by
+     the consumer, so the thumb keeps measuring from the left edge */
   left: var(--thumb-offset, 0%);
 }
 

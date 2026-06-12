@@ -515,7 +515,7 @@
         },
         "warning-text": {
           "$type": "color",
-          "$value": "{primitive.color.orange.800}",
+          "$value": "{primitive.color.orange.900}",
           "$extensions": {
             "com.figma.codeSyntax": {
               "WEB": "var(--color-status-warning-text)"

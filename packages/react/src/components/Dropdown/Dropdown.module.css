@@ -32,7 +32,7 @@
   line-height: var(--typography-body-lg-lineHeight, 22px);
   font-weight: var(--font-weight-regular, 400);
   cursor: pointer;
-  text-align: left;
+  text-align: start;
   width: 100%;
 }
 
@@ -81,8 +81,7 @@
 .panel {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  inset-inline: 0;
   z-index: 20;
   display: flex;
   flex-direction: column;
@@ -102,8 +101,8 @@
   color: var(--component-dropdown-trigger-text, #1c4599);
   font-size: var(--typography-body-lg-fontSize, 16px);
   line-height: var(--typography-body-lg-lineHeight, 22px);
-  border-top-left-radius: var(--radius-6xl, 30px);
-  border-top-right-radius: var(--radius-6xl, 30px);
+  border-start-start-radius: var(--radius-6xl, 30px);
+  border-start-end-radius: var(--radius-6xl, 30px);
   cursor: pointer;
 }
 
@@ -136,7 +135,7 @@
   line-height: var(--typography-body-lg-lineHeight, 22px);
   cursor: pointer;
   border: none;
-  text-align: left;
+  text-align: start;
   width: 100%;
 }
 
@@ -189,4 +188,11 @@
   padding: var(--space-22, 18px) var(--space-11, 30px);
   border-top: 1px solid var(--component-dropdown-border, #c7c7c7);
   background-color: var(--component-dropdown-bg, #ffffff);
+}
+
+/* Motion accessibility — collapse transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .chevron {
+    transition-duration: 0.01ms;
+  }
 }

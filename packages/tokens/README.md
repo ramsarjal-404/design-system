@@ -74,7 +74,9 @@ carry — chart series colors, progress/nav semantics added after the last
 Dark/HC export, the focus ring, flyout/drawer shadows, hand-added primitives
 (`gray-150/450`, `cyan-500/600`, `blue-650`), whole component groups the
 export lacks (textfield, textarea, stepper, toast, dropdown, progress), and
-rebinds pending a Figma-side fix (`component/toggle/off-bg`). `tokens:import`
+rebinds pending a Figma-side fix (`component/toggle/off-bg`), and the WCAG AA
+contrast rebinds (status text shades, danger button pair, dark progress text,
+new `orange-900` primitive) that `npm run check:contrast` enforces. `tokens:import`
 deep-merges it **over** the export, so re-importing never wipes hand work.
 When a token lands in the Figma variables, delete it from the gaps file —
 the goal is for this file to shrink to nothing.

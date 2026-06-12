@@ -1,0 +1,107 @@
+/* Link.module.css — Lepidus Design System
+   Navigation anchor bound to semantic tokens:
+   - text: --color-text-brand, hover darkens to --color-brand-primary-hover
+   - disabled: --color-text-disabled
+   - focus: 2px outline --color-focus-ring with offset
+   No component/link/* tokens exist yet — semantic bindings only. */
+
+.link {
+  display: inline;
+  color: var(--color-text-brand, #1c4599);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+  cursor: pointer;
+  border-radius: var(--radius-2xs, 2px);
+  transition: color var(--duration-fast, 120ms) var(--easing-standard, cubic-bezier(0.2, 0, 0, 1));
+}
+
+.link:hover {
+  color: var(--color-brand-primary-hover, #183a81);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--color-focus-ring, rgba(28, 69, 153, 0.35));
+  outline-offset: var(--space-1, 2px);
+}
+
+/* === VARIANTS === */
+
+/* Inline — underlined, sits inside running text and inherits its type scale */
+.inline {
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: var(--space-17, 3px);
+}
+
+.inline:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Standalone — no underline, semibold, optional trailing icon */
+.standalone {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 4px);
+  font-size: var(--typography-body-md-fontSize, 14px);
+  line-height: var(--typography-body-md-lineHeight, 19px);
+  font-weight: var(--font-weight-semibold, 600);
+  text-decoration: none;
+}
+
+.standalone:hover {
+  text-decoration: underline;
+  text-underline-offset: var(--space-17, 3px);
+}
+
+/* === DISABLED (span[aria-disabled]) === */
+.disabled,
+.disabled:hover {
+  color: var(--color-text-disabled, #727171);
+  cursor: not-allowed;
+  text-decoration-color: currentColor;
+}
+
+.disabled.standalone:hover {
+  text-decoration: none;
+}
+
+/* === TRAILING / EXTERNAL ICONS === */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.icon svg {
+  width: var(--space-18, 14px);
+  height: var(--space-18, 14px);
+}
+
+.externalIcon {
+  width: var(--space-6, 12px);
+  height: var(--space-6, 12px);
+  flex-shrink: 0;
+  vertical-align: baseline;
+  margin-left: var(--space-17, 3px);
+}
+
+/* Screen-reader-only "(opens in new tab)" suffix */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link {
+    transition: none;
+  }
+}

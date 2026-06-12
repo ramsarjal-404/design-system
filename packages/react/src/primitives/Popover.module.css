@@ -1,0 +1,37 @@
+/* Popover.module.css — Lepidus Design System primitive
+   Anchored floating layer. Position (top/left) is set inline from JS via
+   getBoundingClientRect; this module only owns stacking and the enter
+   transition. Motion tokens: duration/fast + easing/standard; layer token:
+   z/dropdown. The surface itself (background, border, shadow) is owned by
+   the consumer (Tooltip, menus, …). */
+
+.popover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-dropdown, 1000);
+  opacity: 0;
+  /* enters sliding toward the anchor: down for bottom-*, up for top-* */
+  transform: translateY(calc(-1 * var(--space-2, 4px)));
+  transition:
+    opacity var(--duration-fast, 120ms) var(--easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    transform var(--duration-fast, 120ms) var(--easing-standard, cubic-bezier(0.2, 0, 0, 1));
+}
+
+/* resolved placement is above the anchor — slide upward instead */
+.placedTop {
+  transform: translateY(var(--space-2, 4px));
+}
+
+.entered {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .popover,
+  .placedTop {
+    transition: none;
+    transform: none;
+  }
+}

@@ -91,7 +91,7 @@
 .dropdownValue {
   flex: 1 1 auto;
   min-width: 0;
-  text-align: left;
+  text-align: start;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -197,11 +197,11 @@
   outline-offset: 1px;
 }
 
-/* event marker (Figma: 4px dot, top-right of the cell) */
+/* event marker (Figma: 4px dot, top trailing corner of the cell) */
 .eventDot {
   position: absolute;
   top: 5px;
-  right: 5px;
+  inset-inline-end: 5px;
   width: 5px;
   height: 5px;
   border-radius: 50%;
@@ -275,8 +275,7 @@
   position: absolute;
   z-index: 20;
   top: calc(100% + 4px);
-  left: 0;
-  right: 0;
+  inset-inline: 0;
   max-height: 200px;
   overflow-y: auto;
   background-color: var(--component-modal-bg, #ffffff);
@@ -307,7 +306,7 @@
   font-family: inherit;
   font-size: var(--typography-body-md-fontSize, 14px);
   color: var(--color-text-primary, #364765);
-  text-align: left;
+  text-align: start;
 }
 
 .option:hover {
@@ -330,4 +329,11 @@
   justify-content: center;
   gap: var(--space-7, 15px);
   padding-top: var(--space-2, 4px);
+}
+
+/* Motion accessibility — collapse transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .day {
+    transition-duration: 0.01ms;
+  }
 }

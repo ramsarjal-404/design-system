@@ -69,3 +69,10 @@
 .field.disabled .input::placeholder {
   color: var(--component-textfield-disabled-text, #727171);
 }
+
+/* Motion accessibility — collapse transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .field {
+    transition-duration: 0.01ms;
+  }
+}
