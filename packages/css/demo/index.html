@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lepidus — plain HTML/CSS demo</title>
+<link rel="stylesheet" href="../dist/lepidus.css" />
+<style>
+  /* Demo chrome only — components below use nothing but @lepidus/css classes */
+  body {
+    margin: 0;
+    padding: 32px;
+    font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+    background: var(--color-background-page);
+    color: var(--color-text-primary);
+  }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  h2 { font-size: 14px; margin: 32px 0 12px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+  .demo-note { color: var(--color-text-secondary); font-size: 13px; margin: 0 0 24px; }
+  .demo-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .demo-theme { position: fixed; top: 24px; right: 24px; display: flex; gap: 8px; }
+</style>
+</head>
+<body>
+
+<div class="demo-theme">
+  <button class="lp-button lp-button--secondary lp-button--sm" onclick="setTheme('light')">Light</button>
+  <button class="lp-button lp-button--secondary lp-button--sm" onclick="setTheme('dark')">Dark</button>
+  <button class="lp-button lp-button--secondary lp-button--sm" onclick="setTheme('hc')">High contrast</button>
+</div>
+
+<h1>Lepidus Design System</h1>
+<p class="demo-note">Plain HTML + <code>@lepidus/css</code> — no React, no build tool. One stylesheet.</p>
+
+<h2>Buttons</h2>
+<div class="demo-row">
+  <button class="lp-button lp-button--primary lp-button--md">Primary</button>
+  <button class="lp-button lp-button--secondary lp-button--md">Secondary</button>
+  <button class="lp-button lp-button--danger lp-button--md">Danger</button>
+  <button class="lp-button lp-button--white lp-button--md">White</button>
+  <button class="lp-button lp-button--primary lp-button--md" disabled>Disabled</button>
+  <button class="lp-button lp-button--primary lp-button--sm">Small</button>
+  <button class="lp-button lp-button--primary lp-button--lg">
+    <span class="lp-button__icon-left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span>
+    With icon
+  </button>
+</div>
+
+<h2>Badges</h2>
+<div class="demo-row">
+  <span class="lp-badge lp-badge--default">Default</span>
+  <span class="lp-badge lp-badge--success"><span class="lp-badge__dot"></span>Success</span>
+  <span class="lp-badge lp-badge--warning"><span class="lp-badge__dot"></span>Warning</span>
+  <span class="lp-badge lp-badge--error"><span class="lp-badge__dot"></span>Error</span>
+  <span class="lp-badge lp-badge--neutral">Neutral</span>
+</div>
+
+<h2>Tags</h2>
+<div class="demo-row">
+  <span class="lp-tag lp-tag--success"><span class="lp-tag__label">Enabled</span>
+    <button class="lp-tag__remove" aria-label="Remove Enabled"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l6 6M7 1L1 7"/></svg></button>
+  </span>
+  <span class="lp-tag lp-tag--error"><span class="lp-tag__label">Critical</span>
+    <button class="lp-tag__remove" aria-label="Remove Critical"><svg viewBox="0 0 8 8" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l6 6M7 1L1 7"/></svg></button>
+  </span>
+  <span class="lp-tag lp-tag--warning"><span class="lp-tag__label">Pending</span></span>
+  <span class="lp-tag lp-tag--neutral"><span class="lp-tag__label">Archived</span></span>
+  <span class="lp-tag lp-tag--disabled"><span class="lp-tag__label">Disabled</span></span>
+</div>
+
+<h2>Card</h2>
+<div style="max-width: 420px;">
+  <div class="lp-card lp-card--elevated">
+    <div class="lp-card__header">
+      <div class="lp-card__title">Permissions report</div>
+      <div class="lp-card__actions">
+        <button class="lp-button lp-button--secondary lp-button--sm">Export</button>
+      </div>
+    </div>
+    <div class="lp-card__body">
+      Review effective permissions across all monitored file servers.
+      Last scan completed 2 hours ago.
+    </div>
+    <div class="lp-card__footer">
+      <span class="lp-badge lp-badge--success"><span class="lp-badge__dot"></span>Healthy</span>
+    </div>
+  </div>
+</div>
+
+<h2>Inputs</h2>
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 480px;">
+  <div class="lp-input">
+    <div class="lp-input__row lp-input__row--label-top">
+      <label class="lp-input__label" for="d1">Server name</label>
+      <div class="lp-input__field">
+        <input class="lp-input__input" id="d1" placeholder="e.g. LDSP-FS-01" />
+      </div>
+    </div>
+    <div class="lp-input__message">The display name shown in reports.</div>
+  </div>
+  <div class="lp-input lp-input--full-width">
+    <div class="lp-input__row lp-input__row--label-left">
+      <label class="lp-input__label" for="d2">Email</label>
+      <div class="lp-input__field lp-input__field--error">
+        <input class="lp-input__input" id="d2" value="not-an-email" aria-invalid="true" aria-describedby="d2-err" />
+      </div>
+    </div>
+    <div class="lp-input__message lp-input__message--error lp-input__message--indent" id="d2-err">Enter a valid email address.</div>
+  </div>
+  <div class="lp-input">
+    <div class="lp-input__row lp-input__row--label-top">
+      <label class="lp-input__label" for="d3">License key</label>
+      <div class="lp-input__field lp-input__field--disabled">
+        <input class="lp-input__input" id="d3" value="XXXX-XXXX-XXXX" disabled />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setTheme(t) { document.documentElement.setAttribute('data-theme', t); }
+</script>
+</body>
+</html>

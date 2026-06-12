@@ -21,9 +21,12 @@ onboarding doc; **Foundations → Theming** covers the theme layers.
 |---|---|
 | `@lepidus/tokens` | DTCG token sources + generated `build/css/tokens.css` (themed CSS variables) |
 | `@lepidus/react` | Components (`dist/index.js` + `dist/style.css` via `npm run build:react`) |
+| `@lepidus/css` | Plain CSS classes (`lp-button` …) generated from the React CSS modules — for HTML/CSS/JS consumers, no framework needed (`npm run css`) |
 
-Consumers load `@lepidus/tokens/css` first, then `@lepidus/react/style.css`,
-then import components. The font is Open Sans.
+React consumers load `@lepidus/tokens/css` first, then `@lepidus/react/style.css`,
+then import components. Plain-HTML consumers link the single
+`packages/css/dist/lepidus.css` (tokens included) and copy markup from the
+Storybook **Foundations → HTML & CSS** page. The font is Open Sans.
 
 ## Scripts
 
@@ -33,6 +36,7 @@ then import components. The font is Open Sans.
 | `npm run tokens:import` | Figma DTCG export + `figma-gaps.tokens.json` overlay → DTCG sources |
 | `npm run tokens` | Style Dictionary → `packages/tokens/build/css/tokens.css` |
 | `npm run tokens:diff` | Reviewable changelog of token changes vs git |
+| `npm run css` | Generate `@lepidus/css` (plain `lp-*` classes) from the React CSS modules |
 | `npm run typecheck` | TypeScript, no emit |
 | `npm run check:tokens` | CI gate: every `var()` resolves, no hardcoded colors |
 | `npm run check:contrast` | WCAG contrast audit of token pairs, all three themes |

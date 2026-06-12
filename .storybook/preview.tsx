@@ -9,7 +9,7 @@ const preview: Preview = {
           'Lepidus',
           ['Introduction', 'Releases', 'Design Tokens', 'Contributing'],
           'Foundations',
-          ['Getting Started', 'Typography', 'Iconography', 'Elevation & Motion', 'Theming', 'UX Writing', 'Choosing Components'],
+          ['Getting Started', 'Typography', 'Iconography', 'Elevation & Motion', 'Theming', 'HTML & CSS', 'UX Writing', 'Choosing Components'],
           'Actions',
           'Forms',
           'Data Display',

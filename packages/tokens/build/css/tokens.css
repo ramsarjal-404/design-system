@@ -554,7 +554,7 @@
   --color-background-raised: var(--gray-700);
   --color-background-subtle: var(--gray-800);
   --color-background-inverse: var(--blue-600);
-  --color-background-cards: var(--white);
+  --color-background-cards: var(--gray-800); /** Dark card surface — Figma dark mode still exports white (unset); white card + light text.primary title is unreadable. Remove once Figma carries a real dark value. */
   --color-background-dash: var(--white);
   --color-background-tertiary: var(--white);
   --color-text-primary: var(--gray-50);

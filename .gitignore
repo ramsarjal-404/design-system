@@ -6,3 +6,4 @@ dist/
 .tmp-*.mjs
 .vrt/diff/
 .vrt/actual/
+.vercel

@@ -1,0 +1,17 @@
+{
+  "name": "@lepidus/css",
+  "version": "0.1.0",
+  "description": "Lepidus Design System — plain CSS classes for any stack. No framework, no build tool required.",
+  "license": "UNLICENSED",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node build-css.mjs"
+  },
+  "exports": {
+    "./lepidus.css": "./dist/lepidus.css",
+    "./components.css": "./dist/lepidus.components.css",
+    "./components/*": "./dist/components/*"
+  }
+}

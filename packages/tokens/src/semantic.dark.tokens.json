@@ -96,7 +96,8 @@
         },
         "cards": {
           "$type": "color",
-          "$value": "{primitive.color.white}",
+          "$value": "{primitive.color.gray.800}",
+          "$description": "Dark card surface — Figma dark mode still exports white (unset); white card + light text.primary title is unreadable. Remove once Figma carries a real dark value.",
           "$extensions": {
             "com.figma.codeSyntax": {
               "WEB": "var(--color-background-cards)"
