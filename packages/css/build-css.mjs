@@ -78,6 +78,49 @@ const COMPONENTS = [
       errorMessage: 'lp-input__message--error',
     },
   },
+  {
+    name: 'alert-panel',
+    source: 'AlertPanel/AlertPanel.module.css',
+    block: 'panel',
+    elements: ['icon', 'headline', 'title', 'summary', 'details', 'action', 'footnote'],
+  },
+  {
+    name: 'toggle',
+    source: 'Toggle/Toggle.module.css',
+    block: 'toggle',
+    elements: ['thumb'],
+  },
+  {
+    name: 'checkbox',
+    source: 'Checkbox/Checkbox.module.css',
+    block: 'root',
+    elements: ['control', 'input', 'box', 'check', 'dash', 'label'],
+    map: {
+      error: 'lp-checkbox__box--error',
+      disabled: 'lp-checkbox--disabled',
+    },
+  },
+  {
+    name: 'breadcrumb',
+    source: 'Breadcrumb/Breadcrumb.module.css',
+    block: 'breadcrumb',
+    elements: ['list', 'item', 'link', 'separator', 'current'],
+  },
+  {
+    name: 'table',
+    source: 'Table/Table.module.css',
+    block: 'wrapper',
+    elements: [
+      'table', 'th', 'headerInner', 'headerLabel', 'sortButton', 'sortArrow',
+      'filterCell', 'filterField', 'filterInput', 'searchIcon',
+      'td', 'cellInner', 'cellText', 'emptyCell', 'checkbox',
+    ],
+    map: {
+      sortArrowActive: 'lp-table__sort-arrow--active',
+      sortArrowDesc: 'lp-table__sort-arrow--desc',
+      selectedRow: 'lp-table__row--selected',
+    },
+  },
 ];
 
 const CLASS_RE = /\.([A-Za-z_][A-Za-z0-9_-]*)/g;

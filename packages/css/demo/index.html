@@ -117,8 +117,110 @@
   </div>
 </div>
 
+<h2>Toggle</h2>
+<div class="demo-row">
+  <button class="lp-toggle" role="switch" aria-checked="false" aria-label="Notifications" onclick="flipToggle(this)"><span class="lp-toggle__thumb"></span></button>
+  <button class="lp-toggle lp-toggle--on" role="switch" aria-checked="true" aria-label="Auditing" onclick="flipToggle(this)"><span class="lp-toggle__thumb"></span></button>
+  <button class="lp-toggle" role="switch" aria-checked="false" aria-label="Archived setting" disabled><span class="lp-toggle__thumb"></span></button>
+</div>
+
+<h2>Checkbox</h2>
+<div class="demo-row">
+  <label class="lp-checkbox">
+    <span class="lp-checkbox__control">
+      <input class="lp-checkbox__input" type="checkbox" checked />
+      <span class="lp-checkbox__box" aria-hidden="true">
+        <svg class="lp-checkbox__check" viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.2 3.8 7 9 1"/></svg>
+        <svg class="lp-checkbox__dash" viewBox="0 0 10 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 1h8"/></svg>
+      </span>
+    </span>
+    <span class="lp-checkbox__label">Checked</span>
+  </label>
+  <label class="lp-checkbox">
+    <span class="lp-checkbox__control">
+      <input class="lp-checkbox__input" type="checkbox" data-indeterminate />
+      <span class="lp-checkbox__box" aria-hidden="true">
+        <svg class="lp-checkbox__check" viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.2 3.8 7 9 1"/></svg>
+        <svg class="lp-checkbox__dash" viewBox="0 0 10 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 1h8"/></svg>
+      </span>
+    </span>
+    <span class="lp-checkbox__label">Indeterminate</span>
+  </label>
+  <label class="lp-checkbox lp-checkbox--disabled">
+    <span class="lp-checkbox__control">
+      <input class="lp-checkbox__input" type="checkbox" disabled />
+      <span class="lp-checkbox__box" aria-hidden="true"></span>
+    </span>
+    <span class="lp-checkbox__label">Disabled</span>
+  </label>
+</div>
+
+<h2>Breadcrumb</h2>
+<nav class="lp-breadcrumb" aria-label="Breadcrumb">
+  <ol class="lp-breadcrumb__list">
+    <li class="lp-breadcrumb__item"><a class="lp-breadcrumb__link" href="#">Home</a><span class="lp-breadcrumb__separator" aria-hidden="true">/</span></li>
+    <li class="lp-breadcrumb__item"><a class="lp-breadcrumb__link" href="#">Reports</a><span class="lp-breadcrumb__separator" aria-hidden="true">/</span></li>
+    <li class="lp-breadcrumb__item"><span class="lp-breadcrumb__current" aria-current="page">Permissions</span></li>
+  </ol>
+</nav>
+
+<h2>Table</h2>
+<div class="lp-table">
+  <table class="lp-table__table">
+    <thead>
+      <tr>
+        <th class="lp-table__th" scope="col">
+          <div class="lp-table__header-inner"><span class="lp-table__header-label">Server</span></div>
+        </th>
+        <th class="lp-table__th" scope="col">
+          <div class="lp-table__header-inner"><span class="lp-table__header-label">Status</span></div>
+        </th>
+        <th class="lp-table__th" scope="col">
+          <div class="lp-table__header-inner"><span class="lp-table__header-label">Last scan</span></div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-table__cell-text">LDSP-FS-01</span></div></td>
+        <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-badge lp-badge--success"><span class="lp-badge__dot"></span>Healthy</span></div></td>
+        <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-table__cell-text">2 hours ago</span></div></td>
+      </tr>
+      <tr class="lp-table__row--selected">
+        <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-table__cell-text">LDSP-FS-02 (selected)</span></div></td>
+        <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-badge lp-badge--warning"><span class="lp-badge__dot"></span>Degraded</span></div></td>
+        <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-table__cell-text">5 hours ago</span></div></td>
+      </tr>
+      <tr>
+        <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-table__cell-text">LDSP-FS-03</span></div></td>
+        <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-badge lp-badge--error"><span class="lp-badge__dot"></span>Offline</span></div></td>
+        <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-table__cell-text">2 days ago</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Alert panel</h2>
+<div class="lp-alert-panel" role="alert">
+  <span class="lp-alert-panel__icon" style="color: var(--color-status-error-text, #c62828);">
+    <svg viewBox="0 0 92 85" fill="none" aria-hidden="true"><path d="M46 6 L88 79 H4 Z" stroke="currentColor" stroke-width="6" stroke-linejoin="round"/><path d="M46 32v24" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle cx="46" cy="66" r="3.5" fill="currentColor"/></svg>
+  </span>
+  <h3 class="lp-alert-panel__headline">Attention!</h3>
+  <p class="lp-alert-panel__title">Mass file deletion detected</p>
+  <p class="lp-alert-panel__summary">1,240 files were deleted from LDSP-FS-02 in the last 10 minutes by a single account.</p>
+  <div class="lp-alert-panel__action">
+    <button class="lp-button lp-button--danger lp-button--md">Investigate now</button>
+  </div>
+  <p class="lp-alert-panel__footnote">Triggered by the "Mass delete" threat policy.</p>
+</div>
+
 <script>
   function setTheme(t) { document.documentElement.setAttribute('data-theme', t); }
+  function flipToggle(el) {
+    const on = el.classList.toggle('lp-toggle--on');
+    el.setAttribute('aria-checked', String(on));
+  }
+  document.querySelectorAll('[data-indeterminate]').forEach((el) => { el.indeterminate = true; });
 </script>
 </body>
 </html>

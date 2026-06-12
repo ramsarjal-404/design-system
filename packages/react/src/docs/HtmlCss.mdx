@@ -162,9 +162,162 @@ label column; align the helper text under the field with
 `lp-input__field--disabled` (also set `disabled` on the input itself).
 Add `lp-input--full-width` to the wrapper to stretch.
 
+## Toggle
+
+<div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 16 }}>
+  <button className="lp-toggle" role="switch" aria-checked="false" aria-label="Off example"><span className="lp-toggle__thumb"></span></button>
+  <button className="lp-toggle lp-toggle--on" role="switch" aria-checked="true" aria-label="On example"><span className="lp-toggle__thumb"></span></button>
+  <button className="lp-toggle" role="switch" aria-checked="false" aria-label="Disabled example" disabled><span className="lp-toggle__thumb"></span></button>
+</div>
+
+```html
+<button class="lp-toggle" role="switch" aria-checked="false" aria-label="Notifications">
+  <span class="lp-toggle__thumb"></span>
+</button>
+```
+
+Add `lp-toggle--on` and set `aria-checked="true"` for the on state — flip both
+in your click handler. Label with `aria-label` or `aria-labelledby`.
+
+## Checkbox
+
+<div style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 16 }}>
+  <label className="lp-checkbox">
+    <span className="lp-checkbox__control">
+      <input className="lp-checkbox__input" type="checkbox" defaultChecked />
+      <span className="lp-checkbox__box" aria-hidden="true">
+        <svg className="lp-checkbox__check" viewBox="0 0 10 8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M1 4.2 3.8 7 9 1"/></svg>
+        <svg className="lp-checkbox__dash" viewBox="0 0 10 2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M1 1h8"/></svg>
+      </span>
+    </span>
+    <span className="lp-checkbox__label">Checked</span>
+  </label>
+  <label className="lp-checkbox lp-checkbox--disabled">
+    <span className="lp-checkbox__control">
+      <input className="lp-checkbox__input" type="checkbox" disabled />
+      <span className="lp-checkbox__box" aria-hidden="true"></span>
+    </span>
+    <span className="lp-checkbox__label">Disabled</span>
+  </label>
+</div>
+
+```html
+<label class="lp-checkbox">
+  <span class="lp-checkbox__control">
+    <input class="lp-checkbox__input" type="checkbox" />
+    <span class="lp-checkbox__box" aria-hidden="true">
+      <svg class="lp-checkbox__check" viewBox="0 0 10 8" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.2 3.8 7 9 1"/></svg>
+      <svg class="lp-checkbox__dash" viewBox="0 0 10 2" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round"><path d="M1 1h8"/></svg>
+    </span>
+  </span>
+  <span class="lp-checkbox__label">Audit this folder</span>
+</label>
+```
+
+The real `<input>` stays the focus/click target (it's invisible over the box).
+States come from native `:checked` / `:disabled`; for indeterminate set
+`el.indeterminate = true` in JS. Error state: `lp-checkbox__box--error` plus
+`aria-invalid="true"`. Disabled: add `lp-checkbox--disabled` to the label and
+`disabled` to the input.
+
+## Breadcrumb
+
+<nav className="lp-breadcrumb" aria-label="Breadcrumb example" style={{ marginBottom: 16 }}>
+  <ol className="lp-breadcrumb__list">
+    <li className="lp-breadcrumb__item"><a className="lp-breadcrumb__link" href="#">Home</a><span className="lp-breadcrumb__separator" aria-hidden="true">/</span></li>
+    <li className="lp-breadcrumb__item"><a className="lp-breadcrumb__link" href="#">Reports</a><span className="lp-breadcrumb__separator" aria-hidden="true">/</span></li>
+    <li className="lp-breadcrumb__item"><span className="lp-breadcrumb__current" aria-current="page">Permissions</span></li>
+  </ol>
+</nav>
+
+```html
+<nav class="lp-breadcrumb" aria-label="Breadcrumb">
+  <ol class="lp-breadcrumb__list">
+    <li class="lp-breadcrumb__item">
+      <a class="lp-breadcrumb__link" href="/">Home</a>
+      <span class="lp-breadcrumb__separator" aria-hidden="true">/</span>
+    </li>
+    <li class="lp-breadcrumb__item">
+      <span class="lp-breadcrumb__current" aria-current="page">Permissions</span>
+    </li>
+  </ol>
+</nav>
+```
+
+## Table
+
+<div className="lp-table" style={{ marginBottom: 16 }}>
+  <table className="lp-table__table">
+    <thead>
+      <tr>
+        <th className="lp-table__th" scope="col"><div className="lp-table__header-inner"><span className="lp-table__header-label">Server</span></div></th>
+        <th className="lp-table__th" scope="col"><div className="lp-table__header-inner"><span className="lp-table__header-label">Status</span></div></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td className="lp-table__td"><div className="lp-table__cell-inner"><span className="lp-table__cell-text">LDSP-FS-01</span></div></td>
+        <td className="lp-table__td"><div className="lp-table__cell-inner"><span className="lp-badge lp-badge--success"><span className="lp-badge__dot"></span>Healthy</span></div></td>
+      </tr>
+      <tr className="lp-table__row--selected">
+        <td className="lp-table__td"><div className="lp-table__cell-inner"><span className="lp-table__cell-text">LDSP-FS-02</span></div></td>
+        <td className="lp-table__td"><div className="lp-table__cell-inner"><span className="lp-badge lp-badge--warning"><span className="lp-badge__dot"></span>Degraded</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+```html
+<div class="lp-table">
+  <table class="lp-table__table">
+    <thead>
+      <tr>
+        <th class="lp-table__th" scope="col">
+          <div class="lp-table__header-inner"><span class="lp-table__header-label">Server</span></div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><!-- add lp-table__row--selected for the selected state -->
+        <td class="lp-table__td">
+          <div class="lp-table__cell-inner"><span class="lp-table__cell-text">LDSP-FS-01</span></div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+Row hover styling is automatic. Sortable headers wrap the label in a
+`lp-table__sort-button` with a `lp-table__sort-arrow` icon (add `--active` /
+`--desc`); the filter row uses `lp-table__filter-cell` →
+`lp-table__filter-field` → `lp-table__filter-input`. Selection checkboxes:
+`<input type="checkbox" class="lp-table__checkbox">`.
+
+## Alert panel
+
+```html
+<div class="lp-alert-panel" role="alert">
+  <span class="lp-alert-panel__icon" style="color: var(--color-status-error-text)"><!-- severity svg --></span>
+  <h3 class="lp-alert-panel__headline">Attention!</h3>
+  <p class="lp-alert-panel__title">Mass file deletion detected</p>
+  <p class="lp-alert-panel__summary">1,240 files were deleted from LDSP-FS-02 in the last 10 minutes.</p>
+  <div class="lp-alert-panel__action">
+    <button class="lp-button lp-button--danger lp-button--md">Investigate now</button>
+  </div>
+  <p class="lp-alert-panel__footnote">Triggered by the "Mass delete" threat policy.</p>
+</div>
+```
+
+Color the severity icon with the status text tokens
+(`--color-status-error-text`, `-warning-`, `-success-`).
+
 ## What's covered so far
 
-Button, Badge, Tag, Card and Input ship today; the rest of the library is
-being converted component by component. Components with built-in behavior
-(Modal, Dropdown, Tabs, Toast) will arrive together with a small vanilla-JS
-helper. The full one-page showcase lives at `packages/css/demo/index.html`.
+Ten components ship today: Button, Badge, Tag, Card, Input, Toggle, Checkbox,
+Breadcrumb, Table and Alert panel. The rest of the library is being converted
+component by component; components with built-in overlay behavior (Modal,
+Dropdown, Tabs, Toast) will arrive together with a small vanilla-JS helper.
+The full one-page showcase lives at `packages/css/demo/index.html`.

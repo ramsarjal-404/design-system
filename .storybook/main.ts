@@ -15,6 +15,8 @@ const config: StorybookConfig = {
     name: '@storybook/react-vite',
     options: {},
   },
+  // Served at the site root — llms.txt makes the system legible to AI agents.
+  staticDirs: ['../public'],
   typescript: {
     reactDocgen: 'react-docgen-typescript',
   },

@@ -1,0 +1,79 @@
+# Lepidus Design System
+
+> Lepidus is Lepide's enterprise design system: design tokens generated from
+> Figma (DTCG → CSS variables), three themes (light / dark / high-contrast),
+> 38 React components, and a plain-CSS distribution (@lepidus/css) for
+> HTML/CSS/JS apps. This file is for AI assistants generating Lepide UI.
+
+## Rules for generated code
+
+- Default to **plain HTML with `lp-` classes** (Lepide product teams ship
+  HTML/CSS/JS). Use `@lepidus/react` components only when the project already
+  uses React.
+- **Never hardcode colors, radii, spacing or font sizes.** Use the token CSS
+  variables: `var(--component-*)` first, `var(--color-*)` / `var(--space-*)` /
+  `var(--radius-*)` semantics otherwise.
+- Theming: set `data-theme="light" | "dark" | "hc"` on `<html>`. Never write
+  per-theme color values by hand — the variables resolve per theme.
+- Font is Open Sans (`var(--font-family-primary)`). Buttons and inputs are
+  pill-shaped (high radius) — this comes from tokens, do not override.
+- Keep accessibility patterns from the documented markup: `:focus-visible`
+  outlines, `role="switch"` + `aria-checked` for toggles, `aria-invalid` +
+  described-by for input errors, `aria-current="page"` in breadcrumbs.
+
+## Plain-CSS usage
+
+Link one stylesheet (from `packages/css/dist/` in the repo):
+
+    <link rel="stylesheet" href="lepidus.css" />
+
+Class naming is BEM with an `lp-` prefix: block `lp-button`, modifier
+`lp-button--primary`, element `lp-button__icon-left`.
+
+Components available as plain CSS (copy-paste markup on the
+"Foundations → HTML & CSS" docs page of this site):
+
+- Button — `lp-button` + `--primary|--secondary|--danger|--white`,
+  sizes `--sm|--md|--lg`, `--full-width`, icon slots `__icon-left/right`
+- Badge — `lp-badge` + `--default|--success|--warning|--error|--neutral`,
+  optional `__dot`
+- Tag — `lp-tag` + same status modifiers + `--disabled`, `__label`, `__remove`
+- Card — `lp-card` + `--elevated|--borderless`; `__header`, `__title`,
+  `__actions`, `__body`, `__footer`
+- Input — `lp-input` wrapper (+`--full-width`); `__row` (+`--label-top|--label-left`),
+  `__label`, `__field` (+`--error|--disabled`), `__input`, `__icon-left/right`,
+  `__message` (+`--error|--indent`)
+- Toggle — `lp-toggle` (+`--on`) with `__thumb`; `<button role="switch">`
+- Checkbox — `lp-checkbox` (+`--disabled`); `__control`, `__input` (real
+  checkbox), `__box` (+`--error`), `__check`, `__dash`, `__label`
+- Breadcrumb — `lp-breadcrumb`; `__list`, `__item`, `__link`, `__separator`,
+  `__current`
+- Table — `lp-table` wrapper; `__table`, `__th`, `__header-inner`,
+  `__header-label`, `__sort-button`, `__sort-arrow` (+`--active|--desc`),
+  `__filter-cell/field/input`, `__td`, `__cell-inner`, `__cell-text`,
+  `__row--selected`, `__checkbox`
+- Alert panel — `lp-alert-panel`; `__icon`, `__headline`, `__title`,
+  `__summary`, `__details`, `__action`, `__footnote`
+
+Components not yet converted to plain CSS (use the React package or wait):
+Accordion, ActionItem, Avatar, Calendar, Charts, Dropdown, EmptyState, Filter,
+FolderTree, Link, Message, Modal, Pagination, Progress, Radio, Scrollbar,
+SettingsPanel, Sidebar, Skeleton, Spinner, Stepper, Steps, Tabs, TextField,
+Textarea, TimePicker, Toast, Tooltip.
+
+## React usage
+
+    import { Button } from '@lepidus/react';
+    // load @lepidus/tokens css, then @lepidus/react/style.css first
+    <Button variant="primary" size="md">Save</Button>
+
+## Key token names
+
+- Buttons: `--component-button-{primary|secondary|danger|white}-{fill|stroke|text}`,
+  hover variants `-hover-fill`
+- Status pairs: `--component-status-{success|warning|error|na}-{bg|text}`
+- Inputs: `--component-input-{bg|border|text|placeholder|label|radius}`,
+  focus `-bg-focus|-border-focus`
+- Surfaces: `--color-background-{page|surface|raised|subtle|cards}`
+- Text: `--color-text-{primary|secondary|disabled|inverse|brand|danger}`
+- Focus ring: `--color-focus-ring`; brand border: `--color-border-brand`
