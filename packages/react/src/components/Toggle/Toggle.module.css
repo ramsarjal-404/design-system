@@ -1,0 +1,55 @@
+/* Toggle.module.css — Lepidus Design System
+   On/off switch (Figma node 9:24). 56×20 pill track, 15px white thumb that
+   slides between ends. component/toggle/* tokens drive every state; off-bg
+   is rebound to brand.secondary (blue-200, the #CADBFF the Figma node draws)
+   via packages/tokens/src/figma-gaps.tokens.json until the Figma variable is
+   fixed upstream. */
+
+.toggle {
+  position: relative;
+  width: 56px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid var(--color-border-brand, #1c4599);
+  border-radius: var(--radius-4xl, 24px);
+  background-color: var(--component-toggle-off-bg, #c6d8ff);
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--color-border-brand, #1c4599);
+  outline-offset: 2px;
+}
+
+.thumb {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: 15px;
+  height: 15px;
+  border-radius: var(--radius-full, 9999px);
+  background-color: var(--component-toggle-handle, #ffffff);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transform: translateY(-50%);
+  transition: left 180ms ease;
+}
+
+/* === ON — component/toggle/on-bg, darker brand border === */
+
+.on {
+  background-color: var(--component-toggle-on-bg, #1c4599);
+  border-color: var(--blue-650, #11337a);
+}
+
+.on .thumb {
+  left: 36px;
+}
+
+/* === DISABLED (both positions) === */
+
+.toggle:disabled {
+  background-color: var(--component-toggle-disabled-bg, #c6c6c6);
+  border-color: var(--color-text-disabled, #727171);
+  cursor: not-allowed;
+}

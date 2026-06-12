@@ -1,0 +1,120 @@
+/* Modal.module.css — Lepidus Design System
+   "URL Popup" surface bound to Figma node 658:10178.
+   Token bindings (build/css/tokens.css):
+     backdrop  → component/modal/overlay              (--component-modal-overlay)
+     shell tint→ color/background/page                 (Figma raw #f7fcff was unbound → page tint)
+     radius    → radius/input (25px)                   (this popup; matches the Figma corner)
+     header bg → component/modal/bg (white)            · title → color/text/brand + typography/nav
+     gaps      → space/13 (header↔body, 48) · space/19 (rows, 11) · space/7 (buttons, 15)
+     pad       → space/21 (header Y, 17) · space/10 (shell bottom, 24) */
+
+/* === BACKDROP === */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-9, 20px);
+  background-color: color-mix(in srgb, var(--component-modal-overlay, #000000) 50%, transparent);
+}
+
+/* === SHELL === */
+.shell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-13, 48px);
+  padding-bottom: var(--space-10, 24px);
+  max-width: 100%;
+  background-color: var(--color-background-page, #f5f7fd);
+  border-radius: var(--radius-input, 25px);
+  box-shadow:
+    var(--shadow-card-offset-x, 0px) var(--shadow-card-offset-y, 2px)
+    var(--shadow-card-blur, 9px) var(--shadow-card-spread, 0px)
+    rgba(0, 0, 0, var(--shadow-card-opacity, 0.1));
+  overflow: hidden;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+/* embedded (overlay=false) keeps the same look, just no fixed positioning.
+   The shell is block-level flex with a determinate width (below), so the
+   auto/1fr field grid resolves predictably instead of shrink-to-fit. */
+.inline {
+  margin-inline: auto;
+}
+
+/* Determinate widths (not just max-width) so padding + columns are symmetric. */
+.sm { width: 520px; }
+.md { width: 680px; }
+.lg { width: 743px; }
+
+/* === HEADER BAR === */
+.header {
+  display: flex;
+  background-color: var(--component-modal-bg, #ffffff);
+  padding: var(--space-21, 17px) var(--space-9, 20px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.headerCenter { justify-content: center; }
+.headerLeft { justify-content: flex-start; }
+
+.title {
+  margin: 0;
+  font-size: var(--typography-nav-fontSize, 14px);
+  line-height: var(--typography-nav-lineHeight, 19px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-brand, #1c4599);
+}
+
+/* === BODY === */
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-10, 24px);
+  padding-inline: var(--space-11, 30px);
+}
+
+/* Label column auto-sizes to the widest label; one tight, consistent gap to
+   the field; all inputs stay aligned. (Replaces Input's fixed 171px label
+   column, which left a large empty gap for these short labels.) */
+.fields {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--space-7, 15px);
+  row-gap: var(--space-9, 20px);
+  align-items: start;
+}
+
+.fieldLabel {
+  /* nudge down so the label's text aligns with the input text (field border + padding) */
+  padding-top: calc(var(--component-input-paddingY, 12px) + 1px);
+  font-size: var(--component-input-fontSize, 14px);
+  line-height: var(--component-input-lineHeight, 19px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--component-input-label, #555766);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.fieldLabelEmpty {
+  display: block;
+}
+
+.custom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 10px);
+}
+
+/* === FOOTER === */
+.footer {
+  display: flex;
+  gap: var(--space-7, 15px);
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}

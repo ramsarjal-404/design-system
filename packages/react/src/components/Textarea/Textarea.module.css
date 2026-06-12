@@ -1,0 +1,76 @@
+/* Textarea.module.css — Lepidus Design System
+   Multi-line "Type Field Box" (Figma node 4:234). The box carries the
+   surface/border tokens; the :focus-within "typing state" swaps to the brand
+   border + brand text. Every value references a component token
+   (component/textarea/*) → semantic → primitive, or a shared space/radius
+   token. */
+
+.box {
+  display: flex;
+  align-items: flex-start;
+  width: 481px;
+  max-width: 481px;
+  min-width: 110px;
+  min-height: 110px;
+  padding: var(--space-9, 20px);
+  box-sizing: border-box;
+  border-radius: var(--radius-card, 15px);
+  border: 1px solid var(--component-textarea-border, #e4edff);
+  background-color: var(--component-textarea-bg, #ffffff);
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.fullWidth {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Typing state — focus-within mirrors the Figma "Typing state" variant */
+.box:focus-within:not(.disabled) {
+  background-color: var(--component-textarea-active-bg, #ffffff);
+  border-color: var(--component-textarea-active-border, #1c4599);
+}
+
+.textarea {
+  flex: 1 0 0;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 150px;
+  resize: vertical;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+  font-size: var(--typography-body-lg-fontSize, 16px);
+  line-height: var(--typography-body-lg-lineHeight, 22px);
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--component-textarea-text, #364765);
+}
+
+.textarea::placeholder {
+  color: var(--component-textarea-placeholder, #727171);
+}
+
+/* Active text color while typing */
+.box:focus-within:not(.disabled) .textarea {
+  color: var(--component-textarea-active-text, #1c4599);
+}
+
+/* Disabled state */
+.box.disabled {
+  background-color: var(--component-textarea-disabled-bg, #f6f6f6);
+  border-color: var(--component-textarea-disabled-border, #e4edff);
+  cursor: not-allowed;
+}
+
+.box.disabled .textarea {
+  color: var(--component-textarea-disabled-text, #727171);
+  cursor: not-allowed;
+  resize: none;
+}
+
+.box.disabled .textarea::placeholder {
+  color: var(--component-textarea-disabled-text, #727171);
+}

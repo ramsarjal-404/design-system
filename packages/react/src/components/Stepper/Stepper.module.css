@@ -1,0 +1,101 @@
+/* Stepper.module.css — Lepidus Design System
+   Number stepper / spinner (Figma node 391:133, "Changing Up-down"). Pill with a
+   numeric value and stacked up/down controls. Every value references a component
+   token (component/stepper/*) → semantic → primitive, or a shared
+   space/radius/typography token. */
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-5, 10px);
+  width: 230px;
+  max-width: 490px;
+  min-width: 200px;
+  height: 40px;
+  min-height: 40px;
+  max-height: 60px;
+  padding: var(--space-5, 10px) var(--space-18, 14px);
+  box-sizing: border-box;
+  border-radius: var(--radius-6xl, 30px);
+  border: 1px solid var(--component-stepper-border, #c7c7c7);
+  background-color: var(--component-stepper-bg, #ffffff);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.fullWidth {
+  width: 100%;
+  max-width: 100%;
+}
+
+.input {
+  flex: 1 0 0;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--typography-body-lg-fontSize, 16px);
+  line-height: var(--typography-body-lg-lineHeight, 22px);
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--component-stepper-text, #1c4599);
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* === UP / DOWN CONTROLS === */
+.controls {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 2px;
+}
+
+.control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 9px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--component-stepper-control, #1c4599);
+  cursor: pointer;
+}
+
+.control svg {
+  width: 12px;
+  height: 7px;
+  display: block;
+}
+
+.control:focus-visible {
+  outline: 2px solid var(--color-border-brand, #1c4599);
+  outline-offset: 1px;
+  border-radius: var(--radius-2xs, 2px);
+}
+
+.control:disabled {
+  color: var(--component-stepper-disabled-text, #727171);
+  cursor: not-allowed;
+}
+
+/* === DISABLED === */
+.stepper.disabled {
+  background-color: var(--component-stepper-disabled-bg, #c6c6c6);
+  border-color: transparent;
+}
+
+.stepper.disabled .input {
+  color: var(--component-stepper-disabled-text, #727171);
+  cursor: not-allowed;
+}

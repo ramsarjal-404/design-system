@@ -1,0 +1,165 @@
+/* Sidebar.module.css — Lepidus Design System (nav tokens)
+   Vertical icon rail bound to component/nav/* tokens.
+   All values reference component tokens → semantic tokens → primitives. */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8, 16px);
+  min-height: 100%;
+  padding: var(--space-9, 20px) var(--space-4, 8px);
+  background-color: var(--component-nav-sidebar-bg, #1c4599);
+  color: var(--component-nav-icon-color, #ffffff);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+  box-sizing: border-box;
+}
+
+/* === HEADER (logo) === */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4, 8px) 0 var(--space-6, 12px);
+  flex-shrink: 0;
+}
+
+/* === ITEM LIST === */
+.items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-7, 15px);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.items::-webkit-scrollbar {
+  display: none;
+}
+
+/* === ITEM === */
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4, 8px);
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.label {
+  font-size: var(--component-nav-fontSize, 14px);
+  line-height: var(--component-nav-lineHeight, 19px);
+  font-weight: var(--font-weight-regular, 400);
+  text-align: center;
+  color: var(--component-nav-icon-color, #ffffff);
+}
+
+/* Icon container — also the active highlight square */
+.iconBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 49px;
+  height: 49px;
+  border-radius: var(--radius-ms, 9px);
+  color: inherit;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+
+.iconBox svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* Hover (non-active) — faint translucent square */
+.item:hover:not(.active):not(.disabled) .iconBox {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.item:focus-visible {
+  outline: none;
+}
+
+.item:focus-visible .iconBox {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7);
+}
+
+/* === ACTIVE — white square + cyan icon (matches Figma frame) === */
+.active .iconBox {
+  background-color: var(--component-nav-item-bg, #ffffff);
+  color: var(--component-nav-item-active-text, #2e98d4);
+}
+
+/* === DISABLED === */
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+/* === ROUNDED VARIANT (Figma 557:382 "Sidebar-Rounded") ===
+   Capsule rail with a subtle stroke; the active item is a 50px circle filled
+   with component/nav/rounded-selected-bg (#11337A, the Figma
+   "Rounded-sidebar-selected" style) inside a dashed ring. Labels drop to
+   typography/label/md semibold. */
+.rounded {
+  border-radius: var(--radius-circle, 9999px);
+  border: 1px solid var(--component-nav-rounded-border, #e2dbdb);
+  padding: 26px var(--space-2, 4px);
+}
+
+.rounded .items {
+  gap: var(--space-10, 24px);
+}
+
+.rounded .item {
+  gap: var(--space-1, 2px);
+}
+
+.rounded .label {
+  font-size: var(--typography-label-md-fontSize, 12px);
+  line-height: var(--typography-label-md-lineHeight, 16px);
+  font-weight: var(--font-weight-semibold, 600);
+}
+
+.rounded .iconBox {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-circle, 9999px);
+  border: 1px dashed transparent;
+  box-sizing: border-box;
+}
+
+.rounded .item:hover:not(.active):not(.disabled) .iconBox {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.rounded .active .iconBox {
+  background-color: var(--component-nav-rounded-selected-bg, #11337a);
+  border-color: var(--component-nav-rounded-selected-border, #f6f6f6);
+  color: var(--component-nav-icon-color, #ffffff);
+}
+
+/* === FOOTER (settings / avatar) === */
+.footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-9, 20px);
+  padding-top: var(--space-8, 16px);
+  width: 100%;
+  flex-shrink: 0;
+}

@@ -1,0 +1,119 @@
+/* Message.module.css — Lepidus Design System
+   "Alert Message" surface bound to Figma node 1212:18.
+   Token bindings (build/css/tokens.css):
+     surface   → component/modal/bg            (--component-modal-bg, white)
+     radius    → component/modal/radius         (--component-modal-radius)
+     padding   → space/10 (Y, 24px) · space/9 (X, 20px)
+     gap (cols)→ space/10                        (--space-10, 24px)
+     title     → component/modal/title/text + typography/heading/h3
+     body      → component/modal/body/text + typography/nav
+     icon tint → color/status/* (per variant)   ·  close → color/text/secondary */
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-10, 24px);
+  background-color: var(--component-modal-bg, #ffffff);
+  border-radius: var(--component-modal-radius, 15px);
+  padding: var(--space-10, 24px) var(--space-9, 20px);
+  box-shadow:
+    var(--shadow-card-offset-x, 0px) var(--shadow-card-offset-y, 2px)
+    var(--shadow-card-blur, 9px) var(--shadow-card-spread, 0px)
+    rgba(0, 0, 0, var(--shadow-card-opacity, 0.1));
+  border: 1px solid var(--component-modal-border, #e2dbdb);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+/* === LEADING STATUS ICON === */
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.icon svg {
+  width: 45px;
+  height: 45px;
+  display: block;
+}
+
+/* Icon tint per variant — the rounded square fills with currentColor */
+.info .icon {
+  color: var(--color-brand-primary, #1c4599);
+}
+.success .icon {
+  color: var(--component-status-success-text, #1caa52);
+}
+.warning .icon {
+  color: var(--component-status-warning-text, #f57f17);
+}
+.error .icon {
+  color: var(--component-status-error-text, #f72b2b);
+}
+
+/* === CONTENT COLUMN === */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-11, 30px);
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 10px);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--typography-heading-h3-fontSize, 24px);
+  line-height: var(--typography-heading-h3-lineHeight, 36px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--component-modal-title-text, #364765);
+}
+
+.body {
+  margin: 0;
+  /* Body copy → typography/body/lg (16/22 relaxed) at REGULAR weight, for
+     comfortable multi-line paragraph reading. (Was typography/nav @600 — a
+     nav-label style too heavy and tight for paragraph copy.) */
+  font-size: var(--typography-body-lg-fontSize, 16px);
+  line-height: var(--typography-body-lg-lineHeight, 22px);
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--component-modal-body-text, #555766);
+  white-space: pre-line;
+}
+
+/* === ACTIONS === */
+.actions {
+  display: flex;
+  gap: var(--space-7, 15px);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* === CLOSE === */
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--color-text-secondary, #555766);
+  border-radius: var(--radius-xs, 4px);
+  transition: opacity 0.15s ease;
+}
+
+.close:hover {
+  opacity: 0.6;
+}
+
+.close:focus-visible {
+  outline: 2px solid var(--color-border-brand, #1c4599);
+  outline-offset: 2px;
+}

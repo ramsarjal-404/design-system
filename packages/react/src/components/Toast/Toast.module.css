@@ -1,0 +1,139 @@
+/* Toast.module.css — Lepidus Design System
+   Notification pill (Figma node 4:356, "Info"): circular status badge, title +
+   message, close button, on a white→accent gradient pill with a brand border
+   and drop shadow. Structure binds to component/toast/* → semantic → primitive;
+   the success / warning / error variants swap the accent to component/status/*. */
+
+.toast {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-7, 15px);
+  min-height: 83px;
+  padding: var(--space-5, 10px) var(--space-9, 20px);
+  box-sizing: border-box;
+  border-radius: 69px;
+  border: 1px solid var(--component-toast-border, #1c4599);
+  background: linear-gradient(
+    to right,
+    var(--component-toast-bg-from, #ffffff) 42%,
+    var(--component-toast-bg-to, #c6d8ff) 100%
+  );
+  box-shadow: 0 4px 2px rgba(0, 0, 0, 0.25);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+/* === BADGE === */
+.badge {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--component-toast-badge-bg, #1c4599);
+  color: var(--component-toast-badge-text, #ffffff);
+}
+
+.badge svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* === TEXT === */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-20, 20px);
+  line-height: normal;
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--component-toast-title-text, #1c4599);
+}
+
+.body {
+  margin: 0;
+  font-size: var(--typography-body-md-fontSize, 14px);
+  line-height: normal;
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--component-toast-body-text, #364765);
+}
+
+/* === CLOSE === */
+.close {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  margin-left: var(--space-4, 8px);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--component-toast-close, #364765);
+  cursor: pointer;
+}
+
+.close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.close:focus-visible {
+  outline: 2px solid var(--color-border-brand, #1c4599);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs, 4px);
+}
+
+/* === STATUS VARIANTS (accent swap) === */
+.success {
+  border-color: var(--color-status-success-text, #1caa52);
+  background: linear-gradient(
+    to right,
+    var(--component-toast-bg-from, #ffffff) 42%,
+    var(--color-status-success-bg, #e8f5e9) 100%
+  );
+}
+.success .badge {
+  background-color: var(--color-status-success-text, #1caa52);
+}
+.success .title {
+  color: var(--color-status-success-text, #1caa52);
+}
+
+.warning {
+  border-color: var(--color-status-warning-text, #f57f17);
+  background: linear-gradient(
+    to right,
+    var(--component-toast-bg-from, #ffffff) 42%,
+    var(--color-status-warning-bg, #fff8e1) 100%
+  );
+}
+.warning .badge {
+  background-color: var(--color-status-warning-text, #f57f17);
+}
+.warning .title {
+  color: var(--color-status-warning-text, #f57f17);
+}
+
+.error {
+  border-color: var(--color-status-error-text, #f72b2b);
+  background: linear-gradient(
+    to right,
+    var(--component-toast-bg-from, #ffffff) 42%,
+    var(--color-status-error-bg, #ffebee) 100%
+  );
+}
+.error .badge {
+  background-color: var(--color-status-error-text, #f72b2b);
+}
+.error .title {
+  color: var(--color-status-error-text, #f72b2b);
+}

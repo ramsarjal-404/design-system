@@ -1,0 +1,154 @@
+/* Button.module.css — Lepidus Design System
+   Specs from Figma: radius 50, padding 12/20 (md) 10/24 (lg), font 14/Bold
+   sm (5/16, 29px min-height) is a code-side addition for dense UI (table rows)
+   All values reference component tokens → semantic tokens → primitives */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--component-button-gap);
+  border-radius: var(--component-button-radius);
+  font-family: var(--font-family-primary);
+  font-size: var(--component-button-fontSize);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--component-button-lineHeight);
+  letter-spacing: 0;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 180ms ease, border-color 180ms ease,
+              color 180ms ease, box-shadow 180ms ease;
+  white-space: nowrap;
+  user-select: none;
+  text-decoration: none;
+  outline: none;
+  position: relative;
+}
+
+.button:focus-visible {
+  box-shadow: 0 0 0 3px var(--component-button-focus-ring, rgba(28, 69, 153, 0.35));
+}
+
+/* === SIZES === */
+.sm {
+  padding: 5px 16px;
+  min-height: 29px;
+}
+
+.md {
+  padding: 12px 20px;
+  min-height: 41px;
+}
+
+.lg {
+  padding: 10px 24px;
+  min-height: 41px;
+}
+
+/* === VARIANTS === */
+
+/* Primary — Figma: component/button/primary/* */
+.primary {
+  background-color: var(--component-button-primary-fill);
+  border-color: var(--component-button-primary-stroke);
+  color: var(--component-button-primary-text);
+}
+
+.primary:hover:not(:disabled),
+.primary:focus-visible:not(:disabled) {
+  background-color: var(--component-button-primary-hover-fill);
+  border-color: var(--component-button-primary-hover-fill);
+}
+
+.primary:active:not(:disabled) {
+  background-color: var(--component-button-primary-hover-fill);
+  transform: scale(0.98);
+}
+
+/* Secondary — Figma: component/button/secondary/* */
+.secondary {
+  background-color: var(--component-button-secondary-fill);
+  border-color: var(--component-button-secondary-stroke);
+  color: var(--component-button-secondary-text);
+}
+
+.secondary:hover:not(:disabled),
+.secondary:focus-visible:not(:disabled) {
+  background-color: var(--component-button-primary-fill);
+  border-color: var(--component-button-primary-fill);
+  color: var(--component-button-primary-text);
+}
+
+.secondary:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* Danger — Figma: component/button/danger/* */
+.danger {
+  background-color: var(--component-button-danger-fill);
+  border-color: var(--component-button-danger-stroke);
+  color: var(--component-button-danger-text);
+}
+
+.danger:hover:not(:disabled),
+.danger:focus-visible:not(:disabled) {
+  background-color: var(--red-400);
+  border-color: var(--red-400);
+  color: var(--white);
+}
+
+.danger:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* White — Figma: component/button/white/* */
+.white {
+  background-color: var(--component-button-white-fill);
+  border-color: var(--component-button-white-stroke);
+  color: var(--component-button-white-text);
+}
+
+.white:hover:not(:disabled),
+.white:focus-visible:not(:disabled) {
+  background-color: var(--component-button-primary-fill);
+  border-color: var(--component-button-primary-fill);
+  color: var(--component-button-primary-text);
+}
+
+.white:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* === DISABLED — Figma: component/button/disabled/* === */
+.button:disabled {
+  background-color: var(--component-button-disabled-fill);
+  border-color: var(--component-button-disabled-fill);
+  color: var(--component-button-disabled-text);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* === ICON SLOTS === */
+.iconLeft,
+.iconRight {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.iconLeft svg,
+.iconRight svg {
+  width: 16px;
+  height: 16px;
+}
+
+.lg .iconLeft svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* === FULL WIDTH === */
+.fullWidth {
+  width: 100%;
+}

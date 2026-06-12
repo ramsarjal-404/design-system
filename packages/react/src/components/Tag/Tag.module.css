@@ -1,0 +1,88 @@
+/* Tag.module.css — Lepidus Design System
+   Interactive chip (Figma node 9:8). Bordered pill on the shared
+   component/status/* color sets — same tokens as Badge so status colors never
+   drift between the two. The Figma flats (#d93b3b, #366251, #ac7f2a) are
+   deliberately reconciled to these tokens. Disabled maps to the neutral
+   disabled grays. */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--component-badge-gap, 5px);
+  padding: var(--component-badge-paddingY, 5px) var(--component-badge-paddingX, 15px);
+  border: 1px solid currentColor;
+  border-radius: var(--component-badge-radius, 28px);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+  font-size: var(--typography-nav-fontSize, 14px);
+  line-height: var(--typography-nav-lineHeight, 19px);
+  font-weight: var(--font-weight-semibold, 600);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.label {
+  min-width: 0;
+}
+
+/* === VARIANTS — border rides currentColor === */
+
+.error {
+  background-color: var(--component-status-error-bg, #ffebee);
+  color: var(--component-status-error-text, #f72b2b);
+}
+
+.success {
+  background-color: var(--component-status-success-bg, #e8f5e9);
+  color: var(--component-status-success-text, #1caa52);
+}
+
+.warning {
+  background-color: var(--component-status-warning-bg, #fff8e1);
+  color: var(--component-status-warning-text, #f57f17);
+}
+
+.neutral {
+  background-color: var(--component-status-na-bg, #f5f7fd);
+  color: var(--component-status-na-text, #555766);
+}
+
+.disabled {
+  background-color: var(--gray-150, #e0e0e0);
+  color: var(--color-text-disabled, #727171);
+}
+
+/* === DISMISS BUTTON === */
+
+.remove {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin: 0 -6px 0 0; /* pull toward the pill edge so padding stays 15px optically */
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-full, 9999px);
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.remove svg {
+  width: 8px;
+  height: 8px;
+}
+
+.remove:hover:not(:disabled) {
+  background-color: var(--color-background-subtle, #f6f6f6);
+}
+
+.remove:focus-visible {
+  outline: 2px solid var(--color-border-brand, #1c4599);
+  outline-offset: 1px;
+}
+
+.remove:disabled {
+  cursor: not-allowed;
+}

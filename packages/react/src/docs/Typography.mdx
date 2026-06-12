@@ -1,0 +1,134 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Typography" />
+
+export const TypeRow = ({ role, px, weight, sample }) => (
+  <div style={{ borderBottom: '1px solid var(--color-border-default)', padding: '14px 0' }}>
+    <div
+      style={{
+        fontFamily: 'var(--font-family-primary)',
+        fontSize: `var(--typography-${role}-fontSize)`,
+        lineHeight: `var(--typography-${role}-lineHeight)`,
+        letterSpacing: `var(--typography-${role}-letterSpacing)`,
+        fontWeight: `var(--font-weight-${weight})`,
+        color: 'var(--color-text-primary)',
+      }}
+    >
+      {sample}
+    </div>
+    <div style={{ marginTop: 6, fontSize: 12, fontFamily: 'monospace', color: '#727171' }}>
+      {`--typography-${role}-fontSize / -lineHeight`} · {px} · {`--font-weight-${weight}`}
+    </div>
+  </div>
+);
+
+export const WeightRow = ({ name, value }) => (
+  <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, padding: '8px 0' }}>
+    <span
+      style={{
+        fontFamily: 'var(--font-family-primary)',
+        fontSize: 'var(--typography-body-lg-fontSize)',
+        fontWeight: `var(--font-weight-${name})`,
+        color: 'var(--color-text-primary)',
+        minWidth: 380,
+      }}
+    >
+      The quick brown fox jumps over the lazy dog
+    </span>
+    <code style={{ fontSize: 12 }}>{`--font-weight-${name}`}</code>
+    <span style={{ fontSize: 12, color: '#727171' }}>{value}</span>
+  </div>
+);
+
+# Typography
+
+Lepidus type is driven entirely by the token build. Each text role is a composite of
+`--typography-<role>-fontSize`, `-lineHeight` and `-letterSpacing` tokens (generated from the
+Figma DTCG export). The composite tokens carry **size, line-height and letter-spacing only** —
+weight is applied per use from the `--font-weight-*` scale (e.g. Button pairs its role with
+semibold). Every sample below renders live from the loaded `tokens.css`.
+
+## Font stack
+
+The single family token is `--font-family-primary`, resolving to
+**'Open Sans', system-ui, sans-serif**. Open Sans is loaded by the host application; the
+system-ui fallback keeps metrics close when it is unavailable. No secondary or monospace family
+token exists in the build.
+
+<div
+  style={{
+    fontFamily: 'var(--font-family-primary)',
+    fontSize: 'var(--typography-heading-h4-fontSize)',
+    lineHeight: 'var(--typography-heading-h4-lineHeight)',
+    color: 'var(--color-text-primary)',
+    padding: '12px 0',
+  }}
+>
+  Open Sans — ABCDEFGHIJKLM abcdefghijklm 0123456789
+</div>
+
+## Weight scale
+
+<div>
+  <WeightRow name="regular" value="400" />
+  <WeightRow name="medium" value="500" />
+  <WeightRow name="semibold" value="600" />
+  <WeightRow name="bold" value="700" />
+</div>
+
+## Headings
+
+<div>
+  <TypeRow role="heading-h1" px="32 / 36" weight="bold" sample="Heading 1 — Page title" />
+  <TypeRow role="heading-h2" px="28 / 36" weight="bold" sample="Heading 2 — Section title" />
+  <TypeRow role="heading-h3" px="24 / 36" weight="semibold" sample="Heading 3 — Subsection title" />
+  <TypeRow role="heading-h4" px="22 / 28" weight="semibold" sample="Heading 4 — Card or panel title" />
+  <TypeRow role="heading-h5" px="20 / 28" weight="semibold" sample="Heading 5 — Group heading" />
+  <TypeRow role="heading-h6" px="18 / 28" weight="semibold" sample="Heading 6 — Minor heading" />
+</div>
+
+## Body
+
+<div>
+  <TypeRow role="body-lg" px="16 / 22" weight="regular" sample="Body large — The quick brown fox jumps over the lazy dog. Lead paragraphs and prominent descriptions." />
+  <TypeRow role="body-md" px="14 / 19" weight="regular" sample="Body medium — The quick brown fox jumps over the lazy dog. The default reading size across Lepide products." />
+  <TypeRow role="body-sm" px="12 / 16" weight="regular" sample="Body small — The quick brown fox jumps over the lazy dog. Helper text, captions and footnotes." />
+</div>
+
+## Labels
+
+<div>
+  <TypeRow role="label-md" px="12 / 16" weight="semibold" sample="Label medium — field labels" />
+  <TypeRow role="label-sm" px="11 / 16" weight="semibold" sample="Label small — dense metadata labels" />
+</div>
+
+## Component roles
+
+These roles are aliased into the component tier (e.g. `--component-button-fontSize` →
+`--typography-button-fontSize`), so components never reference primitives directly.
+
+<div>
+  <TypeRow role="button" px="14 / 19" weight="semibold" sample="Button — Apply changes" />
+  <TypeRow role="nav" px="14 / 19" weight="medium" sample="Nav — Dashboard · Auditor · Trust" />
+  <TypeRow role="input" px="14 / 19" weight="regular" sample="Input — user@lepide.com" />
+  <TypeRow role="table-header" px="14 / 19" weight="semibold" sample="Table header — Name · Status · Modified" />
+  <TypeRow role="table-cell" px="14 / 19" weight="regular" sample="Table cell — audit-report-2026.pdf" />
+  <TypeRow role="modal-title" px="20 / 28" weight="semibold" sample="Modal title — Delete this report?" />
+  <TypeRow role="badge" px="12 / 16" weight="semibold" sample="Badge — ACTIVE" />
+</div>
+
+## Usage guidance
+
+- **heading-h1/h2** — one per page/section; page and section titles only. Don't skip levels for
+  visual effect — pick the semantic level and adjust spacing instead.
+- **heading-h3–h6** — subsection, card and panel titles in descending nesting order.
+- **body-md (14px)** — the default UI text size. Reach for **body-lg** only for lead paragraphs
+  or marketing-adjacent surfaces; reach for **body-sm** for helper/error text under fields and
+  captions.
+- **label-md/sm** — form-field and metadata labels, paired with semibold weight. (Note: Input
+  labels render in gray `--color-text-primary` tones, not brand blue.)
+- **button / nav / input / table-\* / modal-title / badge** — consume these via their
+  `--component-*` aliases inside components; never restyle a component's text with a different
+  role.
+- Line-heights come from a four-step scale (`tight` 16 · `default` 19 · `relaxed` 22 ·
+  `loose` 28 · `heading` 36) — always use the role's paired token rather than a unitless value.

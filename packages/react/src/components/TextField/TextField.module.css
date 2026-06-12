@@ -1,0 +1,71 @@
+/* TextField.module.css — Lepidus Design System
+   Standalone pill text field (Figma node 45:504). The wrapper carries the
+   surface/border tokens; the :focus-within "active state" swaps to the brand
+   secondary fill + brand border. Every value references a component token
+   (component/textfield/*) → semantic → primitive, or a shared space/radius
+   token. */
+
+.field {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-5, 10px);
+  width: 490px;
+  max-width: 490px;
+  min-width: 110px;
+  height: 41px;
+  padding: var(--space-18, 14px);
+  box-sizing: border-box;
+  border-radius: var(--radius-xxl, 44px);
+  border: 1px solid var(--component-textfield-border, #c7c7c7);
+  background-color: var(--component-textfield-bg, #ffffff);
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.fullWidth {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Active state — focus-within mirrors the Figma "active state" variant */
+.field:focus-within:not(.disabled) {
+  background-color: var(--component-textfield-active-bg, #c6d8ff);
+  border-color: var(--component-textfield-active-border, #1c4599);
+}
+
+.input {
+  flex: 1 0 0;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+  font-size: var(--typography-body-lg-fontSize, 16px);
+  line-height: var(--typography-body-lg-lineHeight, 22px);
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--component-textfield-text, #364765);
+}
+
+.input::placeholder {
+  color: var(--component-textfield-placeholder, #727171);
+}
+
+/* Active text color when the field is focused */
+.field:focus-within:not(.disabled) .input {
+  color: var(--component-textfield-active-text, #1c4599);
+}
+
+/* Disabled state */
+.field.disabled {
+  background-color: var(--component-textfield-disabled-bg, #c6c6c6);
+  border-color: var(--color-brand-light, #e4edff);
+  cursor: not-allowed;
+}
+
+.field.disabled .input {
+  color: var(--component-textfield-disabled-text, #727171);
+  cursor: not-allowed;
+}
+
+.field.disabled .input::placeholder {
+  color: var(--component-textfield-disabled-text, #727171);
+}

@@ -1,0 +1,192 @@
+/* Dropdown.module.css — Lepidus Design System
+   Select / multi-select dropdown (Figma node 49:118). Trigger pill + open panel
+   (blue header, checkbox option rows, optional Cancel/Apply footer). Every value
+   references a component token (component/dropdown/*) → semantic → primitive, or
+   a shared space/radius/typography token. */
+
+.wrapper {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  width: 320px;
+  max-width: 490px;
+  min-width: 140px;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+/* === TRIGGER (closed state) === */
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5, 10px);
+  height: 40px;
+  min-height: 40px;
+  max-height: 60px;
+  padding: var(--space-5, 10px) var(--space-18, 14px);
+  box-sizing: border-box;
+  border-radius: var(--radius-6xl, 30px);
+  border: 1px solid var(--component-dropdown-border, #c7c7c7);
+  background-color: var(--component-dropdown-bg, #ffffff);
+  color: var(--component-dropdown-trigger-text, #1c4599);
+  font-size: var(--typography-body-lg-fontSize, 16px);
+  line-height: var(--typography-body-lg-lineHeight, 22px);
+  font-weight: var(--font-weight-regular, 400);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.triggerLabel {
+  flex: 1 0 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  flex-shrink: 0;
+  width: 11.5px;
+  height: 6px;
+  color: currentColor;
+  transition: transform 150ms ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--color-border-brand, #1c4599);
+  outline-offset: 2px;
+}
+
+/* while open, the panel header replaces the trigger — keep its layout slot but
+   hide it so its rounded border doesn't peek behind the blue header */
+.trigger.triggerHidden {
+  visibility: hidden;
+}
+
+.trigger.disabled {
+  background-color: var(--component-dropdown-disabled-bg, #c6c6c6);
+  border-color: transparent;
+  color: var(--component-dropdown-disabled-text, #727171);
+  cursor: not-allowed;
+}
+
+/* === OPEN PANEL ===
+   Overlays the trigger (top:0) so the blue header sits exactly where the closed
+   pill was — matching the Figma single-panel open state (no detached second bar,
+   no gap). */
+.panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-6xl, 30px);
+  background-color: var(--component-dropdown-bg, #ffffff);
+  box-shadow: 0 8px 24px rgba(7, 16, 61, 0.12);
+  overflow: hidden;
+}
+
+/* Blue header bar replaces the trigger as the panel head */
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5, 10px);
+  padding: var(--space-9, 20px) var(--space-18, 14px);
+  background-color: var(--component-dropdown-header-bg, #c6d8ff);
+  color: var(--component-dropdown-trigger-text, #1c4599);
+  font-size: var(--typography-body-lg-fontSize, 16px);
+  line-height: var(--typography-body-lg-lineHeight, 22px);
+  border-top-left-radius: var(--radius-6xl, 30px);
+  border-top-right-radius: var(--radius-6xl, 30px);
+  cursor: pointer;
+}
+
+.headerLabel {
+  flex: 1 0 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+/* === OPTION ROW === */
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5, 10px);
+  height: 40px;
+  min-height: 40px;
+  padding: var(--space-5, 10px) var(--space-18, 14px);
+  background-color: var(--component-dropdown-bg, #ffffff);
+  color: var(--component-dropdown-option-text, #1c4599);
+  font-size: var(--typography-body-lg-fontSize, 16px);
+  line-height: var(--typography-body-lg-lineHeight, 22px);
+  cursor: pointer;
+  border: none;
+  text-align: left;
+  width: 100%;
+}
+
+.option:hover:not(:disabled) {
+  background-color: var(--component-dropdown-item-hover, #f6f6f6);
+}
+
+.option:disabled {
+  color: var(--component-dropdown-disabled-text, #727171);
+  cursor: not-allowed;
+}
+
+.optionLabel {
+  flex: 1 0 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* === CHECKBOX ===
+   Figma renders a white box with a brand-blue border and a brand-blue check
+   (outlined, not solid-filled). */
+.checkbox {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-3xs, 3px);
+  border: 1.5px solid var(--component-dropdown-checkbox-border, #1c4599);
+  background-color: var(--component-dropdown-bg, #ffffff);
+  color: var(--component-dropdown-checkbox-fill, #1c4599);
+  box-sizing: border-box;
+}
+
+.checkbox svg {
+  width: 11px;
+  height: 11px;
+  color: currentColor;
+}
+
+/* === FOOTER === */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5, 10px);
+  padding: var(--space-22, 18px) var(--space-11, 30px);
+  border-top: 1px solid var(--component-dropdown-border, #c7c7c7);
+  background-color: var(--component-dropdown-bg, #ffffff);
+}

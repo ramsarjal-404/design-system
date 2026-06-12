@@ -1,0 +1,78 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Getting Started" />
+
+# Getting Started
+
+Lepidus is a single repository (no npm workspaces) with two packages consumed **via source**:
+`packages/tokens` (the DTCG token sources + generated CSS) and `packages/react` (the components,
+stories and docs). There is no publish step — an app imports the `.tsx` files and the built
+`tokens.css` directly.
+
+## Prerequisites
+
+- **Node.js** (any current LTS) and **npm**
+- One install at the repo root:
+
+```bash
+npm install
+```
+
+## The scripts that matter
+
+| Script | What it does |
+| --- | --- |
+| `npm run storybook` | Starts Storybook on port 6006 (`prestorybook` rebuilds `tokens.css` first) |
+| `npm run tokens` | Rebuilds `packages/tokens/build/css/tokens.css` (alias of `tokens:css`) |
+| `npm run tokens:import` | Re-imports the Figma DTCG export (`build-json.mjs`) into `packages/tokens/src/` |
+| `npm run tokens:css` | Runs Style Dictionary (`build-sd.mjs`) over the sources |
+| `npm run typecheck` | `tsc --noEmit` over the whole repo |
+| `npm run check:tokens` | Verifies every `var(--token)` in component CSS exists in the built `tokens.css` |
+| `npm run test-storybook` | Interaction/`play` tests against a running Storybook (`http://localhost:6006`) |
+
+## Using a component in an app
+
+Components are plain React + CSS Modules — import the component and make sure your bundler
+handles `*.module.css` (Vite, Next.js and CRA all do out of the box):
+
+```tsx
+import { Button } from './packages/react/src/components/Button';
+
+<Button variant="primary">Save</Button>
+```
+
+Two things must be in place **before** any component renders correctly:
+
+1. **Load the token stylesheet first.** Every value in every component is
+   `var(--token, fallback)`, so the components degrade gracefully — but the real styling comes
+   from the build:
+
+   ```ts
+   import './packages/tokens/build/css/tokens.css';
+   ```
+
+2. **Load the font.** The system typeface is **Open Sans**
+   (`--font-family-primary: 'Open Sans', system-ui, sans-serif`); serve it via your preferred
+   webfont route and the tokens pick it up.
+
+This is exactly what `.storybook/preview.tsx` does: it imports `tokens.css` at the top and wraps
+every story in the Open Sans font stack.
+
+## The token pipeline in four lines
+
+```
+Figma DTCG export
+  ──▶ build-json.mjs  ──▶ packages/tokens/src/*.tokens.json
+                           (+ figma-gaps.tokens.json — hand-maintained overlay merged on import)
+  ──▶ build-sd.mjs    ──▶ packages/tokens/build/css/tokens.css
+```
+
+Edit the `src/*.tokens.json` tiers (or fix gaps in `figma-gaps.tokens.json`), run
+`npm run tokens`, and every component picks the change up — no component CSS edits needed.
+
+## Next steps
+
+- **Adding a component?** Follow the full playbook in **Lepidus → Contributing** — token chain
+  first, then CSS Module, typed component, stories and verification.
+- **Token reference** lives in **Lepidus → Design Tokens**; theming in
+  **Foundations → Theming**.

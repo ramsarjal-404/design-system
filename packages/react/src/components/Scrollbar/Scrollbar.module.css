@@ -1,0 +1,60 @@
+/* Scrollbar.module.css — Lepidus Design System
+   Presentational scrollbar (track + thumb) bound to Figma node 326:16 "scroll bar".
+   Token bindings (build/css/tokens.css):
+     track color → component/scrollbar/track   (Figma raw #d9d9d9 was unbound → mapped here)
+     thickness   → space/5                      (--space-5, 10px)
+     radius      → radius/xxl                    (--radius-xxl, 44px → full pill)
+     thumb active   → color/button/secondary/bg  (--color-button-secondary-bg, blue-200)
+     thumb disabled → color/button/disabled/bg   (--color-button-disabled-bg)
+     thumb default  → component/scrollbar/thumb   (--component-scrollbar-thumb) */
+
+.track {
+  position: relative;
+  background-color: var(--component-scrollbar-track, #f6f6f6);
+  border-radius: var(--radius-xxl, 44px);
+  flex-shrink: 0;
+}
+
+.vertical {
+  width: var(--space-5, 10px);
+  height: var(--track-length, 451px);
+}
+
+.horizontal {
+  height: var(--space-5, 10px);
+  width: var(--track-length, 451px);
+}
+
+/* Thumb — rides over the track, fully rounded */
+.thumb {
+  position: absolute;
+  border-radius: var(--radius-xxl, 44px);
+  background-color: var(--component-scrollbar-thumb, #c7c7c7);
+}
+
+.vertical .thumb {
+  left: 0;
+  right: 0;
+  height: var(--thumb-size, 26%);
+  top: var(--thumb-offset, 0%);
+}
+
+.horizontal .thumb {
+  top: 0;
+  bottom: 0;
+  width: var(--thumb-size, 26%);
+  left: var(--thumb-offset, 0%);
+}
+
+/* === VARIANTS === */
+.default .thumb {
+  background-color: var(--component-scrollbar-thumb, #c7c7c7);
+}
+
+.active .thumb {
+  background-color: var(--color-button-secondary-bg, #c6d8ff);
+}
+
+.disabled .thumb {
+  background-color: var(--color-button-disabled-bg, #c6c6c6);
+}

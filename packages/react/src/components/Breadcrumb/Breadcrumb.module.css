@@ -1,0 +1,70 @@
+/* Breadcrumb.module.css — Lepidus Design System
+   Trail navigation (Figma node 676:1587). Ancestor links: 14px semibold in
+   component/breadcrumb/active-text (brand blue) with a bold "/" in the same
+   blue, as drawn in the frame (the generated --component-breadcrumb-separator
+   token resolves to gray and is unused until design reconciles it). Current
+   page: regular 14px --color-text-primary, per the frame's binding. */
+
+.breadcrumb {
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 5px);
+  padding: var(--space-5, 10px);
+}
+
+.item:not(:last-child) {
+  margin-right: -10px; /* Figma overlaps the 10px paddings into one 10px gap */
+}
+
+.link {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: var(--typography-body-md-fontSize, 14px);
+  line-height: var(--typography-body-md-lineHeight, 19px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--component-breadcrumb-active-text, #1c4599);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--color-border-brand, #1c4599);
+  outline-offset: 2px;
+  border-radius: var(--radius-3xs, 3px);
+}
+
+.separator {
+  font-size: var(--typography-body-md-fontSize, 14px);
+  line-height: var(--typography-body-md-lineHeight, 19px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--component-breadcrumb-active-text, #1c4599);
+}
+
+.current {
+  font-size: var(--typography-body-md-fontSize, 14px);
+  line-height: var(--typography-body-md-lineHeight, 19px);
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--color-text-primary, #364765);
+  white-space: nowrap;
+}

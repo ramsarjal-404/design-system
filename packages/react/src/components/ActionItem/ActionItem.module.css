@@ -1,0 +1,88 @@
+/* ActionItem.module.css — Lepidus Design System
+   Floating icon-action toolbar bound 1:1 to Figma node 813:4213 "Action Item".
+   Every value references a token from build/css/tokens.css:
+     surface  → color/background/surface            (--color-background-surface)
+     gap      → space/11                             (--space-11, 30px)
+     padding  → space/17 (Y, 3px) · space/2 (X, 4px) (--space-17 / --space-2)
+     radius   → radius/s                             (--radius-s, 6px)
+     shadow   → elevation "low"                      (--shadow-low-*)
+   Glyph tone tokens: color/text/brand · color/text/danger. */
+
+.toolbar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-11, 30px);
+  padding: var(--space-17, 3px) var(--space-2, 4px);
+  background-color: var(--color-background-surface, #ffffff);
+  border-radius: var(--radius-s, 6px);
+  box-shadow:
+    var(--shadow-low-offset-x, 0px) var(--shadow-low-offset-y, 4px)
+    var(--shadow-low-blur, 4px) var(--shadow-low-spread, 0px)
+    rgba(0, 0, 0, var(--shadow-low-opacity, 0.25));
+  width: fit-content;
+}
+
+/* Icon button — 24px glyph in a rounded-rectangle hit target.
+   On hover the background fills with the brand SECONDARY color
+   (color/brand/secondary); the danger tone uses the light error bg. */
+.action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+  padding: var(--space-2, 4px) var(--space-3, 6px);
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: var(--radius-s, 6px);
+  color: var(--color-text-brand, #1c4599);
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.action svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.action:hover {
+  background-color: var(--color-brand-secondary, #c6d8ff);
+}
+
+.action:active {
+  transform: scale(0.92);
+}
+
+.action:focus-visible {
+  outline: 2px solid var(--color-border-brand, #1c4599);
+  outline-offset: 2px;
+}
+
+.action:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.action:disabled:hover {
+  background-color: transparent;
+}
+
+/* === TONE === */
+.brand {
+  color: var(--color-text-brand, #1c4599);
+}
+
+.brand:hover {
+  background-color: var(--color-brand-secondary, #c6d8ff);
+}
+
+.danger {
+  color: var(--color-text-danger, #f72b2b);
+}
+
+/* Delete hovers to the light error surface, not the brand secondary */
+.danger:hover {
+  background-color: var(--color-status-error-bg, #ffebee);
+}

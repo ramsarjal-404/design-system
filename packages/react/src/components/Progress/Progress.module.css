@@ -1,0 +1,89 @@
+/* Progress.module.css — Lepidus Design System
+   "Single Status" labeled progress bar (Figma node 39:7). Three states bound to
+   component/progress/*: in-progress (cyan), completed (status success green),
+   pending (disabled gray + clock). Every value references a component token →
+   semantic → primitive, or a shared space/radius/typography token. */
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 5px);
+  width: 274px;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.label {
+  font-size: var(--typography-label-md-fontSize, 12px);
+  line-height: var(--typography-label-md-lineHeight, 16px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--component-progress-text, #0072c3);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 5px);
+  width: 100%;
+}
+
+.track {
+  flex: 1 0 0;
+  min-width: 0;
+  height: 9px;
+  border-radius: var(--radius-m, 12px);
+  background-color: var(--component-progress-track, #e0e0e0);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  min-width: 30px;
+  border-radius: var(--radius-m, 12px);
+  background-color: var(--component-progress-fill, #2391dc);
+  transition: width 240ms ease;
+}
+
+.value {
+  flex-shrink: 0;
+  font-size: var(--typography-body-sm-fontSize, 12px);
+  line-height: var(--typography-body-sm-lineHeight, 16px);
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--component-progress-text, #0072c3);
+  white-space: nowrap;
+}
+
+/* === COMPLETED — status success green === */
+.completed .label,
+.completed .value {
+  color: var(--component-progress-complete-text, #1caa52);
+}
+
+.completed .fill {
+  background-color: var(--component-progress-complete-fill, #1caa52);
+}
+
+/* === PENDING — full disabled-gray bar + clock icon === */
+.pending .label {
+  color: var(--component-progress-pending-text, #727171);
+}
+
+.pending .fill {
+  background-color: var(--component-progress-pending-fill, #c6c6c6);
+}
+
+.clock {
+  flex-shrink: 0;
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  color: var(--component-progress-pending-icon, #8d8d8d);
+}
+
+.clock svg {
+  width: 100%;
+  height: 100%;
+}

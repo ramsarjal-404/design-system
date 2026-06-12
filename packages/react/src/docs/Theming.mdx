@@ -1,0 +1,112 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Theming" />
+
+export const ThemeCard = ({ theme, label }) => (
+  <div
+    data-theme={theme}
+    style={{
+      flex: 1,
+      minWidth: 180,
+      padding: 16,
+      borderRadius: 12,
+      background: 'var(--color-background-surface)',
+      color: 'var(--color-text-primary)',
+      border: '1px solid var(--color-border-default)',
+      fontFamily: "'Open Sans', system-ui, sans-serif",
+    }}
+  >
+    <strong style={{ display: 'block', marginBottom: 12 }}>{label}</strong>
+    <button
+      type="button"
+      style={{
+        border: 'none',
+        borderRadius: 50,
+        padding: '8px 20px',
+        background: 'var(--color-brand-primary)',
+        color: 'var(--color-text-inverse)',
+        font: 'inherit',
+        marginBottom: 12,
+      }}
+    >
+      Brand button
+    </button>
+    <div
+      style={{
+        height: 8,
+        borderRadius: 4,
+        background: 'var(--color-progress-track)',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          width: '60%',
+          height: '100%',
+          borderRadius: 4,
+          background: 'var(--color-progress-fill)',
+        }}
+      />
+    </div>
+  </div>
+);
+
+# Theming
+
+The token build emits **three theme layers** into the same `tokens.css`:
+
+| Layer | Selector | When it applies |
+| --- | --- | --- |
+| Light (default) | `:root` | Always — the baseline every theme inherits from |
+| Dark | `[data-theme="dark"]` | Any element (or subtree) carrying the attribute |
+| High contrast | `[data-theme="hc"]` | Same mechanism; stronger borders, opaque focus ring |
+
+## Switching themes
+
+Set the attribute on the document root to theme the whole app:
+
+```js
+document.documentElement.dataset.theme = 'dark';   // or 'hc'; remove to go back to light
+```
+
+Because the themed variables are ordinary CSS custom properties, they **cascade** — you can also
+set `data-theme` on any subtree (a modal, a preview pane, a single card) and only that subtree
+re-themes. Storybook's toolbar theme switcher (see `.storybook/preview.tsx`) does exactly the
+document-root version.
+
+## What gets themed
+
+Only the **semantic tier** is themed. Primitives (`--blue-600`, `--space-*`, `--radius-*`) and
+component bindings (`--component-button-primary-fill: var(--color-brand-primary)`) are
+**theme-invariant by design**: a component token always points at the same semantic intent, and
+the theme layer swaps what that intent resolves to. That is why components never need
+theme-specific CSS.
+
+The focus ring is part of the deal — `--color-focus-ring` is themed per layer (translucent brand
+blue in light, lighter in dark, near-opaque in high contrast), so `:focus-visible` treatments stay
+legible everywhere.
+
+## Live demo
+
+The three cards below are identical markup; only the `data-theme` attribute differs. Every color
+comes from semantic vars (`--color-background-surface`, `--color-text-primary`,
+`--color-border-default`, `--color-brand-primary` / `--color-text-inverse`,
+`--color-progress-track` / `--color-progress-fill`):
+
+<div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', padding: 16, background: '#e9e9ef', borderRadius: 12 }}>
+  <ThemeCard theme="" label="Light (default)" />
+  <ThemeCard theme="dark" label="data-theme=&quot;dark&quot;" />
+  <ThemeCard theme="hc" label="data-theme=&quot;hc&quot;" />
+</div>
+
+## Notes & gotchas
+
+- **camelCase exception** — component tokens like `--component-badge-fontSize` or
+  `--typography-body-lg-lineHeight` keep the camelCase segment verbatim from the Figma
+  `codeSyntax`. This is intentional traceability back to the export — do not "fix" the casing.
+- **No `prefers-color-scheme` auto-switch** — the build never applies dark mode from the OS
+  setting; theming is an explicit opt-in via `data-theme`. Wire the media query to the attribute
+  yourself if your app wants OS-following behavior.
+- **High contrast + forced colors** — the `hc` layer pairs well with `forced-colors` testing:
+  flip `data-theme="hc"` while emulating forced colors to check that borders, focus rings and
+  status colors survive both at once.

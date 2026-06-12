@@ -1,0 +1,70 @@
+/* Badge.module.css — Lepidus Design System
+   Pill label bound to component/badge/* (shape, type, spacing) and
+   component/status/* (variant colors). All values reference component tokens
+   → semantic tokens → primitives. */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--component-badge-gap, 5px);
+  border-radius: var(--component-badge-radius, 28px);
+  padding: var(--component-badge-paddingY, 5px) var(--component-badge-paddingX, 15px);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+  font-size: var(--component-badge-fontSize, 12px);
+  line-height: var(--typography-badge-lineHeight, 16px);
+  font-weight: var(--font-weight-semibold, 600);
+  white-space: nowrap;
+  user-select: none;
+  border: 1px solid transparent;
+  vertical-align: middle;
+}
+
+/* === VARIANTS === */
+
+/* Default (brand) — component/badge/{bg,text} */
+.default {
+  background-color: var(--component-badge-bg, #e4edff);
+  color: var(--component-badge-text, #1c4599);
+}
+
+/* Status — component/status/{state}-{bg,text} */
+.success {
+  background-color: var(--component-status-success-bg, #e8f5e9);
+  color: var(--component-status-success-text, #1caa52);
+}
+
+.warning {
+  background-color: var(--component-status-warning-bg, #fff8e1);
+  color: var(--component-status-warning-text, #f57f17);
+}
+
+.error {
+  background-color: var(--component-status-error-bg, #ffebee);
+  color: var(--component-status-error-text, #f72b2b);
+}
+
+.neutral {
+  background-color: var(--component-status-na-bg, #f5f7fd);
+  color: var(--component-status-na-text, #555766);
+}
+
+/* === LEADING DOT / ICON === */
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.icon svg {
+  width: 12px;
+  height: 12px;
+}

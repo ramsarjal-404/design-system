@@ -1,0 +1,135 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Elevation & Motion" />
+
+export const shadowOf = (name) =>
+  `var(--shadow-${name}-offset-x) var(--shadow-${name}-offset-y) var(--shadow-${name}-blur) var(--shadow-${name}-spread) rgba(0, 0, 0, var(--shadow-${name}-opacity))`;
+
+export const ShadowCard = ({ name, spec, used }) => (
+  <div
+    style={{
+      width: 200,
+      padding: '20px 16px',
+      borderRadius: 'var(--radius-card)',
+      background: 'var(--color-background-surface)',
+      boxShadow: shadowOf(name),
+      color: 'var(--color-text-primary)',
+      fontFamily: 'var(--font-family-primary)',
+    }}
+  >
+    <div style={{ fontWeight: 600, fontSize: 14 }}>{name}</div>
+    <code style={{ fontSize: 11, display: 'block', marginTop: 6 }}>{`--shadow-${name}-*`}</code>
+    <div style={{ fontSize: 12, color: '#727171', marginTop: 4 }}>{spec}</div>
+    <div style={{ fontSize: 12, color: '#727171', marginTop: 2 }}>{used}</div>
+  </div>
+);
+
+# Elevation & Motion
+
+## Elevation
+
+The token build decomposes each shadow into five primitives —
+`--shadow-<level>-offset-x / -offset-y / -blur / -spread / -opacity` — generated from the Figma
+DTCG export. Compose them in CSS as
+`box-shadow: var(--shadow-card-offset-x) var(--shadow-card-offset-y) var(--shadow-card-blur) var(--shadow-card-spread) rgba(0, 0, 0, var(--shadow-card-opacity))`.
+The cards below are rendered live from those tokens.
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: 28, padding: '20px 4px 28px', background: 'var(--color-background-page)', borderRadius: 12 }}>
+  <ShadowCard name="card" spec="0 2 9 · 10%" used="Card, Calendar surface" />
+  <ShadowCard name="low" spec="0 4 4 · 25%" used="Toast, raised chips" />
+  <ShadowCard name="icon" spec="1 2 8 · 25%" used="Floating icon buttons" />
+  <ShadowCard name="modal" spec="0 8 24 · 15%" used="Modal, Dropdown menu" />
+</div>
+
+Guidance:
+
+- **card** is the resting elevation for surfaces sitting on the page background — soft and barely
+  visible. **modal** is the highest level, reserved for blocking overlays and floating menus
+  (Dropdown's open panel uses the same 0/8/24 geometry).
+- **low** and **icon** are accents for small transient elements; their 25% opacity reads strong
+  at small sizes, so don't apply them to large panels.
+- Shadows are always neutral black at token-driven opacity — never tinted. Focus rings are *not*
+  elevation: they use `box-shadow: 0 0 0 2–3px` spread with a brand-color mix and live in
+  component CSS, not the shadow tokens.
+
+## Motion
+
+Lepidus motion is **subtle and functional** — it confirms state changes, it never decorates.
+Conventions observed across the component CSS:
+
+| Duration | Easing | Used for |
+| --- | --- | --- |
+| 120ms | ease | color/border swaps in form fields — TextField, Textarea, Stepper, Pagination, Calendar cells |
+| 140ms | ease | Sidebar nav icon-box background/color on hover and active |
+| 150ms | ease | Dropdown chevron rotation (`transform`), Message close-button opacity, ActionItem background |
+| 160–180ms | ease | Input border/background; Button background, border, color and focus shadow |
+| 240ms | ease | Progress bar fill width — the longest motion in the system, because it tracks data |
+
+### Live demos
+
+<style>
+  {`
+  .lep-motion-swatch {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 180px; height: 56px; cursor: pointer;
+    font-family: var(--font-family-primary); font-size: 13px;
+    color: var(--color-text-primary);
+    background: var(--color-background-surface);
+    border: 1px solid var(--color-border-default); border-radius: 12px;
+    transition: background-color 120ms ease, border-color 120ms ease;
+  }
+  .lep-motion-swatch:hover {
+    background: var(--color-brand-light);
+    border-color: var(--color-border-brand);
+  }
+  .lep-motion-chevron {
+    display: inline-flex; align-items: center; gap: 10px;
+    width: 180px; height: 56px; justify-content: center; cursor: pointer;
+    font-family: var(--font-family-primary); font-size: 13px;
+    color: var(--color-text-primary);
+    background: var(--color-background-surface);
+    border: 1px solid var(--color-border-default); border-radius: 12px;
+  }
+  .lep-motion-chevron svg { transition: transform 150ms ease; }
+  .lep-motion-chevron:hover svg { transform: rotate(180deg); }
+  .lep-motion-progress {
+    width: 180px; height: 56px; cursor: pointer; padding: 0 16px;
+    display: flex; flex-direction: column; justify-content: center; gap: 8px;
+    font-family: var(--font-family-primary); font-size: 13px;
+    color: var(--color-text-primary);
+    background: var(--color-background-surface);
+    border: 1px solid var(--color-border-default); border-radius: 12px;
+  }
+  .lep-motion-progress .track { height: 6px; border-radius: 3px; background: var(--color-background-subtle); overflow: hidden; }
+  .lep-motion-progress .fill { height: 100%; width: 25%; border-radius: 3px; background: var(--color-brand-primary); transition: width 240ms ease; }
+  .lep-motion-progress:hover .fill { width: 90%; }
+  `}
+</style>
+
+<div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, padding: '8px 0 16px' }}>
+  <div className="lep-motion-swatch">hover — 120ms field swap</div>
+  <div className="lep-motion-chevron">
+    hover — 150ms chevron
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  </div>
+  <div className="lep-motion-progress">
+    hover — 240ms fill
+    <div className="track"><div className="fill" /></div>
+  </div>
+</div>
+
+### Guidance
+
+- **Stay in the 100–250ms band with `ease`.** Below 100ms the change reads as a flicker; above
+  250ms the UI feels sluggish. There are no motion tokens yet — match the closest convention in
+  the table above rather than inventing a new duration.
+- **Animate cheap properties** — `background-color`, `border-color`, `color`, `opacity`,
+  `transform`, `box-shadow`. The only width animation is the Progress fill, where the motion *is*
+  the information.
+- **Shorter for smaller** — micro state changes (cells, chips) sit at 120ms; whole-control state
+  (Button) at 180ms; data-driven motion (Progress) at 240ms.
+- **No entrance choreography** — components appear instantly; motion is reserved for responding
+  to user interaction or data, and should respect `prefers-reduced-motion` when adding anything
+  beyond simple color fades.

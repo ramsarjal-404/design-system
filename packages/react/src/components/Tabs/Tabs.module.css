@@ -1,0 +1,52 @@
+/* Tabs.module.css — Lepidus Design System
+   Pill tabs (Figma "Tabs-Style1", node 643:6378). Active: brand pill on
+   component/tabs/active-indicator with --color-text-inverse label. Inactive:
+   semibold labels bound to component/tabs/active-text per the frame (the
+   gray --component-tabs-text token is unused by this style — flagged). */
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-9, 20px);
+  padding: var(--space-3, 5px);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.tab {
+  margin: 0;
+  padding: var(--space-5, 10px);
+  border: 1px solid transparent;
+  background: none;
+  font-family: inherit;
+  font-size: var(--typography-nav-fontSize, 14px);
+  line-height: var(--typography-nav-lineHeight, 19px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--component-tabs-active-text, #1c4599);
+  white-space: nowrap;
+  cursor: pointer;
+  border-radius: var(--radius-button, 50px);
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.tab:hover:not(.active):not(:disabled) {
+  background-color: var(--color-background-subtle, #f6f6f6);
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--color-border-brand, #1c4599);
+  outline-offset: 2px;
+}
+
+.tab:disabled {
+  color: var(--color-text-disabled, #727171);
+  cursor: not-allowed;
+}
+
+.active {
+  min-width: 80px;
+  padding: var(--space-3, 5px) var(--space-10, 24px);
+  background-color: var(--component-tabs-active-indicator, #1c4599);
+  border-color: var(--color-border-brand, #1c4599);
+  color: var(--color-text-inverse, #ffffff);
+  text-align: center;
+}

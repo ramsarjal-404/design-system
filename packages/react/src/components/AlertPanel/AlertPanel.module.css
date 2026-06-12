@@ -1,0 +1,80 @@
+/* AlertPanel.module.css — Lepidus Design System
+   Page-level alert announcement (Figma node 2290:3737): severity triangle,
+   64px "Attention!" headline (component/alert-panel/headline-font-size — the
+   shared type scale tops out at 32), alert name, summary, evidence slot, CTA and
+   footnote on a soft-shadow card. Severity colors bind to the shared status
+   tokens; the warning yellow (#FFCA28) is the set's illustrative yellow with
+   no token (same as the FolderTree folder). */
+
+.panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8, 16px);
+  width: 100%;
+  max-width: 801px; /* Figma frame width */
+  padding: var(--space-12, 40px) var(--space-9, 20px);
+  background-color: var(--color-background-surface, #ffffff);
+  border-radius: var(--radius-m, 12px);
+  box-shadow: -9px 4px 34px 0 rgba(0, 0, 0, 0.06);
+  text-align: center;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.icon {
+  display: inline-flex;
+  width: 92px;
+  height: 85px;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Severity fills live in AlertPanel.tsx (status tokens + the tokenless
+   illustrative warning yellow), keeping this file hex-free. */
+
+/* === CONTENT === */
+
+.headline {
+  margin: 0;
+  font-size: var(--component-alertpanel-headline-font-size, 64px);
+  line-height: 1.2;
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text-primary, #364765);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--typography-body-lg-fontSize, 16px);
+  line-height: var(--typography-body-lg-lineHeight, 22px);
+  color: var(--color-text-dark, #000000);
+}
+
+.summary {
+  font-size: var(--typography-body-lg-fontSize, 16px);
+  line-height: var(--font-line-height-default, 1.4);
+  color: var(--color-text-dark, #000000);
+  max-width: 560px;
+}
+
+.details {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--space-3, 5px);
+}
+
+.footnote {
+  margin: 0;
+  font-size: var(--typography-body-md-fontSize, 14px);
+  line-height: var(--typography-body-md-lineHeight, 19px);
+  color: var(--color-text-primary, #364765);
+}

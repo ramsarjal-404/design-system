@@ -1,0 +1,118 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Lepidus/Introduction" />
+
+# Lepidus Design System
+
+Lepidus is the component library for Lepide products: **30 React components**, fully driven by a
+three-tier design-token pipeline generated from the Figma source of truth
+([Lepidus on Figma](https://www.figma.com/design/Ck7BIRlRw2bwHRk8PL5IfC/Lepidus)).
+
+## Token architecture
+
+Every visual property in every component resolves through the same chain — no hardcoded values:
+
+```
+Primitive  ──▶  Semantic  ──▶  Component
+--blue-600      --color-brand-primary      --component-button-primary-fill
+#1c4599         var(--blue-600)            var(--color-brand-primary)
+```
+
+- **Primitive** — raw values: color scales (`--blue-*`, `--gray-*`, `--lightblue-*`…), spacing
+  (`--space-*`), radii (`--radius-*`), font sizes/weights/line-heights.
+- **Semantic** — intent-named aliases: `--color-text-primary`, `--color-border-brand`,
+  `--color-button-disabled-bg`. These are what theming swaps (light / dark / high-contrast layers
+  exist in the build).
+- **Component** — per-component bindings: `--component-button-*`, `--component-dropdown-*`,
+  `--component-toast-*`. Components consume *only* this tier (plus shared space/radius/typography),
+  so a token edit in Figma propagates everywhere without touching component CSS.
+
+Tokens are authored as DTCG JSON in `packages/tokens/src/`, exported from Figma, and built to CSS
+custom properties with Style Dictionary:
+
+```bash
+npm run tokens        # → packages/tokens/build/css/tokens.css
+```
+
+The build currently emits **800+ declarations across 3 theme layers**.
+
+## Component catalogue
+
+The sidebar mirrors these categories:
+
+| Category | Components |
+| --- | --- |
+| Actions | Button, ActionItem |
+| Forms | Input, TextField, Textarea, Stepper, Dropdown, Calendar, TimePicker |
+| Data Display | Badge, Card, Pagination, Progress, Scrollbar |
+| Feedback | Message, Toast, Modal |
+| Navigation | Sidebar |
+
+Composed, real-world examples live under **Patterns** (settings form, data table page, app
+shell), and the foundations (typography, iconography, elevation & motion) under **Foundations**.
+
+> **Figma sources** — component stories link to the component library file
+> ([`Ck7BIRlRw2bwHRk8PL5IfC`](https://www.figma.com/design/Ck7BIRlRw2bwHRk8PL5IfC/Lepidus)),
+> while full-page pattern stories link to the Design-Essentials screens file
+> ([`I8EDDuGQvAql1gA6gQ4YKe`](https://www.figma.com/design/I8EDDuGQvAql1gA6gQ4YKe/Design-Essentials)).
+> Both are canonical.
+
+## Component status
+
+| Component | Status | Notes |
+| --- | --- | --- |
+| ActionItem | Stable | Floating icon-action toolbar |
+| AlertPanel | Stable | Page-level alert announcement |
+| Badge | Stable | Static status pill |
+| Breadcrumb | Stable | Trail navigation |
+| Button | Stable | Pill-shaped action button |
+| Calendar | Stable | Schedule picker |
+| Card | Stable | Surface container |
+| Charts | Stable | Bar, Column, Line, Donut, Gauge, Bubble + ChartCard/ChartLegend |
+| Dropdown | Stable | Select / multi-select with custom menu |
+| EmptyState | Stable | Empty page statement with illustration |
+| Filter | Stable | "Modify Filters" drawer |
+| FolderTree | Stable | Expandable report folders |
+| Input | Stable | Labeled single-line form field |
+| Message | Stable | Interrupting alert with action buttons |
+| Modal | Stable | Popup / dialog surface |
+| Pagination | Stable | Table pagination bar |
+| Progress | Stable | Labeled progress bar |
+| Scrollbar | Stable | Presentational — host wires keyboard |
+| SettingsPanel | Stable | Settings category menu |
+| Sidebar | Stable | Vertical icon-rail navigation |
+| Stepper | Stable | Number stepper / spinner |
+| Steps | Stable | Wizard progress indicator |
+| Table | Stable | Data table with selection |
+| Tabs | Stable | Pill tabs |
+| Tag | Stable | Interactive chip |
+| TextField | Stable | Standalone pill text field |
+| Textarea | Stable | Multi-line description box |
+| TimePicker | Stable | "Enter Time" picker |
+| Toast | Stable | Transient notification pill |
+| Toggle | Stable | On/off switch |
+
+Each component's docs page includes: an **Overview** (when to use it and which sibling to prefer),
+**Anatomy**, a **Design tokens** table mapping every visual part to its CSS variable and resolved
+value, **States & variants** mapped to the Figma variants, **Accessibility** notes derived from the
+implementation, and **Usage** do/don'ts.
+
+## Conventions
+
+- **Styling** — CSS Modules per component; every value is `var(--token, fallback)`. The fallback
+  mirrors the token's resolved value so components degrade gracefully without the stylesheet.
+- **API** — typed props in `ComponentName.types.ts`; `forwardRef` to the natural root element;
+  native HTML attributes pass through.
+- **Composition** — components reuse each other rather than re-implementing (e.g. Dropdown's
+  Cancel/Apply footer renders the system `Button`).
+- **No generic UI** — pickers and popovers are custom-built and token-bound; native OS menus
+  (`<select>` lists, default spinners) are never shown.
+
+## Choosing between similar components
+
+- **Input vs TextField vs Textarea** — `Input` is the labeled form field with helper/error
+  messaging (25px radius). `TextField` is the standalone label-less pill for quick entry
+  (44px radius). `Textarea` is the multi-line description box (15px radius).
+- **Message vs Toast** — interrupt with `Message` (role="alert", action buttons), notify with
+  `Toast` (role="status", transient pill).
+- **Badge vs Toast** — `Badge` is a static inline status label; `Toast` announces an event.

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lepidus Button — Component Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   LEPIDUS TOKENS — Primitive → Semantic → Component
+   ═══════════════════════════════════════════ */
+:root {
+  /* Primitives */
+  --blue-50:#EEF2FA;--blue-100:#D4E0F5;--blue-150:#E1EAFD;
+  --blue-200:#C6D8FF;--blue-300:#ABBFC7;--blue-400:#7096D1;
+  --blue-500:#3D69B5;--blue-600:#1C4599;--blue-700:#183A81;
+  --blue-800:#0A1959;--blue-900:#07103D;
+  --gray-50:#F5F7FD;--gray-100:#F6F6F6;--gray-200:#C7C7C7;
+  --gray-400:#C6C6C6;--gray-500:#727171;--gray-600:#555766;
+  --gray-700:#364765;--gray-800:#2D3748;--gray-900:#1A202C;
+  --red-200:#FF9696;--red-400:#F72B2B;
+  --white:#FFFFFF;--black:#000000;
+  --font-family: 'Open Sans', system-ui, sans-serif;
+  --radius-full: 50px;
+}
+
+/* Semantic — Light */
+:root, [data-theme="light"] {
+  --color-brand-primary: var(--blue-600);
+  --color-brand-primary-hover: var(--blue-700);
+  --color-brand-secondary: var(--blue-200);
+  --color-bg-page: var(--gray-50);
+  --color-bg-surface: var(--white);
+  --color-text-primary: var(--gray-700);
+  --color-text-secondary: var(--gray-600);
+  --color-text-brand: var(--blue-600);
+  --color-text-inverse: var(--white);
+  --color-text-disabled: var(--gray-500);
+  --color-border-brand: var(--blue-600);
+  --color-border-danger: var(--red-400);
+}
+
+/* Semantic — Dark */
+[data-theme="dark"] {
+  --color-brand-primary: var(--blue-400);
+  --color-brand-primary-hover: var(--blue-300);
+  --color-brand-secondary: var(--blue-800);
+  --color-bg-page: var(--gray-900);
+  --color-bg-surface: var(--gray-800);
+  --color-text-primary: var(--gray-50);
+  --color-text-secondary: var(--gray-400);
+  --color-text-brand: var(--blue-300);
+  --color-text-inverse: var(--gray-900);
+  --color-text-disabled: var(--gray-600);
+  --color-border-brand: var(--blue-400);
+  --color-border-danger: var(--red-400);
+}
+
+/* Component — Button */
+:root, [data-theme="light"] {
+  --btn-primary-fill: var(--color-brand-primary);
+  --btn-primary-text: var(--color-text-inverse);
+  --btn-primary-hover: var(--color-brand-primary-hover);
+  --btn-secondary-fill: var(--color-brand-secondary);
+  --btn-secondary-text: var(--color-text-brand);
+  --btn-secondary-stroke: var(--color-border-brand);
+  --btn-danger-fill: var(--red-200);
+  --btn-danger-text: var(--red-400);
+  --btn-danger-stroke: var(--color-border-danger);
+  --btn-white-fill: var(--color-bg-surface);
+  --btn-white-text: var(--color-text-brand);
+  --btn-white-stroke: var(--color-border-brand);
+  --btn-disabled-fill: var(--gray-400);
+  --btn-disabled-text: var(--gray-500);
+}
+
+/* ═══════════════════════════════════════════
+   BUTTON COMPONENT
+   Figma specs: radius 50, padding 12/20 (md) 10/24 (lg)
+   Font: Open Sans Bold 14px / 19px line-height
+   ═══════════════════════════════════════════ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 19px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 180ms ease;
+  white-space: nowrap;
+  user-select: none;
+  outline: none;
+  position: relative;
+}
+.btn:focus-visible { box-shadow: 0 0 0 3px rgba(28,69,153,0.35); }
+.btn:active:not(:disabled) { transform: scale(0.97); }
+
+/* Sizes */
+.btn-md { padding: 12px 20px; min-height: 41px; }
+.btn-lg { padding: 10px 24px; min-height: 41px; }
+
+/* Primary */
+.btn-primary { background: var(--btn-primary-fill); border-color: var(--btn-primary-fill); color: var(--btn-primary-text); }
+.btn-primary:hover:not(:disabled) { background: var(--btn-primary-hover); border-color: var(--btn-primary-hover); }
+
+/* Secondary */
+.btn-secondary { background: var(--btn-secondary-fill); border-color: var(--btn-secondary-stroke); color: var(--btn-secondary-text); }
+.btn-secondary:hover:not(:disabled) { background: var(--btn-primary-fill); border-color: var(--btn-primary-fill); color: var(--btn-primary-text); }
+
+/* Danger */
+.btn-danger { background: var(--btn-danger-fill); border-color: var(--btn-danger-stroke); color: var(--btn-danger-text); }
+.btn-danger:hover:not(:disabled) { background: var(--red-400); border-color: var(--red-400); color: var(--white); }
+
+/* White */
+.btn-white { background: var(--btn-white-fill); border-color: var(--btn-white-stroke); color: var(--btn-white-text); }
+.btn-white:hover:not(:disabled) { background: var(--btn-primary-fill); border-color: var(--btn-primary-fill); color: var(--btn-primary-text); }
+
+/* Disabled */
+.btn:disabled { background: var(--btn-disabled-fill); border-color: var(--btn-disabled-fill); color: var(--btn-disabled-text); cursor: not-allowed; transform: none; }
+
+/* Icons */
+.btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.btn-lg svg:first-child { width: 24px; height: 24px; }
+.btn-full { width: 100%; }
+
+/* ═══════════════════════════════════════════
+   PREVIEW CHROME
+   ═══════════════════════════════════════════ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-family); background: var(--color-bg-page); color: var(--color-text-primary); min-height: 100vh; }
+
+.header {
+  background: var(--color-brand-primary);
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header h1 { color: var(--white); font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+.header .badge { background: rgba(255,255,255,0.15); color: var(--white); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.theme-toggle {
+  background: rgba(255,255,255,0.15); border: none; color: white;
+  padding: 8px 16px; border-radius: 20px; font-family: inherit;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+}
+.theme-toggle:hover { background: rgba(255,255,255,0.25); }
+
+.container { max-width: 900px; margin: 0 auto; padding: 32px; }
+
+.section {
+  background: var(--color-bg-surface);
+  border-radius: 15px;
+  padding: 28px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 9px rgba(0,0,0,0.06);
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--color-text-secondary);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gray-200);
+}
+
+.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.col { display: flex; flex-direction: column; gap: 12px; }
+
+.token-chain {
+  background: var(--color-bg-page);
+  border-radius: 10px;
+  padding: 16px 20px;
+  font-size: 12px;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  margin-top: 8px;
+}
+.token-chain .prim { color: var(--gray-500); }
+.token-chain .sem { color: var(--blue-500); }
+.token-chain .comp { color: var(--blue-600); font-weight: 600; }
+.token-chain .arrow { color: var(--gray-400); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div style="display:flex;align-items:center;gap:16px;">
+    <h1>Lepidus</h1>
+    <span class="badge">Button Component</span>
+  </div>
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <span id="theme-label">☀ Light</span>
+  </button>
+</header>
+
+<div class="container">
+
+  <!-- NORMAL STATE -->
+  <div class="section">
+    <div class="section-label">Normal State</div>
+    <div class="row">
+      <button class="btn btn-md btn-primary">Primary</button>
+      <button class="btn btn-md btn-secondary">Secondary</button>
+      <button class="btn btn-md btn-danger">Danger</button>
+      <button class="btn btn-md btn-white">White</button>
+    </div>
+  </div>
+
+  <!-- HOVER STATE -->
+  <div class="section">
+    <div class="section-label">Hover State (hover over buttons)</div>
+    <div class="row">
+      <button class="btn btn-md btn-primary">Primary — hover me</button>
+      <button class="btn btn-md btn-secondary">Secondary — hover me</button>
+      <button class="btn btn-md btn-danger">Danger — hover me</button>
+      <button class="btn btn-md btn-white">White — hover me</button>
+    </div>
+  </div>
+
+  <!-- DISABLED STATE -->
+  <div class="section">
+    <div class="section-label">Disabled State</div>
+    <div class="row">
+      <button class="btn btn-md btn-primary" disabled>Primary</button>
+      <button class="btn btn-md btn-secondary" disabled>Secondary</button>
+      <button class="btn btn-md btn-danger" disabled>Danger</button>
+      <button class="btn btn-md btn-white" disabled>White</button>
+    </div>
+  </div>
+
+  <!-- WITH ICONS (LARGE) -->
+  <div class="section">
+    <div class="section-label">With Icons — Large (10/24 padding, 24px left icon)</div>
+    <div class="row">
+      <button class="btn btn-lg btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Button Primary
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <button class="btn btn-lg btn-secondary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Button Secondary
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+    </div>
+    <div class="row" style="margin-top: 12px;">
+      <button class="btn btn-lg btn-danger">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Delete
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <button class="btn btn-lg btn-white">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        White
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- FULL WIDTH -->
+  <div class="section">
+    <div class="section-label">Full Width</div>
+    <div class="col" style="max-width: 400px;">
+      <button class="btn btn-md btn-primary btn-full">Primary Full Width</button>
+      <button class="btn btn-md btn-secondary btn-full">Secondary Full Width</button>
+    </div>
+  </div>
+
+  <!-- TOKEN CHAIN -->
+  <div class="section">
+    <div class="section-label">Token Binding Chain</div>
+    <div class="token-chain">
+      <span class="comp">component/button/primary/fill</span> <span class="arrow">→</span> <span class="sem">color/brand/primary</span> <span class="arrow">→</span> <span class="prim">blue-600 (#1C4599)</span><br>
+      <span class="comp">component/button/primary/text</span> <span class="arrow">→</span> <span class="sem">color/text/inverse</span> <span class="arrow">→</span> <span class="prim">white (#FFFFFF)</span><br>
+      <span class="comp">component/button/radius</span> <span class="arrow">→</span> <span class="sem">size/radius/button</span> <span class="arrow">→</span> <span class="prim">radius-full (50px)</span><br>
+      <span class="comp">component/button/fontSize</span> <span class="arrow">→</span> <span class="sem">typography/button/fontSize</span> <span class="arrow">→</span> <span class="prim">font-size-sm (14px)</span><br>
+      <span class="comp">component/button/paddingX</span> <span class="arrow">→</span> <span class="sem">spacing/component/button/padding-x</span> <span class="arrow">→</span> <span class="prim">space-9 (20px)</span>
+    </div>
+  </div>
+
+  <!-- DISABLED + ICONS COMBO -->
+  <div class="section">
+    <div class="section-label">Disabled + Icons</div>
+    <div class="row">
+      <button class="btn btn-lg btn-primary" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Disabled Primary
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <button class="btn btn-lg btn-secondary" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Disabled Secondary
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', next);
+  document.getElementById('theme-label').textContent = next === 'light' ? '☀ Light' : '☾ Dark';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "primitive": {
+    "font": {
+      "family": {
+        "primary": {
+          "$type": "fontFamily",
+          "$value": "'Open Sans', system-ui, sans-serif",
+          "$extensions": { "com.figma.codeSyntax": { "WEB": "var(--font-family-primary)" } }
+        }
+      }
+    }
+  }
+}

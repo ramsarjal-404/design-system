@@ -1,0 +1,116 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Lepidus/Design Tokens" />
+
+export const Swatch = ({ token }) => (
+  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+    <span
+      style={{
+        width: 20,
+        height: 20,
+        borderRadius: 4,
+        border: '1px solid rgba(0,0,0,0.15)',
+        background: `var(${token})`,
+        display: 'inline-block',
+      }}
+    />
+    <code>{token}</code>
+  </span>
+);
+
+export const RadiusChip = ({ token, px }) => (
+  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+    <span
+      style={{
+        width: 44,
+        height: 24,
+        border: '2px solid #1c4599',
+        borderRadius: `var(${token})`,
+        display: 'inline-block',
+      }}
+    />
+    <code>{token}</code> <span style={{ color: '#727171' }}>{px}</span>
+  </span>
+);
+
+# Design Tokens
+
+All tokens are generated from the Figma DTCG export by `npm run tokens` into
+`packages/tokens/build/css/tokens.css`. **Components must consume the Component tier**
+(`--component-*`) or shared space/radius/typography tokens — never primitives directly.
+The swatches below render live from the loaded `tokens.css`, so this page always reflects the
+current build.
+
+## Brand & semantic colors
+
+| Live | Semantic token | Aliases |
+| --- | --- | --- |
+| <Swatch token="--color-brand-primary" /> | Brand primary | `--blue-600` `#1c4599` |
+| <Swatch token="--color-brand-primary-hover" /> | Brand hover | `--blue-700` |
+| <Swatch token="--color-brand-secondary" /> | Brand secondary | `--blue-200` `#c6d8ff` |
+| <Swatch token="--color-brand-light" /> | Brand light | `--lightblue-100` `#e4edff` |
+| <Swatch token="--color-background-page" /> | Page background | `--lightblue-50` `#f5f7fd` |
+| <Swatch token="--color-background-surface" /> | Surface | `--white` |
+| <Swatch token="--color-background-subtle" /> | Subtle background | `--gray-100` `#f6f6f6` |
+| <Swatch token="--color-text-primary" /> | Text primary | `--gray-700` `#364765` |
+| <Swatch token="--color-text-secondary" /> | Text secondary | `--gray-600` `#555766` |
+| <Swatch token="--color-text-brand" /> | Text brand | `--blue-600` |
+| <Swatch token="--color-text-disabled" /> | Text disabled | `--gray-500` `#727171` |
+| <Swatch token="--color-border-default" /> | Border default | `--gray-200` `#c7c7c7` |
+| <Swatch token="--color-border-brand" /> | Border brand | `--blue-600` |
+
+## Status colors
+
+| Live | Token | Pairs with |
+| --- | --- | --- |
+| <Swatch token="--color-status-success-text" /> | Success | <Swatch token="--color-status-success-bg" /> |
+| <Swatch token="--color-status-warning-text" /> | Warning | <Swatch token="--color-status-warning-bg" /> |
+| <Swatch token="--color-status-error-text" /> | Error | <Swatch token="--color-status-error-bg" /> |
+| <Swatch token="--color-status-na-text" /> | Neutral / N-A | <Swatch token="--color-status-na-bg" /> |
+
+## Radii
+
+| Live | Token | Used by |
+| --- | --- | --- |
+| <RadiusChip token="--radius-xs" px="4px" /> | xs | tooltips, focus rings |
+| <RadiusChip token="--radius-sm" px="8px" /> | sm | textarea (legacy alias) |
+| <RadiusChip token="--radius-m" px="12px" /> | m | panels |
+| <RadiusChip token="--radius-card" px="15px" /> | card | Card, Calendar, Textarea |
+| <RadiusChip token="--radius-mxl" px="16px" /> | mxl | Pagination buttons |
+| <RadiusChip token="--radius-2xl" px="25px" /> | 2xl | Input |
+| <RadiusChip token="--radius-6xl" px="30px" /> | 6xl | Dropdown, Stepper pills |
+| <RadiusChip token="--radius-xxl" px="44px" /> | xxl | TextField pill |
+| <RadiusChip token="--radius-full" px="50px" /> | full | Button |
+
+## Spacing scale (excerpt)
+
+`--space-1` 2px · `--space-2` 4px · `--space-3` 5px · `--space-4` 8px · `--space-5` 10px ·
+`--space-6` 12px · `--space-7` 15px · `--space-8` 16px · `--space-9` 20px · `--space-10` 24px ·
+`--space-11` 30px · `--space-12` 40px · `--space-18` 14px · `--space-22` 18px
+
+## Typography
+
+| Role | Tokens | Resolves to |
+| --- | --- | --- |
+| Family | `--font-family-primary` | 'Open Sans', system-ui, sans-serif |
+| Body lg | `--typography-body-lg-fontSize/-lineHeight` | 16 / 22 |
+| Body md | `--typography-body-md-fontSize` | 14 |
+| Label md | `--typography-label-md-fontSize/-lineHeight` | 12 / 16 |
+| Button | `--typography-button-fontSize/-lineHeight` | 14 / 19 |
+| Heading h2 | `--typography-heading-h2-fontSize/-lineHeight` | 28 / 36 |
+| Weights | `--font-weight-regular/medium/semibold/bold` | 400 / 500 / 600 / 700 |
+
+## Component tier
+
+Each component owns a `--component-<name>-*` namespace bound to semantic tokens, e.g.:
+
+```css
+--component-pagination-active-bg: var(--color-brand-primary);
+--component-textfield-active-bg:  var(--color-button-secondary-bg);
+--component-toast-bg-to:          var(--color-brand-secondary);
+--component-dropdown-header-bg:   var(--color-button-secondary-bg);
+```
+
+See each component's docs page for its full token table. To add a token: edit
+`packages/tokens/src/component.tokens.json` (alias a semantic path — never a raw hex), run
+`npm run tokens`, then consume it as `var(--component-…, <resolved fallback>)`.

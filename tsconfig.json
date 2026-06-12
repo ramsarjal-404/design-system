@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@lepidus/tokens/*": ["packages/tokens/*"],
+      "@lepidus/react/*": ["packages/react/src/*"]
+    }
+  },
+  "include": ["global.d.ts", "packages/react/src/**/*", ".storybook/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

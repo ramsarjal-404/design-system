@@ -1,0 +1,163 @@
+/* FolderTree.module.css — Lepidus Design System
+   Expandable report folders (Figma "Report Sidebar", node 186:4535).
+   Folder rows: 24px brand plus/minus, 40px yellow folder, body-lg label.
+   Report rows: 24px scroll icon + body-lg label, indented under the folder.
+   The folder yellow (#FFCA28) is an illustrative icon color with no token,
+   kept in folderTreeIcons.tsx. */
+
+.tree {
+  width: 100%;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.folderList,
+.itemList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 10px);
+}
+
+.folderList > li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 10px);
+}
+
+.folderRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 5px);
+  width: 100%;
+  margin: 0;
+  padding: var(--space-17, 3px) var(--space-24, 9px);
+  border: none;
+  border-radius: var(--radius-m, 12px);
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.folderRow:hover {
+  background-color: var(--color-background-subtle, #f6f6f6);
+}
+
+.folderRow:focus-visible {
+  outline: 2px solid var(--color-border-brand, #1c4599);
+  outline-offset: 1px;
+}
+
+.toggleGlyph {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--color-border-brand, #1c4599);
+}
+
+.toggleGlyph svg {
+  width: 14px;
+  height: 14px;
+}
+
+.folderGlyph {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.folderGlyph svg {
+  width: 33px;
+  height: 29px;
+}
+
+.folderLabel {
+  min-width: 0;
+  padding: var(--space-17, 3px) var(--space-5, 10px);
+  font-size: var(--typography-body-lg-fontSize, 16px);
+  line-height: var(--typography-body-lg-lineHeight, 22px);
+  color: var(--component-card-title-text, #364765);
+  word-break: break-word;
+}
+
+/* === REPORTS UNDER THE FOLDER === */
+
+.itemList {
+  padding-left: 38px; /* aligns report icons under the folder icon */
+}
+
+.itemRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 5px);
+  width: 100%;
+  margin: 0;
+  padding: var(--space-17, 3px) var(--space-5, 10px);
+  border: none;
+  border-radius: var(--radius-m, 12px);
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.itemRow:hover {
+  background-color: var(--color-background-subtle, #f6f6f6);
+}
+
+.itemRow:focus-visible {
+  outline: 2px solid var(--color-border-brand, #1c4599);
+  outline-offset: 1px;
+}
+
+.itemSelected {
+  background-color: var(--color-brand-light, #e4edff);
+}
+
+.itemSelected .itemLabel {
+  color: var(--color-text-brand, #1c4599);
+  font-weight: var(--font-weight-semibold, 600);
+}
+
+.itemGlyph {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--component-card-title-text, #364765);
+}
+
+.itemSelected .itemGlyph {
+  color: var(--color-text-brand, #1c4599);
+}
+
+.itemGlyph svg {
+  width: 20px;
+  height: 20px;
+}
+
+.itemLabel {
+  min-width: 0;
+  padding: var(--space-17, 3px) var(--space-5, 10px);
+  font-size: var(--typography-body-lg-fontSize, 16px);
+  line-height: var(--typography-body-lg-lineHeight, 22px);
+  color: var(--component-card-title-text, #364765);
+  word-break: break-word;
+}
+
+.emptyFolder {
+  margin: 0;
+  padding-left: 48px;
+  font-size: var(--font-size-12, 12px);
+  color: var(--color-text-secondary, #555766);
+}

@@ -1,0 +1,462 @@
+/* Charts.module.css — Lepidus Design System
+   Chart kit (Figma node 760:1291): ChartCard surface, horizontal BarChart,
+   LineChart, DonutChart and the shared legend. Structural colors (text, grid,
+   surfaces) bind to tokens; data series colors are set inline from
+   palette.ts (Figma Bar-Graph1 styles), since they vary per series. The
+   Figma frame's chart text is drawn in Inter — reconciled to the system
+   --font-family-primary here. */
+
+/* === CARD === */
+
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 10px);
+  width: 100%;
+  max-width: 1160px; /* Figma frame width (node 760:1291) */
+  padding: var(--space-7, 15px);
+  background-color: var(--color-background-surface, #ffffff);
+  border-radius: var(--radius-input, 25px);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.fullWidthCard {
+  max-width: none;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-7, 15px);
+  width: 100%;
+}
+
+.cardTitle {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--font-size-18, 18px);
+  font-weight: var(--font-weight-medium, 500);
+  line-height: normal;
+  color: var(--color-text-brand, #1c4599);
+  word-break: break-word;
+}
+
+.cardUpdated {
+  flex-shrink: 0;
+  padding: var(--space-5, 10px);
+  font-size: var(--font-size-12, 12px);
+  color: var(--component-card-title-text, #364765);
+  white-space: nowrap;
+}
+
+.cardActions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8, 16px);
+  color: var(--color-text-brand, #1c4599);
+}
+
+/* === SHARED PLOT SCAFFOLD === */
+
+.plot {
+  position: relative;
+  width: 100%;
+}
+
+.gridlines {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--chart-label-width, 40px);
+  right: 0;
+  pointer-events: none;
+}
+
+.gridline {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 1px dashed var(--color-chart-grid, #e0e0e0);
+}
+
+/* === BAR CHART === */
+
+.barChart {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 10px);
+  width: 100%;
+  padding-top: var(--space-5, 10px);
+  /* room for the last centered axis label so it can't overflow the card */
+  padding-right: 14px;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.barRows {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
+.barRow {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.barRowLabel {
+  flex-shrink: 0;
+  width: var(--chart-label-width, 40px);
+  padding-right: var(--space-16, 7px);
+  font-size: 10px;
+  color: var(--component-card-title-text, #364765);
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.barGroup {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.bar {
+  height: 6px;
+  border-top-right-radius: 44px;
+  border-bottom-right-radius: 44px;
+  transition: width 240ms ease;
+}
+
+.barAxis {
+  position: relative;
+  height: 14px;
+  margin-left: var(--chart-label-width, 40px);
+}
+
+.barAxisTick {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--component-card-title-text, #364765);
+  white-space: nowrap;
+}
+
+.stackedBar {
+  display: flex;
+  width: 100%;
+  height: 8px;
+  border-top-right-radius: 44px;
+  border-bottom-right-radius: 44px;
+  overflow: hidden;
+}
+
+.stackedSegment {
+  height: 100%;
+  transition: width 240ms ease;
+}
+
+/* === COLUMN CHART === */
+
+.columnChart {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: var(--space-5, 10px);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.columnBody {
+  display: flex;
+  width: 100%;
+}
+
+.columnYAxis {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--chart-label-width, 36px);
+}
+
+.columnYTick {
+  position: absolute;
+  right: var(--space-16, 7px);
+  transform: translateY(50%);
+  font-size: 10px;
+  color: var(--component-card-title-text, #364765);
+  white-space: nowrap;
+}
+
+.columnPlot {
+  position: relative;
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  align-items: flex-end;
+}
+
+.columnGridlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.columnGridline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  border-top: 1px dashed var(--color-chart-grid, #e0e0e0);
+}
+
+.columnGroup {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  height: 100%;
+}
+
+.column {
+  flex-shrink: 0;
+  border-top-left-radius: 44px;
+  border-top-right-radius: 44px;
+  transition: height 240ms ease;
+}
+
+.stackedColumn {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  height: 100%;
+  border-top-left-radius: 44px;
+  border-top-right-radius: 44px;
+  overflow: hidden;
+}
+
+.stackedColumnSegment {
+  width: 100%;
+  transition: height 240ms ease;
+}
+
+.columnXLabels {
+  display: flex;
+  margin-left: var(--chart-label-width, 36px);
+  padding-top: var(--space-3, 5px);
+}
+
+.columnXLabel {
+  flex: 1 0 0;
+  min-width: 0;
+  font-size: 10px;
+  color: var(--component-card-title-text, #364765);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* === BUBBLE CHART === */
+
+.bubbleChart {
+  width: 100%;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.bubbleGridline {
+  stroke: var(--color-chart-grid, #e0e0e0);
+  stroke-width: 0.6;
+}
+
+.bubble {
+  fill-opacity: 0.25;
+  stroke-width: 1.5;
+}
+
+/* === GAUGE CHART === */
+
+.gaugeChart {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.gaugeArc {
+  position: relative;
+}
+
+.gaugeArc svg {
+  display: block;
+}
+
+.gaugeTrack {
+  fill: none;
+  stroke: var(--color-chart-grid-subtle, #f6f6f6);
+  stroke-linecap: round;
+}
+
+.gaugeCenter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.gaugeValue {
+  font-size: var(--font-size-24, 24px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text-primary, #364765);
+}
+
+.gaugeLabel {
+  font-size: var(--font-size-12, 12px);
+  color: var(--color-text-secondary, #555766);
+}
+
+.gaugeBounds {
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--space-3, 5px);
+  font-size: 10px;
+  color: var(--component-card-title-text, #364765);
+}
+
+/* === LINE CHART === */
+
+.lineChart {
+  width: 100%;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.lineSvg {
+  display: block;
+}
+
+.svgGridline {
+  stroke: var(--color-chart-grid, #e0e0e0);
+  stroke-dasharray: 3 3;
+}
+
+.svgTickText {
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+  font-size: 10px;
+  fill: var(--component-card-title-text, #364765);
+}
+
+.svgLine {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.svgDot {
+  fill: var(--color-background-surface, #ffffff);
+  stroke-width: 2;
+}
+
+/* === DONUT CHART === */
+
+.donutChart {
+  display: flex;
+  align-items: center;
+  gap: var(--space-11, 30px);
+  flex-wrap: wrap;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.donutRing {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.donutSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.donutTrack {
+  fill: none;
+  stroke: var(--color-chart-grid-subtle, #f6f6f6);
+}
+
+.donutCenter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.donutValue {
+  font-size: var(--font-size-24, 24px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text-primary, #364765);
+}
+
+.donutLabel {
+  font-size: var(--font-size-12, 12px);
+  color: var(--color-text-secondary, #555766);
+}
+
+.donutLegend {
+  flex-direction: column;
+  gap: var(--space-5, 10px);
+}
+
+/* === LEGEND === */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8, 16px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 5px);
+}
+
+.legendDot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full, 9999px);
+}
+
+.legendLabel {
+  font-size: var(--font-size-12, 12px);
+  color: var(--color-text-primary, #364765);
+}
+
+.legendValue {
+  font-size: var(--font-size-12, 12px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-secondary, #555766);
+}

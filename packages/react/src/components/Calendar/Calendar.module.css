@@ -1,0 +1,333 @@
+/* Calendar.module.css — Lepidus Design System
+   Schedule picker bound to Figma nodes 124:734 / 124:906 / 124:1088.
+   Token bindings (build/css/tokens.css):
+     card     → component/card/radius (15) · header component/modal/bg (white)
+     shell    → color/background/page (tint)
+     title    → color/text/primary + typography (bold)
+     labels   → color/text/brand
+     day text → component/calendar/day-text · selected component/calendar/selected-bg+text
+     today    → component/calendar/today-border · disabled component/calendar/disabled-text
+     dropdown brand → color/brand/primary + color/text/inverse
+     chips    → color/button/secondary/bg + color/text/brand */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 401px;
+  max-width: 100%;
+  background-color: var(--color-background-page, #f5f7fd);
+  border-radius: var(--component-card-radius, 15px);
+  box-shadow:
+    var(--shadow-card-offset-x, 0px) var(--shadow-card-offset-y, 2px)
+    var(--shadow-card-blur, 9px) var(--shadow-card-spread, 0px)
+    rgba(0, 0, 0, var(--shadow-card-opacity, 0.1));
+  overflow: hidden;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+  box-sizing: border-box;
+}
+
+.header {
+  background-color: var(--component-modal-bg, #ffffff);
+  padding: var(--space-7, 15px) var(--space-8, 16px);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--typography-heading-h6-fontSize, 18px);
+  line-height: var(--typography-heading-h6-lineHeight, 28px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text-primary, #364765);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8, 16px);
+  padding: var(--space-8, 16px);
+}
+
+/* === A LABELLED ROW (Start On / Start At / Select …) === */
+.row {
+  display: grid;
+  grid-template-columns: 104px 1fr;
+  align-items: center;
+  column-gap: var(--space-5, 10px);
+}
+
+.rowLabel {
+  font-size: var(--typography-nav-fontSize, 14px);
+  line-height: var(--typography-nav-lineHeight, 19px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text-brand, #1c4599);
+  white-space: nowrap;
+}
+
+.rowControls {
+  display: flex;
+  gap: var(--space-5, 10px);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* === DROPDOWN (custom popover — open list styled by system tokens) === */
+.dropdownWrap {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.dropdown {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4, 8px);
+  box-sizing: border-box;
+  width: 100%;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+.dropdownValue {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: var(--font-weight-semibold, 600);
+}
+
+/* H/M/S placeholders keep the trigger's own text color (brand), not the
+   gray field placeholder used by the chip multi-select */
+.dropdown .placeholder {
+  color: inherit;
+  font-size: inherit;
+}
+
+.dropdown .chevron,
+.dropdown .leadingIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+/* brand-filled rounded rectangle (Month / Year) — Figma: radius-tooltip (4px) */
+.brandDropdown {
+  background-color: var(--color-brand-primary, #1c4599);
+  color: var(--color-text-inverse, #ffffff);
+  border-radius: var(--radius-tooltip, 4px);
+  padding: var(--space-5, 10px) var(--space-6, 12px);
+  flex: 1 1 0;
+  font-size: var(--typography-nav-fontSize, 14px);
+}
+
+/* white bordered pill (H / M / S) */
+.plainDropdown {
+  background-color: var(--component-modal-bg, #ffffff);
+  color: var(--color-text-brand, #1c4599);
+  border: 1px solid var(--component-modal-border, #c7c7c7);
+  border-radius: var(--radius-ms, 9px);
+  padding: var(--space-6, 12px) var(--space-5, 10px);
+  flex: 1 1 0;
+  justify-content: space-between;
+  font-size: var(--typography-body-lg-fontSize, 16px);
+}
+
+.dropdown:focus-within {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-border-brand, #1c4599) 45%, transparent);
+}
+
+/* === MONTH GRID === */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--space-2, 4px);
+  padding-block: var(--space-2, 4px);
+}
+
+.day {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--typography-body-sm-fontSize, 12px);
+  line-height: var(--typography-body-sm-lineHeight, 16px);
+  color: var(--component-calendar-day-text, #364765);
+  transition: background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.day:hover:not(.daySelected):not(:disabled) {
+  background-color: var(--color-button-secondary-bg, #c6d8ff);
+}
+
+.dayEmpty {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.dayToday {
+  border-color: var(--component-calendar-today-border, #1c4599);
+  color: var(--color-text-brand, #1c4599);
+  font-weight: var(--font-weight-bold, 700);
+}
+
+/* Hybrid: brand-bold text on a subtle tint (matches the frame's calmer look,
+   not the token's full brand fill). */
+.daySelected {
+  background-color: var(--color-button-secondary-bg, #c6d8ff);
+  color: var(--color-text-brand, #1c4599);
+  font-weight: var(--font-weight-bold, 700);
+  border-color: transparent;
+}
+
+.day:disabled {
+  color: var(--component-calendar-disabled-text, #727171);
+  cursor: not-allowed;
+}
+
+.day:focus-visible {
+  outline: 2px solid var(--color-border-brand, #1c4599);
+  outline-offset: 1px;
+}
+
+/* event marker (Figma: 4px dot, top-right of the cell) */
+.eventDot {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-text-brand, #1c4599);
+}
+
+/* === MULTI-SELECT CHIP FIELD (Select Month / Select Date) === */
+.multi {
+  position: relative;
+  flex: 1 1 0;
+}
+
+.multiField {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 4px);
+  min-height: 40px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--space-2, 4px) var(--space-5, 10px);
+  background-color: var(--component-modal-bg, #ffffff);
+  border: 1px solid var(--component-modal-border, #c7c7c7);
+  border-radius: var(--radius-ms, 9px);
+  cursor: pointer;
+  flex-wrap: wrap;
+}
+
+.multiChips {
+  display: flex;
+  gap: var(--space-2, 4px);
+  flex-wrap: wrap;
+  flex: 1 1 auto;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2, 4px);
+  padding: var(--space-2, 4px) var(--space-5, 10px);
+  background-color: var(--color-button-secondary-bg, #c6d8ff);
+  color: var(--color-text-brand, #1c4599);
+  border-radius: var(--radius-6xl, 30px);
+  font-size: var(--typography-body-md-fontSize, 14px);
+  font-weight: var(--font-weight-semibold, 600);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.chipRound {
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  justify-content: center;
+}
+
+.multiChevron {
+  display: inline-flex;
+  color: var(--color-text-secondary, #555766);
+  flex-shrink: 0;
+}
+
+.placeholder {
+  color: var(--component-input-placeholder, #727171);
+  font-size: var(--typography-body-md-fontSize, 14px);
+}
+
+/* dropdown panel */
+.panel {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: var(--component-modal-bg, #ffffff);
+  border: 1px solid var(--component-modal-border, #c7c7c7);
+  border-radius: var(--radius-ms, 9px);
+  box-shadow: var(--shadow-flyout-offset-x, 0px) var(--shadow-flyout-offset-y, 4px)
+    var(--shadow-flyout-blur, 12px) var(--shadow-flyout-spread, 0px)
+    rgba(0, 0, 0, var(--shadow-flyout-opacity, 0.12));
+  padding: var(--space-2, 4px);
+}
+
+.panelGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--space-2, 4px);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 8px);
+  width: 100%;
+  padding: var(--space-4, 8px) var(--space-5, 10px);
+  border: none;
+  background: none;
+  border-radius: var(--radius-xs, 4px);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--typography-body-md-fontSize, 14px);
+  color: var(--color-text-primary, #364765);
+  text-align: left;
+}
+
+.option:hover {
+  background-color: var(--color-button-secondary-bg, #c6d8ff);
+}
+
+.optionSelected {
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text-brand, #1c4599);
+}
+
+.optionDate {
+  justify-content: center;
+  padding: var(--space-4, 8px) 0;
+}
+
+/* === FOOTER === */
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-7, 15px);
+  padding-top: var(--space-2, 4px);
+}

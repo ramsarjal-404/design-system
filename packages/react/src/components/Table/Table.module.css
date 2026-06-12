@@ -1,0 +1,260 @@
+/* Table.module.css — Lepidus Design System
+   Data table (Figma node 7:959). Bold sortable headers on a subtle gray strip
+   with 15px rounded top corners, a per-column search row, brand-bordered
+   selection checkboxes and 43px data rows. Every value references a
+   component token → semantic → primitive, or a shared space/radius/typography
+   token. The muted icon gray maps to --gray-450 (closest primitive to the
+   Figma flat #A69D9D, which has no token). */
+
+.wrapper {
+  width: 100%;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+  /* if fixed column widths exceed the container, scroll inside the wrapper
+     instead of bleeding the table out over the parent surface */
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  /* fixed layout makes colgroup widths authoritative and keeps the table
+     inside its container — long cell text wraps instead of stretching */
+  table-layout: fixed;
+}
+
+/* === HEADER === */
+
+.th {
+  height: 43px;
+  padding: 0 var(--space-9, 20px);
+  background-color: var(--component-table-header-bg, #f6f6f6);
+  border-top: 1px solid var(--component-table-border, #e2dbdb);
+  border-bottom: 1px solid var(--component-table-border, #e2dbdb);
+  border-right: 1px solid var(--component-table-border, #e2dbdb);
+  font-size: var(--component-table-header-fontSize, 14px);
+  line-height: var(--typography-table-header-lineHeight, 19px);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--color-text-primary, #364765);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.th:first-child {
+  border-left: 1px solid var(--component-table-border, #e2dbdb);
+  border-top-left-radius: var(--radius-lg, 15px);
+}
+
+.th:last-child {
+  border-top-right-radius: var(--radius-lg, 15px);
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5, 10px);
+  width: 100%;
+}
+
+.headerLabel {
+  flex: 1 0 0;
+  min-width: 0;
+  /* single-line headers per Figma — truncate rather than wrap */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sortButton {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-5, 10px);
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sortButton:focus-visible {
+  outline: 2px solid var(--color-border-brand, #1c4599);
+  outline-offset: 2px;
+  border-radius: var(--radius-3xs, 3px);
+}
+
+.sortArrow {
+  flex-shrink: 0;
+  display: inline-flex;
+  width: 9px;
+  height: 14px;
+  color: var(--gray-450, #8d8d8d);
+  transition: transform 160ms ease, color 160ms ease;
+}
+
+.sortArrow svg {
+  width: 100%;
+  height: 100%;
+}
+
+.sortArrowActive {
+  color: var(--component-table-header-text, #1c4599);
+}
+
+.sortArrowDesc {
+  transform: rotate(180deg);
+}
+
+/* === FILTER ROW === */
+
+.filterCell {
+  height: 43px;
+  padding: 0 var(--space-9, 20px);
+  background-color: var(--component-table-cell-bg, #ffffff);
+  border-bottom: 1px solid var(--component-table-border, #e2dbdb);
+  border-right: 1px solid var(--component-table-border, #e2dbdb);
+  vertical-align: middle;
+}
+
+.filterCell:first-child {
+  border-left: 1px solid var(--component-table-border, #e2dbdb);
+}
+
+.filterField {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5, 10px);
+  width: 100%;
+  border-radius: var(--radius-3xs, 3px);
+}
+
+.filterField:focus-within {
+  outline: 1px solid var(--color-border-brand, #1c4599);
+  outline-offset: 3px;
+}
+
+.filterInput {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  outline: none;
+  font-family: inherit;
+  font-size: var(--component-table-cell-fontSize, 14px);
+  line-height: var(--typography-table-cell-lineHeight, 19px);
+  color: var(--component-table-cell-text, #364765);
+}
+
+.searchIcon {
+  flex-shrink: 0;
+  display: inline-flex;
+  width: 13px;
+  height: 13px;
+  color: var(--gray-450, #8d8d8d);
+}
+
+.searchIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* === BODY === */
+
+.td {
+  height: 43px;
+  padding: 0 var(--space-9, 20px);
+  background-color: var(--component-table-cell-bg, #ffffff);
+  border-bottom: 1px solid var(--component-table-border, #e2dbdb);
+  border-right: 1px solid var(--component-table-border, #e2dbdb);
+  font-size: var(--component-table-cell-fontSize, 14px);
+  line-height: var(--typography-table-cell-lineHeight, 19px);
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--component-table-cell-text, #364765);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.td:first-child {
+  border-left: 1px solid var(--component-table-border, #e2dbdb);
+}
+
+.cellInner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5, 10px);
+}
+
+.cellText {
+  flex: 1 0 0;
+  min-width: 0;
+  /* keep rows at the Figma 43px — truncate with ".." instead of wrapping */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+tbody tr:hover .td {
+  background-color: var(--component-table-row-hover, #e4edff);
+}
+
+.selectedRow .td {
+  background-color: var(--component-table-row-hover, #e4edff);
+}
+
+.emptyCell {
+  text-align: center;
+  color: var(--color-text-secondary, #555766);
+}
+
+/* === CHECKBOX === */
+
+.checkbox {
+  appearance: none;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  border: 1px solid var(--color-border-brand, #1c4599);
+  border-radius: var(--radius-3xs, 3px);
+  background-color: var(--color-background-surface, #ffffff);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox:focus-visible {
+  outline: 2px solid var(--color-border-brand, #1c4599);
+  outline-offset: 2px;
+}
+
+.checkbox:checked {
+  background-color: var(--component-checkbox-checked-bg, #1c4599);
+}
+
+.checkbox:checked::after {
+  content: '';
+  width: 4px;
+  height: 8px;
+  margin-bottom: 2px;
+  border: solid var(--component-checkbox-check-mark, #ffffff);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox:indeterminate {
+  background-color: var(--component-checkbox-checked-bg, #1c4599);
+}
+
+.checkbox:indeterminate::after {
+  content: '';
+  width: 8px;
+  height: 2px;
+  background-color: var(--component-checkbox-check-mark, #ffffff);
+}

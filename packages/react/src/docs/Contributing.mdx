@@ -1,0 +1,124 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Lepidus/Contributing" />
+
+# Contributing a Component
+
+Every Lepidus component follows the same pipeline from Figma to shipped code. Follow this
+playbook end-to-end — the consistency of the system depends on no step being skipped.
+
+## The pipeline
+
+```
+Figma node ──▶ Token chain ──▶ CSS Module ──▶ Typed component ──▶ Stories + Docs ──▶ Verify
+```
+
+### 1. Start from the Figma node
+
+Get the node URL (e.g. `…/Lepidus?node-id=39-7`). Pull its design context and identify every
+color, radius, spacing and type style it uses. Note which values are **named Figma styles**
+(e.g. "Cyan/Cyan 60") — those must become real tokens, never nearest-match bindings.
+
+### 2. Build the token chain — Primitive → Semantic → Component
+
+Hand-authored tokens go in **`packages/tokens/src/figma-gaps.tokens.json`** — never in
+`primitive/semantic/component.tokens.json` directly, because `npm run tokens:import`
+regenerates those from the Figma export and deep-merges the gaps file over them.
+Inside the gaps file:
+
+- **`primitive`** — add raw values only if they don't exist (slot into the scale:
+  `#11337A` between blue-600/700 became `blue.650`).
+- **`semantic.light` / `semantic.dark` / `semantic.hc`** — add intent-named aliases
+  referencing primitives (`{primitive.color.cyan.600}`). Add all three themes — a token
+  defined only in light silently falls back to its light value in dark/HC.
+- **`component`** — add a `component/<name>/*` group referencing **semantic paths
+  only** (never primitives, never raw hex). Cover every state: default, hover, active, disabled.
+
+Every token needs `$extensions.com.figma.codeSyntax.WEB` (`var(--…)`) — that is the emitted
+CSS variable name. When the token later lands in the Figma variables, delete it from the
+gaps file. Then rebuild and confirm every new token resolves:
+
+```bash
+npm run tokens:import   # re-merge sources (validates references)
+npm run tokens          # → packages/tokens/build/css/tokens.css
+grep 'component-<name>' packages/tokens/build/css/tokens.css
+```
+
+### 3. Component files
+
+Create `packages/react/src/components/<Name>/` with exactly:
+
+```
+<Name>.tsx          # forwardRef to the natural root; native attrs pass through
+<Name>.types.ts     # exported Props interface + variant unions, JSDoc on every prop
+<Name>.module.css   # every value var(--component-…, <resolved fallback>)
+<Name>.stories.tsx  # see step 4
+index.ts            # re-export component + types
+```
+
+Rules:
+
+- **No hardcoded values** in CSS — every color/space/radius/type is a `var()` with the token's
+  resolved value as fallback.
+- **No generic UI** — pickers, popovers and lists are custom-built and token-bound. A native
+  `<select>`'s open menu is OS chrome and is not acceptable; native `<input>`/`<textarea>` for
+  *typing* are correct.
+- **Map Figma variants to props or interaction** — static variant frames usually collapse into
+  fewer orthogonal props (`disabled`, `multiple`) or native states (`:focus-within` = "active").
+- **Compose, don't re-implement** — footers use `Button`, never hand-rolled buttons.
+- **Accessibility is part of the component** — correct roles, keyboard support,
+  `:focus-visible` treatment, aria attributes.
+
+### 4. Stories + docs (the enterprise template)
+
+The stories file must include:
+
+- `tags: ['autodocs']` and a category title (`Forms/<Name>`, `Feedback/<Name>`, …)
+- `parameters.design` with the Figma node URL
+- A docs description (template literal) with: status badge, one-line summary + node id,
+  **Overview** (incl. which sibling to prefer), **Anatomy**, **Design tokens** table
+  (Part | CSS variable | Resolves to), **States & variants** mapped to the Figma variants,
+  **Accessibility**, **Usage** do/don'ts
+- `argTypes` covering **every** public prop with description, control, type and default
+- One story per state/variant, each with a `docs.description.story`, plus a `✦ All States`
+  overview story
+- A `play` function for interactive behavior worth regression-testing
+
+### 5. Verify before you're done
+
+```bash
+npx tsc --noEmit                  # types
+npm run tokens                    # tokens resolve, no dangling references
+npm run test-storybook            # interaction tests (storybook dev must be running)
+```
+
+- Every `var(--token)` referenced in the CSS exists in the built `tokens.css`
+- Story renders in Storybook; visually compare against the Figma node (screenshot diff)
+- A11y panel shows no violations
+
+## Definition of done — checklist
+
+- [ ] All Figma values flow through Primitive → Semantic → Component tokens
+- [ ] Named Figma styles became real tokens (no nearest-match for named styles)
+- [ ] CSS has zero hardcoded values outside `var()` fallbacks
+- [ ] No native OS picker/menu UI is ever shown
+- [ ] Every public prop typed, JSDoc'd, and documented in argTypes
+- [ ] Docs page follows the template (token table verified against the build)
+- [ ] All states have stories; interactive behavior has a `play` test
+- [ ] `tsc`, token build, and test-runner pass; a11y panel clean
+
+## Component status
+
+Every component carries a status badge at the top of its docs page:
+
+- ![Stable](https://img.shields.io/badge/Status-Stable-1caa52) — API frozen; breaking changes
+  need a deprecation cycle
+- ![Beta](https://img.shields.io/badge/Status-Beta-f57f17) — usable, API may change with notice
+- ![Deprecated](https://img.shields.io/badge/Status-Deprecated-f72b2b) — scheduled for removal;
+  the badge must name the replacement
+
+## Deprecation policy
+
+Mark the docs badge Deprecated and name the replacement, keep the component working for one
+minor release cycle while its stories carry a migration note, then remove component + tokens
+together so the token build never carries dead bindings.

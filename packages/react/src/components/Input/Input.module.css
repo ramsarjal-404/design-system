@@ -1,0 +1,156 @@
+/* Input.module.css — Lepidus Design System
+   Bound to the canonical Figma component/input/* tokens (generated tokens.css):
+     --component-input-bg / -border / -text / -placeholder / -label
+     --component-input-radius (25px) / -fontSize (14) / -lineHeight (19)
+     --component-input-paddingX (20) / -paddingY (12)
+     focus: --component-input-bg-focus (#E1EAFD) + --component-input-border-focus (#1C4599)
+     disabled: --component-input-bg-disabled (#C6C6C6) */
+
+.wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-2, 4px);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.fullWidth {
+  display: flex;
+  width: 100%;
+}
+
+/* === ROW (label + field) === */
+.row {
+  display: flex;
+}
+
+.rowLeft {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-4, 8px);
+}
+
+.rowTop {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2, 4px);
+}
+
+.fullWidth .field {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+}
+
+/* === LABEL — component/input/label (#555766), 14/19 === */
+.label {
+  font-size: var(--component-input-fontSize, 14px);
+  line-height: var(--component-input-lineHeight, 19px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--component-input-label, #555766);
+  user-select: none;
+}
+
+.rowLeft > .label {
+  flex: 0 0 auto;
+  width: var(--component-input-label-width, 171px);
+}
+
+/* === FIELD (pill border + adornment shell) === */
+.field {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 8px);
+  background-color: var(--component-input-bg, #ffffff);
+  border: 1px solid var(--component-input-border, #c7c7c7);
+  border-radius: var(--component-input-radius, 25px);
+  padding: var(--component-input-paddingY, 12px) var(--component-input-paddingX, 20px);
+  transition: border-color 160ms ease, background-color 160ms ease;
+  cursor: text;
+  /* include border + padding in width:100% so a fullWidth field never
+     overflows its container (no global box-sizing reset in this project). */
+  box-sizing: border-box;
+}
+
+/* Focus — Figma: fill turns light blue, border turns brand blue */
+.field:focus-within:not(.disabled) {
+  background-color: var(--component-input-bg-focus, #e1eafd);
+  border-color: var(--component-input-border-focus, #1c4599);
+}
+
+/* === INPUT ELEMENT === */
+.input {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--component-input-fontSize, 14px);
+  line-height: var(--component-input-lineHeight, 19px);
+  color: var(--component-input-text, #364765);
+  padding: 0;
+}
+
+.input::placeholder {
+  color: var(--component-input-placeholder, #727171);
+  opacity: 1;
+}
+
+/* === STATUS: ERROR (system danger tokens) === */
+.error {
+  border-color: var(--color-border-danger, #f72b2b);
+}
+
+.error:focus-within:not(.disabled) {
+  background-color: var(--component-input-bg, #ffffff);
+  border-color: var(--color-border-danger, #f72b2b);
+}
+
+/* === DISABLED === */
+.disabled {
+  background-color: var(--component-input-bg-disabled, #c6c6c6);
+  cursor: not-allowed;
+}
+
+.disabled .input {
+  color: var(--component-input-text, #364765);
+  cursor: not-allowed;
+  -webkit-text-fill-color: var(--component-input-text, #364765);
+  opacity: 1;
+}
+
+.disabled .input::placeholder {
+  color: var(--component-input-placeholder, #727171);
+}
+
+/* === ICON SLOTS === */
+.iconLeft,
+.iconRight {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--component-input-placeholder, #727171);
+}
+
+.iconLeft svg,
+.iconRight svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* === HELPER / MESSAGE === */
+.message {
+  font-size: var(--typography-label-md-fontSize, 12px);
+  line-height: var(--typography-label-md-lineHeight, 16px);
+  color: var(--component-input-placeholder, #727171);
+}
+
+/* Align helper under the field when the label sits inline-left */
+.messageIndent {
+  margin-left: calc(var(--component-input-label-width, 171px) + var(--space-4, 8px));
+}
+
+.errorMessage {
+  color: var(--color-text-danger, #f72b2b);
+}

@@ -1,0 +1,33 @@
+/* EmptyState.module.css — Lepidus Design System
+   Empty page statement with illustration (Figma node 133:263): sleeping-server
+   line art above a centered brand-blue body-lg statement. */
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-7, 15px);
+  padding: var(--space-9, 20px);
+  text-align: center;
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+}
+
+.illustration {
+  display: flex;
+  justify-content: center;
+}
+
+.message {
+  margin: 0;
+  max-width: 455px; /* Figma frame width */
+  font-size: var(--typography-body-lg-fontSize, 16px);
+  line-height: var(--typography-body-lg-lineHeight, 22px);
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--color-text-brand, #1c4599);
+  word-break: break-word;
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+}
