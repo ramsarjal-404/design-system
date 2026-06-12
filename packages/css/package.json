@@ -11,6 +11,7 @@
   },
   "exports": {
     "./lepidus.css": "./dist/lepidus.css",
+    "./lepidus.js": "./dist/lepidus.js",
     "./components.css": "./dist/lepidus.components.css",
     "./components/*": "./dist/components/*"
   }

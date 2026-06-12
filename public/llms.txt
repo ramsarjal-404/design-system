@@ -54,12 +54,41 @@ Components available as plain CSS (copy-paste markup on the
   `__row--selected`, `__checkbox`
 - Alert panel — `lp-alert-panel`; `__icon`, `__headline`, `__title`,
   `__summary`, `__details`, `__action`, `__footnote`
+- Link — `lp-link` + `--inline|--standalone|--disabled`; `__icon`,
+  `__external-icon`, `__visually-hidden`
+- Avatar — `lp-avatar` + sizes `--sm|--md|--lg|--xl`, shapes `--circle|--square`,
+  fallback fills `--series1`…`--series6`, `--overflow`; `__image`, `__fallback`,
+  `__status` (+`--online|--away|--offline`); groups: `lp-avatar-group` +
+  `lp-avatar-group__item`
+- Skeleton — `lp-skeleton` + `--text|--circle|--rect`; multi-line:
+  `lp-skeleton-paragraph` + `lp-skeleton-paragraph__last-line`
+- Spinner — `lp-spinner` + `--sm|--md|--lg`; `__svg`, `__track`, `__arc`,
+  `__visually-hidden` (SVG: viewBox 0 0 24 24, circles cx/cy 12 r 10
+  stroke-width 3; arc adds stroke-dasharray "28 72", path-length 100)
+- Message — `lp-message` + `--info|--success|--warning|--error`; `__icon`,
+  `__content`, `__text`, `__title`, `__body`, `__actions`, `__close`
+- Empty state — `lp-empty-state`; `__illustration`, `__message`, `__action`
+
+## Interactive components (include lepidus.js)
+
+`<script src="lepidus.js"></script>` — 4 KB vanilla helper, auto-initializes:
+
+- Tabs — `lp-tabs` with `data-lp-tabs` + `role="tablist"`; buttons
+  `lp-tabs__tab` (+`--active`) with `role="tab"`, `aria-selected`,
+  `aria-controls` pointing at `role="tabpanel"` elements (inactive panels get
+  `hidden`). Keyboard: arrows/Home/End, roving tabindex — provided by the JS.
+- Modal — backdrop `lp-modal` (`hidden` when closed) containing
+  `lp-modal__shell` (+`--sm|--md|--lg|--inline`) with `role="dialog"`,
+  `aria-modal`, `aria-labelledby`; `__header` (+`--center|--left`), `__title`,
+  `__body`, `__fields` + `__field-label`, `__footer`. Open with
+  `data-lp-modal-open="<id>"`, close with `data-lp-modal-close` / Escape /
+  backdrop click; focus is trapped and restored; `data-lp-autofocus` picks the
+  initial focus. JS API: `Lepidus.openModal(id)`, `Lepidus.closeModal()`.
 
 Components not yet converted to plain CSS (use the React package or wait):
-Accordion, ActionItem, Avatar, Calendar, Charts, Dropdown, EmptyState, Filter,
-FolderTree, Link, Message, Modal, Pagination, Progress, Radio, Scrollbar,
-SettingsPanel, Sidebar, Skeleton, Spinner, Stepper, Steps, Tabs, TextField,
-Textarea, TimePicker, Toast, Tooltip.
+Accordion, ActionItem, Calendar, Charts, Dropdown, Filter, FolderTree,
+Pagination, Progress, Radio, Scrollbar, SettingsPanel, Sidebar, Stepper,
+Steps, TextField, Textarea, TimePicker, Toast, Tooltip.
 
 ## React usage
 

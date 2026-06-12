@@ -314,10 +314,187 @@ Row hover styling is automatic. Sortable headers wrap the label in a
 Color the severity icon with the status text tokens
 (`--color-status-error-text`, `-warning-`, `-success-`).
 
+## Link
+
+<p style={{ marginBottom: 8 }}>Running text with an <a className="lp-link lp-link--inline" href="#top">inline link</a> inside it.</p>
+<div style={{ display: 'flex', gap: 16, marginBottom: 16 }}>
+  <a className="lp-link lp-link--standalone" href="#top">Standalone link</a>
+  <span className="lp-link lp-link--standalone lp-link--disabled" aria-disabled="true">Disabled link</span>
+</div>
+
+```html
+<a class="lp-link lp-link--inline" href="/docs">inline link</a>
+<a class="lp-link lp-link--standalone" href="/docs">Standalone link</a>
+<span class="lp-link lp-link--standalone lp-link--disabled" aria-disabled="true">Disabled</span>
+```
+
+Icons go in `lp-link__icon`; external links append `lp-link__external-icon`
+plus a `lp-link__visually-hidden` "(opens in new tab)" span.
+
+## Avatar
+
+<div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 16 }}>
+  <span className="lp-avatar lp-avatar--md lp-avatar--circle lp-avatar--series4"><span className="lp-avatar__fallback">RS</span></span>
+  <span className="lp-avatar lp-avatar--lg lp-avatar--circle lp-avatar--series3"><span className="lp-avatar__fallback">JK</span><span className="lp-avatar__status lp-avatar__status--online"></span></span>
+  <span className="lp-avatar-group">
+    <span className="lp-avatar lp-avatar--md lp-avatar--circle lp-avatar--series2 lp-avatar-group__item"><span className="lp-avatar__fallback">AB</span></span>
+    <span className="lp-avatar lp-avatar--md lp-avatar--circle lp-avatar--overflow lp-avatar-group__item"><span className="lp-avatar__fallback" style={{ color: 'var(--color-text-secondary)' }}>+3</span></span>
+  </span>
+</div>
+
+```html
+<span class="lp-avatar lp-avatar--lg lp-avatar--circle lp-avatar--series3">
+  <span class="lp-avatar__fallback">JK</span>
+  <span class="lp-avatar__status lp-avatar__status--online"></span>
+</span>
+```
+
+Sizes `--sm|--md|--lg|--xl`; shapes `--circle|--square`; fallback backgrounds
+`--series1`…`--series6` (hash the user's name to pick one); status dots
+`__status--online|--away|--offline`. Images: `<img class="lp-avatar__image">`.
+Stacks: wrap in `lp-avatar-group`, add `lp-avatar-group__item` to each, and
+use `lp-avatar--overflow` for the "+N" chip.
+
+## Skeleton & Spinner
+
+<div style={{ display: 'flex', gap: 32, alignItems: 'flex-start', maxWidth: 480, marginBottom: 16 }}>
+  <div style={{ flex: 1 }}>
+    <div className="lp-skeleton-paragraph">
+      <span className="lp-skeleton lp-skeleton--text"></span>
+      <span className="lp-skeleton lp-skeleton--text lp-skeleton-paragraph__last-line"></span>
+    </div>
+  </div>
+  <span className="lp-spinner lp-spinner--lg" role="status">
+    <svg className="lp-spinner__svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle className="lp-spinner__track" cx="12" cy="12" r="10" strokeWidth="3"/>
+      <circle className="lp-spinner__arc" cx="12" cy="12" r="10" strokeWidth="3" strokeLinecap="round" pathLength="100" strokeDasharray="28 72"/>
+    </svg>
+    <span className="lp-spinner__visually-hidden">Loading</span>
+  </span>
+</div>
+
+```html
+<span class="lp-skeleton lp-skeleton--text"></span>   <!-- also --circle, --rect -->
+
+<span class="lp-spinner lp-spinner--md" role="status">
+  <svg class="lp-spinner__svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <circle class="lp-spinner__track" cx="12" cy="12" r="10" stroke-width="3"/>
+    <circle class="lp-spinner__arc" cx="12" cy="12" r="10" stroke-width="3"
+            stroke-linecap="round" path-length="100" stroke-dasharray="28 72"/>
+  </svg>
+  <span class="lp-spinner__visually-hidden">Loading</span>
+</span>
+```
+
+Multi-line skeletons: stack `--text` bars in a `lp-skeleton-paragraph`, adding
+`lp-skeleton-paragraph__last-line` to the final one. Both components respect
+`prefers-reduced-motion` automatically.
+
+## Message
+
+```html
+<div class="lp-message lp-message--success" role="status">
+  <span class="lp-message__icon"><!-- 45px status svg --></span>
+  <div class="lp-message__content">
+    <div class="lp-message__text">
+      <h3 class="lp-message__title">Scan complete</h3>
+      <p class="lp-message__body">All 14 file servers were scanned successfully.</p>
+    </div>
+    <div class="lp-message__actions">
+      <button class="lp-button lp-button--primary lp-button--sm">View report</button>
+    </div>
+  </div>
+  <button class="lp-message__close" aria-label="Close message"><!-- × svg --></button>
+</div>
+```
+
+Variants `--info|--success|--warning|--error` tint the icon. Use
+`role="status"` (or `role="alert"` for errors that interrupt).
+
+## Empty state
+
+```html
+<div class="lp-empty-state">
+  <span class="lp-empty-state__illustration"><!-- illustration svg/img --></span>
+  <p class="lp-empty-state__message">No records found for this period.</p>
+  <div class="lp-empty-state__action">
+    <button class="lp-button lp-button--primary lp-button--md">Run scan</button>
+  </div>
+</div>
+```
+
+## Tabs — interactive, needs lepidus.js
+
+Interactive components use the **`lepidus.js`** helper
+(`packages/css/dist/lepidus.js`, ~4 KB, no dependencies). Include it once;
+components with data attributes initialize themselves:
+
+```html
+<script src="lepidus.js"></script>
+```
+
+<div className="lp-tabs" style={{ marginBottom: 8 }}>
+  <button className="lp-tabs__tab lp-tabs__tab--active" type="button">Overview</button>
+  <button className="lp-tabs__tab" type="button">Permissions</button>
+  <button className="lp-tabs__tab" type="button">History</button>
+</div>
+
+```html
+<div class="lp-tabs" role="tablist" aria-label="Report sections" data-lp-tabs>
+  <button class="lp-tabs__tab lp-tabs__tab--active" role="tab" aria-selected="true"
+          aria-controls="panel-1" id="tab-1">Overview</button>
+  <button class="lp-tabs__tab" role="tab" aria-selected="false"
+          aria-controls="panel-2" id="tab-2" tabindex="-1">Permissions</button>
+</div>
+<div id="panel-1" role="tabpanel" aria-labelledby="tab-1">…</div>
+<div id="panel-2" role="tabpanel" aria-labelledby="tab-2" hidden>…</div>
+```
+
+`lepidus.js` wires click activation, ArrowLeft/Right/Home/End with roving
+tabindex (RTL-aware), and shows/hides the panels referenced by `aria-controls`.
+
+## Modal — interactive, needs lepidus.js
+
+```html
+<button class="lp-button lp-button--primary lp-button--md"
+        data-lp-modal-open="add-server">Open</button>
+
+<div class="lp-modal" id="add-server" hidden>
+  <div class="lp-modal__shell lp-modal__shell--sm" role="dialog" aria-modal="true"
+       aria-labelledby="add-server-title">
+    <div class="lp-modal__header lp-modal__header--center">
+      <h2 class="lp-modal__title" id="add-server-title">Add file server</h2>
+    </div>
+    <div class="lp-modal__body">
+      <div class="lp-modal__fields">
+        <label class="lp-modal__field-label" for="name">Name</label>
+        <div class="lp-input lp-input--full-width">
+          <div class="lp-input__field"><input class="lp-input__input" id="name" data-lp-autofocus /></div>
+        </div>
+      </div>
+    </div>
+    <div class="lp-modal__footer">
+      <button class="lp-button lp-button--primary lp-button--md" data-lp-modal-close>Save</button>
+      <button class="lp-button lp-button--secondary lp-button--md" data-lp-modal-close>Cancel</button>
+    </div>
+  </div>
+</div>
+```
+
+`lepidus.js` handles open/close (`data-lp-modal-open` / `data-lp-modal-close`,
+Escape, backdrop click), traps focus inside the dialog while open, focuses
+`[data-lp-autofocus]` (or the first focusable) on open, and restores focus on
+close. Shell sizes: `--sm` (520px), `--md` (680px), `--lg` (743px); use
+`lp-modal__shell--inline` without the overlay for embedded panels. Also
+callable from code: `Lepidus.openModal('add-server')` / `Lepidus.closeModal()`.
+
 ## What's covered so far
 
-Ten components ship today: Button, Badge, Tag, Card, Input, Toggle, Checkbox,
-Breadcrumb, Table and Alert panel. The rest of the library is being converted
-component by component; components with built-in overlay behavior (Modal,
-Dropdown, Tabs, Toast) will arrive together with a small vanilla-JS helper.
-The full one-page showcase lives at `packages/css/demo/index.html`.
+**18 components** ship as plain CSS today: Button, Badge, Tag, Card, Input,
+Toggle, Checkbox, Breadcrumb, Table, Alert panel, Link, Avatar, Skeleton,
+Spinner, Message, Empty state, plus interactive Tabs and Modal via
+`lepidus.js`. Still React-only: Accordion, ActionItem, Calendar, Charts,
+Dropdown, Filter, FolderTree, Pagination, Progress, Radio, Scrollbar,
+SettingsPanel, Sidebar, Stepper, Steps, TextField, Textarea, TimePicker,
+Toast, Tooltip. The full one-page showcase lives at
+`packages/css/demo/index.html`.

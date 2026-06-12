@@ -15,7 +15,7 @@
     color: var(--color-text-primary);
   }
   h1 { font-size: 20px; margin: 0 0 4px; }
-  h2 { font-size: 14px; margin: 32px 0 12px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+  body > h2 { font-size: 14px; margin: 32px 0 12px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
   .demo-note { color: var(--color-text-secondary); font-size: 13px; margin: 0 0 24px; }
   .demo-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
   .demo-theme { position: fixed; top: 24px; right: 24px; display: flex; gap: 8px; }
@@ -214,6 +214,113 @@
   <p class="lp-alert-panel__footnote">Triggered by the "Mass delete" threat policy.</p>
 </div>
 
+<h2>Links</h2>
+<div class="demo-row">
+  <p style="margin:0">Running text with an <a class="lp-link lp-link--inline" href="#">inline link</a> inside it.</p>
+  <a class="lp-link lp-link--standalone" href="#">Standalone link</a>
+  <span class="lp-link lp-link--standalone lp-link--disabled" aria-disabled="true">Disabled link</span>
+</div>
+
+<h2>Avatars</h2>
+<div class="demo-row">
+  <span class="lp-avatar lp-avatar--md lp-avatar--circle lp-avatar--series4"><span class="lp-avatar__fallback">RS</span></span>
+  <span class="lp-avatar lp-avatar--lg lp-avatar--circle lp-avatar--series3"><span class="lp-avatar__fallback">JK</span><span class="lp-avatar__status lp-avatar__status--online"></span></span>
+  <span class="lp-avatar lp-avatar--lg lp-avatar--square lp-avatar--series1"><span class="lp-avatar__fallback">MT</span><span class="lp-avatar__status lp-avatar__status--away"></span></span>
+  <span class="lp-avatar-group">
+    <span class="lp-avatar lp-avatar--md lp-avatar--circle lp-avatar--series2 lp-avatar-group__item"><span class="lp-avatar__fallback">AB</span></span>
+    <span class="lp-avatar lp-avatar--md lp-avatar--circle lp-avatar--series5 lp-avatar-group__item"><span class="lp-avatar__fallback">CD</span></span>
+    <span class="lp-avatar lp-avatar--md lp-avatar--circle lp-avatar--overflow lp-avatar-group__item"><span class="lp-avatar__fallback" style="color: var(--color-text-secondary)">+3</span></span>
+  </span>
+</div>
+
+<h2>Skeleton &amp; Spinner</h2>
+<div style="display:flex; gap:32px; align-items:flex-start; max-width:480px;">
+  <div style="flex:1">
+    <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+      <span class="lp-skeleton lp-skeleton--circle"></span>
+      <div class="lp-skeleton-paragraph">
+        <span class="lp-skeleton lp-skeleton--text"></span>
+        <span class="lp-skeleton lp-skeleton--text lp-skeleton-paragraph__last-line"></span>
+      </div>
+    </div>
+    <span class="lp-skeleton lp-skeleton--rect"></span>
+  </div>
+  <span class="lp-spinner lp-spinner--lg" role="status">
+    <svg class="lp-spinner__svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle class="lp-spinner__track" cx="12" cy="12" r="10" stroke-width="3"/>
+      <circle class="lp-spinner__arc" cx="12" cy="12" r="10" stroke-width="3" stroke-linecap="round" path-length="100" stroke-dasharray="28 72"/>
+    </svg>
+    <span class="lp-spinner__visually-hidden">Loading</span>
+  </span>
+</div>
+
+<h2>Message</h2>
+<div style="max-width: 560px;">
+  <div class="lp-message lp-message--success" role="status">
+    <span class="lp-message__icon"><svg viewBox="0 0 45 45" fill="none" aria-hidden="true"><rect x="2" y="2" width="41" height="41" rx="10" stroke="currentColor" stroke-width="3"/><path d="M14 23.5 20 29.5 31 17" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <div class="lp-message__content">
+      <div class="lp-message__text">
+        <h3 class="lp-message__title">Scan complete</h3>
+        <p class="lp-message__body">All 14 file servers were scanned successfully. No policy violations found.</p>
+      </div>
+      <div class="lp-message__actions">
+        <button class="lp-button lp-button--primary lp-button--sm">View report</button>
+        <button class="lp-button lp-button--secondary lp-button--sm">Dismiss</button>
+      </div>
+    </div>
+    <button class="lp-message__close" aria-label="Close message"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 2l10 10M12 2 2 12"/></svg></button>
+  </div>
+</div>
+
+<h2>Empty state</h2>
+<div class="lp-empty-state">
+  <span class="lp-empty-state__illustration">
+    <svg width="120" height="70" viewBox="0 0 120 70" fill="none" stroke="var(--color-border-strong, #555766)" stroke-width="2" aria-hidden="true"><rect x="20" y="10" width="80" height="22" rx="4"/><rect x="20" y="38" width="80" height="22" rx="4"/><circle cx="32" cy="21" r="3"/><circle cx="32" cy="49" r="3"/><path d="M44 21h32M44 49h20"/></svg>
+  </span>
+  <p class="lp-empty-state__message">No records found for this period. Adjust the filters or run a new scan.</p>
+  <div class="lp-empty-state__action">
+    <button class="lp-button lp-button--primary lp-button--md">Run scan</button>
+  </div>
+</div>
+
+<h2>Tabs (interactive — lepidus.js)</h2>
+<div class="lp-tabs" role="tablist" aria-label="Report sections" data-lp-tabs>
+  <button class="lp-tabs__tab lp-tabs__tab--active" role="tab" aria-selected="true" aria-controls="demo-panel-1" id="demo-tab-1">Overview</button>
+  <button class="lp-tabs__tab" role="tab" aria-selected="false" aria-controls="demo-panel-2" id="demo-tab-2" tabindex="-1">Permissions</button>
+  <button class="lp-tabs__tab" role="tab" aria-selected="false" aria-controls="demo-panel-3" id="demo-tab-3" tabindex="-1">History</button>
+</div>
+<div id="demo-panel-1" role="tabpanel" aria-labelledby="demo-tab-1" style="padding: 12px 10px;">Overview panel — summary of the latest scan.</div>
+<div id="demo-panel-2" role="tabpanel" aria-labelledby="demo-tab-2" style="padding: 12px 10px;" hidden>Permissions panel — effective access by trustee.</div>
+<div id="demo-panel-3" role="tabpanel" aria-labelledby="demo-tab-3" style="padding: 12px 10px;" hidden>History panel — change events over time.</div>
+
+<h2>Modal (interactive — lepidus.js)</h2>
+<button class="lp-button lp-button--primary lp-button--md" data-lp-modal-open="demo-modal">Open modal</button>
+
+<div class="lp-modal" id="demo-modal" hidden>
+  <div class="lp-modal__shell lp-modal__shell--sm" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title">
+    <div class="lp-modal__header lp-modal__header--center">
+      <h2 class="lp-modal__title" id="demo-modal-title">Add file server</h2>
+    </div>
+    <div class="lp-modal__body">
+      <div class="lp-modal__fields">
+        <label class="lp-modal__field-label" for="demo-m1">Name</label>
+        <div class="lp-input lp-input--full-width">
+          <div class="lp-input__field"><input class="lp-input__input" id="demo-m1" placeholder="e.g. LDSP-FS-04" data-lp-autofocus /></div>
+        </div>
+        <label class="lp-modal__field-label" for="demo-m2">Host</label>
+        <div class="lp-input lp-input--full-width">
+          <div class="lp-input__field"><input class="lp-input__input" id="demo-m2" placeholder="10.0.0.12" /></div>
+        </div>
+      </div>
+    </div>
+    <div class="lp-modal__footer">
+      <button class="lp-button lp-button--primary lp-button--md" data-lp-modal-close>Save</button>
+      <button class="lp-button lp-button--secondary lp-button--md" data-lp-modal-close>Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="../dist/lepidus.js"></script>
 <script>
   function setTheme(t) { document.documentElement.setAttribute('data-theme', t); }
   function flipToggle(el) {

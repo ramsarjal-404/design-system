@@ -25,6 +25,7 @@ Theming — set the attribute on `<html>` and every component follows:
 | File | Contents |
 |---|---|
 | `lepidus.css` | Tokens + all components in one file — the easiest path |
+| `lepidus.js` | Vanilla behavior for interactive components (Tabs, Modal) — data-attribute init, `window.Lepidus` API |
 | `lepidus.components.css` | Components only (load `@lepidus/tokens` CSS yourself) |
 | `components/<name>.css` | One component at a time |
 
