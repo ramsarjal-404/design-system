@@ -22,6 +22,7 @@ export function Tabs({
   defaultValue,
   onChange,
   idPrefix = 'lds-tabs',
+  hasPanels = false,
   className,
   ...props
 }: TabsProps) {
@@ -71,7 +72,7 @@ export function Tabs({
             role="tab"
             id={`${idPrefix}-tab-${tab.id}`}
             aria-selected={isActive}
-            aria-controls={`${idPrefix}-panel-${tab.id}`}
+            aria-controls={hasPanels ? `${idPrefix}-panel-${tab.id}` : undefined}
             tabIndex={isActive ? 0 : -1}
             disabled={tab.disabled}
             className={cx(styles.tab, isActive && styles.active)}

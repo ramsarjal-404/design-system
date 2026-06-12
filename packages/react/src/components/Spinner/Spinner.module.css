@@ -1,0 +1,91 @@
+/* Spinner.module.css — Lepidus Design System
+   Indeterminate SVG arc spinner: --color-brand-primary (#1C4599) arc over a
+   --color-background-subtle track, rotating on a --duration-slow (240ms) base
+   stretched 4x. Under prefers-reduced-motion the rotation stops and the arc
+   pulses opacity slowly instead. */
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  animation: rotate calc(var(--duration-slow, 240ms) * 4) linear infinite;
+}
+
+.track {
+  stroke: var(--color-background-subtle, #f6f6f6);
+}
+
+.arc {
+  stroke: var(--color-brand-primary, #1c4599);
+}
+
+/* === SIZES === */
+
+.sm {
+  width: var(--space-8, 16px);
+  height: var(--space-8, 16px);
+}
+
+.md {
+  width: var(--space-10, 24px);
+  height: var(--space-10, 24px);
+}
+
+/* No 32px space token exists, so lg doubles --space-8 (16px). */
+.lg {
+  width: calc(var(--space-8, 16px) * 2);
+  height: calc(var(--space-8, 16px) * 2);
+}
+
+/* === ANIMATION === */
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: var(--opacity-disabled, 0.5);
+  }
+}
+
+/* Reduced motion — no rotation; the arc pulses opacity slowly instead. */
+@media (prefers-reduced-motion: reduce) {
+  .svg {
+    animation: none;
+  }
+
+  .arc {
+    animation: pulse calc(var(--duration-slow, 240ms) * 8) var(--easing-standard, cubic-bezier(0.2, 0, 0, 1)) infinite;
+  }
+}
+
+/* === VISUALLY HIDDEN (clip-rect pattern) === */
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}

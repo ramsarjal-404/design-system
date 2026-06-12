@@ -104,6 +104,7 @@ export const Stepper = forwardRef<HTMLInputElement, StepperProps>(
           ref={ref}
           type="number"
           inputMode="numeric"
+          aria-label="Value"
           className={styles.input}
           value={draft}
           disabled={disabled}

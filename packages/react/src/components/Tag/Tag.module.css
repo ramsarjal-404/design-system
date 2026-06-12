@@ -46,9 +46,11 @@
   color: var(--component-status-na-text, #555766);
 }
 
+/* text-secondary (not text-disabled): #555766 on gray-150 keeps ≥4.5:1 contrast
+   while still reading muted next to the status variants */
 .disabled {
   background-color: var(--gray-150, #e0e0e0);
-  color: var(--color-text-disabled, #727171);
+  color: var(--color-text-secondary, #555766);
 }
 
 /* === DISMISS BUTTON === */

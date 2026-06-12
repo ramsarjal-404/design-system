@@ -122,7 +122,7 @@ The three Figma frames map onto \`variant\`:
 ## Accessibility
 - The card is \`role="dialog"\` labelled by the heading text.
 - Month/Year/H/M/S triggers expose \`aria-haspopup="listbox"\` + \`aria-expanded\`; their panels are \`role="listbox"\` with \`role="option"\` + \`aria-selected\` items.
-- The grid is \`role="grid"\` labelled "<Month> <Year>"; day buttons use \`aria-pressed\` for selection and event dots have \`aria-label="has event"\`.
+- The month grid is a \`role="group"\` labelled "<Month> <Year>" (a flat set of day toggle buttons, not an ARIA grid of rows); day buttons use \`aria-pressed\` for selection and event dots have \`aria-label="has event"\`.
 - Chip fields are keyboard-operable (\`role="button"\`, \`tabIndex=0\`, Enter/Space toggle, Escape closes) and each chip has a "Remove <label>" label.
 - Day cells and footer buttons show visible \`:focus-visible\` brand outlines.
 

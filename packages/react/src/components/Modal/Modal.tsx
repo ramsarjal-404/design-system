@@ -1,4 +1,5 @@
-import { Fragment, forwardRef, useEffect, useId, useRef, type MouseEvent } from 'react';
+import { Fragment, forwardRef, useEffect, useId, type MouseEvent } from 'react';
+import { FocusTrap } from '../../primitives';
 import { Button } from '../Button';
 import { Input } from '../Input';
 import type { ModalProps } from './Modal.types';
@@ -22,13 +23,11 @@ function cx(...classes: (string | false | undefined | null)[]): string {
  * Variables: open · size (sm/md/lg) · headerAlign (center/left) · overlay ·
  * closeOnOverlayClick · closeOnEsc · fields[] (multiple inputs) · primary/secondaryAction.
  *
- * Focus management (overlay mode): on open, focus moves to the first focusable
- * element in the dialog (or the shell); Tab/Shift+Tab cycle inside it; on close,
- * focus returns to the element that opened it.
+ * Focus management (overlay mode): handled by the shared **FocusTrap**
+ * primitive — on open, focus moves to the first focusable element in the
+ * dialog (or the shell); Tab/Shift+Tab cycle inside it; on close, focus
+ * returns to the element that opened it.
  */
-const FOCUSABLE =
-  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-
 export const Modal = forwardRef<HTMLDivElement, ModalProps>(
   (
     {
@@ -50,44 +49,10 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     ref
   ) => {
     const titleId = useId();
-    const shellRef = useRef<HTMLDivElement | null>(null);
     const setShellRef = (node: HTMLDivElement | null) => {
-      shellRef.current = node;
       if (typeof ref === 'function') ref(node);
       else if (ref) ref.current = node;
     };
-
-    useEffect(() => {
-      if (!open || !overlay) return;
-      const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-      const shell = shellRef.current;
-      (shell?.querySelector<HTMLElement>(FOCUSABLE) ?? shell)?.focus();
-
-      const onTab = (e: KeyboardEvent) => {
-        if (e.key !== 'Tab' || !shellRef.current) return;
-        const nodes = Array.from(shellRef.current.querySelectorAll<HTMLElement>(FOCUSABLE));
-        if (nodes.length === 0) {
-          e.preventDefault();
-          shellRef.current.focus();
-          return;
-        }
-        const first = nodes[0];
-        const last = nodes[nodes.length - 1];
-        const active = document.activeElement;
-        if (e.shiftKey && (active === first || active === shellRef.current)) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && active === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      };
-      document.addEventListener('keydown', onTab, true);
-      return () => {
-        document.removeEventListener('keydown', onTab, true);
-        previous?.focus();
-      };
-    }, [open, overlay]);
 
     useEffect(() => {
       if (!open || !overlay || !closeOnEsc || !onClose) return;
@@ -179,7 +144,9 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
 
     return (
       <div className={styles.overlay} onClick={onOverlayClick}>
-        {shell}
+        <FocusTrap active restoreFocus>
+          {shell}
+        </FocusTrap>
       </div>
     );
   }

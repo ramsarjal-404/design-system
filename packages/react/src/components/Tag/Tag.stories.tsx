@@ -49,7 +49,7 @@ slightly from the Badge status tokens; in code both components bind to the same
 | Success | \`--component-status-success-bg\` / \`-text\` | #E8F5E9 / #1CAA52 |
 | Warning | \`--component-status-warning-bg\` / \`-text\` | #FFF8E1 / #F57F17 |
 | Neutral | \`--component-status-na-bg\` / \`-text\` | #F5F7FD / #555766 |
-| Disabled | \`--gray-150\` / \`--color-text-disabled\` | #E0E0E0 / #727171 |
+| Disabled | \`--gray-150\` / \`--color-text-secondary\` | #E0E0E0 / #555766 |
 
 ## Accessibility
 

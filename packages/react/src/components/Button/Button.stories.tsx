@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Decorator, Meta, StoryObj } from '@storybook/react';
 import { Button } from './Button';
 
 const EditIcon = () => (
@@ -323,14 +323,23 @@ export const DangerWithIcons: Story = {
    WHITE VARIANT
    ────────────────────────────────────── */
 
+/* The white variant is documented for dark/brand surfaces, so these stories wrap it
+   in an explicit dark container instead of swapping the Storybook canvas background —
+   the canvas swap repaints asynchronously and bled into the axe audit of the next story. */
+const darkSurface: Decorator = (Story) => (
+  <div style={{ display: 'inline-flex', padding: '24px', borderRadius: '8px', background: '#1A202C' }}>
+    <Story />
+  </div>
+);
+
 export const White: Story = {
   args: { variant: 'white', children: 'Button White' },
+  decorators: [darkSurface],
   parameters: {
-    backgrounds: { default: 'dark' },
     docs: {
       description: {
         story:
-          'White variant for dark or brand surfaces: `color/background/surface` fill with brand blue-600 text and stroke. Shown on a dark canvas background.',
+          'White variant for dark or brand surfaces: `color/background/surface` fill with brand blue-600 text and stroke. Shown on a dark surface.',
       },
     },
   },
@@ -339,12 +348,12 @@ export const White: Story = {
 export const WhiteDisabled: Story = {
   name: 'White — Disabled',
   args: { variant: 'white', children: 'Button White', disabled: true },
+  decorators: [darkSurface],
   parameters: {
-    backgrounds: { default: 'dark' },
     docs: {
       description: {
         story:
-          'Disabled white variant on a dark canvas — collapses to the shared gray disabled tokens like every other variant.',
+          'Disabled white variant on a dark surface — collapses to the shared gray disabled tokens like every other variant.',
       },
     },
   },
@@ -375,7 +384,10 @@ export const AllVariants: Story = {
           <Button variant="primary">Primary</Button>
           <Button variant="secondary">Secondary</Button>
           <Button variant="danger">Danger</Button>
-          <Button variant="white">White</Button>
+          {/* white is for dark/brand surfaces — shown on its documented brand background */}
+          <span style={{ display: 'inline-flex', padding: '8px', borderRadius: '8px', background: 'var(--color-brand-primary)' }}>
+            <Button variant="white">White</Button>
+          </span>
         </div>
       </div>
 
@@ -388,7 +400,10 @@ export const AllVariants: Story = {
           <Button variant="primary" disabled>Primary</Button>
           <Button variant="secondary" disabled>Secondary</Button>
           <Button variant="danger" disabled>Danger</Button>
-          <Button variant="white" disabled>White</Button>
+          {/* white is for dark/brand surfaces — shown on its documented brand background */}
+          <span style={{ display: 'inline-flex', padding: '8px', borderRadius: '8px', background: 'var(--color-brand-primary)' }}>
+            <Button variant="white" disabled>White</Button>
+          </span>
         </div>
       </div>
 
@@ -401,7 +416,10 @@ export const AllVariants: Story = {
           <Button variant="primary" size="lg" iconLeft={<EditIcon />} iconRight={<ChevronIcon />}>Primary</Button>
           <Button variant="secondary" size="lg" iconLeft={<EditIcon />} iconRight={<ChevronIcon />}>Secondary</Button>
           <Button variant="danger" size="lg" iconLeft={<EditIcon />} iconRight={<ChevronIcon />}>Danger</Button>
-          <Button variant="white" size="lg" iconLeft={<EditIcon />} iconRight={<ChevronIcon />}>White</Button>
+          {/* white is for dark/brand surfaces — shown on its documented brand background */}
+          <span style={{ display: 'inline-flex', padding: '8px', borderRadius: '8px', background: 'var(--color-brand-primary)' }}>
+            <Button variant="white" size="lg" iconLeft={<EditIcon />} iconRight={<ChevronIcon />}>White</Button>
+          </span>
         </div>
       </div>
 

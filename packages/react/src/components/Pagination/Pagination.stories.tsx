@@ -253,10 +253,34 @@ export const AllStates: Story = {
   },
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-      <Pagination totalRecords={100} currentPage={3} totalPages={5} pageSize={50} />
-      <Pagination totalRecords={100} currentPage={1} totalPages={5} pageSize={50} />
-      <Pagination totalRecords={100} currentPage={5} totalPages={5} pageSize={50} />
-      <Pagination totalRecords={100} currentPage={1} totalPages={5} pageSize={50} disabled />
+      {/* unique landmark labels — multiple nav landmarks must be distinguishable */}
+      <Pagination aria-label="Pagination (middle page)" totalRecords={100} currentPage={3} totalPages={5} pageSize={50} />
+      <Pagination aria-label="Pagination (first page)" totalRecords={100} currentPage={1} totalPages={5} pageSize={50} />
+      <Pagination aria-label="Pagination (last page)" totalRecords={100} currentPage={5} totalPages={5} pageSize={50} />
+      <Pagination aria-label="Pagination (disabled)" totalRecords={100} currentPage={1} totalPages={5} pageSize={50} disabled />
     </div>
   ),
+};
+
+export const RTL: Story = {
+  name: 'RTL',
+  render: (args) => (
+    <div dir="rtl">
+      <InteractivePagination {...args} />
+    </div>
+  ),
+  args: {
+    totalRecords: 100,
+    currentPage: 3,
+    totalPages: 5,
+    pageSize: 50,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The default interactive bar under `dir="rtl"` — check that the segments flow right-to-left, the page-size popover hangs off the trigger\'s inline-end edge, and its option labels align to the start edge.',
+      },
+    },
+  },
 };

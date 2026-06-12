@@ -219,3 +219,27 @@ export const Interactive: Story = {
     },
   },
 };
+
+export const RTL: Story = {
+  name: 'RTL',
+  render: () => (
+    <div dir="rtl">
+      <div style={{ height: '100vh', minHeight: 880, display: 'flex' }}>
+        <Sidebar
+          header={<LogoMark />}
+          footer={<Footer />}
+          items={NAV.map((n, i) => ({ ...n, active: i === 1 }))}
+        />
+        <div style={{ flex: 1, background: '#F5F7FD' }} />
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The default rail under `dir="rtl"` — check that the rail docks on the right edge of the layout, the labels render correctly under their icons, and the active square and focus ring look identical to LTR.',
+      },
+    },
+  },
+};

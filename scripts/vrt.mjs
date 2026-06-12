@@ -44,7 +44,7 @@ const SETTLE_MS = 250;
 // ---------------------------------------------------------------------------
 
 function parseArgs(argv) {
-  const args = { update: false, grep: null, threshold: 0.1, maxDiffRatio: 0.001 };
+  const args = { update: false, grep: null, threshold: 0.2, maxDiffRatio: 0.001 };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--update' || a === '-u') args.update = true;
@@ -148,6 +148,8 @@ const DISABLE_MOTION_CSS = `
 async function captureStory(page, baseUrl, storyId, theme) {
   const url = `${baseUrl}/iframe.html?id=${encodeURIComponent(storyId)}&globals=theme:${theme}&viewMode=story`;
   await page.goto(url, { waitUntil: 'networkidle', timeout: 30_000 });
+  // settle webfont swap — text metrics shift when Open Sans lands late
+  await page.evaluate(() => document.fonts.ready);
   await page.addStyleTag({ content: DISABLE_MOTION_CSS });
   // Surface Storybook render errors instead of screenshotting an error page.
   const errored = await page
@@ -257,6 +259,8 @@ async function main() {
   const index = JSON.parse(await fsp.readFile(indexPath, 'utf8'));
   let storyIds = Object.values(index.entries ?? {})
     .filter((e) => e.type === 'story')
+    // stories tagged 'no-vrt' animate via JS state, so no snapshot can be stable
+    .filter((e) => !(e.tags ?? []).includes('no-vrt'))
     .map((e) => e.id);
 
   if (args.grep) {

@@ -17,6 +17,8 @@ export interface ChartCardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'ti
   actions?: ReactNode;
   /** Remove the default 1160px max-width from the Figma frame */
   fullWidth?: boolean;
+  /** Heading element used for the card title — pick the level that fits the page outline (default 'h3') */
+  headingLevel?: 'h2' | 'h3' | 'h4';
   children: ReactNode;
 }
 

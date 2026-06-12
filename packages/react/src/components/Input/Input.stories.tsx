@@ -37,7 +37,9 @@ Do **not** use it for label-less search or quick-entry fields — prefer the sta
 | Focus background | \`--component-input-bg-focus\` | \`--color-input-bg-focus\` → \`#E1EAFD\` |
 | Focus border | \`--component-input-border-focus\` | \`--color-input-border-focus\` → \`#1C4599\` |
 | Disabled background | \`--component-input-bg-disabled\` | \`--color-input-bg-disabled\` → \`#C6C6C6\` |
-| Error border / message | \`--color-border-danger\` / \`--color-text-danger\` | \`--red-400\` → \`#F72B2B\` |
+| Helper message | \`--color-text-secondary\` | \`--gray-600\` → \`#555766\` |
+| Error border | \`--color-border-danger\` | \`--red-400\` → \`#F72B2B\` |
+| Error message | \`--color-status-error-text\` | \`--red-600\` → \`#C62828\` |
 
 ## States
 

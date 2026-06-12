@@ -1,0 +1,26 @@
+/* Tooltip.module.css — Lepidus Design System
+   Dark text bubble surfaced by the Popover primitive (which owns position,
+   stacking and the enter transition). Inverted surface: color/text/primary
+   as the background with color/text/inverse text, so the bubble flips
+   naturally with the theme (dark-on-light in light, light-on-dark in dark).
+   Type: typography/body/sm · radius: radius/tooltip · shadow: shadow/flyout. */
+
+.tooltip {
+  box-sizing: border-box;
+  max-width: 280px;
+  padding: var(--space-2, 4px) var(--space-4, 8px);
+  border-radius: var(--radius-tooltip, 4px);
+  background-color: var(--color-text-primary, #364765);
+  color: var(--color-text-inverse, #ffffff);
+  font-family: var(--font-family-primary, 'Open Sans', system-ui, sans-serif);
+  font-size: var(--typography-body-sm-fontSize, 12px);
+  line-height: var(--typography-body-sm-lineHeight, 16px);
+  font-weight: var(--font-weight-regular, 400);
+  letter-spacing: var(--typography-body-sm-letterSpacing, 0px);
+  box-shadow:
+    var(--shadow-flyout-offset-x, 0px) var(--shadow-flyout-offset-y, 4px)
+    var(--shadow-flyout-blur, 12px) var(--shadow-flyout-spread, 0px)
+    rgba(0, 0, 0, var(--shadow-flyout-opacity, 0.12));
+  /* the bubble is pure description — it must never capture the pointer */
+  pointer-events: none;
+}

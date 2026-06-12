@@ -79,15 +79,20 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     }
 
     const Component: ElementType = as ?? 'a';
+    // Only forward href/target/rel when they have values — spreading
+    // `href={undefined}` would clobber an href set internally by a router
+    // link component passed via `as`.
+    const anchorProps = {
+      ...(href !== undefined && { href }),
+      ...(external
+        ? { target: '_blank', rel: 'noreferrer' }
+        : {
+            ...(target !== undefined && { target }),
+            ...(rel !== undefined && { rel }),
+          }),
+    };
     return (
-      <Component
-        ref={ref}
-        className={classes}
-        href={href}
-        target={external ? '_blank' : target}
-        rel={external ? 'noreferrer' : rel}
-        {...props}
-      >
+      <Component ref={ref} className={classes} {...anchorProps} {...props}>
         {children}
         {trailingIcon}
         {external ? (

@@ -73,7 +73,7 @@
         },
         "600": {
           "$type": "color",
-          "$value": "#0072C3",
+          "$value": "#0069B5",
           "$extensions": {
             "com.figma.codeSyntax": {
               "WEB": "var(--cyan-600)"
@@ -1200,7 +1200,7 @@
       },
       "pending-text": {
         "$type": "color",
-        "$value": "{semantic.color.text.disabled}",
+        "$value": "{semantic.color.text.secondary}",
         "$extensions": {
           "com.figma.codeSyntax": {
             "WEB": "var(--component-progress-pending-text)"

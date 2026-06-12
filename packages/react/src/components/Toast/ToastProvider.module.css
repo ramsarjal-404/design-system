@@ -1,0 +1,51 @@
+/* ToastProvider.module.css — Lepidus Design System
+   Fixed top-right stack of Toast pills rendered through the Portal primitive.
+   Layer: z/toast · stack gap: space/4 · viewport inset: space/9.
+   Motion: enter slides in with duration/base + easing/decelerate, exit fades
+   out with duration/base + easing/accelerate; both disabled under
+   prefers-reduced-motion (the provider also skips the exit delay then). */
+
+.viewport {
+  position: fixed;
+  top: var(--space-9, 20px);
+  right: var(--space-9, 20px);
+  z-index: var(--z-toast, 1600);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-4, 8px);
+  max-width: calc(100vw - 2 * var(--space-9, 20px));
+  /* the empty region must never block the page; rows re-enable hits */
+  pointer-events: none;
+}
+
+.item {
+  pointer-events: auto;
+  animation: toast-enter var(--duration-base, 180ms) var(--easing-decelerate, cubic-bezier(0, 0, 0, 1)) both;
+  transition:
+    opacity var(--duration-base, 180ms) var(--easing-accelerate, cubic-bezier(0.3, 0, 1, 1)),
+    transform var(--duration-base, 180ms) var(--easing-accelerate, cubic-bezier(0.3, 0, 1, 1));
+}
+
+.exiting {
+  opacity: 0;
+  transform: translateX(var(--space-9, 20px));
+  pointer-events: none;
+}
+
+@keyframes toast-enter {
+  from {
+    opacity: 0;
+    transform: translateX(var(--space-9, 20px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item {
+    animation: none;
+    transition: none;
+  }
+  .exiting {
+    transform: none;
+  }
+}

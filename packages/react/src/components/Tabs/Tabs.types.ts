@@ -15,4 +15,6 @@ export interface TabsProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChang
   onChange?: (id: string) => void;
   /** Prefix for the generated tab/panel ids — pair panels with id={`${idPrefix}-panel-${tab.id}`} */
   idPrefix?: string;
+  /** Set true when you render matching `role="tabpanel"` elements — wires each tab's aria-controls to its panel id */
+  hasPanels?: boolean;
 }

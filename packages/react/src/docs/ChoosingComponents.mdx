@@ -1,0 +1,108 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/Choosing Components" />
+
+# Choosing Components
+
+The catalogue has several families of look-alike components that differ by *intent*, not by
+style. This page is the decision guide; each component's own docs page repeats the relevant
+slice of it in its Overview. When in doubt, pick the **least interruptive** and **most visible**
+option that still does the job.
+
+## Text & number entry — Input vs TextField vs Textarea vs Stepper
+
+| Component | Shape | Use when | Don't use for |
+| --- | --- | --- | --- |
+| **Input** | 25px-radius pill, visible label | Form fields that need a label, helper text or error messaging | Label-less search bars |
+| **TextField** | 44px-radius pill, no label | Quick entry outside forms — search, inline filters | Anything needing a label or validation (use Input) |
+| **Textarea** | 15px-radius box, multi-line | Descriptions, comments, justifications | Single-line values |
+| **Stepper** | 30px-radius pill with chevrons | Bounded numeric settings — counts, thresholds, retention days | Free-form numeric strings (phone numbers, IDs) — use Input |
+
+Rule of thumb from the Input docs: inside a form, it's **Input**; outside a form, label-less,
+it's **TextField**; if it wraps, it's **Textarea**; if it's a clamped number, it's **Stepper**.
+
+## Feedback & interruption — Toast vs Message vs AlertPanel vs Modal vs Filter
+
+These sit on an interruption spectrum, lightest to heaviest:
+
+```
+Toast  ──▶  Message  ──▶  AlertPanel  ──▶  Modal / Filter drawer
+passive     inline alert  standing      blocking
+```
+
+| Component | Interruption | Use when |
+| --- | --- | --- |
+| **Toast** | None — transient pill, `role="status"`, auto-dismisses | Confirming something that already happened ("Report deleted") |
+| **Message** | Inline — `role="alert"` strip with action buttons | Feedback that should drive a decision in place |
+| **AlertPanel** | Standing — full page-level announcement | An alert that deserves the whole surface ("5 changes were made…") |
+| **Modal** | Blocking — backdrop, focus trap | One short task that must be completed or cancelled |
+| **Filter** | Blocking — right-hand drawer with a draft model | Building filter conditions; Apply/Cancel commits or discards the draft |
+
+Do not use **Modal** merely to show status — that's Message (blocking feedback) or Toast
+(passive). Prefer inline forms over a Modal when the task is long or multi-step. Don't use
+**AlertPanel** for inline form feedback (Message) or fleeting confirmation (Toast).
+
+## Status & chips — Badge vs Tag vs status in Table
+
+| Component | Interactive? | Voice | Use when |
+| --- | --- | --- | --- |
+| **Badge** | No — read-only | The *system* says something about an object ("Healthy", "3 errors") | Displaying status |
+| **Tag** | Yes — removable chip | The *user* said something ("these filters are applied") | Removable user input: applied filters, multi-select values |
+| **Table status column** | — | System | Render a **Badge** via the column's `render` function — don't invent a third status style |
+
+The test: *can the user take it back?* If yes, **Tag**; if it's pure status, **Badge**. Pick the
+Badge variant by meaning (`success` = healthy, `warning` = needs attention, `error` = failed,
+`neutral` = unknown), never by color preference.
+
+## Navigation — Tabs vs SettingsPanel vs Sidebar
+
+| Component | Scope | Use when |
+| --- | --- | --- |
+| **Tabs** | In-page | Peer *views* of the same context |
+| **SettingsPanel** | In-page | A flat settings category menu; for two-level trees use **FolderTree** |
+| **Sidebar** | App-level | The single `<nav>` landmark for top-level product areas (Auditor, Trust, Detect…) |
+
+Tabs are for switching views, not for leaving the page — navigating away is **Sidebar** or
+**Breadcrumb**, and sequential wizard progress is **Steps**. Don't nest navigation rails;
+Sidebar appears exactly once.
+
+## Selection — Dropdown vs RadioGroup vs Checkbox group
+
+Pick by **cardinality** (how many can be selected) and **visibility** (should all options be
+on screen):
+
+| Component | Cardinality | Options visible? | Use when |
+| --- | --- | --- | --- |
+| **RadioGroup** | Exactly one | All visible | 2–4 mutually exclusive options worth seeing at once |
+| **Dropdown** | One *or* many | Collapsed | 5+ options, or constrained space; supports multi-select |
+| **Checkbox group** | Zero to many | All visible | Independent yes/no choices the user should scan |
+| **Toggle** | On/off | Visible | A single setting that applies *instantly* |
+
+From the Radio docs: for 5+ options or constrained space use **Dropdown**; for independent
+yes/no choices use **Checkbox**; for an instant on/off setting use **Toggle**. And from the
+Dropdown docs: prefer a plain **Input** for free text — Dropdown is for a fixed, scannable list.
+
+## Help — Tooltip vs helper text
+
+| | **Tooltip** | **Helper text** |
+| --- | --- | --- |
+| Discoverability | On demand (hover/focus, 300ms delay) | Always visible |
+| Content | Supplementary description — shortcuts, an icon-only button's name | Required information — validation rules, format examples |
+| Persistence | Disappears on leave/blur/Escape | Stays through the interaction |
+
+**Never put essential information only in a tooltip.** If the user can't complete the task
+without it, it belongs in visible text — Input `helperText` or inline copy. A tooltip is a
+*description*, not a *name*: icon-only buttons still need `aria-label`, with the tooltip as the
+sighted-user counterpart. Tooltips can never hold interactive content.
+
+## Loading — Skeleton vs Spinner vs Progress
+
+| Component | Duration | Layout | Use when |
+| --- | --- | --- | --- |
+| **Skeleton** | Unknown | **Preserving** — placeholder mirrors the incoming content | The incoming layout is known: tables, lists, cards |
+| **Spinner** | Unknown | None — just "busy" | Short waits where the resulting layout isn't known |
+| **Progress** | **Known** — measurable completion | Bar with label/percentage | Scans, exports, uploads with a real fraction; `pending` for queued tasks |
+
+If you know what the content will look like, prefer **Skeleton** — it prevents layout shift.
+If you can measure completion, use **Progress** — never use it as an indeterminate "busy" bar,
+and never use its `pending` state for failures (surface errors with **Message** or **Toast**).

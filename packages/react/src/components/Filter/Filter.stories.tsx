@@ -165,3 +165,38 @@ export const FilteringAList: Story = {
     },
   },
 };
+
+export const RTL: Story = {
+  name: 'RTL',
+  render: () => {
+    const [open, setOpen] = useState(true);
+    const [conditions, setConditions] = useState<FilterCondition[]>([
+      { field: 'serverName', criteria: 'Equals', values: ['All'] },
+    ]);
+    return (
+      <div dir="rtl">
+        <div style={{ minHeight: 480, padding: 24, fontFamily: 'var(--font-family-primary)' }}>
+          <Button variant="primary" onClick={() => setOpen(true)}>Open Filters</Button>
+          <p style={{ fontSize: 14, color: 'var(--color-text-primary)' }}>
+            Applied: {conditions.map((c) => `${c.field} {${c.criteria} [${c.values.join(', ')}]}`).join(' , ')}
+          </p>
+          <Filter
+            open={open}
+            fields={FIELDS}
+            conditions={conditions}
+            onApply={(next) => { setConditions(next); setOpen(false); }}
+            onCancel={() => setOpen(false)}
+          />
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The default flow under `dir="rtl"` — check that the drawer docks to the left screen edge (its inline-end), its shadow casts toward the content instead of off-screen, and the card headers, checkboxes and footer buttons mirror correctly.',
+      },
+    },
+  },
+};

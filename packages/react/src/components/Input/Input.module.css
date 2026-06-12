@@ -140,10 +140,11 @@
 }
 
 /* === HELPER / MESSAGE === */
+/* color/text/secondary (#555766) — placeholder gray fails 4.5:1 on white */
 .message {
   font-size: var(--typography-label-md-fontSize, 12px);
   line-height: var(--typography-label-md-lineHeight, 16px);
-  color: var(--component-input-placeholder, #727171);
+  color: var(--color-text-secondary, #555766);
 }
 
 /* Align helper under the field when the label sits inline-start */
@@ -151,8 +152,9 @@
   margin-inline-start: calc(var(--component-input-label-width, 171px) + var(--space-4, 8px));
 }
 
+/* color/status/error/text (red-600) — the brighter danger red fails 4.5:1 on white */
 .errorMessage {
-  color: var(--color-text-danger, #f72b2b);
+  color: var(--color-status-error-text, #c62828);
 }
 
 /* Motion accessibility — collapse transitions for users who prefer reduced motion */

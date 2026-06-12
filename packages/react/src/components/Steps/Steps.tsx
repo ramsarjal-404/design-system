@@ -33,6 +33,7 @@ export const Steps = forwardRef<HTMLDivElement, StepsProps>(
       <div
         ref={ref}
         role="progressbar"
+        aria-label="Steps"
         aria-valuemin={1}
         aria-valuemax={total}
         aria-valuenow={clamped}

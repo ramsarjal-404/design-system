@@ -105,3 +105,21 @@ export const ButtonCrumbs: Story = {
     },
   },
 };
+
+export const RTL: Story = {
+  name: 'RTL',
+  args: { items: ITEMS },
+  render: (args) => (
+    <div dir="rtl">
+      <Breadcrumb {...args} />
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The default trail under `dir="rtl"` — check that the crumbs flow right-to-left, the separators sit between items, and the overlapped crumb padding still collapses to a single 10px gap (logical `margin-inline-end`).',
+      },
+    },
+  },
+};

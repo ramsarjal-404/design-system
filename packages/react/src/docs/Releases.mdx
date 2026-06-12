@@ -1,0 +1,103 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Lepidus/Releases" />
+
+# Releases & Versioning
+
+Lepidus versions with [Changesets](https://github.com/changesets/changesets). Every PR that
+changes published behavior ships with a changeset; releases are cut by rolling the accumulated
+changesets into versions and changelogs.
+
+## The workflow
+
+| Step | Command | When |
+| --- | --- | --- |
+| Add a changeset | `npm run changeset` | In every PR that changes `@lepidus/react` or `@lepidus/tokens` — pick the bump, write the consumer-facing note |
+| Cut a release | `npm run version-packages` | At release time — rolls all pending changesets into package versions + `CHANGELOG.md` entries |
+
+The changeset note is what consumers read in the changelog — write it for them ("Dropdown:
+`onApply` now receives the full selection array"), not as a commit message.
+
+## What warrants which bump
+
+Semver for a design system covers more than the TypeScript API — **pixels are API too**.
+
+| Bump | What qualifies | Examples |
+| --- | --- | --- |
+| **Major** | Anything a consumer must act on | Token removals/renames; prop removals or type narrowing; markup/role changes that break selectors or tests; dropping a theme layer |
+| **Minor** | Additive or visible-but-compatible | New components, props or tokens; **any intentional visual change** (with the VRT baseline updated in the same PR); new theme values |
+| **Patch** | Invisible fixes | Bug fixes restoring documented/Figma-specified behavior; a11y fixes; token *value* corrections back toward the Figma source; docs |
+
+Notes:
+
+- **Visual changes are minor, never patch** — even a 1px radius shift lands in someone's
+  screenshot diff. The PR must update the `vrt` baselines across all three themes and the
+  changeset must say what moved.
+- **Token renames are major even when the visual result is identical** — apps reference
+  `var(--component-…)` names directly.
+- A new component enters as **Beta** (see the status badges in **Lepidus → Contributing**);
+  Beta API may still change with a minor bump *with notice*, which is the point of the badge.
+
+## Deprecation
+
+Deprecations follow the policy in **Lepidus → Contributing**: mark the docs badge Deprecated
+and name the replacement, keep the component working for one minor release cycle while its
+stories carry a migration note, then remove component + tokens together (a major) so the token
+build never carries dead bindings. Every major that removes anything ships with a migration
+guide (template below).
+
+## 1.0.0 — the current baseline
+
+Released 2026-06-12 — the first versioned baseline (see `/CHANGELOG.md` at the repo root):
+
+- **38 components** — the original 30 plus the Forms/Feedback/Data Display wave (Tooltip,
+  Checkbox, Radio, Skeleton, Spinner, Avatar, Link, Accordion), each with token-bound CSS,
+  autodocs, Figma design links and interaction tests.
+- **Three-tier DTCG token pipeline** — Figma export → `tokens:import` → Style Dictionary →
+  `tokens.css`, with light/dark/high-contrast theme layers and the hand-maintained
+  `figma-gaps.tokens.json` overlay.
+- **Motion, z-index and breakpoint tokens** (`--duration-*`, `--easing-*`, `--z-*`,
+  `--breakpoint-*`).
+- **Shared overlay primitives** (Portal, FocusTrap, Popover, VisuallyHidden) and
+  ToastProvider with queueing and `aria-live` announcement.
+- **Quality gates** — `check:tokens` (no hardcoded colors, all references resolve),
+  `check:contrast` (WCAG pair audit per theme), axe checks in the Storybook test-runner, and
+  `vrt` visual regression across all three themes.
+- **Packaging** — `@lepidus/react` (ESM + types + extracted CSS) and `@lepidus/tokens`
+  (tokens.json + tokens.css), versioned with Changesets.
+
+## Migration guide template
+
+Every major release ships a migration guide. Copy this skeleton into the release notes and
+fill in every section (write "None" rather than deleting a section):
+
+````markdown
+# Migrating to vX.0.0
+
+## Summary
+
+One paragraph: what changed, why, and how long migration typically takes.
+
+## Breaking changes
+
+| Area | Before | After | Action |
+| --- | --- | --- | --- |
+| Token | `--component-button-fill` | `--component-button-primary-fill` | Find/replace (recipe below) |
+| Prop | `<Dropdown values>` | `<Dropdown value>` | Rename prop; type unchanged |
+
+## Codemod / find-replace recipes
+
+```bash
+# token renames
+grep -rl -- '--component-button-fill' src | xargs sed -i '' \
+  's/--component-button-fill/--component-button-primary-fill/g'
+```
+
+Or the codemod, if one ships: `npx @lepidus/codemods vX`.
+
+## Visual changes
+
+List every intentional visual difference (component, what moved, which themes). The VRT
+baselines were updated in [PR link] — re-baseline your own visual tests against vX.0.0
+before asserting on the new output.
+````

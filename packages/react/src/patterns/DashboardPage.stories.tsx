@@ -180,22 +180,22 @@ const DashboardPage = () => {
 
       {/* chart grid */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(540px, 1fr))', gap: 20 }}>
-        <ChartCard fullWidth title="Failed File Read" lastUpdated={UPDATED} actions={<CalenderIcon size={24} />} style={cardShadow}>
+        <ChartCard fullWidth headingLevel="h2" title="Failed File Read" lastUpdated={UPDATED} actions={<CalenderIcon size={24} />} style={cardShadow}>
           <LineChart labels={data.fileRead.labels} series={[{ name: 'Failed reads', values: data.fileRead.values, color: CHART_COLORS[2] }]} area height={210} />
         </ChartCard>
 
-        <ChartCard fullWidth title="Failed Logins" lastUpdated={UPDATED} actions={<CalenderIcon size={24} />} style={cardShadow}>
+        <ChartCard fullWidth headingLevel="h2" title="Failed Logins" lastUpdated={UPDATED} actions={<CalenderIcon size={24} />} style={cardShadow}>
           <BarChart categories={['FS1', 'FS2', 'FS3', 'FS4', 'FS5', 'FS6', 'FS7']} series={data.logins} ticks={5} />
           {legend(['Failed', 'Attempts'])}
         </ChartCard>
 
-        <ChartCard fullWidth title="Data Being Shared" lastUpdated={UPDATED} actions={<CalenderIcon size={24} />} style={cardShadow}>
+        <ChartCard fullWidth headingLevel="h2" title="Data Being Shared" lastUpdated={UPDATED} actions={<CalenderIcon size={24} />} style={cardShadow}>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <DonutChart data={data.shared} centerValue="2,483" centerLabel="Data" size={190} thickness={26} />
           </div>
         </ChartCard>
 
-        <ChartCard fullWidth title="Top 10 Admins" lastUpdated={UPDATED} actions={<CalenderIcon size={24} />} style={cardShadow}>
+        <ChartCard fullWidth headingLevel="h2" title="Top 10 Admins" lastUpdated={UPDATED} actions={<CalenderIcon size={24} />} style={cardShadow}>
           <ColumnChart
             categories={['LDSP1', 'LDSP2', 'LDSP3', 'LDSP4', 'LDSP5', 'LDSP6']}
             series={[{ name: 'Changes', values: data.admins }]}
@@ -205,12 +205,12 @@ const DashboardPage = () => {
           />
         </ChartCard>
 
-        <ChartCard fullWidth title="Security Group Changes" lastUpdated={UPDATED} actions={<CalenderIcon size={24} />} style={cardShadow}>
+        <ChartCard fullWidth headingLevel="h2" title="Security Group Changes" lastUpdated={UPDATED} actions={<CalenderIcon size={24} />} style={cardShadow}>
           <BubbleChart series={data.bubbles} height={210} />
           {legend(['Product 1', 'Product 2', 'Product 3'])}
         </ChartCard>
 
-        <ChartCard fullWidth title="New MS Teams Channel Created" lastUpdated={UPDATED} actions={<CalenderIcon size={24} />} style={cardShadow}>
+        <ChartCard fullWidth headingLevel="h2" title="New MS Teams Channel Created" lastUpdated={UPDATED} actions={<CalenderIcon size={24} />} style={cardShadow}>
           <ColumnChart
             categories={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
             series={data.teams}

@@ -247,3 +247,27 @@ export const Empty: Story = {
     },
   },
 };
+
+export const RTL: Story = {
+  name: 'RTL',
+  render: (args) => (
+    <div dir="rtl">
+      <Table {...args} />
+    </div>
+  ),
+  args: {
+    columns: COLUMNS,
+    data: SERVERS,
+    rowKey: (row: Server) => row.id,
+    selectable: true,
+    defaultSort: { columnKey: 'name', direction: 'asc' },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The default table under `dir="rtl"` — check that the columns flow right-to-left, the outer border and 15px rounded corner follow the first (start) column, header/cell text aligns to the start edge, and the sort arrows and search row mirror with their columns.',
+      },
+    },
+  },
+};

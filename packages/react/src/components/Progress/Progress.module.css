@@ -20,7 +20,7 @@
   font-size: var(--typography-label-md-fontSize, 12px);
   line-height: var(--typography-label-md-lineHeight, 16px);
   font-weight: var(--font-weight-semibold, 600);
-  color: var(--component-progress-text, #0072c3);
+  color: var(--component-progress-text, #0069b5);
 }
 
 .row {
@@ -52,7 +52,7 @@
   font-size: var(--typography-body-sm-fontSize, 12px);
   line-height: var(--typography-body-sm-lineHeight, 16px);
   font-weight: var(--font-weight-regular, 400);
-  color: var(--component-progress-text, #0072c3);
+  color: var(--component-progress-text, #0069b5);
   white-space: nowrap;
 }
 
@@ -68,7 +68,7 @@
 
 /* === PENDING — full disabled-gray bar + clock icon === */
 .pending .label {
-  color: var(--component-progress-pending-text, #727171);
+  color: var(--component-progress-pending-text, #555766);
 }
 
 .pending .fill {

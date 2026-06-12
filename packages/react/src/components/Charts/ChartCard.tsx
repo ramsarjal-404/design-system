@@ -15,20 +15,23 @@ function cx(...classes: (string | false | undefined | null)[]): string {
  * frame's 1160px width by default — set `fullWidth` to fill the container.
  */
 export const ChartCard = forwardRef<HTMLDivElement, ChartCardProps>(
-  ({ title, lastUpdated, actions, fullWidth = false, children, className, ...props }, ref) => (
+  ({ title, lastUpdated, actions, fullWidth = false, headingLevel = 'h3', children, className, ...props }, ref) => {
+    const Heading = headingLevel;
+    return (
     <div
       ref={ref}
       className={cx(styles.card, fullWidth && styles.fullWidthCard, className)}
       {...props}
     >
       <div className={styles.cardHeader}>
-        <h3 className={styles.cardTitle}>{title}</h3>
+        <Heading className={styles.cardTitle}>{title}</Heading>
         {lastUpdated && <span className={styles.cardUpdated}>{lastUpdated}</span>}
         {actions && <div className={styles.cardActions}>{actions}</div>}
       </div>
       {children}
     </div>
-  )
+    );
+  }
 );
 
 ChartCard.displayName = 'ChartCard';

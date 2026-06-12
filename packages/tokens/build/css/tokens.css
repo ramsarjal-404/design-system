@@ -78,7 +78,7 @@
   --chart-yellow: #f9c74f;
   --chart-green: #1aa367;
   --cyan-500: #2391dc;
-  --cyan-600: #0072c3;
+  --cyan-600: #0069b5;
   --font-size-11: 11px;
   --font-size-12: 12px;
   --font-size-14: 14px;
@@ -484,7 +484,7 @@
   --component-progress-complete-fill: var(--color-status-success-text);
   --component-progress-complete-text: var(--color-status-success-text);
   --component-progress-pending-fill: var(--color-button-disabled-bg);
-  --component-progress-pending-text: var(--color-text-disabled);
+  --component-progress-pending-text: var(--color-text-secondary);
   --component-progress-pending-icon: var(--color-progress-pending-icon);
   --component-chip-bg: var(--color-pill-active-bg);
   --component-chip-text: var(--color-text-brand);

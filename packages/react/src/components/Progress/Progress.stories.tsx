@@ -28,12 +28,12 @@ renders a quantified bar. For event notifications when a task finishes, pair it 
 
 | Part | CSS variable | Resolves to |
 | --- | --- | --- |
-| Label + readout (in-progress) | \`--component-progress-text\` | \`--cyan-600\` → #0072C3 (Figma "Cyan/Cyan 60") |
+| Label + readout (in-progress) | \`--component-progress-text\` | \`--cyan-600\` → #0069B5 (Figma "Cyan/Cyan 60", darkened from #0072C3 for 4.5:1 contrast on card surfaces) |
 | Fill (in-progress) | \`--component-progress-fill\` | \`--cyan-500\` → #2391DC |
 | Track | \`--component-progress-track\` | \`--gray-150\` → #E0E0E0 |
 | Label + readout (completed) | \`--component-progress-complete-text\` | \`--color-status-success-text\` → #1CAA52 |
 | Fill (completed) | \`--component-progress-complete-fill\` | \`--color-status-success-text\` → #1CAA52 |
-| Label (pending) | \`--component-progress-pending-text\` | \`--color-text-disabled\` → #727171 |
+| Label (pending) | \`--component-progress-pending-text\` | \`--color-text-secondary\` → #555766 |
 | Fill (pending) | \`--component-progress-pending-fill\` | \`--color-button-disabled-bg\` → #C6C6C6 |
 | Clock icon (pending) | \`--component-progress-pending-icon\` | \`--gray-450\` → #8D8D8D (Figma "Neutral/Gray 50") |
 | Track/fill radius | \`--radius-m\` | 12px |
@@ -150,6 +150,8 @@ export const Pending: Story = {
 };
 
 export const Animated: Story = {
+  // JS-driven value animation — excluded from visual regression (see scripts/vrt.mjs)
+  tags: ['no-vrt'],
   render: () => {
     const [value, setValue] = useState(0);
     useEffect(() => {

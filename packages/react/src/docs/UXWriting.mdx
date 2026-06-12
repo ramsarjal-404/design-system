@@ -1,0 +1,126 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Foundations/UX Writing" />
+
+# UX Writing
+
+How to write interface copy for Lepide products. Security software earns trust through
+precision: copy that is calm, specific and verifiable beats copy that is friendly but vague.
+These rules apply to every component in the system — Button labels, Input helper text, Modal
+titles, Toast announcements — and to product screens built from them.
+
+## Voice & tone
+
+- **Calm, not alarmist.** We report security events; we don't dramatize them. "3 permission
+  changes detected" — never "WARNING!!!" or scare punctuation.
+- **Specific, not vague.** Name the object, the count, the timeframe: "5 changes were made to
+  *Group Policy* in the last 24 hours" beats "Some changes occurred recently."
+- **Direct, not chatty.** Admins scan; they don't read. No "Oops!", no "Hang tight!", no
+  exclamation marks outside genuine success moments.
+- **Confident, not absolute.** Say what the system knows. "No threats detected" (what we
+  scanned) — not "You are safe" (a promise we can't keep).
+
+## Capitalization
+
+**Sentence case everywhere** — headings, buttons, labels, menu items, table headers:
+"Add credentials", "Modify filters", "Last scan time".
+
+The only exceptions are **product and proper names**, which keep their official casing:
+Lepide Auditor, Lepide Trust, Active Directory, Group Policy, Microsoft 365. Never uppercase
+for emphasis ("DELETE") — weight and color carry emphasis, not caps.
+
+## Button labels
+
+- **Start with a verb** that names the action: "Save changes", "Run scan", "Modify filters".
+  A button is an action, not a topic — "Settings" belongs on a link or tab, not a primary button.
+- **Never "Yes" / "No" / "OK".** The label must make sense without reading the surrounding
+  text: "Delete report", not "Yes". (See confirmation dialogs below.)
+- **One or two words** where possible; three is the ceiling. The pill shape stretches, your
+  user's patience doesn't.
+- Paired actions: the primary names the verb, the secondary is "Cancel" — not "Close",
+  not "Back", not "No thanks".
+
+## Error messages
+
+Every error follows the same three-part pattern:
+
+1. **What happened** — plainly, in the user's terms: "The connection to the domain controller failed."
+2. **Why** (when known): "The supplied credentials were rejected."
+3. **What to do next**: "Check the service account password and try again."
+
+Rules:
+
+- **Never blame the user.** "The password is incorrect" — not "You entered the wrong password."
+- **No error codes alone.** `ERR_AUTH_407` helps support, not the user. If a code matters,
+  append it after the human-readable message: "…try again. (Error 407)".
+- **No dead ends.** If there is genuinely nothing the user can do, say who can:
+  "Contact your administrator."
+- Render errors through the right component: field problems in Input `errorText`, blocking
+  failures in **Message**, transient failures in an error **Toast** (see
+  **Foundations → Choosing Components**).
+
+## Empty states
+
+An empty state answers two questions: *why is this empty* and *what do I do about it*.
+
+- **Explain**: "No reports have been created yet" / "No results match your filters."
+- **Next action**: pair the explanation with the action that fills the state — a "Create report"
+  button, or "Clear filters" when the emptiness is filter-induced.
+- First-run emptiness is an onboarding moment; filtered-to-nothing is not an error. Don't use
+  error styling for either.
+
+## Confirmation dialogs
+
+- **Title is the question**: "Delete this report?" — not "Confirm" or "Are you sure?".
+- **Primary button is the verb** from the title: "Delete report". The secondary is "Cancel".
+- One sentence of consequence in the body, stating what is and isn't reversible:
+  "The report and its schedule will be removed. This can't be undone."
+- Only confirm destructive or hard-to-reverse actions. Confirming everything teaches users to
+  click through everything.
+
+## Toast copy
+
+- **Past tense** — a toast announces something that already happened: "Report deleted",
+  "Credentials saved", "Scan started".
+- **Under ~8 words.** A toast is read in the corner of the eye; if it needs a second clause,
+  it's a **Message**.
+- No "successfully" — "Report deleted" already means it succeeded.
+- Error toasts still follow the error pattern, compressed: "Export failed — try again."
+
+## Labels vs placeholders
+
+**The placeholder is never the label.** Placeholders disappear on entry, fail contrast, and are
+skipped by many screen readers — a field identified only by its placeholder becomes anonymous
+the moment the user types. This is the Input docs convention (see **Forms → Input**): every form
+field gets a visible label; the placeholder, if present at all, shows an *example* of valid
+input ("e.g. admin@lepide.local"), never instructions and never validation rules.
+
+- Labels: 1–3 words, sentence case, no trailing colon styling decisions in copy.
+- Requirements ("8+ characters") go in `helperText`, errors in `errorText` — both visible,
+  neither in the placeholder.
+
+## Numbers, dates & truncation
+
+- **Numbers**: use digits, not words ("3 changes", not "three changes"). Group thousands
+  with the locale separator (1,024). Don't fake precision — "~2,000 events", not "2,013.00".
+- **Dates & times**: absolute timestamps for audit data — "12 Jun 2026, 14:32" — because
+  "2 hours ago" is useless in an evidence trail. Relative time is acceptable only for live,
+  self-refreshing surfaces, and the absolute value must be available (e.g. in a Tooltip).
+- **Truncation**: truncate at the end with an ellipsis (…), keep the start of the string (paths
+  and account names identify themselves by their start), and always expose the full value —
+  Tooltip on hover/focus or a details surface. Never truncate numbers or timestamps.
+
+## Terminology
+
+Use one word per concept, system-wide:
+
+| Use | Not | Why |
+| --- | --- | --- |
+| sign in / sign out | login / logout (as verbs) | "Login" is acceptable only as a noun/adjective ("login page") |
+| remove | delete | "Remove" takes something out of a list/relationship; it still exists |
+| delete | remove | "Delete" destroys the object itself — pair with a confirmation dialog |
+| turn on / turn off | enable / disable (in UI copy) | Plain words; "enabled/disabled" is fine for *states* in tables |
+| select | choose / pick | Matches the components (Dropdown, Checkbox, Radio) |
+| search | find / lookup | Matches the TextField search affordance |
+| administrator | admin (in formal copy) | "Admin" is fine in space-constrained UI |
+| previous / next | back / forward | Pagination and Steps wording |

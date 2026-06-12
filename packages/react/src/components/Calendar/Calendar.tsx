@@ -209,7 +209,9 @@ function MonthGrid({
   for (let d = 1; d <= daysInMonth; d++) cells.push(d);
 
   return (
-    <div className={styles.grid} role="grid" aria-label={`${MONTHS[month]} ${year}`}>
+    // role="group" (not "grid"): ARIA grid requires row children, but this is a
+    // simple flat collection of day toggle buttons, not a 2-D navigable grid
+    <div className={styles.grid} role="group" aria-label={`${MONTHS[month]} ${year}`}>
       {cells.map((d, i) =>
         d === null ? (
           <span key={`e${i}`} className={cx(styles.day, styles.dayEmpty)} aria-hidden="true" />

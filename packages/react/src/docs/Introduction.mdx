@@ -4,7 +4,7 @@ import { Meta } from '@storybook/blocks';
 
 # Lepidus Design System
 
-Lepidus is the component library for Lepide products: **30 React components**, fully driven by a
+Lepidus is the component library for Lepide products: **38 React components**, fully driven by a
 three-tier design-token pipeline generated from the Figma source of truth
 ([Lepidus on Figma](https://www.figma.com/design/Ck7BIRlRw2bwHRk8PL5IfC/Lepidus)).
 
@@ -42,11 +42,12 @@ The sidebar mirrors these categories:
 
 | Category | Components |
 | --- | --- |
-| Actions | Button, ActionItem |
-| Forms | Input, TextField, Textarea, Stepper, Dropdown, Calendar, TimePicker |
-| Data Display | Badge, Card, Pagination, Progress, Scrollbar |
-| Feedback | Message, Toast, Modal |
+| Actions | Button, ActionItem, Link |
+| Forms | Input, TextField, Textarea, Stepper, Dropdown, Calendar, TimePicker, Checkbox, Radio |
+| Data Display | Badge, Card, Pagination, Progress, Scrollbar, Avatar, Accordion |
+| Feedback | Message, Toast, Modal, Skeleton, Spinner |
 | Navigation | Sidebar |
+| Overlays | Tooltip |
 
 Composed, real-world examples live under **Patterns** (settings form, data table page, app
 shell), and the foundations (typography, iconography, elevation & motion) under **Foundations**.
@@ -61,26 +62,33 @@ shell), and the foundations (typography, iconography, elevation & motion) under 
 
 | Component | Status | Notes |
 | --- | --- | --- |
+| Accordion | Beta | New — token-first, no dedicated Figma frame yet |
 | ActionItem | Stable | Floating icon-action toolbar |
 | AlertPanel | Stable | Page-level alert announcement |
+| Avatar | Beta | New — token-first, no dedicated Figma frame yet; includes AvatarGroup |
 | Badge | Stable | Static status pill |
 | Breadcrumb | Stable | Trail navigation |
 | Button | Stable | Pill-shaped action button |
 | Calendar | Stable | Schedule picker |
 | Card | Stable | Surface container |
 | Charts | Stable | Bar, Column, Line, Donut, Gauge, Bubble + ChartCard/ChartLegend |
+| Checkbox | Beta | New — token-first, no dedicated Figma frame yet |
 | Dropdown | Stable | Select / multi-select with custom menu |
 | EmptyState | Stable | Empty page statement with illustration |
 | Filter | Stable | "Modify Filters" drawer |
 | FolderTree | Stable | Expandable report folders |
 | Input | Stable | Labeled single-line form field |
+| Link | Beta | New — token-first, no dedicated Figma frame yet |
 | Message | Stable | Interrupting alert with action buttons |
 | Modal | Stable | Popup / dialog surface |
 | Pagination | Stable | Table pagination bar |
 | Progress | Stable | Labeled progress bar |
+| Radio | Beta | New — token-first, no dedicated Figma frame yet; includes RadioGroup |
 | Scrollbar | Stable | Presentational — host wires keyboard |
 | SettingsPanel | Stable | Settings category menu |
 | Sidebar | Stable | Vertical icon-rail navigation |
+| Skeleton | Beta | New — token-first, no dedicated Figma frame yet |
+| Spinner | Beta | New — token-first, no dedicated Figma frame yet |
 | Stepper | Stable | Number stepper / spinner |
 | Steps | Stable | Wizard progress indicator |
 | Table | Stable | Data table with selection |
@@ -89,8 +97,14 @@ shell), and the foundations (typography, iconography, elevation & motion) under 
 | TextField | Stable | Standalone pill text field |
 | Textarea | Stable | Multi-line description box |
 | TimePicker | Stable | "Enter Time" picker |
-| Toast | Stable | Transient notification pill |
+| Toast | Stable | Transient notification pill; ToastProvider/useToast queue app-level toasts |
 | Toggle | Stable | On/off switch |
+| Tooltip | Beta | New — token-first, no dedicated Figma frame yet |
+
+**Primitives** — `Portal`, `FocusTrap`, `Popover` and `VisuallyHidden` in
+`packages/react/src/primitives` are exported for app use (Tooltip and the overlay surfaces build
+on them), but they are not themselves design-reviewed components: no Figma frame, no status
+badge, no docs page of their own.
 
 Each component's docs page includes: an **Overview** (when to use it and which sibling to prefer),
 **Anatomy**, a **Design tokens** table mapping every visual part to its CSS variable and resolved
@@ -116,3 +130,6 @@ implementation, and **Usage** do/don'ts.
 - **Message vs Toast** — interrupt with `Message` (role="alert", action buttons), notify with
   `Toast` (role="status", transient pill).
 - **Badge vs Toast** — `Badge` is a static inline status label; `Toast` announces an event.
+
+The full decision guide — interruption spectrum, selection cardinality, loading states and more —
+lives in **Foundations → Choosing Components**.

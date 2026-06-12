@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useId } from 'react';
 import type { ProgressProps, ProgressStatus } from './Progress.types';
 import styles from './Progress.module.css';
 
@@ -44,6 +44,7 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
     },
     ref
   ) => {
+    const labelId = useId();
     const clamped = clampValue(value);
     const resolved: Exclude<ProgressStatus, 'auto'> =
       status === 'auto' ? (clamped >= 100 ? 'completed' : 'in-progress') : status;
@@ -64,12 +65,13 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
         )}
         {...props}
       >
-        <span className={styles.label}>{label}</span>
+        <span id={labelId} className={styles.label}>{label}</span>
 
         <div className={styles.row}>
           <div
             className={styles.track}
             role="progressbar"
+            aria-labelledby={labelId}
             aria-valuemin={0}
             aria-valuemax={100}
             aria-valuenow={isPending ? undefined : barValue}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, waitFor, within } from '@storybook/test';
 import { Checkbox } from './Checkbox';
 
 const componentDescription = `
@@ -165,8 +165,11 @@ export const Indeterminate: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const checkbox = canvas.getByRole('checkbox', { name: 'Select all permissions' });
-    expect(checkbox).toHaveAttribute('aria-checked', 'mixed');
-    expect((checkbox as HTMLInputElement).indeterminate).toBe(true);
+    // the DOM indeterminate flag is set by a ref effect — wait for it on cold loads
+    await waitFor(() => {
+      expect(checkbox).toHaveAttribute('aria-checked', 'mixed');
+      expect((checkbox as HTMLInputElement).indeterminate).toBe(true);
+    });
   },
 };
 
