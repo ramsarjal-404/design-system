@@ -37,6 +37,8 @@ Storybook **Foundations → HTML & CSS** page. The font is Open Sans.
 | `npm run tokens` | Style Dictionary → `packages/tokens/build/css/tokens.css` |
 | `npm run tokens:diff` | Reviewable changelog of token changes vs git |
 | `npm run css` | Generate `@lepidus/css` (plain `lp-*` classes) from the React CSS modules |
+| `npm run manifest` | Generate `public/component-manifest.json` (props + class inventory, for AI tooling and the MCP server) |
+| `npm run check:demo-a11y` | CI gate: axe (WCAG 2.1 AA) over the plain-HTML demo, all themes + open overlay states |
 | `npm run typecheck` | TypeScript, no emit |
 | `npm run check:tokens` | CI gate: every `var()` resolves, no hardcoded colors |
 | `npm run check:contrast` | WCAG contrast audit of token pairs, all three themes |

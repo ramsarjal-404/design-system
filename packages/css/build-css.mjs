@@ -24,7 +24,7 @@
  */
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const componentsDir = join(here, '../react/src/components');
@@ -38,8 +38,9 @@ const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
  * `elements` become `lp-<name>__<part>`; `map` holds explicit overrides
  * (e.g. modifiers that belong to an element, not the block); every other
  * class in the module becomes a block modifier `lp-<name>--<mod>`.
+ * Exported so the component-manifest build can publish the class inventory.
  */
-const COMPONENTS = [
+export const COMPONENTS = [
   {
     name: 'button',
     source: 'Button/Button.module.css',
@@ -353,7 +354,22 @@ function fail(msg) {
   process.exitCode = 1;
 }
 
+/** Full lp-* class inventory per component, derived from the source modules. */
+export function getClassInventory() {
+  return COMPONENTS.map((cfg) => {
+    const sourceCss = readFileSync(join(componentsDir, cfg.source), 'utf8');
+    const map = buildClassMap(cfg, sourceCss);
+    const used = new Set(classesUsed(sourceCss));
+    const classes = [...map.entries()]
+      .filter(([from]) => used.has(from))
+      .map(([, to]) => to)
+      .sort();
+    return { name: cfg.name, block: `lp-${cfg.name}`, classes };
+  });
+}
+
 // --- build ------------------------------------------------------------------
+function build() {
 const tokensCss = readFileSync(tokensCssPath, 'utf8');
 const definedVars = new Set(
   [...tokensCss.matchAll(/(--[A-Za-z0-9-]+)\s*:/g)].map((m) => m[1])
@@ -404,3 +420,10 @@ copyFileSync(join(here, 'lepidus.js'), join(distDir, 'lepidus.js'));
 console.log(
   `✓ wrote dist/lepidus.css, dist/lepidus.components.css, dist/lepidus.js, ${COMPONENTS.length} component files`
 );
+}
+
+// Run the build when executed directly (node build-css.mjs); importing the
+// module for the class inventory must not trigger a build.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  build();
+}

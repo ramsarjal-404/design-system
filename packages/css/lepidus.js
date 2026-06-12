@@ -87,6 +87,7 @@
 
   var openModalEl = null;
   var lastFocused = null;
+  var inerted = [];
 
   function openModal(idOrEl) {
     var modal = typeof idOrEl === 'string' ? document.getElementById(idOrEl) : idOrEl;
@@ -94,6 +95,12 @@
     lastFocused = document.activeElement;
     modal.hidden = false;
     openModalEl = modal;
+    // Page content behind the dialog must be inert — keyboard focus is
+    // trapped below, but screen-reader virtual cursors are not.
+    inerted = Array.prototype.filter.call(document.body.children, function (el) {
+      return el !== modal && !el.contains(modal) && !el.inert && el.tagName !== 'SCRIPT';
+    });
+    inerted.forEach(function (el) { el.inert = true; });
     var target =
       modal.querySelector('[data-lp-autofocus]') || modal.querySelector(FOCUSABLE);
     if (target) target.focus();
@@ -103,6 +110,8 @@
     if (!openModalEl) return;
     openModalEl.hidden = true;
     openModalEl = null;
+    inerted.forEach(function (el) { el.inert = false; });
+    inerted = [];
     if (lastFocused && document.contains(lastFocused)) lastFocused.focus();
     lastFocused = null;
   }

@@ -46,6 +46,19 @@ primary consumer surface; React is the workshop and the future option.
 - When adding a component also update: `packages/css/demo/index.html`,
   the docs page `packages/react/src/docs/HtmlCss.mdx`, and `public/llms.txt`.
 
+## AI surface
+
+- `npm run manifest` → `public/component-manifest.json` (docgen props +
+  lp- class inventory; rebuilt automatically before Storybook builds).
+- MCP server: `packages/mcp/server.mjs` (zero-dep stdio JSON-RPC), wired via
+  `.mcp.json` — tools: list_components, get_component, search_tokens,
+  get_usage_rules. Reads the manifest + tokens.css + public/llms.txt.
+- `npm run check:demo-a11y` — axe (WCAG 2.1 AA) over the plain-HTML demo in
+  all 3 themes including open modal/dropdown states; kills CSS transitions
+  before measuring (themed bg transitions otherwise give mid-blend colors);
+  `.lp-avatar__fallback` is excluded from color-contrast (aria-hidden
+  decoration, same exemption as Avatar.stories.tsx). Runs in CI.
+
 ## Site
 
 Published Storybook: https://lepidus-design-system-button.vercel.app

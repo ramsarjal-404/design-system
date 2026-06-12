@@ -121,6 +121,14 @@ Sidebar, TextField, Textarea, TimePicker.
     // load @lepidus/tokens css, then @lepidus/react/style.css first
     <Button variant="primary" size="md">Save</Button>
 
+## Machine-readable API
+
+- Component manifest (props, types, defaults, lp- classes per component):
+  https://lepidus-design-system-button.vercel.app/component-manifest.json
+- MCP server (for Claude Code / Cursor etc., from the repo):
+  `.mcp.json` wires `node packages/mcp/server.mjs` — tools: list_components,
+  get_component, search_tokens, get_usage_rules.
+
 ## Key token names
 
 - Buttons: `--component-button-{primary|secondary|danger|white}-{fill|stroke|text}`,

@@ -1,0 +1,2425 @@
+{
+  "$schema": "https://lepidus-design-system-button.vercel.app/component-manifest.json",
+  "generatedFrom": "scripts/build-manifest.mjs — do not edit by hand",
+  "designSystem": "Lepidus",
+  "docs": "https://lepidus-design-system-button.vercel.app",
+  "rules": "https://lepidus-design-system-button.vercel.app/llms.txt",
+  "theming": "set data-theme=\"light\" | \"dark\" | \"hc\" on <html>",
+  "components": [
+    {
+      "name": "Accordion",
+      "description": "Accordion — Lepidus Design System",
+      "reactImport": "import { Accordion } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string[]",
+          "required": false,
+          "defaultValue": null,
+          "description": "Uncontrolled initial open item ids."
+        },
+        {
+          "name": "headingLevel",
+          "type": "enum",
+          "required": false,
+          "defaultValue": 3,
+          "description": "Heading level (2–6) wrapping each trigger button, so the accordion slots\ninto the page outline. Defaults to 3."
+        },
+        {
+          "name": "idPrefix",
+          "type": "string",
+          "required": false,
+          "defaultValue": "lds-accordion",
+          "description": "Prefix for the generated trigger/panel ids (must be unique per page)."
+        },
+        {
+          "name": "items",
+          "type": "AccordionItem[]",
+          "required": true,
+          "defaultValue": null,
+          "description": "Items to render, in order."
+        },
+        {
+          "name": "mode",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "single",
+          "description": "Expand mode — `single` (default) keeps at most one item open and closes the\nprevious one; `multiple` lets any number of items stay open independently."
+        },
+        {
+          "name": "onValueChange",
+          "type": "((value: string[]) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Called with the next open-id array whenever a trigger is toggled."
+        },
+        {
+          "name": "value",
+          "type": "string[]",
+          "required": false,
+          "defaultValue": null,
+          "description": "Controlled list of open item ids. Pair with `onValueChange`; in `single`\nmode the array holds at most one id."
+        }
+      ],
+      "plainCss": {
+        "block": "lp-accordion",
+        "classes": [
+          "lp-accordion",
+          "lp-accordion__chevron",
+          "lp-accordion__heading",
+          "lp-accordion__item",
+          "lp-accordion__panel",
+          "lp-accordion__panel--open",
+          "lp-accordion__panel-content",
+          "lp-accordion__panel-inner",
+          "lp-accordion__title",
+          "lp-accordion__trigger"
+        ]
+      }
+    },
+    {
+      "name": "defaultActions",
+      "description": "The Figma \"Action Item\" default set: delete (danger) · upload · edit · share.",
+      "reactImport": "import { defaultActions } from '@lepidus/react'",
+      "props": [],
+      "plainCss": null
+    },
+    {
+      "name": "ActionItem",
+      "description": "ActionItem — Lepidus Design System",
+      "reactImport": "import { ActionItem } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "actions",
+          "type": "ActionItemAction[]",
+          "required": false,
+          "defaultValue": "[\n  { id: 'delete', label: 'Delete', icon: <DeleteIcon />, tone: 'danger' },\n  { id: 'upload', label: 'Upload', icon: <UploadIcon /> },\n  { id: 'edit', label: 'Edit', icon: <EditIcon /> },\n  { id: 'share', label: 'Share', icon: <ShareIcon /> },\n]",
+          "description": "Ordered list of icon actions. Defaults to delete / upload / edit / share\n(the Figma \"Action Item\" set)."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Item actions",
+          "description": "Accessible label for the toolbar group"
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "AlertPanel",
+      "description": "AlertPanel — Lepidus Design System",
+      "reactImport": "import { AlertPanel } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "action",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Call to action (e.g. a primary Button \"View Report\")"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Rich summary — use <strong> for the inline facts (\"5 change(s)\", \"File Server\")"
+        },
+        {
+          "name": "details",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Evidence area between summary and action (e.g. a small details table)"
+        },
+        {
+          "name": "footnote",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Small line under the action (\"Now you can check the report directly…\")"
+        },
+        {
+          "name": "headline",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "Attention!",
+          "description": "Big headline under the triangle (default \"Attention!\")"
+        },
+        {
+          "name": "severity",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "warning",
+          "description": "Colors the triangle: warning (yellow), success (green), error (red), info (brand)"
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": "The alert name (e.g. \"Mass files copied\")"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-alert-panel",
+        "classes": [
+          "lp-alert-panel",
+          "lp-alert-panel__action",
+          "lp-alert-panel__details",
+          "lp-alert-panel__footnote",
+          "lp-alert-panel__headline",
+          "lp-alert-panel__icon",
+          "lp-alert-panel__summary",
+          "lp-alert-panel__title"
+        ]
+      }
+    },
+    {
+      "name": "Avatar",
+      "description": "Avatar — Lepidus Design System",
+      "reactImport": "import { Avatar } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "alt",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Image alt text — becomes the accessible name when the image renders. Falls back to `name`."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Person's display name. Drives the initials fallback (max 2 characters) and the\ndeterministic background color (hashed onto `--color-chart-series-1…6`). Also used\nas the accessible name when no `alt` is provided."
+        },
+        {
+          "name": "shape",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "circle",
+          "description": "Container shape — `circle` (default, `--radius-avatar`) or `square` (`--radius-ms`)."
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "md",
+          "description": "Avatar size — sm 24px, md 32px, lg 40px, xl 56px."
+        },
+        {
+          "name": "src",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Image source. When it fails to load the avatar gracefully falls back to initials."
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "required": false,
+          "defaultValue": null,
+          "description": "Optional presence dot pinned to the bottom-right corner. Maps to\nonline → `--color-status-success-text`, away → `--chart-yellow`,\noffline → `--color-text-disabled`. Announced via an `aria-label` (\"Online\" …)."
+        }
+      ],
+      "plainCss": {
+        "block": "lp-avatar",
+        "classes": [
+          "lp-avatar",
+          "lp-avatar--circle",
+          "lp-avatar--lg",
+          "lp-avatar--md",
+          "lp-avatar--overflow",
+          "lp-avatar--series1",
+          "lp-avatar--series2",
+          "lp-avatar--series3",
+          "lp-avatar--series4",
+          "lp-avatar--series5",
+          "lp-avatar--series6",
+          "lp-avatar--sm",
+          "lp-avatar--square",
+          "lp-avatar--xl",
+          "lp-avatar-group",
+          "lp-avatar-group__item",
+          "lp-avatar__fallback",
+          "lp-avatar__image",
+          "lp-avatar__status",
+          "lp-avatar__status--away",
+          "lp-avatar__status--offline",
+          "lp-avatar__status--online"
+        ]
+      }
+    },
+    {
+      "name": "AvatarGroup",
+      "description": "AvatarGroup — Lepidus Design System",
+      "reactImport": "import { AvatarGroup } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": "`<Avatar>` elements to stack."
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Maximum number of avatars to render before collapsing the rest into a\n\"+N\" overflow chip. Unset renders every child."
+        },
+        {
+          "name": "shape",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "circle",
+          "description": "Shape applied to every avatar in the stack (overrides the children's own `shape`)."
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "md",
+          "description": "Size applied to every avatar in the stack (overrides the children's own `size`)."
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "Badge",
+      "description": "Badge — Lepidus Design System",
+      "reactImport": "import { Badge } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": "Badge label"
+        },
+        {
+          "name": "dot",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Show a leading status dot (uses the variant text color)"
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Leading icon slot (replaces the dot if both are set)"
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Visual variant — default (brand) uses component/badge tokens; the rest use component/status tokens"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-badge",
+        "classes": [
+          "lp-badge",
+          "lp-badge--default",
+          "lp-badge--error",
+          "lp-badge--neutral",
+          "lp-badge--success",
+          "lp-badge--warning",
+          "lp-badge__dot",
+          "lp-badge__icon"
+        ]
+      }
+    },
+    {
+      "name": "Breadcrumb",
+      "description": "Breadcrumb — Lepidus Design System",
+      "reactImport": "import { Breadcrumb } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "items",
+          "type": "BreadcrumbItem[]",
+          "required": true,
+          "defaultValue": null,
+          "description": "Trail in order — the last item is the current page (not a link)"
+        },
+        {
+          "name": "separator",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "/",
+          "description": "Separator between crumbs (default \"/\", bold, in the crumb color)"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-breadcrumb",
+        "classes": [
+          "lp-breadcrumb",
+          "lp-breadcrumb__current",
+          "lp-breadcrumb__item",
+          "lp-breadcrumb__link",
+          "lp-breadcrumb__list",
+          "lp-breadcrumb__separator"
+        ]
+      }
+    },
+    {
+      "name": "Button",
+      "description": "Button — Lepidus Design System",
+      "reactImport": "import { Button } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": "Button label"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Disabled state — uses component/button/disabled tokens"
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Full-width button"
+        },
+        {
+          "name": "iconLeft",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Left icon slot"
+        },
+        {
+          "name": "iconRight",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Right icon slot"
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "md",
+          "description": "Size — sm (compact, dense UI like table rows), md (regular) or lg (with-icon)"
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "primary",
+          "description": "Visual variant — maps 1:1 to Figma component tokens"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-button",
+        "classes": [
+          "lp-button",
+          "lp-button--danger",
+          "lp-button--full-width",
+          "lp-button--lg",
+          "lp-button--md",
+          "lp-button--primary",
+          "lp-button--secondary",
+          "lp-button--sm",
+          "lp-button--white",
+          "lp-button__icon-left",
+          "lp-button__icon-right"
+        ]
+      }
+    },
+    {
+      "name": "Calendar",
+      "description": "Calendar — Lepidus Design System",
+      "reactImport": "import { Calendar } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "defaultMonth",
+          "type": "number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Initial month shown (0–11). Defaults to the current month."
+        },
+        {
+          "name": "defaultSelectedDate",
+          "type": "number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Initially selected day of month (1–31)."
+        },
+        {
+          "name": "defaultYear",
+          "type": "number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Initial year shown. Defaults to the current year."
+        },
+        {
+          "name": "markedDates",
+          "type": "number[]",
+          "required": false,
+          "defaultValue": null,
+          "description": "Days of the shown month (1–31) to mark with an event dot."
+        },
+        {
+          "name": "onCancel",
+          "type": "(() => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Footer — Cancel."
+        },
+        {
+          "name": "onDone",
+          "type": "((value: CalendarValue) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Footer — Done. Receives the full current selection."
+        },
+        {
+          "name": "onSelectDate",
+          "type": "((date: { year: number; month: number; day: number; }) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Fired when the user picks a day."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Heading text. Defaults to \"<Variant> Schedule\"."
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "daily",
+          "description": "Schedule type. Default `daily`."
+        },
+        {
+          "name": "yearRange",
+          "type": "[number, number]",
+          "required": false,
+          "defaultValue": "[-5, 5]",
+          "description": "First/last year offered in the year dropdown, relative to today. Default ±5."
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "CalendarVariant",
+      "description": "Schedule frequency — controls which extra selectors appear.\n- `daily`   → calendar grid + time\n- `weekly`  → + \"Select Month\" weekday chips\n- `monthly` → + weekday chips + \"Select Date\" chips",
+      "reactImport": "import { CalendarVariant } from '@lepidus/react'",
+      "props": [],
+      "plainCss": null
+    },
+    {
+      "name": "Card",
+      "description": "Card — Lepidus Design System",
+      "reactImport": "import { Card } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "actions",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Optional actions shown on the right of the title row (e.g. a Button or Badge)"
+        },
+        {
+          "name": "borderless",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Hide the 1px border (useful when elevated)"
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Card body"
+        },
+        {
+          "name": "elevated",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Raise the card with the shadow-card tokens"
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Optional footer row"
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Optional title rendered with the component/card/title-text token"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-card",
+        "classes": [
+          "lp-card",
+          "lp-card--borderless",
+          "lp-card--elevated",
+          "lp-card__actions",
+          "lp-card__body",
+          "lp-card__footer",
+          "lp-card__header",
+          "lp-card__title"
+        ]
+      }
+    },
+    {
+      "name": "Checkbox",
+      "description": "Checkbox — Lepidus Design System",
+      "reactImport": "import { Checkbox } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": null,
+          "description": "Controlled checked state. Pair with `onChange`."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Extra class on the root `<label>` wrapper."
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": null,
+          "description": "Uncontrolled initial state (default false)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Disabled state — gray box and label, interaction blocked."
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Error state — the box border uses the status-error token."
+        },
+        {
+          "name": "indeterminate",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Indeterminate (\"mixed\") state — shown as a dash glyph and exposed to\nassistive tech as `aria-checked=\"mixed\"`. Set from a parent that tracks\na partially-selected group; clears on the next user toggle."
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Visible label rendered inside a real `<label>` wrapper, so clicking the\ntext toggles the box. Without it, name the control with `aria-label`."
+        },
+        {
+          "name": "onChange",
+          "type": "((checked: boolean, event: ChangeEvent<HTMLInputElement>) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Called with the next checked state when the user toggles the box.\nThe raw change event is passed as the second argument."
+        }
+      ],
+      "plainCss": {
+        "block": "lp-checkbox",
+        "classes": [
+          "lp-checkbox",
+          "lp-checkbox--disabled",
+          "lp-checkbox__box",
+          "lp-checkbox__box--error",
+          "lp-checkbox__check",
+          "lp-checkbox__control",
+          "lp-checkbox__dash",
+          "lp-checkbox__input",
+          "lp-checkbox__label"
+        ]
+      }
+    },
+    {
+      "name": "Dropdown",
+      "description": "Dropdown — Lepidus Design System",
+      "reactImport": "import { Dropdown } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Class applied to the outer wrapper"
+        },
+        {
+          "name": "defaultValue",
+          "type": "string | string[]",
+          "required": false,
+          "defaultValue": null,
+          "description": "Initial selection (uncontrolled)"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Disabled state — uses component/dropdown/disabled-* tokens"
+        },
+        {
+          "name": "multiple",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Multi-select with leading checkboxes (Figma \"with buttons\" / \"Without checkbox\" toggles this)"
+        },
+        {
+          "name": "onApply",
+          "type": "((value: string[]) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Fired when Apply is pressed (showButtons mode)"
+        },
+        {
+          "name": "onCancel",
+          "type": "(() => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Fired when Cancel is pressed (showButtons mode)"
+        },
+        {
+          "name": "onChange",
+          "type": "((value: string | string[]) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Fired whenever the selection changes (on click, or on Apply when showButtons)"
+        },
+        {
+          "name": "options",
+          "type": "DropdownOption[]",
+          "required": true,
+          "defaultValue": null,
+          "description": "Selectable options"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Select",
+          "description": "Trigger placeholder when nothing is selected"
+        },
+        {
+          "name": "showButtons",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Show the Cancel / Apply footer (only meaningful with `multiple`)"
+        },
+        {
+          "name": "value",
+          "type": "string | string[]",
+          "required": false,
+          "defaultValue": null,
+          "description": "Selected value(s). Array in `multiple` mode, string otherwise (controlled)"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-dropdown",
+        "classes": [
+          "lp-dropdown",
+          "lp-dropdown__checkbox",
+          "lp-dropdown__chevron",
+          "lp-dropdown__chevron--open",
+          "lp-dropdown__footer",
+          "lp-dropdown__header",
+          "lp-dropdown__header-label",
+          "lp-dropdown__list",
+          "lp-dropdown__option",
+          "lp-dropdown__option-label",
+          "lp-dropdown__panel",
+          "lp-dropdown__trigger",
+          "lp-dropdown__trigger--disabled",
+          "lp-dropdown__trigger--hidden",
+          "lp-dropdown__trigger-label"
+        ]
+      }
+    },
+    {
+      "name": "EmptyState",
+      "description": "EmptyState — Lepidus Design System",
+      "reactImport": "import { EmptyState } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "action",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Optional call-to-action under the message (e.g. a Button)"
+        },
+        {
+          "name": "illustration",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Replace the default sleeping-server illustration"
+        },
+        {
+          "name": "illustrationSize",
+          "type": "number",
+          "required": false,
+          "defaultValue": 221,
+          "description": "Illustration width/height in px when using the default art (default 221)"
+        },
+        {
+          "name": "message",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": "The statement under the illustration (e.g. \"Sorry, No exported file to download!\")"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-empty-state",
+        "classes": [
+          "lp-empty-state",
+          "lp-empty-state__action",
+          "lp-empty-state__illustration",
+          "lp-empty-state__message"
+        ]
+      }
+    },
+    {
+      "name": "Filter",
+      "description": "Filter — Lepidus Design System",
+      "reactImport": "import { Filter } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": null
+        },
+        {
+          "name": "conditions",
+          "type": "FilterCondition[]",
+          "required": false,
+          "defaultValue": "[]",
+          "description": "Conditions shown when the drawer opens (the committed state)"
+        },
+        {
+          "name": "criteriaOptions",
+          "type": "string[]",
+          "required": false,
+          "defaultValue": "['Equals', 'Not Equals', 'Contains']",
+          "description": "Criteria offered per condition"
+        },
+        {
+          "name": "fields",
+          "type": "FilterField[]",
+          "required": true,
+          "defaultValue": null,
+          "description": "Filterable fields with their candidate values"
+        },
+        {
+          "name": "onApply",
+          "type": "((conditions: FilterCondition[]) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Footer Apply — receives the full drafted condition list"
+        },
+        {
+          "name": "onCancel",
+          "type": "(() => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Footer Cancel / Escape — discard the draft and close"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": true,
+          "defaultValue": null,
+          "description": "Show the drawer"
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "Modify Filters",
+          "description": "Drawer heading (default \"Modify Filters\")"
+        },
+        {
+          "name": "width",
+          "type": "number",
+          "required": false,
+          "defaultValue": 420,
+          "description": "Drawer width in px (default 420)"
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "FolderTree",
+      "description": "FolderTree — Lepidus Design System",
+      "reactImport": "import { FolderTree } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "defaultExpandedIds",
+          "type": "string[]",
+          "required": false,
+          "defaultValue": "[]",
+          "description": "Uncontrolled initial expanded folder ids"
+        },
+        {
+          "name": "expandedIds",
+          "type": "string[]",
+          "required": false,
+          "defaultValue": null,
+          "description": "Controlled expanded folder ids"
+        },
+        {
+          "name": "filter",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Filter text — hides non-matching folders/items and auto-expands folders with matching reports"
+        },
+        {
+          "name": "folders",
+          "type": "FolderTreeFolder[]",
+          "required": true,
+          "defaultValue": null
+        },
+        {
+          "name": "onExpandedChange",
+          "type": "((ids: string[]) => void)",
+          "required": false,
+          "defaultValue": null
+        },
+        {
+          "name": "onItemSelect",
+          "type": "((itemId: string, folderId: string) => void)",
+          "required": false,
+          "defaultValue": null
+        },
+        {
+          "name": "selectedItemId",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Highlight one item as active"
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "Input",
+      "description": "Input — Lepidus Design System",
+      "reactImport": "import { Input } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Class applied to the outer wrapper"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Disabled state — uses component/input/bg-disabled token"
+        },
+        {
+          "name": "errorMessage",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Error message — shown below the field when status=\"error\""
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Full-width field"
+        },
+        {
+          "name": "helperText",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Helper / hint text below the field (replaced by errorMessage when status=\"error\")"
+        },
+        {
+          "name": "iconLeft",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Left adornment slot (icon)"
+        },
+        {
+          "name": "iconRight",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Right adornment slot (icon)"
+        },
+        {
+          "name": "inputClassName",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Class applied to the <input> element itself"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Field label. Uses component/input/label token (text-secondary)."
+        },
+        {
+          "name": "labelPosition",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "left",
+          "description": "Label placement — 'left' (inline, Figma form default) or 'top' (stacked)"
+        },
+        {
+          "name": "labelWidth",
+          "type": "string | number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Fixed label column width for labelPosition=\"left\" (default 171px, from Figma)"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Validation status — 'error' uses the system danger tokens"
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "defaultValue": null,
+          "description": "Style applied to the outer wrapper"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-input",
+        "classes": [
+          "lp-input",
+          "lp-input--full-width",
+          "lp-input__field",
+          "lp-input__field--disabled",
+          "lp-input__field--error",
+          "lp-input__icon-left",
+          "lp-input__icon-right",
+          "lp-input__input",
+          "lp-input__label",
+          "lp-input__message",
+          "lp-input__message--error",
+          "lp-input__message--indent",
+          "lp-input__row",
+          "lp-input__row--label-left",
+          "lp-input__row--label-top"
+        ]
+      }
+    },
+    {
+      "name": "Link",
+      "description": "Link — Lepidus Design System",
+      "reactImport": "import { Link } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "as",
+          "type": "ElementType",
+          "required": false,
+          "defaultValue": null,
+          "description": "Polymorphic escape hatch: `'a'` (default) or a component such as a router\nlink. The component receives all anchor props (`href`, `className`, …)."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": "Link text (required — never rely on the icon alone)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Disabled per WAI guidance: renders a non-focusable `<span aria-disabled=\"true\">`\nwith no `href`, styled with the disabled text color."
+        },
+        {
+          "name": "external",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Marks the destination as external: adds `target=\"_blank\"` + `rel=\"noreferrer\"`,\na visually-hidden \"(opens in new tab)\" suffix for screen readers, and a small\ndecorative new-tab glyph."
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Trailing icon slot for the `standalone` variant — pass an SVG using\n`currentColor`. Rendered `aria-hidden`; ignored by the `inline` variant."
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "inline",
+          "description": "Visual variant — `inline` (default) is underlined for use inside running text;\n`standalone` drops the underline and supports a trailing `icon` slot."
+        }
+      ],
+      "plainCss": {
+        "block": "lp-link",
+        "classes": [
+          "lp-link",
+          "lp-link--disabled",
+          "lp-link--inline",
+          "lp-link--standalone",
+          "lp-link__external-icon",
+          "lp-link__icon",
+          "lp-link__visually-hidden"
+        ]
+      }
+    },
+    {
+      "name": "Message",
+      "description": "Message — Lepidus Design System",
+      "reactImport": "import { Message } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Body copy (typography/nav). Pass strings with `\\n` or React nodes."
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": true,
+          "description": "Show the leading status icon. Pass a node to override the default glyph. Default true."
+        },
+        {
+          "name": "onClose",
+          "type": "(() => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "When provided, renders a close (×) button wired to this handler."
+        },
+        {
+          "name": "primaryAction",
+          "type": "MessageAction",
+          "required": false,
+          "defaultValue": null,
+          "description": "Primary (filled) action — rendered with the brand Button."
+        },
+        {
+          "name": "secondaryAction",
+          "type": "MessageAction",
+          "required": false,
+          "defaultValue": null,
+          "description": "Secondary (outline) action."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Bold heading (typography/heading/h3)."
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "error",
+          "description": "Status variant — defaults to `error` (the Figma instance)."
+        }
+      ],
+      "plainCss": {
+        "block": "lp-message",
+        "classes": [
+          "lp-message",
+          "lp-message--error",
+          "lp-message--info",
+          "lp-message--success",
+          "lp-message--warning",
+          "lp-message__actions",
+          "lp-message__body",
+          "lp-message__close",
+          "lp-message__content",
+          "lp-message__icon",
+          "lp-message__text",
+          "lp-message__title"
+        ]
+      }
+    },
+    {
+      "name": "Modal",
+      "description": "Modal — Lepidus Design System",
+      "reactImport": "import { Modal } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Custom body content — rendered after any `fields`."
+        },
+        {
+          "name": "closeOnEsc",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": true,
+          "description": "Close on the Escape key. Default true."
+        },
+        {
+          "name": "closeOnOverlayClick",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": true,
+          "description": "Close when the backdrop is clicked. Default true."
+        },
+        {
+          "name": "fields",
+          "type": "ModalField[]",
+          "required": false,
+          "defaultValue": null,
+          "description": "Declarative list of inputs rendered in the body (supports multiple)."
+        },
+        {
+          "name": "headerAlign",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "center",
+          "description": "Title alignment — `center` (Figma default) or `left`."
+        },
+        {
+          "name": "onClose",
+          "type": "(() => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Close handler — fired by the backdrop, Esc and the secondary/Cancel action."
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": true,
+          "description": "Visibility — when false the modal renders nothing. Default true."
+        },
+        {
+          "name": "overlay",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": true,
+          "description": "Render the dimmed backdrop + center on screen. Set false to embed inline. Default true."
+        },
+        {
+          "name": "primaryAction",
+          "type": "ModalAction",
+          "required": false,
+          "defaultValue": null,
+          "description": "Primary (filled) footer action."
+        },
+        {
+          "name": "secondaryAction",
+          "type": "ModalAction",
+          "required": false,
+          "defaultValue": null,
+          "description": "Secondary (outline) footer action — defaults to firing `onClose`."
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "md",
+          "description": "Width preset — sm (520) · md (680) · lg (743, Figma). Default md."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Header title (brand-colored bar). Omit to hide the header."
+        }
+      ],
+      "plainCss": {
+        "block": "lp-modal",
+        "classes": [
+          "lp-modal",
+          "lp-modal__body",
+          "lp-modal__custom",
+          "lp-modal__field-label",
+          "lp-modal__field-label--empty",
+          "lp-modal__fields",
+          "lp-modal__footer",
+          "lp-modal__header",
+          "lp-modal__header--center",
+          "lp-modal__header--left",
+          "lp-modal__shell",
+          "lp-modal__shell--inline",
+          "lp-modal__shell--lg",
+          "lp-modal__shell--md",
+          "lp-modal__shell--sm",
+          "lp-modal__title"
+        ]
+      }
+    },
+    {
+      "name": "Pagination",
+      "description": "Pagination — Lepidus Design System",
+      "reactImport": "import { Pagination } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "currentPage",
+          "type": "number",
+          "required": true,
+          "defaultValue": null,
+          "description": "Current page, 1-based"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Disable the whole control"
+        },
+        {
+          "name": "onPageChange",
+          "type": "((page: number) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Fired when the user navigates (First / Previous / Next / Last / page input)"
+        },
+        {
+          "name": "onPageSizeChange",
+          "type": "((pageSize: number) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Fired when the user picks a new page size"
+        },
+        {
+          "name": "pageSize",
+          "type": "number",
+          "required": true,
+          "defaultValue": null,
+          "description": "Rows shown per page (drives the \"N/Page\" selector)"
+        },
+        {
+          "name": "pageSizeOptions",
+          "type": "number[]",
+          "required": false,
+          "defaultValue": "[10, 25, 50, 100]",
+          "description": "Options offered in the page-size selector"
+        },
+        {
+          "name": "totalPages",
+          "type": "number",
+          "required": true,
+          "defaultValue": null,
+          "description": "Total number of pages"
+        },
+        {
+          "name": "totalRecords",
+          "type": "number",
+          "required": true,
+          "defaultValue": null,
+          "description": "Total number of records in the dataset (shown as \"Total Records - N\")"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-pagination",
+        "classes": [
+          "lp-pagination",
+          "lp-pagination__button",
+          "lp-pagination__label",
+          "lp-pagination__page-input",
+          "lp-pagination__page-size",
+          "lp-pagination__page-size-chevron",
+          "lp-pagination__page-size-option",
+          "lp-pagination__page-size-option--selected",
+          "lp-pagination__page-size-panel",
+          "lp-pagination__page-size-trigger"
+        ]
+      }
+    },
+    {
+      "name": "Progress",
+      "description": "Progress — Lepidus Design System",
+      "reactImport": "import { Progress } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Stretch to fill the container width (default fixed 274px from Figma)"
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": "Status label above the bar (e.g. \"Restore in Progress\")"
+        },
+        {
+          "name": "showValue",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": true,
+          "description": "Show the percentage readout next to the bar (clock icon replaces it when pending)"
+        },
+        {
+          "name": "status",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "auto",
+          "description": "Visual status — defaults to `auto` (derived from value)"
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "required": false,
+          "defaultValue": 0,
+          "description": "Completion 0–100. Ignored for `pending` (full track) and `completed` (100)."
+        }
+      ],
+      "plainCss": {
+        "block": "lp-progress",
+        "classes": [
+          "lp-progress",
+          "lp-progress--completed",
+          "lp-progress--full-width",
+          "lp-progress--pending",
+          "lp-progress__clock",
+          "lp-progress__fill",
+          "lp-progress__label",
+          "lp-progress__row",
+          "lp-progress__track",
+          "lp-progress__value"
+        ]
+      }
+    },
+    {
+      "name": "RadioGroupContext",
+      "description": "Internal — lets `RadioGroup` wire name/checked/onChange into child `Radio`s.",
+      "reactImport": "import { RadioGroupContext } from '@lepidus/react'",
+      "props": [],
+      "plainCss": null
+    },
+    {
+      "name": "Radio",
+      "description": "Radio — Lepidus Design System",
+      "reactImport": "import { Radio } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": null,
+          "description": "Controlled selected state. Inside a `RadioGroup` this is wired for you."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Extra class on the root `<label>` wrapper."
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": null,
+          "description": "Uncontrolled initial state (default false)."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Disabled state — gray circle and label, interaction blocked."
+        },
+        {
+          "name": "error",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Error state — the circle border uses the status-error token."
+        },
+        {
+          "name": "label",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Visible label rendered inside a real `<label>` wrapper, so clicking the\ntext selects the option. Without it, name the control with `aria-label`."
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Radio group name — shared by every option in the group. `RadioGroup` sets it."
+        },
+        {
+          "name": "onChange",
+          "type": "((value: string, event: ChangeEvent<HTMLInputElement>) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Called when the user selects this option. Receives the option's `value`\nand the raw change event."
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "The value this option submits / reports when selected."
+        }
+      ],
+      "plainCss": {
+        "block": "lp-radio",
+        "classes": [
+          "lp-radio",
+          "lp-radio--disabled",
+          "lp-radio-group",
+          "lp-radio-group__label",
+          "lp-radio-group__options",
+          "lp-radio-group__options--horizontal",
+          "lp-radio__circle",
+          "lp-radio__circle--error",
+          "lp-radio__control",
+          "lp-radio__dot",
+          "lp-radio__input",
+          "lp-radio__label"
+        ]
+      }
+    },
+    {
+      "name": "Scrollbar",
+      "description": "Scrollbar — Lepidus Design System",
+      "reactImport": "import { Scrollbar } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "length",
+          "type": "string | number",
+          "required": false,
+          "defaultValue": "451px",
+          "description": "Track length along its axis (px or any CSS length). Default 451px (Figma)."
+        },
+        {
+          "name": "orientation",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "vertical",
+          "description": "Track direction — defaults to `vertical`."
+        },
+        {
+          "name": "thumbOffset",
+          "type": "number",
+          "required": false,
+          "defaultValue": 0,
+          "description": "Thumb offset from the track start as a percentage (0–100). Default 0."
+        },
+        {
+          "name": "thumbSize",
+          "type": "number",
+          "required": false,
+          "defaultValue": 26,
+          "description": "Thumb length as a percentage of the track (0–100). Default 26 (≈117/451 from Figma)."
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "active",
+          "description": "Thumb state — defaults to `active` (the Figma default property)."
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "SettingsPanel",
+      "description": "SettingsPanel — Lepidus Design System",
+      "reactImport": "import { SettingsPanel } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "defaultSelectedId",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Uncontrolled initial category"
+        },
+        {
+          "name": "items",
+          "type": "SettingsPanelItem[]",
+          "required": true,
+          "defaultValue": null
+        },
+        {
+          "name": "onSelect",
+          "type": "((id: string) => void)",
+          "required": false,
+          "defaultValue": null
+        },
+        {
+          "name": "selectedId",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Controlled active category"
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "Categories",
+          "description": "Panel heading (default \"Categories\")"
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "Sidebar",
+      "description": "Sidebar — Lepidus Design System (nav tokens)",
+      "reactImport": "import { Sidebar } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "ariaLabel",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Primary",
+          "description": "Accessible label for the nav landmark"
+        },
+        {
+          "name": "footer",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Bottom slot (e.g. settings + avatar), pinned to the bottom"
+        },
+        {
+          "name": "header",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Top slot (e.g. product logo)"
+        },
+        {
+          "name": "items",
+          "type": "SidebarItem[]",
+          "required": true,
+          "defaultValue": null,
+          "description": "Navigation items"
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "default",
+          "description": "Rail shape — 'default' (square rail) or 'rounded' (capsule rail, Figma node 557:382)"
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Rail width (default 100px; the rounded variant defaults to 85px, matching Figma)"
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "Skeleton",
+      "description": "Skeleton — Lepidus Design System",
+      "reactImport": "import { Skeleton } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Extra class on the root element."
+        },
+        {
+          "name": "height",
+          "type": "string | number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Height — a number is treated as px, a string passes through. Circles default to `width`."
+        },
+        {
+          "name": "lines",
+          "type": "number",
+          "required": false,
+          "defaultValue": 1,
+          "description": "For `variant=\"text\"`: render this many stacked lines, the last one cut to\n60% width so the block reads as a paragraph. Default 1."
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "text",
+          "description": "Shape of the placeholder — `text` (rounded line matching body text),\n`circle` (avatar/icon) or `rect` (image/card block). Default `text`."
+        },
+        {
+          "name": "width",
+          "type": "string | number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Width — a number is treated as px, a string passes through (`'100%'`, `'12rem'`)."
+        }
+      ],
+      "plainCss": {
+        "block": "lp-skeleton",
+        "classes": [
+          "lp-skeleton",
+          "lp-skeleton--circle",
+          "lp-skeleton--rect",
+          "lp-skeleton--text",
+          "lp-skeleton-paragraph",
+          "lp-skeleton-paragraph__last-line"
+        ]
+      }
+    },
+    {
+      "name": "Spinner",
+      "description": "Spinner — Lepidus Design System",
+      "reactImport": "import { Spinner } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Extra class on the root element."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Loading…",
+          "description": "Accessible label announced by screen readers via a visually hidden span\ninside the `role=\"status\"` root. Default \"Loading…\"."
+        },
+        {
+          "name": "size",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "md",
+          "description": "Diameter — sm (16px, inline/buttons), md (24px, default) or lg (32px, page regions)."
+        }
+      ],
+      "plainCss": {
+        "block": "lp-spinner",
+        "classes": [
+          "lp-spinner",
+          "lp-spinner--lg",
+          "lp-spinner--md",
+          "lp-spinner--sm",
+          "lp-spinner__arc",
+          "lp-spinner__svg",
+          "lp-spinner__track",
+          "lp-spinner__visually-hidden"
+        ]
+      }
+    },
+    {
+      "name": "Stepper",
+      "description": "Stepper — Lepidus Design System",
+      "reactImport": "import { Stepper } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Class applied to the outer pill wrapper"
+        },
+        {
+          "name": "defaultValue",
+          "type": "number",
+          "required": false,
+          "defaultValue": 0,
+          "description": "Initial value (uncontrolled)"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Disabled state — uses component/stepper/disabled-* tokens"
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Stretch to fill the container (default fixed 230px from Figma)"
+        },
+        {
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Maximum allowed value"
+        },
+        {
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Minimum allowed value"
+        },
+        {
+          "name": "onChange",
+          "type": "((value: number) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Fired when the value changes (buttons, typing, or arrow keys)"
+        },
+        {
+          "name": "showControls",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": true,
+          "description": "Hide the up / down controls"
+        },
+        {
+          "name": "step",
+          "type": "number",
+          "required": false,
+          "defaultValue": 1,
+          "description": "Increment / decrement amount"
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Current value (controlled)"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-stepper",
+        "classes": [
+          "lp-stepper",
+          "lp-stepper--disabled",
+          "lp-stepper--full-width",
+          "lp-stepper__control",
+          "lp-stepper__controls",
+          "lp-stepper__input"
+        ]
+      }
+    },
+    {
+      "name": "Steps",
+      "description": "Steps — Lepidus Design System",
+      "reactImport": "import { Steps } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "current",
+          "type": "number",
+          "required": true,
+          "defaultValue": null,
+          "description": "Current step, 1-based"
+        },
+        {
+          "name": "onStepClick",
+          "type": "((step: number) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Make completed steps clickable for navigation"
+        },
+        {
+          "name": "showLabel",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": true,
+          "description": "Show the \"N of M\" label after the dots (default true)"
+        },
+        {
+          "name": "total",
+          "type": "number",
+          "required": true,
+          "defaultValue": null,
+          "description": "Total number of steps"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-steps",
+        "classes": [
+          "lp-steps",
+          "lp-steps__circle",
+          "lp-steps__circle--current",
+          "lp-steps__circle--done",
+          "lp-steps__circle--upcoming",
+          "lp-steps__connector",
+          "lp-steps__connector--done",
+          "lp-steps__dot",
+          "lp-steps__item",
+          "lp-steps__label",
+          "lp-steps__step-button"
+        ]
+      }
+    },
+    {
+      "name": "Table",
+      "description": "Table — Lepidus Design System",
+      "reactImport": "import { Table } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "columns",
+          "type": "TableColumn<T>[]",
+          "required": true,
+          "defaultValue": null,
+          "description": "Column definitions, in display order"
+        },
+        {
+          "name": "data",
+          "type": "T[]",
+          "required": true,
+          "defaultValue": null,
+          "description": "Row data. Sorting/filtering happen internally unless `sort`/`filters` are controlled."
+        },
+        {
+          "name": "defaultSelectedKeys",
+          "type": "(string | number)[]",
+          "required": false,
+          "defaultValue": "[]",
+          "description": "Uncontrolled initial selection"
+        },
+        {
+          "name": "defaultSort",
+          "type": "TableSort | null",
+          "required": false,
+          "defaultValue": null,
+          "description": "Uncontrolled initial sort"
+        },
+        {
+          "name": "emptyMessage",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": "No matching records",
+          "description": "Shown in a single full-width cell when no rows survive filtering"
+        },
+        {
+          "name": "filterRow",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": true,
+          "description": "Show the per-column search row under the header (default true, as in Figma)"
+        },
+        {
+          "name": "filters",
+          "type": "Record<string, string>",
+          "required": false,
+          "defaultValue": null,
+          "description": "Controlled filter text per column key"
+        },
+        {
+          "name": "onFiltersChange",
+          "type": "((filters: Record<string, string>) => void)",
+          "required": false,
+          "defaultValue": null
+        },
+        {
+          "name": "onSelectionChange",
+          "type": "((keys: (string | number)[]) => void)",
+          "required": false,
+          "defaultValue": null
+        },
+        {
+          "name": "onSortChange",
+          "type": "((sort: TableSort) => void)",
+          "required": false,
+          "defaultValue": null
+        },
+        {
+          "name": "rowKey",
+          "type": "((row: T, index: number) => string | number)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Stable row identity for selection (defaults to the row index)"
+        },
+        {
+          "name": "selectable",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Render selection checkboxes inside the first column (header checkbox selects all)"
+        },
+        {
+          "name": "selectedKeys",
+          "type": "(string | number)[]",
+          "required": false,
+          "defaultValue": null,
+          "description": "Controlled selection"
+        },
+        {
+          "name": "sort",
+          "type": "TableSort | null",
+          "required": false,
+          "defaultValue": null,
+          "description": "Controlled sort state (null = unsorted)"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-table",
+        "classes": [
+          "lp-table",
+          "lp-table__cell-inner",
+          "lp-table__cell-text",
+          "lp-table__checkbox",
+          "lp-table__empty-cell",
+          "lp-table__filter-cell",
+          "lp-table__filter-field",
+          "lp-table__filter-input",
+          "lp-table__header-inner",
+          "lp-table__header-label",
+          "lp-table__row--selected",
+          "lp-table__search-icon",
+          "lp-table__sort-arrow",
+          "lp-table__sort-arrow--active",
+          "lp-table__sort-arrow--desc",
+          "lp-table__sort-button",
+          "lp-table__table",
+          "lp-table__td",
+          "lp-table__th"
+        ]
+      }
+    },
+    {
+      "name": "Tabs",
+      "description": "Tabs — Lepidus Design System",
+      "reactImport": "import { Tabs } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "defaultValue",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Uncontrolled initial tab id (defaults to the first enabled tab)"
+        },
+        {
+          "name": "hasPanels",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Set true when you render matching `role=\"tabpanel\"` elements — wires each tab's aria-controls to its panel id"
+        },
+        {
+          "name": "idPrefix",
+          "type": "string",
+          "required": false,
+          "defaultValue": "lds-tabs",
+          "description": "Prefix for the generated tab/panel ids — pair panels with id={`${idPrefix}-panel-${tab.id}`}"
+        },
+        {
+          "name": "onChange",
+          "type": "((id: string) => void)",
+          "required": false,
+          "defaultValue": null
+        },
+        {
+          "name": "tabs",
+          "type": "TabItem[]",
+          "required": true,
+          "defaultValue": null
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Controlled active tab id"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-tabs",
+        "classes": [
+          "lp-tabs",
+          "lp-tabs__tab",
+          "lp-tabs__tab--active"
+        ]
+      }
+    },
+    {
+      "name": "Tag",
+      "description": "Tag — Lepidus Design System",
+      "reactImport": "import { Tag } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": "Tag label"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Gray out the tag and block dismissal"
+        },
+        {
+          "name": "onRemove",
+          "type": "(() => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Render the dismiss \"×\" button and call back when it's activated"
+        },
+        {
+          "name": "removeLabel",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Remove",
+          "description": "Accessible label for the dismiss button (default \"Remove\")"
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "neutral",
+          "description": "Status color set — binds to the shared component/status tokens"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-tag",
+        "classes": [
+          "lp-tag",
+          "lp-tag--disabled",
+          "lp-tag--error",
+          "lp-tag--neutral",
+          "lp-tag--success",
+          "lp-tag--warning",
+          "lp-tag__label",
+          "lp-tag__remove"
+        ]
+      }
+    },
+    {
+      "name": "TextField",
+      "description": "TextField — Lepidus Design System",
+      "reactImport": "import { TextField } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Class applied to the outer pill wrapper"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Disabled state — uses component/textfield/disabled-* tokens"
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Stretch to fill the container width (default fixed 490px max from Figma)"
+        },
+        {
+          "name": "inputClassName",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Class applied to the inner <input> element"
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "Textarea",
+      "description": "Textarea — Lepidus Design System",
+      "reactImport": "import { Textarea } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Class applied to the outer box wrapper"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Disabled state — uses component/textarea/disabled-* tokens"
+        },
+        {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Stretch to fill the container width (default fixed 481px from Figma)"
+        },
+        {
+          "name": "textareaClassName",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Class applied to the inner <textarea> element"
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "TimePicker",
+      "description": "TimePicker — Lepidus Design System",
+      "reactImport": "import { TimePicker } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "defaultHour",
+          "type": "number",
+          "required": false,
+          "defaultValue": null,
+          "description": "Initial hour (1–12 in 12h mode, 0–23 in 24h)."
+        },
+        {
+          "name": "defaultMinute",
+          "type": "number",
+          "required": false,
+          "defaultValue": 0,
+          "description": "Initial minute (0–59)."
+        },
+        {
+          "name": "defaultPeriod",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "AM",
+          "description": "Initial AM/PM (12h mode only). Default \"AM\"."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "defaultValue": "Enter Time",
+          "description": "Overline label. Default \"Enter Time\"."
+        },
+        {
+          "name": "onCancel",
+          "type": "(() => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Footer — Cancel."
+        },
+        {
+          "name": "onConfirm",
+          "type": "((value: TimePickerValue) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Footer — OK. Receives the chosen time."
+        },
+        {
+          "name": "use24Hour",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Use 24-hour clock (hides the AM/PM toggle). Default false."
+        }
+      ],
+      "plainCss": null
+    },
+    {
+      "name": "Toast",
+      "description": "Toast — Lepidus Design System",
+      "reactImport": "import { Toast } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Supporting message line."
+        },
+        {
+          "name": "icon",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": true,
+          "description": "Show the leading circular badge icon. Pass a node to override the glyph. Default true."
+        },
+        {
+          "name": "onClose",
+          "type": "(() => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "When provided, renders a close (×) button wired to this handler."
+        },
+        {
+          "name": "title",
+          "type": "ReactNode",
+          "required": false,
+          "defaultValue": null,
+          "description": "Bold heading (e.g. \"Info !\")."
+        },
+        {
+          "name": "variant",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "info",
+          "description": "Status variant — defaults to `info`."
+        }
+      ],
+      "plainCss": {
+        "block": "lp-toast",
+        "classes": [
+          "lp-toast",
+          "lp-toast--error",
+          "lp-toast--success",
+          "lp-toast--warning",
+          "lp-toast__badge",
+          "lp-toast__body",
+          "lp-toast__close",
+          "lp-toast__content",
+          "lp-toast__title"
+        ]
+      }
+    },
+    {
+      "name": "Toggle",
+      "description": "Toggle — Lepidus Design System",
+      "reactImport": "import { Toggle } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "checked",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": null,
+          "description": "Controlled on/off state"
+        },
+        {
+          "name": "defaultChecked",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Uncontrolled initial state (default false)"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Disabled state — Figma \"Disabled on\" / \"Disabled Off\" variants"
+        },
+        {
+          "name": "onChange",
+          "type": "((checked: boolean) => void)",
+          "required": false,
+          "defaultValue": null,
+          "description": "Called with the next state when the user flips the switch"
+        }
+      ],
+      "plainCss": {
+        "block": "lp-toggle",
+        "classes": [
+          "lp-toggle",
+          "lp-toggle--on",
+          "lp-toggle__thumb"
+        ]
+      }
+    },
+    {
+      "name": "Tooltip",
+      "description": "Tooltip — Lepidus Design System",
+      "reactImport": "import { Tooltip } from '@lepidus/react'",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactElement<any, string | JSXElementConstructor<any>>",
+          "required": true,
+          "defaultValue": null,
+          "description": "A single focusable/hoverable trigger element. Tooltip clones it\n(`cloneElement`) to attach hover/focus handlers and `aria-describedby`,\nmerging with any handlers, ref and describedby the child already has —\nno wrapper element is added."
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "Extra class on the bubble element."
+        },
+        {
+          "name": "content",
+          "type": "ReactNode",
+          "required": true,
+          "defaultValue": null,
+          "description": "The tooltip text. Keep it short and **never interactive** — a tooltip\ndisappears on blur/leave, so links or buttons inside it are unreachable\nby keyboard and screen readers. Plain text (or text-level markup) only."
+        },
+        {
+          "name": "delay",
+          "type": "number",
+          "required": false,
+          "defaultValue": 300,
+          "description": "Delay in ms before the bubble shows on hover/focus. Default 300."
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "defaultValue": null,
+          "description": "id of the bubble (defaults to a generated id) — wired to `aria-describedby`."
+        },
+        {
+          "name": "offset",
+          "type": "number",
+          "required": false,
+          "defaultValue": 4,
+          "description": "Gap in px between the trigger and the bubble. Default 4."
+        },
+        {
+          "name": "placement",
+          "type": "enum",
+          "required": false,
+          "defaultValue": "bottom-start",
+          "description": "Preferred placement; flips to the opposite vertical side automatically\nwhen there is not enough viewport space. Default `'bottom-start'`."
+        }
+      ],
+      "plainCss": {
+        "block": "lp-tooltip",
+        "classes": [
+          "lp-tooltip"
+        ]
+      }
+    }
+  ]
+}

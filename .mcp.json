@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "lepidus": {
+      "command": "node",
+      "args": ["packages/mcp/server.mjs"]
+    }
+  }
+}

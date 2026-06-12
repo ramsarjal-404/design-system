@@ -47,6 +47,8 @@ jobs:
           npx test-storybook --url http://localhost:6006 --maxWorkers 1
       - name: Visual regression (3 themes)
         run: npm run vrt
+      - name: Axe audit of the plain-HTML demo (3 themes, incl. open modal/dropdown)
+        run: npm run check:demo-a11y
       - name: Upload VRT diffs on failure
         if: failure()
         uses: actions/upload-artifact@v4

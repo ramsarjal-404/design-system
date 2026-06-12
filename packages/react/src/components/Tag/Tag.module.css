@@ -46,11 +46,13 @@
   color: var(--component-status-na-text, #555766);
 }
 
-/* text-secondary (not text-disabled): #555766 on gray-150 keeps ≥4.5:1 contrast
-   while still reading muted next to the status variants */
+/* Themed pair (semantic color/tag/* via figma-gaps): gray-600 on gray-150 in
+   light/hc, gray-400 on gray-700 in dark — ≥4.5:1 in every theme. The old
+   binding used the gray-150 primitive directly, which never flips, so dark
+   mode rendered light-gray text on a light-gray pill (1.3:1). */
 .disabled {
-  background-color: var(--gray-150, #e0e0e0);
-  color: var(--color-text-secondary, #555766);
+  background-color: var(--color-tag-disabled-bg, #e0e0e0);
+  color: var(--color-tag-disabled-text, #555766);
 }
 
 /* === DISMISS BUTTON === */
