@@ -93,6 +93,30 @@ const outPath = join(siteRoot, 'src/data/stories-index.json');
 mkdirSync(dirname(outPath), { recursive: true });
 writeFileSync(outPath, JSON.stringify(index, null, 2) + '\n');
 
+// ---------------------------------------------------- token descriptions
+// DTCG sources carry $description on curated tokens (the figma-gaps overlay
+// especially); the codeSyntax WEB extension maps each to its CSS variable.
+const tokenSrcDir = join(repoRoot, 'packages/tokens/src');
+const tokenDescs = {};
+const walkTokens = (node) => {
+  if (!node || typeof node !== 'object') return;
+  const web = node.$extensions?.['com.figma.codeSyntax']?.WEB;
+  if (web && node.$description) {
+    const name = web.replace(/^var\(/, '').replace(/\)$/, '');
+    if (!tokenDescs[name]) tokenDescs[name] = node.$description;
+  }
+  for (const [k, v] of Object.entries(node)) {
+    if (!k.startsWith('$')) walkTokens(v);
+  }
+};
+for (const f of readdirSync(tokenSrcDir).filter((f) => f.endsWith('.tokens.json'))) {
+  walkTokens(JSON.parse(readFileSync(join(tokenSrcDir, f), 'utf8')));
+}
+writeFileSync(
+  join(siteRoot, 'src/data/token-descriptions.json'),
+  JSON.stringify(tokenDescs, null, 2) + '\n'
+);
+
 // ------------------------------------------------------------- thumbnails
 // Card previews on the component index reuse the committed VRT baseline
 // screenshot of each component's heroStory (light theme) — real renders,

@@ -1,9 +1,12 @@
 ---
 /**
  * Token reference — generated from the built tokens.css on every build.
- * Color tokens render swatches for all three themes; any token name is
- * click-to-copy. This page is the central token documentation; component
- * pages link here instead of repeating token tables (SLDS model).
+ *
+ * Anatomy per row: token name + copy button, a plain-English description
+ * (curated $description from the DTCG sources when present, derived from the
+ * naming grammar otherwise), and per-theme value chips with resolved colors.
+ * A sticky toolbar keeps search + section navigation available while
+ * scrolling 500+ tokens.
  */
 import Page from '../../layouts/Page.astro';
 import { loadTokens, isColor, type Token } from '../../lib/tokens';
@@ -43,28 +46,29 @@ const themed = (t: Token) => Boolean(t.dark || t.hc);
 <Page
   title="Design tokens"
   eyebrow="Reference"
-  lede={`All ${tokens.length} CSS variables generated from the Figma DTCG sources by Style Dictionary — primitive → semantic → component, themed via data-theme="light" | "dark" | "hc". Click any token name to copy it.`}
+  lede={`All ${tokens.length} CSS variables generated from the Figma DTCG sources — primitive → semantic → component, themed via data-theme. Use these instead of raw values and the three themes work for free.`}
   wide
 >
-  <input
-    type="search"
-    class="token-filter"
-    placeholder={`Filter ${tokens.length} tokens… (name or value)`}
-    aria-label="Filter tokens"
-    id="token-filter"
-  />
-  <p>
-    Jump to: {grouped.map((g, i) => (
-      <>
-        <a href={`#${anchor(g.group)}`}>{g.group}</a>{i < grouped.length - 1 ? ' · ' : ''}
-      </>
-    ))}
-  </p>
+  <div class="token-toolbar">
+    <input
+      type="search"
+      class="token-filter"
+      placeholder={`Filter ${tokens.length} tokens by name or value…`}
+      aria-label="Filter tokens"
+      id="token-filter"
+    />
+    <nav class="token-pills" aria-label="Token groups">
+      {grouped.map((g) => (
+        <a href={`#${anchor(g.group)}`}>{g.group} <span>{g.tokens.length}</span></a>
+      ))}
+    </nav>
+  </div>
+  <p class="token-empty" id="token-empty" hidden>No tokens match — try part of a name (<code>button-primary</code>) or a value (<code>#1c4599</code>, <code>20px</code>).</p>
 
   {grouped.map((g) => (
     <section data-token-group>
-      <h2 id={anchor(g.group)}>{g.group} <small style="color:var(--color-text-secondary);font-weight:400">({g.tokens.length})</small></h2>
-      <table class="doc-table">
+      <h2 id={anchor(g.group)}>{g.group} <small class="token-count">({g.tokens.length})</small></h2>
+      <table class="doc-table token-table">
         <thead>
           <tr>
             <th>Token</th>
@@ -80,33 +84,50 @@ const themed = (t: Token) => Boolean(t.dark || t.hc);
             const hv = resolve(t.hc ?? t.light, hcM);
             const color = isColor(lv) || isColor(t.light);
             return (
-              <tr data-token-row data-haystack={`${t.name} ${t.light} ${lv}`.toLowerCase()}>
-                <td>
-                  <code class="token-name" title="Click to copy" tabindex="0">var({t.name})</code>
+              <tr
+                data-token-row
+                data-haystack={`${t.name} ${t.light} ${lv} ${t.description}`.toLowerCase()}
+              >
+                <td class="token-cell">
+                  <span class="token-id">
+                    <code class="token-name" tabindex="0" title="Click to copy">var({t.name})</code>
+                    <button type="button" class="token-copy" data-token={t.name} aria-label={`Copy var(${t.name})`}>
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+                    </button>
+                  </span>
+                  {t.description && <small class="token-desc">{t.description}</small>}
                 </td>
                 <td>
-                  {color && <span class="swatch" style={`background:${lv}`}></span>}
-                  <code> {t.light}</code>
-                  {t.light !== lv && <small style="color:var(--color-text-secondary)"> → {lv}</small>}
+                  <span class="value-chip">
+                    {color && <span class="swatch" style={`background:${lv}`}></span>}
+                    <code>{t.light}</code>
+                  </span>
+                  {t.light !== lv && <small class="token-resolved">{lv}</small>}
                 </td>
                 <td>
                   {themed(t) ? (
                     <>
-                      {color && <span class="swatch" style={`background:${dv}`}></span>}
-                      <code> {t.dark ?? '—'}</code>
+                      <span class="value-chip">
+                        {color && <span class="swatch" style={`background:${dv}`}></span>}
+                        <code>{t.dark ?? '—'}</code>
+                      </span>
+                      {t.dark && t.dark !== dv && <small class="token-resolved">{dv}</small>}
                     </>
                   ) : (
-                    <span style="color:var(--color-text-secondary)">same</span>
+                    <span class="token-same">same</span>
                   )}
                 </td>
                 <td>
                   {themed(t) ? (
                     <>
-                      {color && <span class="swatch" style={`background:${hv}`}></span>}
-                      <code> {t.hc ?? '—'}</code>
+                      <span class="value-chip">
+                        {color && <span class="swatch" style={`background:${hv}`}></span>}
+                        <code>{t.hc ?? '—'}</code>
+                      </span>
+                      {t.hc && t.hc !== hv && <small class="token-resolved">{hv}</small>}
                     </>
                   ) : (
-                    <span style="color:var(--color-text-secondary)">same</span>
+                    <span class="token-same">same</span>
                   )}
                 </td>
               </tr>
@@ -118,27 +139,42 @@ const themed = (t: Token) => Boolean(t.dark || t.hc);
   ))}
 
   <script>
-    // click-to-copy token names
-    document.addEventListener('click', (e) => {
-      const el = (e.target as HTMLElement).closest<HTMLElement>('.token-name');
-      if (!el) return;
-      navigator.clipboard.writeText(el.textContent?.replace(/^var\(|\)$/g, '') ?? '').then(() => {
-        const orig = el.textContent;
-        el.textContent = 'copied ✓';
-        setTimeout(() => (el.textContent = orig), 900);
+    // copy — via the icon button or by clicking the token name
+    const copyToken = (name: string, feedbackEl: HTMLElement) => {
+      navigator.clipboard.writeText(`var(${name})`).then(() => {
+        feedbackEl.classList.add('is-copied');
+        setTimeout(() => feedbackEl.classList.remove('is-copied'), 1100);
       });
+    };
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const btn = target.closest<HTMLButtonElement>('.token-copy');
+      if (btn) {
+        copyToken(btn.dataset.token!, btn.closest('.token-id')!);
+        return;
+      }
+      const name = target.closest<HTMLElement>('.token-name');
+      if (name) {
+        copyToken(name.textContent!.replace(/^var\(|\)$/g, ''), name.closest('.token-id')!);
+      }
     });
-    // live filter
+
+    // live filter with empty state
     const input = document.getElementById('token-filter') as HTMLInputElement;
+    const empty = document.getElementById('token-empty')!;
     input?.addEventListener('input', () => {
       const q = input.value.trim().toLowerCase();
+      let any = false;
       document.querySelectorAll<HTMLElement>('[data-token-row]').forEach((row) => {
-        row.style.display = !q || row.dataset.haystack!.includes(q) ? '' : 'none';
+        const show = !q || row.dataset.haystack!.includes(q);
+        row.style.display = show ? '' : 'none';
+        if (show) any = true;
       });
       document.querySelectorAll<HTMLElement>('[data-token-group]').forEach((sec) => {
-        const any = sec.querySelector('[data-token-row]:not([style*="none"])');
-        sec.style.display = any ? '' : 'none';
+        const has = sec.querySelector('[data-token-row]:not([style*="none"])');
+        sec.style.display = has ? '' : 'none';
       });
+      empty.hidden = any;
     });
   </script>
 </Page>
