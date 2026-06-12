@@ -687,6 +687,105 @@ h4 {
   font-weight: var(--font-weight-semibold, 600);
 }
 
+/* ----------------------------------------------------- get-started page */
+.path-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-4, 16px);
+  margin: var(--space-6, 24px) 0 var(--space-4, 16px);
+  padding: 0;
+  list-style: none;
+}
+.path-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: var(--site-border);
+  border-radius: var(--site-radius);
+  background: #fff;
+  padding: 14px 16px;
+  color: inherit;
+  transition: box-shadow 140ms ease, transform 140ms ease;
+}
+.path-card:hover {
+  text-decoration: none;
+  box-shadow: var(--site-shadow-hover);
+  transform: translateY(-2px);
+}
+.path-card__icon {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.path-card__icon svg {
+  width: 20px;
+  height: 20px;
+}
+.path-card strong {
+  display: block;
+  font-size: 14px;
+  color: var(--site-ink);
+}
+.path-card small {
+  display: block;
+  font-size: 12.5px;
+  color: var(--site-ink-faint);
+  line-height: 1.45;
+}
+h2.step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.step__num {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--site-blue);
+  color: #fff;
+  font-size: 15px;
+  font-weight: var(--font-weight-bold, 700);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.rule-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4, 16px);
+  margin: var(--space-5, 20px) 0;
+  padding: 0;
+  list-style: none;
+}
+@media (max-width: 720px) {
+  .rule-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.rule-card {
+  border: var(--site-border);
+  border-radius: var(--site-radius);
+  background: #fff;
+  padding: var(--space-5, 20px);
+  border-top: 3px solid var(--site-blue);
+}
+.rule-card strong {
+  display: block;
+  font-size: 15px;
+  color: var(--site-ink);
+  margin-bottom: 6px;
+}
+.rule-card p {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--site-ink-soft);
+}
+
 /* ------------------------------------------------- component index cards */
 .comp-grid {
   display: grid;
