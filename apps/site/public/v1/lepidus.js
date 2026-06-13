@@ -1,7 +1,7 @@
 /**
  * lepidus.js — Lepidus Design System, vanilla behavior layer
  *
- * Companion to @lepidus/css for HTML/CSS/JS apps (no framework, no build
+ * Companion to @ramsarjal-404/css for HTML/CSS/JS apps (no framework, no build
  * tool). Bootstrap-style: write the documented markup with data attributes
  * and include this script — components initialize themselves on
  * DOMContentLoaded. Everything is also callable manually via window.Lepidus

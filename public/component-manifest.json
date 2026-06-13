@@ -9,7 +9,7 @@
     {
       "name": "Accordion",
       "description": "Accordion — Lepidus Design System",
-      "reactImport": "import { Accordion } from '@lepidus/react'",
+      "reactImport": "import { Accordion } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "defaultValue",
@@ -80,14 +80,14 @@
     {
       "name": "defaultActions",
       "description": "The Figma \"Action Item\" default set: delete (danger) · upload · edit · share.",
-      "reactImport": "import { defaultActions } from '@lepidus/react'",
+      "reactImport": "import { defaultActions } from '@ramsarjal-404/react'",
       "props": [],
       "plainCss": null
     },
     {
       "name": "ActionItem",
       "description": "ActionItem — Lepidus Design System",
-      "reactImport": "import { ActionItem } from '@lepidus/react'",
+      "reactImport": "import { ActionItem } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "actions",
@@ -109,7 +109,7 @@
     {
       "name": "AlertPanel",
       "description": "AlertPanel — Lepidus Design System",
-      "reactImport": "import { AlertPanel } from '@lepidus/react'",
+      "reactImport": "import { AlertPanel } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "action",
@@ -178,7 +178,7 @@
     {
       "name": "Avatar",
       "description": "Avatar — Lepidus Design System",
-      "reactImport": "import { Avatar } from '@lepidus/react'",
+      "reactImport": "import { Avatar } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "alt",
@@ -254,7 +254,7 @@
     {
       "name": "AvatarGroup",
       "description": "AvatarGroup — Lepidus Design System",
-      "reactImport": "import { AvatarGroup } from '@lepidus/react'",
+      "reactImport": "import { AvatarGroup } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "children",
@@ -290,7 +290,7 @@
     {
       "name": "Badge",
       "description": "Badge — Lepidus Design System",
-      "reactImport": "import { Badge } from '@lepidus/react'",
+      "reactImport": "import { Badge } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "children",
@@ -338,7 +338,7 @@
     {
       "name": "Breadcrumb",
       "description": "Breadcrumb — Lepidus Design System",
-      "reactImport": "import { Breadcrumb } from '@lepidus/react'",
+      "reactImport": "import { Breadcrumb } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "items",
@@ -370,7 +370,7 @@
     {
       "name": "Button",
       "description": "Button — Lepidus Design System",
-      "reactImport": "import { Button } from '@lepidus/react'",
+      "reactImport": "import { Button } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "children",
@@ -442,7 +442,7 @@
     {
       "name": "Calendar",
       "description": "Calendar — Lepidus Design System",
-      "reactImport": "import { Calendar } from '@lepidus/react'",
+      "reactImport": "import { Calendar } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "defaultMonth",
@@ -520,14 +520,14 @@
     {
       "name": "CalendarVariant",
       "description": "Schedule frequency — controls which extra selectors appear.\n- `daily`   → calendar grid + time\n- `weekly`  → + \"Select Month\" weekday chips\n- `monthly` → + weekday chips + \"Select Date\" chips",
-      "reactImport": "import { CalendarVariant } from '@lepidus/react'",
+      "reactImport": "import { CalendarVariant } from '@ramsarjal-404/react'",
       "props": [],
       "plainCss": null
     },
     {
       "name": "Card",
       "description": "Card — Lepidus Design System",
-      "reactImport": "import { Card } from '@lepidus/react'",
+      "reactImport": "import { Card } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "actions",
@@ -589,7 +589,7 @@
     {
       "name": "BarChart",
       "description": "BarChart — Lepidus Design System",
-      "reactImport": "import { BarChart } from '@lepidus/react'",
+      "reactImport": "import { BarChart } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "categories",
@@ -646,7 +646,7 @@
     {
       "name": "BubbleChart",
       "description": "BubbleChart — Lepidus Design System",
-      "reactImport": "import { BubbleChart } from '@lepidus/react'",
+      "reactImport": "import { BubbleChart } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "height",
@@ -687,7 +687,7 @@
     {
       "name": "ChartCard",
       "description": "ChartCard — Lepidus Design System",
-      "reactImport": "import { ChartCard } from '@lepidus/react'",
+      "reactImport": "import { ChartCard } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "actions",
@@ -730,7 +730,7 @@
     {
       "name": "ChartLegend",
       "description": "Swatch legend shared by all chart types.",
-      "reactImport": "import { ChartLegend } from '@lepidus/react'",
+      "reactImport": "import { ChartLegend } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "items",
@@ -744,7 +744,7 @@
     {
       "name": "ColumnChart",
       "description": "ColumnChart — Lepidus Design System",
-      "reactImport": "import { ColumnChart } from '@lepidus/react'",
+      "reactImport": "import { ColumnChart } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "categories",
@@ -814,7 +814,7 @@
     {
       "name": "DonutChart",
       "description": "DonutChart — Lepidus Design System",
-      "reactImport": "import { DonutChart } from '@lepidus/react'",
+      "reactImport": "import { DonutChart } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "centerLabel",
@@ -869,7 +869,7 @@
     {
       "name": "GaugeChart",
       "description": "GaugeChart — Lepidus Design System",
-      "reactImport": "import { GaugeChart } from '@lepidus/react'",
+      "reactImport": "import { GaugeChart } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "color",
@@ -932,7 +932,7 @@
     {
       "name": "LineChart",
       "description": "LineChart — Lepidus Design System",
-      "reactImport": "import { LineChart } from '@lepidus/react'",
+      "reactImport": "import { LineChart } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "area",
@@ -994,7 +994,7 @@
     {
       "name": "Checkbox",
       "description": "Checkbox — Lepidus Design System",
-      "reactImport": "import { Checkbox } from '@lepidus/react'",
+      "reactImport": "import { Checkbox } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "checked",
@@ -1071,7 +1071,7 @@
     {
       "name": "Dropdown",
       "description": "Dropdown — Lepidus Design System",
-      "reactImport": "import { Dropdown } from '@lepidus/react'",
+      "reactImport": "import { Dropdown } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "className",
@@ -1175,7 +1175,7 @@
     {
       "name": "DragDropIllustration",
       "description": "Drag-and-drop illustration from the Figma \"Drag-and-Drop\" frame (node\n631:3498) — a hand dragging a card toward a dashed drop target. Unlike the\nother empty-state illustrations this one is a raster in Figma (237×212\nPNG), so it ships as an image asset; avoid rendering it above its native\nsize or it will soften. Decorative (aria-hidden) — the EmptyState message\ncarries the meaning.",
-      "reactImport": "import { DragDropIllustration } from '@lepidus/react'",
+      "reactImport": "import { DragDropIllustration } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "size",
@@ -1190,7 +1190,7 @@
     {
       "name": "EmptyState",
       "description": "EmptyState — Lepidus Design System",
-      "reactImport": "import { EmptyState } from '@lepidus/react'",
+      "reactImport": "import { EmptyState } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "action",
@@ -1234,7 +1234,7 @@
     {
       "name": "EmptyStateIllustration",
       "description": "Sleeping-server illustration from the Figma \"Empty-Page-Statement-with-\nIllustration\" frame (node 133:155), exported as a single SVG. Decorative by\ndefault (aria-hidden) -- the EmptyState message carries the meaning.",
-      "reactImport": "import { EmptyStateIllustration } from '@lepidus/react'",
+      "reactImport": "import { EmptyStateIllustration } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "size",
@@ -1249,7 +1249,7 @@
     {
       "name": "NoRecordsIllustration",
       "description": "\"No Records Found\" illustration from the Design Essentials report page\n(node 4:3532) -- a server stack under a magnifying glass in the brand\nblues. The no-results situation of the EmptyState set: a query/generation\nran (or hasn't run yet) and there is nothing to show. Decorative\n(aria-hidden); the EmptyState message carries the meaning.",
-      "reactImport": "import { NoRecordsIllustration } from '@lepidus/react'",
+      "reactImport": "import { NoRecordsIllustration } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "size",
@@ -1264,7 +1264,7 @@
     {
       "name": "UploadFileIllustration",
       "description": "Open-folder upload illustration from the Figma \"Upload-File\" frame (node\n631:3919), exported as a single SVG — papers rising out of a light-blue\nfolder with green leaves. Decorative by default (aria-hidden); pair it with\nan EmptyState message like \"Click here to upload your file!\".",
-      "reactImport": "import { UploadFileIllustration } from '@lepidus/react'",
+      "reactImport": "import { UploadFileIllustration } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "size",
@@ -1279,7 +1279,7 @@
     {
       "name": "Filter",
       "description": "Filter — Lepidus Design System",
-      "reactImport": "import { Filter } from '@lepidus/react'",
+      "reactImport": "import { Filter } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "className",
@@ -1349,7 +1349,7 @@
     {
       "name": "FolderTree",
       "description": "FolderTree — Lepidus Design System",
-      "reactImport": "import { FolderTree } from '@lepidus/react'",
+      "reactImport": "import { FolderTree } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "defaultExpandedIds",
@@ -1403,7 +1403,7 @@
     {
       "name": "Input",
       "description": "Input — Lepidus Design System",
-      "reactImport": "import { Input } from '@lepidus/react'",
+      "reactImport": "import { Input } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "className",
@@ -1521,7 +1521,7 @@
     {
       "name": "Link",
       "description": "Link — Lepidus Design System",
-      "reactImport": "import { Link } from '@lepidus/react'",
+      "reactImport": "import { Link } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "as",
@@ -1582,7 +1582,7 @@
     {
       "name": "Message",
       "description": "Message — Lepidus Design System",
-      "reactImport": "import { Message } from '@lepidus/react'",
+      "reactImport": "import { Message } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "children",
@@ -1655,7 +1655,7 @@
     {
       "name": "Modal",
       "description": "Modal — Lepidus Design System",
-      "reactImport": "import { Modal } from '@lepidus/react'",
+      "reactImport": "import { Modal } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "children",
@@ -1767,7 +1767,7 @@
     {
       "name": "Pagination",
       "description": "Pagination — Lepidus Design System",
-      "reactImport": "import { Pagination } from '@lepidus/react'",
+      "reactImport": "import { Pagination } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "currentPage",
@@ -1845,7 +1845,7 @@
     {
       "name": "Progress",
       "description": "Progress — Lepidus Design System",
-      "reactImport": "import { Progress } from '@lepidus/react'",
+      "reactImport": "import { Progress } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "fullWidth",
@@ -1902,14 +1902,14 @@
     {
       "name": "RadioGroupContext",
       "description": "Internal — lets `RadioGroup` wire name/checked/onChange into child `Radio`s.",
-      "reactImport": "import { RadioGroupContext } from '@lepidus/react'",
+      "reactImport": "import { RadioGroupContext } from '@ramsarjal-404/react'",
       "props": [],
       "plainCss": null
     },
     {
       "name": "Radio",
       "description": "Radio — Lepidus Design System",
-      "reactImport": "import { Radio } from '@lepidus/react'",
+      "reactImport": "import { Radio } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "checked",
@@ -1996,7 +1996,7 @@
     {
       "name": "RadioGroup",
       "description": "RadioGroup — Lepidus Design System",
-      "reactImport": "import { RadioGroup } from '@lepidus/react'",
+      "reactImport": "import { RadioGroup } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "children",
@@ -2060,7 +2060,7 @@
     {
       "name": "Scrollbar",
       "description": "Scrollbar — Lepidus Design System",
-      "reactImport": "import { Scrollbar } from '@lepidus/react'",
+      "reactImport": "import { Scrollbar } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "length",
@@ -2103,7 +2103,7 @@
     {
       "name": "SettingsPanel",
       "description": "SettingsPanel — Lepidus Design System",
-      "reactImport": "import { SettingsPanel } from '@lepidus/react'",
+      "reactImport": "import { SettingsPanel } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "defaultSelectedId",
@@ -2144,7 +2144,7 @@
     {
       "name": "Sidebar",
       "description": "Sidebar — Lepidus Design System (nav tokens)",
-      "reactImport": "import { Sidebar } from '@lepidus/react'",
+      "reactImport": "import { Sidebar } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "ariaLabel",
@@ -2194,7 +2194,7 @@
     {
       "name": "Skeleton",
       "description": "Skeleton — Lepidus Design System",
-      "reactImport": "import { Skeleton } from '@lepidus/react'",
+      "reactImport": "import { Skeleton } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "className",
@@ -2247,7 +2247,7 @@
     {
       "name": "Spinner",
       "description": "Spinner — Lepidus Design System",
-      "reactImport": "import { Spinner } from '@lepidus/react'",
+      "reactImport": "import { Spinner } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "className",
@@ -2288,7 +2288,7 @@
     {
       "name": "Stepper",
       "description": "Stepper — Lepidus Design System",
-      "reactImport": "import { Stepper } from '@lepidus/react'",
+      "reactImport": "import { Stepper } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "className",
@@ -2376,7 +2376,7 @@
     {
       "name": "Steps",
       "description": "Steps — Lepidus Design System",
-      "reactImport": "import { Steps } from '@lepidus/react'",
+      "reactImport": "import { Steps } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "current",
@@ -2427,7 +2427,7 @@
     {
       "name": "Table",
       "description": "Table — Lepidus Design System",
-      "reactImport": "import { Table } from '@lepidus/react'",
+      "reactImport": "import { Table } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "columns",
@@ -2553,7 +2553,7 @@
     {
       "name": "Tabs",
       "description": "Tabs — Lepidus Design System",
-      "reactImport": "import { Tabs } from '@lepidus/react'",
+      "reactImport": "import { Tabs } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "defaultValue",
@@ -2608,7 +2608,7 @@
     {
       "name": "Tag",
       "description": "Tag — Lepidus Design System",
-      "reactImport": "import { Tag } from '@lepidus/react'",
+      "reactImport": "import { Tag } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "children",
@@ -2663,7 +2663,7 @@
     {
       "name": "TextField",
       "description": "TextField — Lepidus Design System",
-      "reactImport": "import { TextField } from '@lepidus/react'",
+      "reactImport": "import { TextField } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "className",
@@ -2699,7 +2699,7 @@
     {
       "name": "Textarea",
       "description": "Textarea — Lepidus Design System",
-      "reactImport": "import { Textarea } from '@lepidus/react'",
+      "reactImport": "import { Textarea } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "className",
@@ -2735,7 +2735,7 @@
     {
       "name": "TimePicker",
       "description": "TimePicker — Lepidus Design System",
-      "reactImport": "import { TimePicker } from '@lepidus/react'",
+      "reactImport": "import { TimePicker } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "defaultHour",
@@ -2792,7 +2792,7 @@
     {
       "name": "Toast",
       "description": "Toast — Lepidus Design System",
-      "reactImport": "import { Toast } from '@lepidus/react'",
+      "reactImport": "import { Toast } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "children",
@@ -2848,14 +2848,14 @@
     {
       "name": "useToast",
       "description": "useToast — access the imperative toast API from any descendant of\n`<ToastProvider>`: `const { toast, dismiss } = useToast()`.",
-      "reactImport": "import { useToast } from '@lepidus/react'",
+      "reactImport": "import { useToast } from '@ramsarjal-404/react'",
       "props": [],
       "plainCss": null
     },
     {
       "name": "ToastProvider",
       "description": "ToastProvider — Lepidus Design System",
-      "reactImport": "import { ToastProvider } from '@lepidus/react'",
+      "reactImport": "import { ToastProvider } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "children",
@@ -2884,7 +2884,7 @@
     {
       "name": "Toggle",
       "description": "Toggle — Lepidus Design System",
-      "reactImport": "import { Toggle } from '@lepidus/react'",
+      "reactImport": "import { Toggle } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "checked",
@@ -2927,7 +2927,7 @@
     {
       "name": "Tooltip",
       "description": "Tooltip — Lepidus Design System",
-      "reactImport": "import { Tooltip } from '@lepidus/react'",
+      "reactImport": "import { Tooltip } from '@ramsarjal-404/react'",
       "props": [
         {
           "name": "children",

@@ -1,4 +1,4 @@
-import { Textarea } from '@lepidus/react';
+import { Textarea } from '@ramsarjal-404/react';
 
 {/* rows sizes the box; fullWidth tracks the container instead of the fixed 481px */}
 <div style={{ maxWidth: 640 }}>

@@ -1,4 +1,4 @@
-import { useToast } from '@lepidus/react';
+import { useToast } from '@ramsarjal-404/react';
 
 function useScanNotifications() {
   const { toast, dismiss } = useToast();

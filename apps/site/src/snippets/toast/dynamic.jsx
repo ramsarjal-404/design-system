@@ -1,4 +1,4 @@
-import { Button, useToast } from '@lepidus/react';
+import { Button, useToast } from '@ramsarjal-404/react';
 
 {/* Inside a <ToastProvider> subtree — see /components/toast-provider/ */}
 function ScanButton() {

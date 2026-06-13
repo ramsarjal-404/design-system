@@ -1,4 +1,4 @@
-import { Button } from '@lepidus/react';
+import { Button } from '@ramsarjal-404/react';
 
 <>
   {/* native disabled attribute — removed from tab order, announced as dimmed */}

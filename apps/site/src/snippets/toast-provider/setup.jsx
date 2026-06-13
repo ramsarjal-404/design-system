@@ -1,4 +1,4 @@
-import { ToastProvider } from '@lepidus/react';
+import { ToastProvider } from '@ramsarjal-404/react';
 
 {/* Once, near the app root. duration: default auto-dismiss ms (6000);
     max: visible toasts before queueing (5). */}

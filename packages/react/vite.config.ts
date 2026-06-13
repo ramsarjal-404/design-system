@@ -1,10 +1,10 @@
 /**
- * Library build for @lepidus/react.
+ * Library build for @ramsarjal-404/react.
  *
  * Emits dist/index.js (ESM, react externalized) and dist/style.css (all CSS
  * Modules extracted, classes hashed). Type declarations come from
  * `tsc -p tsconfig.build.json` (run together via `npm run build:react` at the
- * repo root). Consumers load @lepidus/tokens/css first, then ./style.css.
+ * repo root). Consumers load @ramsarjal-404/tokens/css first, then ./style.css.
  */
 import { defineConfig } from 'vite';
 

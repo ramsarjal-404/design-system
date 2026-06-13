@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Modal, Button } from '@lepidus/react';
+import { Modal, Button } from '@ramsarjal-404/react';
 
 function AddServer() {
   const [open, setOpen] = useState(false);

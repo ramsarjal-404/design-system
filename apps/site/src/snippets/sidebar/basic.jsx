@@ -1,4 +1,4 @@
-import { Sidebar, DashboardIcon, LogsIcon, GeneralSettingsIcon } from '@lepidus/react';
+import { Sidebar, DashboardIcon, LogsIcon, GeneralSettingsIcon } from '@ramsarjal-404/react';
 
 <Sidebar
   ariaLabel="Primary"

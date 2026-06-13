@@ -1,4 +1,4 @@
-import { BubbleChart, ChartCard } from '@lepidus/react';
+import { BubbleChart, ChartCard } from '@ramsarjal-404/react';
 
 // xMax/yMax pin the scales so several charts can share axes
 <ChartCard title="Risk vs Exposure">

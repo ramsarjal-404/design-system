@@ -1,4 +1,4 @@
-import { Sidebar, DashboardIcon, LogsIcon, GeneralSettingsIcon } from '@lepidus/react';
+import { Sidebar, DashboardIcon, LogsIcon, GeneralSettingsIcon } from '@ramsarjal-404/react';
 
 // href items render real <a> elements — history and middle-click work.
 // Disabled link items drop their href and set aria-disabled.

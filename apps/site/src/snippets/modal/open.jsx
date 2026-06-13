@@ -1,4 +1,4 @@
-import { Modal } from '@lepidus/react';
+import { Modal } from '@ramsarjal-404/react';
 
 {/* open defaults to true — render conditionally in production (see the trigger example) */}
 <Modal

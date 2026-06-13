@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Steps } from '@lepidus/react';
+import { Button, Steps } from '@ramsarjal-404/react';
 
 function Wizard() {
   const [step, setStep] = useState(1);

@@ -1,4 +1,4 @@
-import { FolderTree } from '@lepidus/react';
+import { FolderTree } from '@ramsarjal-404/react';
 
 const folders = [
   {

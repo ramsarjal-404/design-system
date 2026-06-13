@@ -1,4 +1,4 @@
-import { ColumnChart, ChartCard, CHART_COLORS } from '@lepidus/react';
+import { ColumnChart, ChartCard, CHART_COLORS } from '@ramsarjal-404/react';
 
 <ChartCard title="Backups Per Month">
   <ColumnChart

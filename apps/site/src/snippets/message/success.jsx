@@ -1,4 +1,4 @@
-import { Message } from '@lepidus/react';
+import { Message } from '@ramsarjal-404/react';
 
 <Message
   variant="success"

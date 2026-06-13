@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Tabs } from '@lepidus/react';
+import { Tabs } from '@ramsarjal-404/react';
 
 const TABS = [
   { id: 'overview', label: 'Overview' },

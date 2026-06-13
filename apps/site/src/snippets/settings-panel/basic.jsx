@@ -3,7 +3,7 @@ import {
   GeneralSettingsIcon,
   LogsIcon,
   BackupRestoreIcon,
-} from '@lepidus/react';
+} from '@ramsarjal-404/react';
 
 <SettingsPanel
   defaultSelectedId="general"

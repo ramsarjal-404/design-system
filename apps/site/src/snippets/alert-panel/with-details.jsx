@@ -1,4 +1,4 @@
-import { AlertPanel, Button } from '@lepidus/react';
+import { AlertPanel, Button } from '@ramsarjal-404/react';
 
 <AlertPanel
   severity="warning"

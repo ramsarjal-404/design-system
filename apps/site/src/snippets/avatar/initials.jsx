@@ -1,4 +1,4 @@
-import { Avatar } from '@lepidus/react';
+import { Avatar } from '@ramsarjal-404/react';
 
 // no src → initials fallback; the name drives the initials,
 // the deterministic series color, and the accessible name

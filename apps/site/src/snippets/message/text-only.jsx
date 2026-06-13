@@ -1,4 +1,4 @@
-import { Message } from '@lepidus/react';
+import { Message } from '@ramsarjal-404/react';
 
 {/* No actions and no onClose — the actions row and the × are omitted entirely. */}
 <Message variant="info" title="Heads up">

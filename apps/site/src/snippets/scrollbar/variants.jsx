@@ -1,4 +1,4 @@
-import { Scrollbar } from '@lepidus/react';
+import { Scrollbar } from '@ramsarjal-404/react';
 
 <div style={{ display: 'flex', gap: 56, alignItems: 'flex-start' }}>
   <Scrollbar variant="default" length={300} thumbOffset={20} />

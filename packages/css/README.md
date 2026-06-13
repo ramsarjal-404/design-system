@@ -1,7 +1,7 @@
-# @lepidus/css
+# @ramsarjal-404/css
 
 Lepidus Design System as **plain CSS classes** — for HTML/CSS/JS projects with
-no framework and no build tool. Same tokens, same look as `@lepidus/react`;
+no framework and no build tool. Same tokens, same look as `@ramsarjal-404/react`;
 both are generated from the same source, so they cannot drift apart.
 
 ## Use
@@ -26,7 +26,7 @@ Theming — set the attribute on `<html>` and every component follows:
 |---|---|
 | `lepidus.css` | Tokens + all components in one file — the easiest path |
 | `lepidus.js` | Vanilla behavior for interactive components (Tabs, Modal) — data-attribute init, `window.Lepidus` API |
-| `lepidus.components.css` | Components only (load `@lepidus/tokens` CSS yourself) |
+| `lepidus.components.css` | Components only (load `@ramsarjal-404/tokens` CSS yourself) |
 | `components/<name>.css` | One component at a time |
 
 ## Class naming

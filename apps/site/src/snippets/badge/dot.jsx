@@ -1,4 +1,4 @@
-import { Badge } from '@lepidus/react';
+import { Badge } from '@ramsarjal-404/react';
 
 <>
   <Badge variant="success" dot>Online</Badge>

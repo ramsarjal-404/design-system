@@ -57,7 +57,7 @@ for (const dir of readdirSync(componentsDir).sort()) {
     components.push({
       name: doc.displayName,
       description: (doc.description || '').split('\n\n')[0],
-      reactImport: `import { ${doc.displayName} } from '@lepidus/react'`,
+      reactImport: `import { ${doc.displayName} } from '@ramsarjal-404/react'`,
       props,
       plainCss: css && { block: css.block, classes: css.classes },
     });

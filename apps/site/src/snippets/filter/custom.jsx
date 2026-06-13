@@ -1,4 +1,4 @@
-import { Filter } from '@lepidus/react';
+import { Filter } from '@ramsarjal-404/react';
 
 <Filter
   open={open}

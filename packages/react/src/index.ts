@@ -1,5 +1,5 @@
 /**
- * @lepidus/react — public entry point.
+ * @ramsarjal-404/react — public entry point.
  *
  * Regenerate the component block when adding a folder under src/components
  * (each folder must expose an index.ts barrel; see Contributing).

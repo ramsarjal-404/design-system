@@ -1,4 +1,4 @@
-import { Radio, RadioGroup } from '@lepidus/react';
+import { Radio, RadioGroup } from '@ramsarjal-404/react';
 
 <RadioGroup name="severity" label="Severity" defaultValue="medium" orientation="horizontal">
   <Radio value="low" label="Low" />

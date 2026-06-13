@@ -1,4 +1,4 @@
-import { Breadcrumb } from '@lepidus/react';
+import { Breadcrumb } from '@ramsarjal-404/react';
 
 <Breadcrumb
   items={[

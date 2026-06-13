@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SettingsPanel } from '@lepidus/react';
+import { SettingsPanel } from '@ramsarjal-404/react';
 
 function SettingsLayout({ items }) {
   const [selected, setSelected] = useState('general');

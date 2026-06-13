@@ -1,4 +1,4 @@
-import { LineChart, ChartCard, ChartLegend, CHART_COLORS } from '@lepidus/react';
+import { LineChart, ChartCard, ChartLegend, CHART_COLORS } from '@ramsarjal-404/react';
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
 const SERIES = [

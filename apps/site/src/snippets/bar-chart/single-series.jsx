@@ -1,4 +1,4 @@
-import { BarChart, ChartCard, CHART_COLORS } from '@lepidus/react';
+import { BarChart, ChartCard, CHART_COLORS } from '@ramsarjal-404/react';
 
 <ChartCard title="Permission Changes by Server">
   <BarChart

@@ -1,4 +1,4 @@
-import { Tabs } from '@lepidus/react';
+import { Tabs } from '@ramsarjal-404/react';
 
 <Tabs
   tabs={[

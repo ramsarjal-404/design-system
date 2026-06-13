@@ -15,7 +15,7 @@ repo), the published site (living docs), and [packages/mcp/README.md](packages/m
 | Audience | What they get | Entry point |
 |---|---|---|
 | HTML/CSS/JS developers (Lepide's current stack) | One stylesheet + one small JS file, copy-paste markup | Site → Foundations → HTML & CSS |
-| React developers (future) | 38 typed components | `@lepidus/react` |
+| React developers (future) | 38 typed components | `@ramsarjal-404/react` |
 | Designers | Figma library in lock-step with code, themed previews | Figma + the site |
 | AI assistants | Rules, machine-readable facts, live MCP lookup | `llms.txt`, `component-manifest.json`, `packages/mcp` |
 
@@ -68,7 +68,7 @@ packages/
   mcp/      zero-dep MCP server                        (the AI surface)
 ```
 
-### 3.1 `@lepidus/react` — the workshop
+### 3.1 `@ramsarjal-404/react` — the workshop
 
 Each component: `Name.tsx` (typed, forwardRef) + `Name.types.ts` +
 `Name.module.css` (every visual property a token `var()`) + `Name.stories.tsx`
@@ -77,7 +77,7 @@ VisuallyHidden) lives in `src/primitives`. Even while Lepide ships plain
 HTML, this package stays the **factory**: stories are the spec, tests run
 here, and the CSS package is generated from these modules.
 
-### 3.2 `@lepidus/css` — the product for today's stack
+### 3.2 `@ramsarjal-404/css` — the product for today's stack
 
 `build-css.mjs` transforms the React CSS modules into prefixed plain classes
 (SLDS/Bootstrap model): block `lp-button`, modifier `lp-button--primary`,

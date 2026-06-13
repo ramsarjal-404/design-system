@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FolderTree } from '@lepidus/react';
+import { FolderTree } from '@ramsarjal-404/react';
 
 function ReportPicker({ folders }) {
   const [selected, setSelected] = useState();

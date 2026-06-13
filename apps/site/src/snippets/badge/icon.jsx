@@ -1,4 +1,4 @@
-import { Badge } from '@lepidus/react';
+import { Badge } from '@ramsarjal-404/react';
 
 const CheckIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"

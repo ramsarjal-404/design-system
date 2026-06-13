@@ -1,4 +1,4 @@
-import { GaugeChart, ChartCard, CHART_COLORS } from '@lepidus/react';
+import { GaugeChart, ChartCard, CHART_COLORS } from '@ramsarjal-404/react';
 
 // first entry whose upTo >= value wins; CHART_COLORS keeps bands themable
 // (CHART_COLORS[2] green, [1] yellow, [0] red — the --color-chart-series-* tokens)

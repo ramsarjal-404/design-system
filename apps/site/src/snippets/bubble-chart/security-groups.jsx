@@ -1,4 +1,4 @@
-import { BubbleChart, ChartCard, ChartLegend, CHART_COLORS } from '@lepidus/react';
+import { BubbleChart, ChartCard, ChartLegend, CHART_COLORS } from '@ramsarjal-404/react';
 
 // each point: x/y position plus a literal pixel radius r; label feeds the tooltip
 const SERIES = [

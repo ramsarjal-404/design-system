@@ -1,4 +1,4 @@
-import { Pagination } from '@lepidus/react';
+import { Pagination } from '@ramsarjal-404/react';
 
 <Pagination
   totalRecords={248}

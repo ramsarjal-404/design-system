@@ -1,4 +1,4 @@
-import { Stepper } from '@lepidus/react';
+import { Stepper } from '@ramsarjal-404/react';
 
 <Stepper
   defaultValue={30}

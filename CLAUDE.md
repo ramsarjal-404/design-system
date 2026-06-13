@@ -10,7 +10,7 @@ Enterprise design system for Lepide. Three packages, consumed via source:
 - `packages/css` — plain `lp-*` BEM classes generated from the React CSS
   modules by `build-css.mjs`; **never edit `packages/css/dist/`**
 
-Lepide product developers ship plain HTML/CSS/JS — `@lepidus/css` is the
+Lepide product developers ship plain HTML/CSS/JS — `@ramsarjal-404/css` is the
 primary consumer surface; React is the workshop and the future option.
 
 ## Token rules (break these and CI fails)
@@ -36,7 +36,7 @@ primary consumer surface; React is the workshop and the future option.
    weren't real failures before committing.
 5. JS-timed stories opt out of VRT via `tags: ['no-vrt']`.
 
-## @lepidus/css specifics
+## @ramsarjal-404/css specifics
 
 - Add a component by appending to `COMPONENTS` in `packages/css/build-css.mjs`:
   `block` (root class in the module), `elements` (→ `lp-x__part`), explicit

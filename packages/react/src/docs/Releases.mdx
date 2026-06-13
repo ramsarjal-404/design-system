@@ -12,7 +12,7 @@ changesets into versions and changelogs.
 
 | Step | Command | When |
 | --- | --- | --- |
-| Add a changeset | `npm run changeset` | In every PR that changes `@lepidus/react` or `@lepidus/tokens` — pick the bump, write the consumer-facing note |
+| Add a changeset | `npm run changeset` | In every PR that changes `@ramsarjal-404/react` or `@ramsarjal-404/tokens` — pick the bump, write the consumer-facing note |
 | Cut a release | `npm run version-packages` | At release time — rolls all pending changesets into package versions + `CHANGELOG.md` entries |
 
 The changeset note is what consumers read in the changelog — write it for them ("Dropdown:
@@ -63,7 +63,7 @@ Released 2026-06-12 — the first versioned baseline (see `/CHANGELOG.md` at the
 - **Quality gates** — `check:tokens` (no hardcoded colors, all references resolve),
   `check:contrast` (WCAG pair audit per theme), axe checks in the Storybook test-runner, and
   `vrt` visual regression across all three themes.
-- **Packaging** — `@lepidus/react` (ESM + types + extracted CSS) and `@lepidus/tokens`
+- **Packaging** — `@ramsarjal-404/react` (ESM + types + extracted CSS) and `@ramsarjal-404/tokens`
   (tokens.json + tokens.css), versioned with Changesets.
 
 ## Migration guide template
@@ -93,7 +93,7 @@ grep -rl -- '--component-button-fill' src | xargs sed -i '' \
   's/--component-button-fill/--component-button-primary-fill/g'
 ```
 
-Or the codemod, if one ships: `npx @lepidus/codemods vX`.
+Or the codemod, if one ships: `npx @ramsarjal-404/codemods vX`.
 
 ## Visual changes
 

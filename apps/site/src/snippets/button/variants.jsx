@@ -1,4 +1,4 @@
-import { Button } from '@lepidus/react';
+import { Button } from '@ramsarjal-404/react';
 
 <>
   <Button variant="primary">Save changes</Button>

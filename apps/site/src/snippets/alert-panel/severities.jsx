@@ -1,4 +1,4 @@
-import { AlertPanel } from '@lepidus/react';
+import { AlertPanel } from '@ramsarjal-404/react';
 
 <>
   {['warning', 'success', 'error', 'info'].map((severity) => (

@@ -1,4 +1,4 @@
-import { Toast } from '@lepidus/react';
+import { Toast } from '@ramsarjal-404/react';
 
 <>
   <Toast variant="success" title="Success !" onClose={dismiss}>

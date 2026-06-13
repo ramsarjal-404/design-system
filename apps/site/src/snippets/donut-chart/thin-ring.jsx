@@ -1,4 +1,4 @@
-import { DonutChart, ChartCard } from '@lepidus/react';
+import { DonutChart, ChartCard } from '@ramsarjal-404/react';
 
 // compact dashboard stat — pair with an external ChartLegend or data table
 <ChartCard title="Alerts">

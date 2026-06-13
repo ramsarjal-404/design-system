@@ -1,4 +1,4 @@
-import { Accordion } from '@lepidus/react';
+import { Accordion } from '@ramsarjal-404/react';
 
 <Accordion
   idPrefix="orders"

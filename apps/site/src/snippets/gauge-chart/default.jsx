@@ -1,4 +1,4 @@
-import { GaugeChart, ChartCard } from '@lepidus/react';
+import { GaugeChart, ChartCard } from '@ramsarjal-404/react';
 
 <ChartCard title="System Health">
   <GaugeChart

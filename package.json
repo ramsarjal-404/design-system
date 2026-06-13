@@ -23,8 +23,8 @@
     "usage-report": "node scripts/usage-report.mjs",
     "build:react": "cd packages/react && npx vite build && npx tsc -p tsconfig.build.json",
     "site:data": "node apps/site/scripts/prepare.mjs",
-    "site": "npm run prestorybook && npm run site:data && npm --workspace @lepidus/site exec astro dev",
-    "build:site": "npm run build-storybook && npm --workspace @lepidus/site run build && node apps/site/scripts/assemble.mjs",
+    "site": "npm run prestorybook && npm run site:data && npm --workspace @ramsarjal-404/site exec astro dev",
+    "build:site": "npm run build-storybook && npm --workspace @ramsarjal-404/site run build && node apps/site/scripts/assemble.mjs",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "npm publish --workspaces --no-git-checks || npm publish --workspaces"

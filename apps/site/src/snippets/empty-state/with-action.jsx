@@ -1,4 +1,4 @@
-import { EmptyState, Button } from '@lepidus/react';
+import { EmptyState, Button } from '@ramsarjal-404/react';
 
 <EmptyState
   message="No reports have been generated yet."

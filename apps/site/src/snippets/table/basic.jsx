@@ -1,4 +1,4 @@
-import { Table } from '@lepidus/react';
+import { Table } from '@ramsarjal-404/react';
 
 const columns = [
   { key: 'name', header: 'Server' },

@@ -32,7 +32,7 @@ type marks, product logos) keep their original fills.
 ## Usage
 
 \`\`\`tsx
-import { SearchIcon } from '@lepidus/react/icons';
+import { SearchIcon } from '@ramsarjal-404/react/icons';
 
 // Decorative (default): aria-hidden="true", sized via the size prop (default 24)
 <SearchIcon size={16} />

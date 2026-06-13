@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * @lepidus/css — build script
+ * @ramsarjal-404/css — build script
  *
  * Transforms the React package's CSS modules into plain, prefixed CSS classes
  * (SLDS/Bootstrap style) so HTML/CSS/JS consumers can use the design system
@@ -16,7 +16,7 @@
  *
  * Outputs (packages/css/dist/):
  *   lepidus.css             tokens + all components in one file (easiest path)
- *   lepidus.components.css  components only (link @lepidus/tokens css yourself)
+ *   lepidus.components.css  components only (link @ramsarjal-404/tokens css yourself)
  *   components/<name>.css   one file per component
  *
  * The script fails the build if a selector class escapes the mapping or if a
@@ -405,7 +405,7 @@ if (process.exitCode) {
 }
 
 const header =
-  `/* Lepidus Design System — plain CSS distribution (@lepidus/css)\n` +
+  `/* Lepidus Design System — plain CSS distribution (@ramsarjal-404/css)\n` +
   `   GENERATED — do not edit. Theming: set data-theme="dark" | "hc" on <html>. */\n\n`;
 
 const componentsBundle = header + pieces.join('\n');

@@ -1,4 +1,4 @@
-import { Table, Badge, Button } from '@lepidus/react';
+import { Table, Badge, Button } from '@ramsarjal-404/react';
 
 const data = [
   { id: 'fs1', name: 'LDSP-FS-01', status: 'Healthy' },

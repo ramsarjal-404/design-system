@@ -1,4 +1,4 @@
-import { Tag } from '@lepidus/react';
+import { Tag } from '@ramsarjal-404/react';
 
 <>
   <Tag variant="error">Critical</Tag>

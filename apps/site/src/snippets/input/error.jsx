@@ -1,4 +1,4 @@
-import { Input } from '@lepidus/react';
+import { Input } from '@ramsarjal-404/react';
 
 {/* status="error" sets aria-invalid and links the message via aria-describedby */}
 <Input

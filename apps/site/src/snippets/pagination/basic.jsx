@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Pagination } from '@lepidus/react';
+import { Pagination } from '@ramsarjal-404/react';
 
 function TablePagination() {
   const [page, setPage] = useState(3);

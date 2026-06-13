@@ -1,4 +1,4 @@
-import { LineChart, ChartCard, CHART_COLORS } from '@lepidus/react';
+import { LineChart, ChartCard, CHART_COLORS } from '@ramsarjal-404/react';
 
 // area adds a soft 12%-opacity fill under the line — best with one series
 <ChartCard title="Healthy Objects Trend">

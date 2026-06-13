@@ -1,4 +1,4 @@
-import { Calendar } from '@lepidus/react';
+import { Calendar } from '@ramsarjal-404/react';
 
 <Calendar
   variant="weekly"

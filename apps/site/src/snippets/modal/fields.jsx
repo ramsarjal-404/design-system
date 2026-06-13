@@ -1,4 +1,4 @@
-import { Modal } from '@lepidus/react';
+import { Modal } from '@ramsarjal-404/react';
 
 {/* Each row supports the full Input API — type, placeholder, status, errorMessage, helperText… */}
 <Modal

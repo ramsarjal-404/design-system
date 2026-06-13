@@ -1,4 +1,4 @@
-import { Checkbox } from '@lepidus/react';
+import { Checkbox } from '@ramsarjal-404/react';
 
 // `indeterminate` sets the DOM property and aria-checked="mixed".
 // Drive it from the group state — it clears on the next user toggle.

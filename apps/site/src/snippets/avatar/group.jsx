@@ -1,4 +1,4 @@
-import { Avatar, AvatarGroup } from '@lepidus/react';
+import { Avatar, AvatarGroup } from '@ramsarjal-404/react';
 
 // children beyond max collapse into the "+N" chip, labelled "N more"
 <AvatarGroup max={3} size="md" aria-label="Contributors">

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Sidebar, DashboardIcon, LogsIcon, GeneralSettingsIcon } from '@lepidus/react';
+import { Sidebar, DashboardIcon, LogsIcon, GeneralSettingsIcon } from '@ramsarjal-404/react';
 
 function RoundedRail() {
   const [active, setActive] = useState('dashboard');

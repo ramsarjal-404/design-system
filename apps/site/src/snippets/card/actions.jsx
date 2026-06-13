@@ -1,4 +1,4 @@
-import { Card, Badge } from '@lepidus/react';
+import { Card, Badge } from '@ramsarjal-404/react';
 
 <Card
   title="Connection status"

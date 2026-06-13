@@ -1,4 +1,4 @@
-import { Card, Button } from '@lepidus/react';
+import { Card, Button } from '@ramsarjal-404/react';
 
 <Card
   title="Delete workspace"

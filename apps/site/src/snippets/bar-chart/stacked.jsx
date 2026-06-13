@@ -1,4 +1,4 @@
-import { BarChart, ChartCard, ChartLegend, CHART_COLORS } from '@lepidus/react';
+import { BarChart, ChartCard, ChartLegend, CHART_COLORS } from '@ramsarjal-404/react';
 
 const CATEGORIES = ['AD-Primary', 'Exchange-01', 'SQL-Cluster', 'SharePoint'];
 const SERIES = [

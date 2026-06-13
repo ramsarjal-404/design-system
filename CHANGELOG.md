@@ -21,5 +21,5 @@ First versioned baseline.
 - Quality gates: `check:tokens` (no hardcoded colors, all references resolve),
   `check:contrast` (WCAG pair audit per theme), axe checks in the Storybook
   test-runner, and `vrt` visual regression across all three themes.
-- Packaging as `@lepidus/react` (ESM + types + extracted CSS) and
-  `@lepidus/tokens` (tokens.json + tokens.css), with Changesets for versioning.
+- Packaging as `@ramsarjal-404/react` (ESM + types + extracted CSS) and
+  `@ramsarjal-404/tokens` (tokens.json + tokens.css), with Changesets for versioning.

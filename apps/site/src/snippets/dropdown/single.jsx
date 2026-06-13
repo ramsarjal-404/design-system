@@ -1,4 +1,4 @@
-import { Dropdown } from '@lepidus/react';
+import { Dropdown } from '@ramsarjal-404/react';
 
 <Dropdown
   placeholder="Select data source"

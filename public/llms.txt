@@ -2,13 +2,13 @@
 
 > Lepidus is Lepide's enterprise design system: design tokens generated from
 > Figma (DTCG → CSS variables), three themes (light / dark / high-contrast),
-> 38 React components, and a plain-CSS distribution (@lepidus/css) for
+> 38 React components, and a plain-CSS distribution (@ramsarjal-404/css) for
 > HTML/CSS/JS apps. This file is for AI assistants generating Lepide UI.
 
 ## Rules for generated code
 
 - Default to **plain HTML with `lp-` classes** (Lepide product teams ship
-  HTML/CSS/JS). Use `@lepidus/react` components only when the project already
+  HTML/CSS/JS). Use `@ramsarjal-404/react` components only when the project already
   uses React.
 - **Never hardcode colors, radii, spacing or font sizes.** Use the token CSS
   variables: `var(--component-*)` first, `var(--color-*)` / `var(--space-*)` /
@@ -117,8 +117,8 @@ Sidebar, TextField, Textarea, TimePicker.
 
 ## React usage
 
-    import { Button } from '@lepidus/react';
-    // load @lepidus/tokens css, then @lepidus/react/style.css first
+    import { Button } from '@ramsarjal-404/react';
+    // load @ramsarjal-404/tokens css, then @ramsarjal-404/react/style.css first
     <Button variant="primary" size="md">Save</Button>
 
 ## Machine-readable API

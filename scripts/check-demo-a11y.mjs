@@ -4,7 +4,7 @@
  * (packages/css/demo/index.html) in all three themes.
  *
  * The React stories are already axe-gated by test-storybook; this gate gives
- * the @lepidus/css markup patterns the same guarantee — if the documented
+ * the @ramsarjal-404/css markup patterns the same guarantee — if the documented
  * plain-HTML markup has WCAG violations, CI fails.
  *
  * Also audits the open states that only exist after interaction (modal open,

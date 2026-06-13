@@ -1,4 +1,4 @@
-import { DonutChart, ChartCard } from '@lepidus/react';
+import { DonutChart, ChartCard } from '@ramsarjal-404/react';
 
 const DATA = [
   { label: 'Compliant', value: 1184 },

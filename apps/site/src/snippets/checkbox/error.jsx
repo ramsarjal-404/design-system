@@ -1,4 +1,4 @@
-import { Checkbox } from '@lepidus/react';
+import { Checkbox } from '@ramsarjal-404/react';
 
 {/* error paints the status-error border and sets aria-invalid —
     always pair it with visible error text near the control */}

@@ -1,4 +1,4 @@
-import { Skeleton } from '@lepidus/react';
+import { Skeleton } from '@ramsarjal-404/react';
 
 {/* aria-busy on the container — the skeletons themselves are aria-hidden */}
 <div

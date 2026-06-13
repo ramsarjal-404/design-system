@@ -1,4 +1,4 @@
-import { BarChart, ChartCard, ChartLegend, CHART_COLORS } from '@lepidus/react';
+import { BarChart, ChartCard, ChartLegend, CHART_COLORS } from '@ramsarjal-404/react';
 
 const CATEGORIES = ['FS1', 'FS2', 'FS3', 'FS4', 'FS5'];
 const SERIES = [

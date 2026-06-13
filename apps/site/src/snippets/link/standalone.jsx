@@ -1,4 +1,4 @@
-import { Link } from '@lepidus/react';
+import { Link } from '@ramsarjal-404/react';
 
 const ArrowIcon = () => (
   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5"

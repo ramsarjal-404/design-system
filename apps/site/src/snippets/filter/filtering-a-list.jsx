@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Filter, applyFilterConditions } from '@lepidus/react';
+import { Filter, applyFilterConditions } from '@ramsarjal-404/react';
 
 const FIELDS = [
   { id: 'objectClass', label: 'Object Class', values: ['user', 'group', 'account'] },

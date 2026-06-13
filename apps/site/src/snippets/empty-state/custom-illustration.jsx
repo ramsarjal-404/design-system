@@ -1,4 +1,4 @@
-import { EmptyState, UploadFileIllustration } from '@lepidus/react';
+import { EmptyState, UploadFileIllustration } from '@ramsarjal-404/react';
 
 <EmptyState
   message="Click here to upload your file!"

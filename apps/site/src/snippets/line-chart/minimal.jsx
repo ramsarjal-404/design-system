@@ -1,4 +1,4 @@
-import { LineChart, ChartCard } from '@lepidus/react';
+import { LineChart, ChartCard } from '@ramsarjal-404/react';
 
 // compact configuration: no dots (also removes tooltips), 3 ticks, shorter plot
 <ChartCard title="Failed Logins">

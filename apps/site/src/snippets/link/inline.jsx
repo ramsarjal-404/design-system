@@ -1,4 +1,4 @@
-import { Link } from '@lepidus/react';
+import { Link } from '@ramsarjal-404/react';
 
 <p>
   Your subscription renews on June 30. Review your{' '}

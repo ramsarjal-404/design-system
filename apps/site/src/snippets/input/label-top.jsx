@@ -1,4 +1,4 @@
-import { Input } from '@lepidus/react';
+import { Input } from '@ramsarjal-404/react';
 
 <Input
   label="Server name"

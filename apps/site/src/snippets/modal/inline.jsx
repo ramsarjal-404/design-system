@@ -1,4 +1,4 @@
-import { Modal } from '@lepidus/react';
+import { Modal } from '@ramsarjal-404/react';
 
 {/* overlay={false} embeds the shell inline — no backdrop, no focus trap, no aria-modal */}
 <Modal

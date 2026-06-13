@@ -1,4 +1,4 @@
-import { TimePicker } from '@lepidus/react';
+import { TimePicker } from '@ramsarjal-404/react';
 
 <TimePicker
   use24Hour

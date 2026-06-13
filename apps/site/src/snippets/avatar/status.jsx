@@ -1,4 +1,4 @@
-import { Avatar } from '@lepidus/react';
+import { Avatar } from '@ramsarjal-404/react';
 
 <>
   <Avatar name="Jane Kim" size="lg" status="online" />

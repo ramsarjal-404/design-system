@@ -27,8 +27,8 @@ assets to a new `v2/` folder and keep `v1/` serving — existing pages never bre
 
 ## 2. npm packages — for React and tooling teams
 
-`@lepidus/react`, `@lepidus/tokens`, and `@lepidus/css` are scoped + restricted.
-To make `npm install @lepidus/*` work you need a **private registry**. Two
+`@ramsarjal-404/react`, `@ramsarjal-404/tokens`, and `@ramsarjal-404/css` are scoped + restricted.
+To make `npm install @ramsarjal-404/*` work you need a **private registry**. Two
 common internal options:
 
 - **GitHub Packages** — once this repo lives in your GitHub org, add to each
@@ -36,7 +36,7 @@ common internal options:
   ```json
   "publishConfig": { "registry": "https://npm.pkg.github.com", "access": "restricted" }
   ```
-  Consumers add `@lepidus:registry=https://npm.pkg.github.com` to their
+  Consumers add `@ramsarjal-404:registry=https://npm.pkg.github.com` to their
   `.npmrc` with a read token.
 - **Self-hosted (Verdaccio)** or a private npm org — set the `registry` in
   `publishConfig` to that URL.
@@ -55,9 +55,9 @@ npm publish --workspaces   # to the private registry above
 For an air-gapped team or before a registry exists, ship versioned tarballs:
 
 ```bash
-npm pack --workspace @lepidus/css      # → lepidus-css-1.0.0.tgz
-npm pack --workspace @lepidus/tokens
-npm pack --workspace @lepidus/react
+npm pack --workspace @ramsarjal-404/css      # → lepidus-css-1.0.0.tgz
+npm pack --workspace @ramsarjal-404/tokens
+npm pack --workspace @ramsarjal-404/react
 ```
 
 Consumers install from the file or an internal URL:
@@ -70,7 +70,7 @@ npm install ./lepidus-css-1.0.0.tgz
 
 - All three packages: `private: false`, `license: UNLICENSED`,
   `publishConfig.access: restricted`, correct `exports`/`files`.
-- `@lepidus/css` exposes `style` + `sideEffects` for bundler tree-shaking.
+- `@ramsarjal-404/css` exposes `style` + `sideEffects` for bundler tree-shaking.
 - Changesets (`.changeset/`) for versioning + changelogs.
 
 ## What's still needed to turn on `npm install`

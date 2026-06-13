@@ -1,4 +1,4 @@
-import { Radio, RadioGroup } from '@lepidus/react';
+import { Radio, RadioGroup } from '@ramsarjal-404/react';
 
 {/* RadioGroup shares the name, renders role="radiogroup" labelled
     "Scan scope", and reports the selected value via onChange */}

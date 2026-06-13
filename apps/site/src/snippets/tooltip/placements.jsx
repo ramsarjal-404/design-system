@@ -1,4 +1,4 @@
-import { Button, Tooltip } from '@lepidus/react';
+import { Button, Tooltip } from '@ramsarjal-404/react';
 
 <>
   {['top-start', 'top-end', 'bottom-start', 'bottom-end'].map((placement) => (

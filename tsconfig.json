@@ -13,10 +13,10 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@lepidus/tokens/*": [
+      "@ramsarjal-404/tokens/*": [
         "packages/tokens/*"
       ],
-      "@lepidus/react/*": [
+      "@ramsarjal-404/react/*": [
         "packages/react/src/*"
       ]
     },

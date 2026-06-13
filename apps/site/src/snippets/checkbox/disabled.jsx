@@ -1,4 +1,4 @@
-import { Checkbox } from '@lepidus/react';
+import { Checkbox } from '@ramsarjal-404/react';
 
 <>
   <Checkbox label="Disabled" disabled />
