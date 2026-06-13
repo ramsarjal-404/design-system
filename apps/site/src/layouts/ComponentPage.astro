@@ -72,6 +72,16 @@ const tabTitles: Record<string, string> = {
 
       <div class={headings.length > 1 ? 'site-main--with-toc' : ''}>
         <div class="prose">
+          {tab === 'code' && (
+            <div class="code-help">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+              <p>
+                <strong>New to code?</strong> Click <strong>Download</strong> on any example below —
+                you'll get a ready-to-open file. Double-click it and it opens in your browser, fully
+                styled. Nothing to install, no setup.
+              </p>
+            </div>
+          )}
           <slot />
         </div>
         <Toc headings={headings} />

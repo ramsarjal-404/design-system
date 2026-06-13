@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Lepidus design tokens — DTCG sources and the generated themed CSS custom properties",
   "license": "UNLICENSED",
+  "private": false,
+  "publishConfig": {
+    "access": "restricted"
+  },
   "files": [
     "build/css/tokens.css",
     "tokens.json",

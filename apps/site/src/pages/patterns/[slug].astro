@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import StoryEmbed from '../../components/StoryEmbed.astro';
+import { patterns, patternBySlug, componentSlug } from '../../lib/patterns';
+
+export function getStaticPaths() {
+  return patterns.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const p = patternBySlug.get(Astro.params.slug!)!;
+const others = patterns.filter((x) => x.slug !== p.slug).slice(0, 4);
+---
+
+<Base title={`${p.title} — Pattern`} description={p.blurb}>
+  <main class="site-main" style="max-width: 1000px; margin: 0 auto;" data-pagefind-body>
+    <p class="page-eyebrow"><a href="/patterns/" style="color:inherit">Patterns</a></p>
+    <h1>{p.title}</h1>
+    <p class="page-lede">{p.purpose}</p>
+
+    <div class="prose" style="max-width:none; margin-top: 24px;">
+      <StoryEmbed id={p.story} height={p.height} caption={`${p.title} — live`} viewports={true} />
+
+      <h2>Built from</h2>
+      <p>This pattern composes existing Lepidus components — open any to see its usage, code, and accessibility:</p>
+      <ul class="pattern-parts">
+        {p.components.map((name) => (
+          <li><a href={`/components/${componentSlug(name)}/`}>{name}</a></li>
+        ))}
+      </ul>
+
+      <h2>More patterns</h2>
+      <ul class="comp-grid">
+        {others.map((o) => (
+          <li>
+            <a class="comp-card" href={`/patterns/${o.slug}/`}>
+              <div class="comp-card__thumb comp-card__thumb--wide">
+                <img src={`/thumbs/pattern-${o.slug}.png`} alt="" loading="lazy" />
+              </div>
+              <div class="comp-card__body">
+                <p class="tile__title">{o.title}</p>
+                <p class="tile__desc">{o.blurb}</p>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </main>
+</Base>

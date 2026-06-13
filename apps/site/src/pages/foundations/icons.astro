@@ -1,0 +1,265 @@
+---
+/**
+ * Iconography — a live icon browser. Reads the 129 source SVGs (which already
+ * use currentColor), strips their fixed width/height/id noise, and renders an
+ * inline grid. A sticky toolbar drives color + size as CSS variables, so the
+ * whole grid (and the copy/download output) updates live. Each icon copies or
+ * downloads as a standalone SVG with the chosen color and size baked in.
+ */
+import Base from '../../layouts/Base.astro';
+import { readdirSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+const here = dirname(fileURLToPath(import.meta.url));
+const svgDir = join(here, '../../../../../packages/react/src/icons/svg');
+
+const humanize = (n: string) =>
+  n
+    .replace(/\.svg$/, '')
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
+    .trim();
+
+const clean = (svg: string) => {
+  // Normalize visual stroke weight: the library mixes viewBoxes (30, 24, 16…)
+  // and stroke-widths (0.3 … 2.5), so icons render at inconsistent weights.
+  // Re-scale every stroke to the canonical 2-on-a-30-grid ratio for the icon's
+  // own viewBox, so all icons read at the same weight at any size.
+  const vb = svg.match(/viewBox="0 0 ([\d.]+)/);
+  const size = vb ? parseFloat(vb[1]) : 30;
+  const sw = +((size / 15).toFixed(2)); // 30→2, 24→1.6, 16→1.07
+  return svg
+    .replace(/\s(width|height)="[^"]*"/g, '') // size comes from CSS
+    .replace(/\sid="[^"]*"/g, '') // drop Figma node ids
+    .replace(/\sxmlns="[^"]*"/g, '') // re-added on download
+    .replace(/stroke-width="[^"]*"/g, `stroke-width="${sw}"`) // uniform weight
+    // every stroke/fill becomes currentColor so the icon is monochrome and
+    // tintable — fixes white/hardcoded strokes that were invisible on white.
+    .replace(/stroke="(white|#[0-9a-fA-F]+|rgb\([^)]*\))"/g, 'stroke="currentColor"')
+    .replace(/fill="(#[0-9a-fA-F]+|rgb\([^)]*\))"/g, 'fill="currentColor"')
+    .replace(/\n\s*/g, '')
+    .trim();
+};
+
+// Source library includes a few non-icons (decorative shapes, brand marks) and
+// items that don't survive as monochrome line glyphs. Curated out of the browser.
+const EXCLUDE = new Set(['Side', 'AlertIcons', 'LepideAuditor', 'TablerIconClock']);
+
+const icons = readdirSync(svgDir)
+  .filter((f) => f.endsWith('.svg'))
+  .map((f) => {
+    const raw = readFileSync(join(svgDir, f), 'utf8');
+    const vb = raw.match(/viewBox="0 0 ([\d.]+) ([\d.]+)"/);
+    const ratio = vb ? parseFloat(vb[1]) / parseFloat(vb[2]) : 1;
+    return { name: f.replace(/\.svg$/, ''), label: humanize(f), ratio, svg: clean(raw) };
+  })
+  // drop curated junk + anything far from square (decorative panels, dividers)
+  .filter((ic) => !EXCLUDE.has(ic.name) && ic.ratio > 0.7 && ic.ratio < 1.43)
+  .sort((a, b) => a.label.localeCompare(b.label));
+
+// Swatches follow the design tokens (not hardcoded hex), so the palette here is
+// always the same one components use. The bake color is resolved from the live
+// token value at click time.
+const swatches = [
+  { label: 'Text', token: '--color-text-primary' },
+  { label: 'Brand', token: '--color-brand-primary' },
+  { label: 'Secondary', token: '--color-brand-accent' },
+  { label: 'Success', token: '--color-status-success-text' },
+  { label: 'Danger', token: '--color-status-error-text' },
+  { label: 'Muted', token: '--color-text-secondary' },
+];
+const sizes = [16, 20, 24, 32, 48];
+---
+
+<Base title="Iconography" description="The Lepidus icon library — 129 currentColor SVGs, live color and size, copy or download.">
+  <main class="site-main" style="max-width: 1100px; margin: 0 auto;" data-pagefind-body>
+    <p class="page-eyebrow">Foundations</p>
+    <h1>Iconography</h1>
+    <p class="page-lede">
+      {icons.length} icons, drawn on a 30&nbsp;px grid and stroked with <code>currentColor</code> — so
+      they inherit text color and scale crisply. Set a color and size below, then copy or download
+      any icon as a standalone SVG with your choices baked in.
+    </p>
+
+    <div class="icon-toolbar" data-icons>
+      <input type="search" class="token-filter" id="icon-search" placeholder={`Search ${icons.length} icons…`} aria-label="Search icons" />
+      <div class="icon-controls">
+        <div class="icon-swatches" role="group" aria-label="Icon color">
+          {swatches.map((s, i) => (
+            <button type="button" class="icon-swatch" data-token={s.token} aria-pressed={i === 0 ? 'true' : 'false'} title={`${s.label} — var(${s.token})`} style={`background:var(${s.token})`}></button>
+          ))}
+          <label class="icon-swatch icon-swatch--custom" title="Custom color">
+            <input type="color" id="icon-color" value="#364765" aria-label="Custom icon color" />
+          </label>
+        </div>
+        <div class="icon-sizes" role="group" aria-label="Icon size">
+          {sizes.map((s) => (
+            <button type="button" class="icon-size" data-size={s} aria-pressed={s === 24 ? 'true' : 'false'}>{s}</button>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <p class="token-empty" id="icon-empty" hidden>No icons match — try a shorter word.</p>
+
+    <ul class="icon-grid" id="icon-grid" style="--icon-color:var(--color-text-primary);--icon-size:24px;">
+      {icons.map((ic) => (
+        <li>
+          <button type="button" class="icon-tile" data-name={ic.name} data-label={ic.label} data-search={ic.label.toLowerCase() + ' ' + ic.name.toLowerCase()}>
+            <span class="icon-glyph" set:html={ic.svg} />
+            <span class="icon-tile__name">{ic.label}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </main>
+
+  <!-- detail dialog -->
+  <div class="icon-dialog" id="icon-dialog" hidden>
+    <div class="icon-dialog__backdrop" data-close></div>
+    <div class="icon-dialog__panel" role="dialog" aria-modal="true" aria-labelledby="icon-dialog-name">
+      <button type="button" class="icon-dialog__x" data-close aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg>
+      </button>
+      <div class="icon-dialog__preview" id="icon-dialog-preview"></div>
+      <p class="icon-dialog__name" id="icon-dialog-name"></p>
+      <div class="icon-dialog__actions">
+        <button type="button" class="btn btn--primary" data-copy-svg>Copy SVG</button>
+        <button type="button" class="btn btn--secondary" data-download-svg>Download SVG</button>
+        <button type="button" class="btn btn--secondary" data-copy-name>Copy name</button>
+      </div>
+      <p class="icon-dialog__hint" id="icon-dialog-hint">Baked at the color and size above. <strong>Copy SVG</strong> pastes straight into Figma (as an editable vector), a code editor, or a file.</p>
+    </div>
+  </div>
+
+  <script>
+    const grid = document.getElementById('icon-grid')!;
+    const search = document.getElementById('icon-search') as HTMLInputElement;
+    const empty = document.getElementById('icon-empty')!;
+    const dialog = document.getElementById('icon-dialog')!;
+    const dlgPreview = document.getElementById('icon-dialog-preview')!;
+    const dlgName = document.getElementById('icon-dialog-name')!;
+    let size = 24;
+    let activeTile: HTMLElement | null = null;
+
+    // Resolve a token var (or pass a hex straight through) to a concrete color
+    // string for baking into the copied/downloaded SVG.
+    const probe = document.createElement('span');
+    probe.style.cssText = 'position:absolute;width:0;height:0;visibility:hidden';
+    document.body.appendChild(probe);
+    const resolve = (cssColor: string) => {
+      probe.style.color = '';
+      probe.style.color = cssColor;
+      return getComputedStyle(probe).color || cssColor;
+    };
+    // bake color (concrete) + display color (may be a var() for live theming)
+    let color = resolve('var(--color-text-primary)');
+    let display = 'var(--color-text-primary)';
+
+    const apply = () => {
+      grid.style.setProperty('--icon-color', display);
+      grid.style.setProperty('--icon-size', size + 'px');
+      if (activeTile) renderPreview(activeTile);
+    };
+
+    // build a standalone SVG string with current color + size baked in
+    const svgFor = (tile: HTMLElement) => {
+      const svg = tile.querySelector('.icon-glyph svg')!.cloneNode(true) as SVGElement;
+      svg.setAttribute('width', String(size));
+      svg.setAttribute('height', String(size));
+      svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      return svg.outerHTML.replace(/currentColor/g, color);
+    };
+
+    const renderPreview = (tile: HTMLElement) => {
+      dlgPreview.innerHTML = svgFor(tile);
+    };
+
+    function flash(btn: HTMLElement, msg: string) {
+      const t = btn.textContent;
+      btn.textContent = msg;
+      setTimeout(() => (btn.textContent = t), 1400);
+    }
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+
+      const sw = target.closest<HTMLElement>('.icon-swatch[data-token]');
+      if (sw) {
+        const token = sw.dataset.token!;
+        display = `var(${token})`;
+        color = resolve(display);
+        document.querySelectorAll('.icon-swatch[data-token]').forEach((b) => b.setAttribute('aria-pressed', String(b === sw)));
+        apply();
+        return;
+      }
+      const sz = target.closest<HTMLElement>('.icon-size');
+      if (sz) {
+        size = Number(sz.dataset.size);
+        document.querySelectorAll('.icon-size').forEach((b) => b.setAttribute('aria-pressed', String(b === sz)));
+        apply();
+        return;
+      }
+      const tile = target.closest<HTMLElement>('.icon-tile');
+      if (tile) {
+        activeTile = tile;
+        dlgName.textContent = tile.dataset.label!;
+        renderPreview(tile);
+        dialog.hidden = false;
+        return;
+      }
+      if (target.closest('[data-close]')) {
+        dialog.hidden = true;
+        activeTile = null;
+        return;
+      }
+      if (target.closest('[data-copy-svg]') && activeTile) {
+        navigator.clipboard.writeText(svgFor(activeTile)).then(() => flash(target.closest('[data-copy-svg]')!, 'Copied ✓'));
+        return;
+      }
+      if (target.closest('[data-copy-name]') && activeTile) {
+        navigator.clipboard.writeText(activeTile.dataset.name!).then(() => flash(target.closest('[data-copy-name]')!, 'Copied ✓'));
+        return;
+      }
+      if (target.closest('[data-download-svg]') && activeTile) {
+        const url = URL.createObjectURL(new Blob([svgFor(activeTile)], { type: 'image/svg+xml' }));
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${activeTile.dataset.name}.svg`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        flash(target.closest('[data-download-svg]')!, 'Downloaded ✓');
+      }
+    });
+
+    // custom color input
+    (document.getElementById('icon-color') as HTMLInputElement).addEventListener('input', (e) => {
+      display = color = (e.target as HTMLInputElement).value;
+      document.querySelectorAll('.icon-swatch[data-token]').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+      apply();
+    });
+
+    // search
+    search.addEventListener('input', () => {
+      const q = search.value.trim().toLowerCase();
+      let any = false;
+      grid.querySelectorAll<HTMLElement>('.icon-tile').forEach((tile) => {
+        const show = !q || tile.dataset.search!.includes(q);
+        (tile.parentElement as HTMLElement).style.display = show ? '' : 'none';
+        if (show) any = true;
+      });
+      empty.hidden = any;
+    });
+
+    // Escape closes the dialog
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !dialog.hidden) {
+        dialog.hidden = true;
+        activeTile = null;
+      }
+    });
+  </script>
+</Base>

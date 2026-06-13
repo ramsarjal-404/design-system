@@ -26,9 +26,16 @@ const repoRoot = join(siteRoot, '../..');
 const artifacts = [
   ['packages/tokens/build/css/tokens.css', 'public/lepidus/tokens.css'],
   ['packages/css/dist/lepidus.css', 'public/lepidus/lepidus.css'],
+  ['packages/css/dist/lepidus.components.css', 'public/lepidus/lepidus.components.css'],
   ['packages/css/dist/lepidus.js', 'public/lepidus/lepidus.js'],
   ['public/llms.txt', 'public/llms.txt'],
   ['public/component-manifest.json', 'public/component-manifest.json'],
+  // Versioned CDN — stable URLs internal projects link directly (zero install).
+  // Bump the v1 → v2 folder on a breaking token/class change; v1 keeps serving.
+  ['packages/tokens/build/css/tokens.css', 'public/v1/tokens.css'],
+  ['packages/css/dist/lepidus.css', 'public/v1/lepidus.css'],
+  ['packages/css/dist/lepidus.components.css', 'public/v1/lepidus.components.css'],
+  ['packages/css/dist/lepidus.js', 'public/v1/lepidus.js'],
 ];
 for (const [from, to] of artifacts) {
   const src = join(repoRoot, from);
@@ -138,6 +145,26 @@ for (const slug of readdirSync(contentDir)) {
   }
 }
 
+// pattern thumbnails — page-level pattern previews from the VRT baselines
+const patternStories = {
+  'app-shell': 'patterns-app-shell--default',
+  dashboard: 'patterns-dashboard--default',
+  'audit-report': 'patterns-audit-report--default',
+  'data-table': 'patterns-data-table--default',
+  'settings-form': 'patterns-settings-form--default',
+  'report-view': 'patterns-report-view--default',
+  'team-management': 'patterns-team-management--default',
+  'ddc-modal': 'patterns-ddc-modal--default',
+};
+let patternThumbs = 0;
+for (const [slug, story] of Object.entries(patternStories)) {
+  const shot = join(repoRoot, '.vrt/baseline/light', `${story}.png`);
+  if (existsSync(shot)) {
+    cpSync(shot, join(thumbsDir, `pattern-${slug}.png`));
+    patternThumbs++;
+  }
+}
+
 console.log(
-  `✓ site data ready — ${Object.keys(index).length} story files indexed, ${thumbs} thumbnails, artifacts copied to apps/site/public`
+  `✓ site data ready — ${Object.keys(index).length} story files indexed, ${thumbs} component + ${patternThumbs} pattern thumbnails, artifacts copied to apps/site/public`
 );

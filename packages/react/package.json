@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Lepidus design system — React components bound to the @lepidus/tokens pipeline",
   "license": "UNLICENSED",
+  "private": false,
+  "publishConfig": {
+    "access": "restricted"
+  },
   "type": "module",
   "sideEffects": [
     "**/*.css"

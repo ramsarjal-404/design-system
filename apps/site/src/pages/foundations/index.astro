@@ -5,26 +5,100 @@ import { loadTokens } from '../../lib/tokens';
 const tokens = loadTokens();
 const count = (prefix: string) => tokens.filter((t) => t.name.startsWith(prefix)).length;
 
+const themedCount = tokens.filter((t) => t.dark || t.hc).length;
+
 const pages = [
   {
     href: '/foundations/theming/',
     title: 'Theming',
-    desc: `Light, dark, and high contrast from one attribute — how the ${tokens.filter((t) => t.dark || t.hc).length} themed tokens re-resolve.`,
+    desc: `Light, dark, and high contrast from one attribute — how the ${themedCount} themed tokens re-resolve.`,
+    tint: '#e9f0ff',
+    art: `<svg viewBox="0 0 280 120" xmlns="http://www.w3.org/2000/svg">
+      <rect x="46" y="30" width="58" height="60" rx="12" fill="#fff" stroke="#c6d8ff" stroke-width="2"/>
+      <rect x="111" y="30" width="58" height="60" rx="12" fill="#2d3748"/>
+      <rect x="176" y="30" width="58" height="60" rx="12" fill="#0a1f4d"/>
+      <circle cx="75" cy="60" r="11" fill="#1c4599"/>
+      <path d="M150 49a11 11 0 1 0 0 22 9 9 0 0 1 0-22z" fill="#c6d8ff"/>
+      <circle cx="205" cy="60" r="11" fill="none" stroke="#fff" stroke-width="3"/>
+    </svg>`,
+  },
+  {
+    href: '/foundations/color/',
+    title: 'Color',
+    desc: 'The blue-forward palette — semantic roles, status pairs, and the primitive ramps.',
+    tint: '#e9f0ff',
+    art: `<svg viewBox="0 0 280 120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="118" cy="60" r="26" fill="#1c4599"/>
+      <circle cx="150" cy="60" r="26" fill="#2e98d4"/>
+      <circle cx="182" cy="60" r="26" fill="#1caa52"/>
+      <circle cx="100" cy="60" r="26" fill="#c6d8ff"/>
+    </svg>`,
+  },
+  {
+    href: '/foundations/accessibility/',
+    title: 'Accessibility',
+    desc: 'WCAG 2.1 AA, enforced in CI — keyboard, screen-reader, contrast, and reduced-motion.',
+    tint: '#e4f3ec',
+    art: `<svg viewBox="0 0 280 120" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#176639" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="140" cy="60" r="34"/>
+      <circle cx="140" cy="45" r="4" fill="#176639" stroke="none"/>
+      <path d="M122 54h36"/>
+      <path d="M140 54v18M140 72l-9 14M140 72l9 14"/>
+    </svg>`,
   },
   {
     href: '/foundations/typography/',
     title: 'Typography',
     desc: 'Open Sans, the type scale, and the weight tokens.',
+    tint: '#e4f3ec',
+    art: `<svg viewBox="0 0 280 120" xmlns="http://www.w3.org/2000/svg">
+      <text x="58" y="86" font-family="'Open Sans',sans-serif" font-size="68" font-weight="700" fill="#1c4599">A</text>
+      <text x="112" y="86" font-family="'Open Sans',sans-serif" font-size="44" font-weight="400" fill="#1caa52">a</text>
+      <rect x="150" y="40" width="74" height="9" rx="4.5" fill="#9fc8b6"/>
+      <rect x="150" y="58" width="58" height="8" rx="4" fill="#c6d8ff"/>
+      <rect x="150" y="74" width="40" height="7" rx="3.5" fill="#c6d8ff"/>
+    </svg>`,
   },
   {
     href: '/foundations/spacing/',
     title: 'Spacing & radius',
     desc: `${count('--space-')} spacing steps and ${count('--radius-')} radii — pill-shaped controls by design.`,
+    tint: '#fdf1e2',
+    art: `<svg viewBox="0 0 280 120" xmlns="http://www.w3.org/2000/svg">
+      <rect x="52" y="40" width="28" height="10" rx="5" fill="#e8b75c"/>
+      <rect x="52" y="56" width="52" height="10" rx="5" fill="#e8b75c"/>
+      <rect x="52" y="72" width="80" height="10" rx="5" fill="#e8b75c"/>
+      <path d="M168 86V58a18 18 0 0 1 18-18h28" fill="none" stroke="#1c4599" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="168" cy="86" r="4" fill="#1c4599"/>
+      <circle cx="214" cy="40" r="4" fill="#1c4599"/>
+    </svg>`,
+  },
+  {
+    href: '/foundations/icons/',
+    title: 'Iconography',
+    desc: '129 currentColor icons — browse, recolor, resize, copy or download as SVG.',
+    tint: '#f0ebfa',
+    art: `<svg viewBox="0 0 280 120" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#6d5bd0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="60" y="40" width="40" height="40" rx="8"/>
+      <path d="M70 60h20M80 50v20"/>
+      <circle cx="140" cy="60" r="20"/>
+      <path d="M133 60l5 5 9-10"/>
+      <path d="M200 42l18 18-18 18-18-18z"/>
+    </svg>`,
   },
   {
     href: '/tokens/',
     title: 'Token reference',
     desc: `All ${tokens.length} variables with per-theme values, click-to-copy.`,
+    tint: '#eef2f8',
+    art: `<svg viewBox="0 0 280 120" xmlns="http://www.w3.org/2000/svg">
+      <rect x="62" y="34" width="16" height="16" rx="4" fill="#1c4599"/>
+      <rect x="86" y="38" width="92" height="8" rx="4" fill="#c6d8ff"/>
+      <rect x="62" y="56" width="16" height="16" rx="4" fill="#7096d1"/>
+      <rect x="86" y="60" width="76" height="8" rx="4" fill="#c6d8ff"/>
+      <rect x="62" y="78" width="16" height="16" rx="4" fill="#1caa52"/>
+      <rect x="86" y="82" width="58" height="8" rx="4" fill="#c6d8ff"/>
+    </svg>`,
   },
 ];
 ---
@@ -48,12 +122,15 @@ const pages = [
     parallel stylesheet.
   </p>
 
-  <ul class="tile-grid">
+  <ul class="explore-grid">
     {pages.map((p) => (
       <li>
-        <a class="tile" href={p.href}>
-          <p class="tile__title">{p.title}</p>
-          <p class="tile__desc">{p.desc}</p>
+        <a class="explore-card" href={p.href}>
+          <div class="explore-card__art" style={`background:${p.tint}`} aria-hidden="true" set:html={p.art} />
+          <div class="explore-card__body">
+            <p class="explore-card__title">{p.title}</p>
+            <p class="explore-card__desc">{p.desc}</p>
+          </div>
         </a>
       </li>
     ))}

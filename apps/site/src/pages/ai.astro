@@ -5,6 +5,20 @@ import Callout from '../components/Callout.astro';
 
 const SITE = 'https://lepidus-design-system-button.vercel.app';
 
+const chatContext = `I'm building UI with the Lepidus Design System.
+
+Before generating any UI, read and follow the rules and component list here:
+${SITE}/llms.txt
+
+Output plain HTML using the documented lp- classes only — never hardcoded
+colors — and set data-theme="light" | "dark" | "hc" on <html> for theming.
+
+Now build what I describe next.`;
+
+const plainPrompt = `Build a settings page: a "Server name" text box, three radio
+options (hourly / daily / weekly), and a red "Delete server" button that opens
+a confirmation popup. Make it work in dark mode too.`;
+
 const rulesBlock = `# UI rules — Lepidus Design System
 
 This project uses Lepidus (${SITE}).
@@ -35,16 +49,20 @@ const mcpConfig = `{
 const reviewGrep = `# any hex color outside a var() fallback is a violation
 grep -rnE '#[0-9a-fA-F]{3,8}\\b' src/ --include='*.html' --include='*.css' --include='*.tsx'`;
 
-const buildPrompt = `Build a "server details" settings page in plain HTML using Lepidus:
-a name input, a scan-frequency radio group (hourly / daily / weekly), and a
-danger "Delete server" button that opens a confirmation modal.
-It must work under data-theme="dark" and "hc".`;
+// Editor tabs — only the filename/location differs; the rules are identical.
+const tools = [
+  { key: 'claude', name: 'Claude Code', file: 'CLAUDE.md', dl: 'CLAUDE.md', loc: 'repo root', mcp: '.mcp.json' },
+  { key: 'cursor', name: 'Cursor', file: '.cursorrules', dl: '.cursorrules', loc: 'repo root, or .cursor/rules/*.mdc', mcp: '.cursor/mcp.json' },
+  { key: 'copilot', name: 'GitHub Copilot', file: '.github/copilot-instructions.md', dl: 'copilot-instructions.md', loc: 'in .github/', mcp: '.vscode/mcp.json' },
+  { key: 'codex', name: 'OpenAI Codex', file: 'AGENTS.md', dl: 'AGENTS.md', loc: 'repo root', mcp: '~/.codex/config.toml' },
+  { key: 'windsurf', name: 'Windsurf', file: '.windsurfrules', dl: '.windsurfrules', loc: 'repo root', mcp: 'mcp_config.json' },
+];
 ---
 
 <Page
-  title="AI & vibe coding"
+  title="AI-assisted development"
   eyebrow="For AI assistants & their humans"
-  lede="Make your assistant fluent in Lepidus in about five minutes. After setup, prompts like 'build the alerts page' come back with real lp- classes, live tokens, and the accessibility intact."
+  lede="Make any AI tool fluent in Lepidus — so 'build the alerts page' comes back with real lp- classes, live tokens, and the accessibility intact. Pick the lane that fits how you work."
 >
   <Callout variant="success" title="Everything on this page is tested">
     <p>The MCP tools, the <a href="/llms.txt">llms.txt</a> rules, and the
@@ -53,42 +71,107 @@ It must work under data-theme="dark" and "hc".`;
     themes. If it's documented here, it runs.</p>
   </Callout>
 
-  <h2 class="step"><span class="step__num" aria-hidden="true">1</span>Give your assistant the rules</h2>
+  <ul class="path-grid" aria-label="Choose your lane">
+    <li>
+      <a class="path-card" href="#chat">
+        <span class="path-card__icon" style="background:#f0ebfa" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6d5bd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </span>
+        <span>
+          <strong>I describe what I want in a chat</strong>
+          <small>ChatGPT, Claude, Gemini, v0, Lovable — no setup</small>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="path-card" href="#editor">
+        <span class="path-card__icon" style="background:#e9f0ff" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1c4599" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg>
+        </span>
+        <span>
+          <strong>I code in an editor with AI</strong>
+          <small>VS Code, Cursor, Claude Code, Codex, Windsurf</small>
+        </span>
+      </a>
+    </li>
+  </ul>
+
+  <h2 class="step" id="chat"><span class="step__num" aria-hidden="true">A</span>Describe it in a chat</h2>
   <p>
-    Create one file in <strong>your product repo</strong> and paste the block below. This is the
-    highest-impact two minutes of setup — assistants read it automatically and stop inventing
-    class names:
+    For ChatGPT, Claude.ai, Gemini, or AI page-builders like v0 and Lovable — no files, nothing
+    to install. Three steps.
   </p>
-  <table class="doc-table">
-    <thead><tr><th>Tool</th><th>File to create</th></tr></thead>
-    <tbody>
-      <tr><td>Claude Code</td><td><code>CLAUDE.md</code> (repo root)</td></tr>
-      <tr><td>Cursor</td><td><code>.cursorrules</code></td></tr>
-      <tr><td>GitHub Copilot</td><td><code>.github/copilot-instructions.md</code></td></tr>
-      <tr><td>Anything else</td><td>Paste it into the system/context prompt</td></tr>
-    </tbody>
-  </table>
+
+  <h3>1 · Paste this once, at the start of your chat</h3>
+  <p>Or just give the assistant the link <code>{SITE}/llms.txt</code> and tell it to follow it.</p>
   <div class="copy-wrap">
     <button type="button" class="copy-btn" data-copy-pre>Copy</button>
+    <Code code={chatContext} lang="text" theme="github-dark" />
+  </div>
+
+  <h3>2 · Describe your screen in plain words</h3>
+  <div class="copy-wrap">
+    <button type="button" class="copy-btn" data-copy-pre>Copy</button>
+    <Code code={plainPrompt} lang="text" theme="github-dark" />
+  </div>
+
+  <h3>3 · Use what it gives you</h3>
+  <p>
+    The assistant replies with HTML. To see it running, open any
+    <a href="/components/">component's Code tab</a> and use the
+    <strong>Download</strong> button on an example as your starting file — or paste the HTML into
+    a free online editor like CodePen. Either way it renders fully styled, with no setup.
+  </p>
+  <Callout variant="info" title="The honest limit">
+    <p>Chat tools are great for a screen or a prototype. For a real product codebase, the editor
+    lane below keeps every future prompt on-system automatically.</p>
+  </Callout>
+
+  <h2 class="step" id="editor"><span class="step__num" aria-hidden="true">B</span>Set up your editor</h2>
+  <p>
+    Teach your assistant once; every prompt after that returns on-system Lepidus code. Pick your
+    tool — only the filename changes:
+  </p>
+
+  <div class="tool-tabs" role="tablist" aria-label="Editor">
+    {tools.map((t, i) => (
+      <button
+        type="button"
+        role="tab"
+        data-tool={t.key}
+        data-file={t.file}
+        data-dl={t.dl}
+        data-loc={t.loc}
+        data-mcp={t.mcp}
+        aria-selected={i === 0 ? 'true' : 'false'}
+      >
+        {t.name}
+      </button>
+    ))}
+  </div>
+
+  <h3>1 · Create the rules file</h3>
+  <p>
+    Create <code data-tool-file>CLAUDE.md</code> <span data-tool-loc>(repo root)</span> and paste
+    the block below — or click <strong>Download</strong> and drop the ready-made file into your
+    project. Assistants read it automatically and stop inventing class names.
+  </p>
+  <div class="copy-wrap" id="rules-wrap">
+    <button type="button" class="copy-btn" data-copy-pre>Copy</button>
+    <button type="button" class="copy-btn copy-btn--dl" data-download-rules>Download <span data-tool-dl>CLAUDE.md</span></button>
     <Code code={rulesBlock} lang="markdown" theme="github-dark" />
   </div>
 
-  <h2 class="step"><span class="step__num" aria-hidden="true">2</span>Wire the MCP server (recommended)</h2>
+  <h3>2 · Add live lookup with MCP <small style="font-weight:400;color:var(--site-ink-faint)">— optional, recommended</small></h3>
   <p>
-    The rules tell the assistant <em>how to behave</em>; the MCP server lets it <em>look facts
-    up mid-task</em> — exact props, the legal classes for a component, token values per theme.
-    Add this to <code>.mcp.json</code> (Claude Code) or <code>.cursor/mcp.json</code> (Cursor)
-    in your product repo:
+    The rules tell the assistant <em>how to behave</em>; the MCP server lets it <em>look facts up
+    mid-task</em> — exact props, the legal classes for a component, token values per theme. Add
+    this to <code data-tool-mcp>.mcp.json</code> in your project:
   </p>
   <div class="copy-wrap">
     <button type="button" class="copy-btn" data-copy-pre>Copy</button>
     <Code code={mcpConfig} lang="json" theme="github-dark" />
   </div>
-  <p>
-    Point <code>args</code> at your checkout of the design-system repo (the example assumes a
-    sibling folder). Inside the design-system repo itself, <code>.mcp.json</code> already ships —
-    nothing to do. The server is zero-dependency Node and read-only.
-  </p>
   <table class="doc-table">
     <thead><tr><th>Tool</th><th>Ask it for</th></tr></thead>
     <tbody>
@@ -98,58 +181,42 @@ It must work under data-theme="dark" and "hc".`;
       <tr><td><code>get_usage_rules</code></td><td>The full llms.txt contract</td></tr>
     </tbody>
   </table>
+  <Callout variant="info" title="MCP is the power-user upgrade">
+    <p>It needs a checkout of the design-system repo, so it's a developer convenience. The
+    <a href="/llms.txt">llms.txt</a> URL works in <em>every</em> tool with zero setup — start
+    there, add MCP when you want live lookups.</p>
+  </Callout>
 
-  <h2 class="step"><span class="step__num" aria-hidden="true">3</span>Check it's working</h2>
-  <p>Paste these into your assistant. Each has a verifiable right answer:</p>
+  <h2>Prompt it, then verify</h2>
+  <p>To confirm setup actually took, paste a question with a verifiable answer:</p>
   <ul>
     <li>
-      <em>"Which Lepidus components ship as plain CSS?"</em> — with MCP it calls
-      <code>list_components</code>; you should see 27 components marked with their
-      <code>lp-</code> block names (Button, Tag, Table, Modal…).
+      <em>"What classes does the Tag component have?"</em> — expect the exact inventory
+      (<code>lp-tag</code>, status modifiers, <code>lp-tag__label</code>,
+      <code>lp-tag__remove</code>). Invented classes mean the rules file isn't loaded.
     </li>
     <li>
-      <em>"What classes does the Tag component have?"</em> — expect the exact inventory:
-      <code>lp-tag</code>, status modifiers, <code>lp-tag__label</code>,
-      <code>lp-tag__remove</code>. If it invents anything else, the rules file isn't loaded.
-    </li>
-    <li>
-      <em>"Which token holds the brand blue, and what is it in dark theme?"</em> — expect
-      <code>--color-brand-primary</code> → <code>var(--blue-600)</code> in light,
-      <code>var(--blue-400)</code> in dark, via <code>search_tokens</code>.
+      <em>"Which token is the brand blue, and what is it in dark theme?"</em> — expect
+      <code>--color-brand-primary</code> → <code>var(--blue-600)</code> light,
+      <code>var(--blue-400)</code> dark.
     </li>
   </ul>
-  <p>
-    No MCP? The fallback works with any assistant that can fetch a URL:
-    <em>"Read {SITE}/llms.txt and follow it for all UI in this project."</em>
-  </p>
 
-  <h2 class="step"><span class="step__num" aria-hidden="true">4</span>Prompts that work well</h2>
-  <p>Be explicit about the stack and the theme contract — then ask for the screen, not the component:</p>
-  <div class="copy-wrap">
-    <button type="button" class="copy-btn" data-copy-pre>Copy</button>
-    <Code code={buildPrompt} lang="text" theme="github-dark" />
-  </div>
+  <h2>Review it like any other PR</h2>
+  <p>AI output earns the same review as a teammate's. Three fast checks:</p>
   <ul>
-    <li><strong>Converting:</strong> <em>"Convert this page to @lepidus/react components, keeping every ARIA attribute."</em></li>
-    <li><strong>Auditing:</strong> <em>"Audit this HTML against the Lepidus rules and list violations with fixes."</em></li>
-    <li><strong>Seeding:</strong> for complex screens, paste the relevant Code-tab markup first — the assistant extends documented patterns instead of inventing structure.</li>
-  </ul>
-
-  <h2 class="step"><span class="step__num" aria-hidden="true">5</span>Review the output like any other PR</h2>
-  <ul>
-    <li><strong>No raw hex values</strong> — one command finds every violation:</li>
+    <li><strong>No raw hex values</strong> — one grep finds every violation:</li>
   </ul>
   <div class="copy-wrap">
     <button type="button" class="copy-btn" data-copy-pre>Copy</button>
     <Code code={reviewGrep} lang="bash" theme="github-dark" />
   </div>
   <ul>
-    <li><strong>Only documented classes</strong> — every <code>lp-*</code> class must appear in the
-      component's <a href="/components/">Specifications tab</a> (the manifest is the complete legal set).</li>
-    <li><strong>Accessibility survived</strong> — tab through it: focus rings visible, toggles are
-      <code>role="switch"</code>, errors are announced, the modal traps focus.</li>
-    <li><strong>Flip the theme</strong> — set <code>data-theme="dark"</code>; anything that breaks
-      was hardcoded.</li>
+    <li><strong>Only documented classes</strong> — every <code>lp-*</code> class appears on the
+      component's <a href="/components/">Specifications tab</a> (the complete legal set).</li>
+    <li><strong>Accessibility and theming survived</strong> — tab through it (focus rings, the
+      modal traps focus), then set <code>data-theme="dark"</code>; anything that breaks was
+      hardcoded.</li>
   </ul>
 
   <h2>Under the hood</h2>
@@ -163,25 +230,72 @@ It must work under data-theme="dark" and "hc".`;
 </Page>
 
 <script>
-  document.addEventListener('click', (e) => {
-    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-copy-pre]');
-    if (!btn) return;
-    const pre = btn.parentElement?.querySelector('pre');
+  // ---- copy any code block via its sibling button ----
+  function copyFrom(btn: HTMLElement) {
+    const pre = btn.closest('.copy-wrap')?.querySelector('pre');
     if (!pre) return;
     navigator.clipboard
       .writeText(pre.textContent ?? '')
-      .then(() => {
-        btn.textContent = 'Copied ✓';
-      })
+      .then(() => flash(btn, 'Copied ✓'))
       .catch(() => {
-        // clipboard blocked (e.g. embedded preview) — select the text instead
         const range = document.createRange();
         range.selectNodeContents(pre);
         const sel = window.getSelection();
         sel?.removeAllRanges();
         sel?.addRange(range);
-        btn.textContent = 'Press ⌘C';
-      })
-      .finally(() => setTimeout(() => (btn.textContent = 'Copy'), 1600));
+        flash(btn, 'Press ⌘C');
+      });
+  }
+  function flash(btn: HTMLElement, msg: string) {
+    const html = btn.innerHTML;
+    btn.textContent = msg;
+    setTimeout(() => (btn.innerHTML = html), 1600);
+  }
+
+  // ---- editor tool picker: swap the filenames, not the rules ----
+  const ruleFiles = document.querySelectorAll<HTMLElement>('[data-tool-file]');
+  const ruleLocs = document.querySelectorAll<HTMLElement>('[data-tool-loc]');
+  const ruleDls = document.querySelectorAll<HTMLElement>('[data-tool-dl]');
+  const ruleMcps = document.querySelectorAll<HTMLElement>('[data-tool-mcp]');
+  let currentDl = 'CLAUDE.md';
+  function selectTool(tab: HTMLElement) {
+    document
+      .querySelectorAll('.tool-tabs [data-tool]')
+      .forEach((b) => b.setAttribute('aria-selected', String(b === tab)));
+    const file = tab.dataset.file!;
+    currentDl = tab.dataset.dl!;
+    ruleFiles.forEach((el) => (el.textContent = file));
+    ruleLocs.forEach((el) => (el.textContent = `(${tab.dataset.loc})`));
+    ruleDls.forEach((el) => (el.textContent = currentDl));
+    ruleMcps.forEach((el) => (el.textContent = tab.dataset.mcp!));
+  }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+
+    const tab = target.closest<HTMLElement>('.tool-tabs [data-tool]');
+    if (tab) {
+      selectTool(tab);
+      return;
+    }
+
+    const dl = target.closest<HTMLElement>('[data-download-rules]');
+    if (dl) {
+      const pre = document.querySelector('#rules-wrap pre');
+      const text = pre?.textContent ?? '';
+      const url = URL.createObjectURL(new Blob([text], { type: 'text/markdown' }));
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = currentDl;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      flash(dl, 'Downloaded ✓');
+      return;
+    }
+
+    const copy = target.closest<HTMLElement>('[data-copy-pre]');
+    if (copy) copyFrom(copy);
   });
 </script>

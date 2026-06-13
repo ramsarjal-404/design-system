@@ -73,6 +73,15 @@ const uid = `sb-${id.replace(/[^a-z0-9]+/gi, '-')}`;
         <button type="button" aria-pressed="false" data-vp="mobile">Mobile</button>
       </div>
     )}
+    <button
+      type="button"
+      class="example__download"
+      data-snapshot-download
+      title="Download this exact preview as a standalone .html file — open it in your browser and it looks identical, no setup."
+    >
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+      Download
+    </button>
     <span class="example__links">
       <a href={`${STORYBOOK_BASE}/?path=/story/${id}`} target="_blank" rel="noopener">
         Open in Storybook ↗
@@ -166,10 +175,59 @@ const uid = `sb-${id.replace(/[^a-z0-9]+/gi, '-')}`;
       .querySelectorAll('button')
       .forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
 
+  // ---- snapshot the live render into a standalone, self-contained .html ----
+  // Reads the rendered component out of the (same-origin) Storybook iframe and
+  // inlines every stylesheet it uses, so the saved file opens in any browser
+  // looking exactly like the preview — works for plain-CSS and React alike.
+  async function snapshotDownload(figure: Element, btn: HTMLButtonElement) {
+    const iframe = figure.querySelector('iframe') as HTMLIFrameElement;
+    const doc = iframe.contentDocument;
+    const root = doc?.getElementById('storybook-root') || doc?.body;
+    if (!doc || !root) return;
+    const label = btn.innerHTML;
+    btn.textContent = 'Preparing…';
+    // inline <style> blocks, then fetch every linked stylesheet (same origin)
+    let css = '';
+    doc.querySelectorAll('style').forEach((s) => (css += s.textContent + '\n'));
+    const links = Array.from(doc.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]'));
+    const sheets = await Promise.all(
+      links.map((l) => fetch(l.href).then((r) => r.text()).catch(() => ''))
+    );
+    css += sheets.join('\n');
+    const theme = (iframe.src.match(/theme:([a-z]+)/) || [])[1] || 'light';
+    const dir = (iframe.src.match(/direction:([a-z]+)/) || [])[1] || 'ltr';
+    const name = (figure.querySelector('iframe')?.title || 'component')
+      .replace(/\s*—.*$/, '')
+      .replace(/[^a-z0-9]+/gi, '-')
+      .toLowerCase();
+    const html =
+      '<!doctype html>\n<html lang="en" data-theme="' + theme + '" dir="' + dir + '">\n<head>\n' +
+      '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n' +
+      '<title>Lepidus — ' + name + '</title>\n<style>\n' + css + '\n' +
+      "body{margin:0;padding:32px;font-family:var(--font-family-primary,'Open Sans',sans-serif);background:var(--color-background-page)}\n" +
+      '</style>\n</head>\n<body>\n' + root.innerHTML + '\n</body>\n</html>\n';
+    const url = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'lepidus-' + name + '.html';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    btn.innerHTML = label.replace('Download', 'Downloaded ✓');
+    setTimeout(() => (btn.innerHTML = label), 1800);
+  }
+
   document.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     const figure = target.closest('[data-story-embed]');
     if (!figure) return;
+
+    const snapBtn = target.closest<HTMLButtonElement>('[data-snapshot-download]');
+    if (snapBtn) {
+      snapshotDownload(figure, snapBtn);
+      return;
+    }
 
     const themeBtn = target.closest<HTMLButtonElement>('button[data-theme]');
     if (themeBtn) {

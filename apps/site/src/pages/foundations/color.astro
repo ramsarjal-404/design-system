@@ -1,0 +1,180 @@
+---
+/**
+ * Color foundation — generated from tokens.css. Leads with the semantic roles
+ * (what designers and developers actually use), then shows the primitive ramps
+ * underneath. Light-theme values are shown; dark/hc differ — the Tokens page
+ * has the full per-theme matrix.
+ */
+import Base from '../../layouts/Base.astro';
+import Callout from '../../components/Callout.astro';
+import { loadTokens } from '../../lib/tokens';
+
+const tokens = loadTokens();
+const lightMap = new Map(tokens.map((t) => [t.name, t.light]));
+function resolve(value: string | undefined, depth = 0): string {
+  if (!value || depth > 10) return value ?? '';
+  const m = value.match(/^var\((--[\w-]+)(?:,\s*([^)]+))?\)$/);
+  if (!m) return value;
+  return resolve(lightMap.get(m[1]) ?? m[2] ?? '', depth + 1);
+}
+
+const byPrefix = (prefix: string) =>
+  tokens
+    .filter((t) => t.name.startsWith(prefix))
+    .map((t) => ({
+      name: t.name,
+      label: t.name.replace(prefix, '').replace(/-/g, ' '),
+      hex: resolve(t.light),
+    }));
+
+const roles = [
+  { role: 'Brand', desc: 'Lepide blue and its supporting tones. Primary drives the main action; secondary and accent support it.', items: byPrefix('--color-brand-') },
+  { role: 'Text', desc: 'Foreground colors for type. Each is contrast-checked against the surfaces it sits on.', items: byPrefix('--color-text-') },
+  { role: 'Background', desc: 'Surfaces, from the page base up through raised cards.', items: byPrefix('--color-background-') },
+  { role: 'Border', desc: 'Dividers and outlines, from quiet hairlines to brand emphasis.', items: byPrefix('--color-border-') },
+];
+
+// status pairs (bg + text) rendered as live chips
+const statusKinds = [
+  { key: 'success', label: 'Success' },
+  { key: 'warning', label: 'Warning' },
+  { key: 'error', label: 'Error' },
+  { key: 'na', label: 'Neutral' },
+];
+const status = statusKinds.map((s) => ({
+  ...s,
+  bg: resolve(lightMap.get(`--color-status-${s.key}-bg`)),
+  text: resolve(lightMap.get(`--color-status-${s.key}-text`)),
+  bgToken: `--color-status-${s.key}-bg`,
+  textToken: `--color-status-${s.key}-text`,
+}));
+
+const chart = tokens
+  .filter((t) => t.name.startsWith('--color-chart-series-'))
+  .map((t) => ({ name: t.name, hex: resolve(t.light) }));
+
+// primitive ramps
+const FAMILIES = ['blue', 'navy', 'lightblue', 'cyan', 'gray', 'red', 'green', 'yellow', 'orange'];
+const ramps = FAMILIES.map((fam) => {
+  const re = new RegExp(`^--${fam}-(\\d+)$`);
+  const stops = tokens
+    .filter((t) => re.test(t.name) && /^#/.test(t.light))
+    .map((t) => ({ name: t.name, stop: t.name.match(re)![1], hex: t.light }))
+    .sort((a, b) => Number(a.stop) - Number(b.stop));
+  return { fam, stops };
+}).filter((r) => r.stops.length);
+---
+
+<Base title="Color" description="The Lepidus color system — semantic roles, the primitive palette, and how to use them.">
+  <main class="site-main" style="max-width: 980px; margin: 0 auto;" data-pagefind-body>
+    <p class="page-eyebrow">Foundations</p>
+    <h1>Color</h1>
+    <p class="page-lede">
+      A blue-forward palette built in two layers: a primitive scale of raw values, and the semantic
+      roles components actually consume. <strong>Always reach for a semantic token</strong> — they're
+      contrast-checked, they re-theme automatically, and they carry meaning a raw hex never can.
+      Click any swatch to copy its token.
+    </p>
+
+    <div class="prose" style="max-width:none; margin-top: 24px;">
+      {roles.map((g) => (
+        <section>
+          <h2>{g.role}</h2>
+          <p>{g.desc}</p>
+          <ul class="color-cards">
+            {g.items.map((c) => (
+              <li>
+                <button type="button" class="color-card" data-token={c.name} title="Click to copy">
+                  <span class="color-card__chip" style={`background:${c.hex}`}></span>
+                  <span class="color-card__meta">
+                    <span class="color-card__label">{c.label}</span>
+                    <code>var({c.name})</code>
+                    <span class="color-card__hex">{c.hex}</span>
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+
+      <h2>Status</h2>
+      <p>
+        Each status is a <strong>background + text pair</strong>, used together on badges, tags, and
+        messages. Status is never carried by color alone — pair it with an icon or label.
+      </p>
+      <ul class="color-cards color-cards--status">
+        {status.map((s) => (
+          <li>
+            <div class="status-chip" style={`background:${s.bg}; color:${s.text}`}>
+              <span class="status-chip__dot" style={`background:${s.text}`}></span>
+              {s.label}
+            </div>
+            <div class="status-chip__tokens">
+              <button type="button" class="status-tok" data-token={s.bgToken} title="Copy bg token">bg · {s.bg}</button>
+              <button type="button" class="status-tok" data-token={s.textToken} title="Copy text token">text · {s.text}</button>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      {chart.length > 0 && (
+        <>
+          <h2>Chart series</h2>
+          <p>A categorical sequence for charts and avatar fallbacks — distinct hues, not a gradient.</p>
+          <ul class="ramp-row">
+            {chart.map((c) => (
+              <li>
+                <button type="button" class="ramp-stop" data-token={c.name} title={`Copy var(${c.name})`} style={`background:${c.hex}`}></button>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+
+      <h2>The palette</h2>
+      <p>
+        The primitive ramps the semantic roles are built from. Use these <em>only</em> inside new
+        semantic tokens — components should never reference a raw stop like <code>--blue-600</code>.
+      </p>
+      {ramps.map((r) => (
+        <div class="ramp">
+          <span class="ramp__name">{r.fam}</span>
+          <ul class="ramp-row">
+            {r.stops.map((s) => (
+              <li>
+                <button type="button" class="ramp-stop" data-token={s.name} title={`var(${s.name}) · ${s.hex}`} style={`background:${s.hex}`}>
+                  <span class="ramp-stop__label" style={`color:${Number(s.stop) >= 400 ? '#fff' : '#1a1a2e'}`}>{s.stop}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+
+      <Callout variant="info" title="Two rules that keep color accessible">
+        <p><strong>Use semantic, not primitive.</strong> <code>var(--color-text-primary)</code>, not
+        <code>var(--gray-700)</code> — the semantic token re-resolves per theme and is contrast-checked;
+        the primitive is frozen. <strong>Let meaning pick the color.</strong> Error is red because it's an
+        error, not the reverse — see <a href="/foundations/accessibility/">Accessibility</a> for why color
+        is never the only signal.</p>
+      </Callout>
+      <p>
+        These are light-theme values. Dark and high-contrast resolve differently from the same tokens —
+        see the full per-theme matrix on the <a href="/tokens/">Tokens reference</a>, and how the
+        switch works on <a href="/foundations/theming/">Theming</a>.
+      </p>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('click', (e) => {
+      const el = (e.target as HTMLElement).closest<HTMLElement>('[data-token]');
+      if (!el) return;
+      navigator.clipboard.writeText(`var(${el.dataset.token})`).then(() => {
+        el.classList.add('is-copied');
+        setTimeout(() => el.classList.remove('is-copied'), 1000);
+      });
+    });
+  </script>
+</Base>

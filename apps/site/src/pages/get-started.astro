@@ -4,19 +4,18 @@ import Page from '../layouts/Page.astro';
 import Callout from '../components/Callout.astro';
 import Example from '../components/Example.astro';
 
-const installHtml = `<!doctype html>
+const SITE = 'https://lepidus-design-system-button.vercel.app';
+
+const installCdn = `<!doctype html>
 <html lang="en" data-theme="light">
 <head>
-  <link rel="stylesheet" href="lepidus.css" />
+  <link rel="stylesheet" href="${SITE}/v1/lepidus.css" />
 </head>
 <body>
   <!-- your page -->
-  <script src="lepidus.js" defer></script>
+  <script src="${SITE}/v1/lepidus.js" defer></script>
 </body>
 </html>`;
-
-const themeSwitch = `// the whole feature is one attribute — every token re-resolves
-document.documentElement.setAttribute('data-theme', 'dark'); // 'light' | 'dark' | 'hc'`;
 
 const reactQuickstart = `import '@lepidus/tokens/build/css/tokens.css';
 import { Button, Badge } from '@lepidus/react';
@@ -38,13 +37,13 @@ export function ReportToolbar() {
 >
   <ul class="path-grid" aria-label="Choose your path">
     <li>
-      <a class="path-card" href="#html">
+      <a class="path-card" href="#start">
         <span class="path-card__icon" style="background:#e9f0ff" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="#1c4599" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg>
         </span>
         <span>
           <strong>I write HTML/CSS/JS</strong>
-          <small>The default path — start at step 1</small>
+          <small>The default — start below</small>
         </span>
       </a>
     </li>
@@ -55,7 +54,7 @@ export function ReportToolbar() {
         </span>
         <span>
           <strong>My project is React</strong>
-          <small>Typed components, same tokens</small>
+          <small>Same system, typed</small>
         </span>
       </a>
     </li>
@@ -66,7 +65,7 @@ export function ReportToolbar() {
         </span>
         <span>
           <strong>I design</strong>
-          <small>Foundations, themes, and the token language</small>
+          <small>Foundations, themes, tokens</small>
         </span>
       </a>
     </li>
@@ -76,99 +75,73 @@ export function ReportToolbar() {
           <svg viewBox="0 0 24 24" fill="none" stroke="#6d5bd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4"/><circle cx="12" cy="12" r="4"/></svg>
         </span>
         <span>
-          <strong>I'm using an AI assistant</strong>
-          <small>Point it at the AI surface and review the diff</small>
+          <strong>I use an AI assistant</strong>
+          <small>Set it up in five minutes</small>
         </span>
       </a>
     </li>
   </ul>
 
-  <h2 class="step" id="html"><span class="step__num" aria-hidden="true">1</span>Get the files</h2>
+  <h2 class="step" id="start"><span class="step__num" aria-hidden="true">1</span>Install and ship your first component</h2>
   <p>
-    Copy <code>lepidus.css</code> and <code>lepidus.js</code> from
-    <code>packages/css/dist/</code> into your project and link them. That's the whole install —
-    no npm, no bundler, nothing to configure. <code>lepidus.css</code> carries the design tokens
-    and every component; <code>lepidus.js</code> (4&nbsp;KB) adds behavior to the interactive ones.
+    The easiest way — link the two hosted files. Nothing to download, copy, or build;
+    <code>lepidus.css</code> carries the tokens and every component, and
+    <code>lepidus.js</code> (4&nbsp;KB) adds behavior to the interactive ones. The
+    <code>/v1/</code> path stays stable, so your pages don't break when the system updates.
   </p>
-  <Code code={installHtml} lang="html" theme="github-dark" />
-
-  <h2 class="step"><span class="step__num" aria-hidden="true">2</span>Ship your first component</h2>
+  <Code code={installCdn} lang="html" theme="github-dark" />
+  <Callout variant="info" title="Prefer to vendor the files?">
+    <p>You can also copy <code>lepidus.css</code> and <code>lepidus.js</code> from
+    <code>packages/css/dist/</code> into your own project and link them with relative paths —
+    handy for offline or air-gapped environments. React teams install the packages instead
+    (step&nbsp;3).</p>
+  </Callout>
   <p>
-    Say you're building the toolbar for an audit report. Grab the markup from the
-    <a href="/components/button/code/">Button</a> and <a href="/components/badge/code/">Badge</a>
-    pages, paste, done — it renders like this, and it's live below (hover the buttons, tab
-    through them):
+    Now copy markup from any component's Code tab and paste. Here's an audit-report toolbar from
+    <a href="/components/button/code/">Button</a> and <a href="/components/badge/code/">Badge</a> —
+    live below, so hover and tab through it:
   </p>
   <Example snippet="get-started/first-component" title="A report toolbar — your first paste" story="actions-button--primary" />
   <p>
-    Every class follows one naming rule: block (<code>lp-button</code>), modifier
+    Classes follow one rule: block (<code>lp-button</code>), modifier
     (<code>lp-button--primary</code>), element (<code>lp-button__icon-left</code>). If a class
-    isn't in the docs, it doesn't exist — the
-    <a href="/components/">component pages</a> are the complete vocabulary.
+    isn't in the docs, it doesn't exist — the <a href="/components/">component pages</a> are the
+    complete vocabulary.
   </p>
 
-  <h2 class="step"><span class="step__num" aria-hidden="true">3</span>Flip the theme</h2>
+  <h2 class="step"><span class="step__num" aria-hidden="true">2</span>Theming and behavior come for free</h2>
   <p>
-    Press <strong>Dark</strong> in the example above. That's the entire feature: every color on
-    the page is a CSS variable that re-resolves when <code>data-theme</code> changes on
-    <code>&lt;html&gt;</code>. No second stylesheet, no theme classes, nothing to maintain.
+    Press <strong>Dark</strong> in the example above — that's the whole theming feature. Every
+    color is a token that re-resolves when <code>data-theme</code> changes on
+    <code>&lt;html&gt;</code>: no second stylesheet, nothing to maintain.
   </p>
-  <Code code={themeSwitch} lang="js" theme="github-dark" />
-  <Callout variant="info" title="The one rule that makes this work">
-    <p>Never hardcode a color, size, or radius — use the <a href="/tokens/">token variables</a>:
-    <code>var(--component-*)</code> first, semantic <code>var(--color-*)</code> /
-    <code>var(--space-*)</code> / <code>var(--radius-*)</code> otherwise. Hardcode one hex value
-    and dark mode breaks exactly there.</p>
-  </Callout>
-
-  <h2 class="step"><span class="step__num" aria-hidden="true">4</span>Add behavior</h2>
   <p>
-    Interactive components work Bootstrap-style: write the documented markup, and
-    <code>lepidus.js</code> wires it up — modals trap focus, tabs handle arrow keys, dropdowns
-    close on Escape. Try it: this button raises a real toast, and "View incident" carries a
-    tooltip.
+    Interactive components wire themselves up: write the documented markup and add a
+    <code>data-lp-*</code> attribute (or one <code>Lepidus.*</code> call), and
+    <code>lepidus.js</code> handles focus traps, arrow keys, and Escape. Try it — this button
+    raises a real toast:
   </p>
   <Example snippet="get-started/interactive" title="Behavior from lepidus.js — no code written" height={210} story="feedback-toast--info" />
-  <p>
-    The pattern is always the same: a <code>data-lp-*</code> attribute on the markup
-    (<code>data-lp-tabs</code>, <code>data-lp-modal-open</code>, <code>data-lp-tooltip</code>)
-    or a one-line JS call (<code>Lepidus.toast(&#123;…&#125;)</code>). Each component's Code tab
-    shows exactly which.
-  </p>
+  <Callout variant="info" title="The one rule that makes all of this work">
+    <p>Never hardcode a color, size, or radius — use the <a href="/tokens/">token variables</a>
+    (<code>var(--component-*)</code> first, then <code>var(--color-*)</code> /
+    <code>var(--space-*)</code> / <code>var(--radius-*)</code>). It's enforced in CI, and it's
+    the reason the three themes work for free. Hardcode one hex value and dark mode breaks
+    exactly there.</p>
+  </Callout>
 
-  <h2 class="step" id="react"><span class="step__num" aria-hidden="true">5</span>On React? Same system, typed</h2>
+  <h2 class="step" id="react"><span class="step__num" aria-hidden="true">3</span>On React? The same system, typed</h2>
   <p>
-    <code>@lepidus/react</code> renders pixel-identically to the plain-CSS classes — both are
-    generated from the same source. Props are documented on every component's Specifications
-    tab, extracted from the source with react-docgen, so they can't drift.
+    <code>@lepidus/react</code> renders pixel-identically to the plain-CSS classes — both come
+    from the same source. Props are documented on every component's Specifications tab and
+    can't drift from the code.
   </p>
   <Code code={reactQuickstart} lang="tsx" theme="github-dark" />
   <p>
     The <a href="/storybook/" target="_blank" rel="noopener">Storybook ↗</a> is the interactive
-    workshop behind everything on this site — every state of every component, switchable across
-    all three themes and RTL.
+    workshop behind this whole site — every state of every component, across all three themes
+    and RTL.
   </p>
-
-  <h2>The four rules</h2>
-  <p class="home-section__sub">Everything else is convention; these four are enforced by CI.</p>
-  <ul class="rule-grid">
-    <li class="rule-card">
-      <strong>Tokens, not hex values</strong>
-      <p>Hardcoded colors fail the build. The payoff: dark and high-contrast themes work everywhere, forever, for free.</p>
-    </li>
-    <li class="rule-card">
-      <strong>Keep the documented ARIA</strong>
-      <p>The markup you copy already passes axe — <code>role="switch"</code> on toggles, <code>aria-invalid</code> on errors. Strip it and CI catches it.</p>
-    </li>
-    <li class="rule-card">
-      <strong>Don't fight the shape</strong>
-      <p>Buttons and inputs are pill-shaped by token. Overriding radii is the fastest way to make a screen feel un-Lepide.</p>
-    </li>
-    <li class="rule-card">
-      <strong>AI-generated UI gets reviewed too</strong>
-      <p>Point assistants at the <a href="/ai/">AI surface</a> so they generate real <code>lp-</code> classes — then hold the output to the same rules.</p>
-    </li>
-  </ul>
 
   <h2>Where to go next</h2>
   <ul class="tile-grid">

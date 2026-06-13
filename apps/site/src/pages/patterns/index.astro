@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import { patterns } from '../../lib/patterns';
+---
+
+<Base title="Patterns" description="Page-level patterns — how Lepidus components compose into real Lepide screens.">
+  <main class="site-main" style="max-width: 1100px; margin: 0 auto;" data-pagefind-body>
+    <p class="page-eyebrow">Compositions</p>
+    <h1>Patterns</h1>
+    <p class="page-lede">
+      Components are the parts; patterns are the screens. Each one shows how Lepidus
+      components compose into a real Lepide surface — an audit report, a dashboard, a settings
+      page — with a live preview and the components it's built from.
+    </p>
+
+    <ul class="comp-grid" style="margin-top: 32px;">
+      {patterns.map((p) => (
+        <li>
+          <a class="comp-card" href={`/patterns/${p.slug}/`}>
+            <div class="comp-card__thumb comp-card__thumb--wide">
+              <img src={`/thumbs/pattern-${p.slug}.png`} alt="" loading="lazy" />
+            </div>
+            <div class="comp-card__body">
+              <p class="tile__title">{p.title}</p>
+              <p class="tile__desc">{p.blurb}</p>
+              <span class="tile__meta">{p.components.length} components</span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Base>

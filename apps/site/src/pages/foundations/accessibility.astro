@@ -1,0 +1,113 @@
+---
+import Base from '../../layouts/Base.astro';
+import Callout from '../../components/Callout.astro';
+import { components } from '../../lib/data';
+
+const a11yComponents = components.length;
+---
+
+<Base title="Accessibility" description="Lepidus is built to WCAG 2.1 AA and enforces it in CI — every component, every theme.">
+  <main class="site-main" style="max-width: 920px; margin: 0 auto;" data-pagefind-body>
+    <p class="page-eyebrow">Commitment</p>
+    <h1>Accessibility</h1>
+    <p class="page-lede">
+      Lepidus targets <strong>WCAG 2.1 Level AA</strong> and aligns with <strong>Section 508</strong>.
+      Accessibility isn't a review step here — it's a build gate. Every component is checked by
+      automated tooling on every change, across all three themes, and a build fails if a check does.
+    </p>
+    <div class="badge-row">
+      <span class="gate-badge">✓ axe WCAG 2.1 AA in CI</span>
+      <span class="gate-badge">✓ contrast checked · 3 themes</span>
+      <span class="gate-badge gate-badge--info">Keyboard · screen-reader · reduced-motion</span>
+    </div>
+
+    <div class="prose" style="margin-top: 24px;">
+      <h2>How it's enforced</h2>
+      <p>
+        Most design systems <em>recommend</em> accessibility. Lepidus <em>enforces</em> it — these
+        gates run in CI on every pull request, and a failure blocks the merge:
+      </p>
+      <table class="doc-table">
+        <thead><tr><th>Gate</th><th>What it guarantees</th></tr></thead>
+        <tbody>
+          <tr><td><code>test-storybook</code> (axe)</td><td>Every component story passes axe-core WCAG 2.1 A &amp; AA rules, rendered in a real browser</td></tr>
+          <tr><td><code>check:contrast</code></td><td>Every text/background token pair meets 4.5:1 — re-checked in light, dark, <em>and</em> high-contrast</td></tr>
+          <tr><td><code>check:demo-a11y</code></td><td>The plain-HTML markup passes axe in all three themes, including open modal and dropdown states</td></tr>
+          <tr><td><code>check:tokens</code></td><td>No hardcoded colors — so a theme can never silently break a contrast guarantee</td></tr>
+        </tbody>
+      </table>
+      <Callout variant="success" title="Accessibility is a property of the system, not the screen">
+        <p>Because color, focus, and spacing all come from tokens — and tokens are contrast-checked —
+        any UI built with Lepidus inherits AA conformance for free. You can't accidentally ship an
+        inaccessible color pairing; the build won't let you.</p>
+      </Callout>
+
+      <h2>Color &amp; contrast</h2>
+      <ul>
+        <li>Every text color meets <strong>4.5:1</strong> against its surface (3:1 for large text), verified per theme.</li>
+        <li>A dedicated <a href="/foundations/theming/"><strong>high-contrast theme</strong></a> ships alongside light and dark — set <code>data-theme="hc"</code>.</li>
+        <li>Color is never the only signal: status uses an icon or label alongside hue (a badge says "Error", not just red).</li>
+      </ul>
+
+      <h2>Keyboard</h2>
+      <ul>
+        <li>Everything interactive is reachable and operable by keyboard alone — no mouse-only controls.</li>
+        <li>Focus is always visible: a <code>:focus-visible</code> ring driven by <code>--color-focus-ring</code>, never removed.</li>
+        <li>Overlays manage focus: modals <strong>trap</strong> focus and mark the rest of the page <code>inert</code>, then restore focus on close.</li>
+        <li>Composite widgets follow the expected model: Tabs use arrow keys with roving <code>tabindex</code> (RTL-aware), menus and dropdowns close on <kbd>Esc</kbd>.</li>
+      </ul>
+
+      <h2>Screen readers</h2>
+      <p>Semantic HTML first; ARIA only to fill the gaps. The patterns are baked into the documented markup, so copying a component gives you the correct semantics:</p>
+      <table class="doc-table">
+        <thead><tr><th>Component</th><th>Pattern</th></tr></thead>
+        <tbody>
+          <tr><td>Toggle</td><td><code>role="switch"</code> + <code>aria-checked</code></td></tr>
+          <tr><td>Input errors</td><td><code>aria-invalid</code> + <code>aria-describedby</code> to the message</td></tr>
+          <tr><td>Breadcrumb</td><td><code>aria-current="page"</code> on the current item</td></tr>
+          <tr><td>Dropdown / listbox</td><td><code>role="listbox"</code> + <code>aria-label</code>, options as <code>role="option"</code></td></tr>
+          <tr><td>Avatar</td><td><code>role="img"</code> + <code>aria-label</code>; initials are <code>aria-hidden</code> decoration</td></tr>
+          <tr><td>Toast</td><td>announced via a polite live region</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Motion</h2>
+      <p>
+        Every transition respects <code>prefers-reduced-motion</code> — when a user asks their OS to
+        reduce motion, component animations collapse to near-instant. Motion is never required to
+        understand a state change.
+      </p>
+
+      <h2>Internationalization</h2>
+      <p>
+        Components are built with CSS logical properties and support right-to-left layouts — toggle
+        direction in any live example on this site. Text is never baked into images.
+      </p>
+
+      <h2>Per-component details</h2>
+      <p>
+        Every one of the {a11yComponents} components has its own <strong>Accessibility</strong> tab
+        documenting its keyboard model, ARIA, and any caveats. Start from the
+        <a href="/components/">component index</a>, or jump to a common one:
+        <a href="/components/modal/accessibility/">Modal</a>,
+        <a href="/components/tabs/accessibility/">Tabs</a>,
+        <a href="/components/input/accessibility/">Input</a>,
+        <a href="/components/table/accessibility/">Table</a>.
+      </p>
+
+      <h2>Known limitations</h2>
+      <p>
+        We document what doesn't yet meet the bar rather than hide it. The current one: Avatar
+        initials on the brightest fallback colors fall below 4.5:1 — they're treated as
+        <code>aria-hidden</code> decoration (the name is announced via <code>aria-label</code>),
+        and the pairing is on the list to revisit when dedicated avatar tokens land.
+      </p>
+
+      <Callout variant="info" title="Reporting an issue">
+        <p>Found a barrier? Accessibility bugs are treated as release-blocking. File it against the
+        design-system repo with the component, the assistive tech, and the steps — and it gets
+        prioritized like any other defect.</p>
+      </Callout>
+    </div>
+  </main>
+</Base>

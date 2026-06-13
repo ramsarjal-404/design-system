@@ -7,29 +7,88 @@ const cssCount = components.filter((c) => c.plainCss).length;
 
 <Base title="Lepidus" description="Lepidus — Lepide's enterprise design system. Tokens, components, themes, and AI-ready documentation.">
   <section class="home-hero">
-    <h1>Design, build, and ship Lepide products faster</h1>
-    <p>
-      Lepidus is Lepide's end-to-end design language — tokens, components, and guidelines
-      that keep every product consistent, accessible, and unmistakably Lepide.
-    </p>
-    <a class="home-search" href="/search/">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      Search components, tokens, guidelines…
-      <kbd>/</kbd>
-    </a>
-    <div class="home-hero__actions">
-      <a class="btn btn--primary" href="/get-started/">Get started</a>
-      <a class="btn btn--secondary" href="/storybook/" target="_blank" rel="noopener">
-        Open Storybook
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-      </a>
+    <div class="home-hero__inner">
+      <div class="home-hero__copy">
+        <p class="home-hero__eyebrow">Lepide Design System</p>
+        <h1>Design, build, and ship Lepide products faster</h1>
+        <p class="home-hero__lede">
+          One end-to-end design language — tokens, accessible components, and guidelines that
+          keep every Lepide product consistent and unmistakably on-brand.
+        </p>
+        <a class="home-search" href="/search/">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          Search components, tokens, guidelines…
+          <kbd>/</kbd>
+        </a>
+        <div class="home-hero__actions">
+          <a class="btn btn--primary" href="/get-started/">Get started</a>
+          <a class="btn btn--secondary" href="/storybook/" target="_blank" rel="noopener">
+            Open Storybook
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+        <ul class="home-hero__trust">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>44 components</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>3 themes</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>WCAG 2.1 AA</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m5 13 4 4L19 7"/></svg>Zero build step</li>
+        </ul>
+      </div>
+
+      <div class="home-hero__demo" aria-hidden="true">
+        <span class="demo-tag">Built with Lepidus components</span>
+        <div class="demo-window">
+          <div class="demo-window__bar">
+            <span class="demo-window__dot" style="background:#ff5f57"></span>
+            <span class="demo-window__dot" style="background:#febc2e"></span>
+            <span class="demo-window__dot" style="background:#28c840"></span>
+            <span class="demo-window__url">lepide.app/permissions</span>
+          </div>
+          <div class="demo-window__body">
+        <div class="lp-card lp-card--elevated">
+          <div class="lp-card__header">
+            <div class="lp-card__title">Permissions scan</div>
+            <span class="lp-badge lp-badge--success"><span class="lp-badge__dot"></span>Healthy</span>
+          </div>
+          <div class="lp-card__body">
+            <div class="lp-progress lp-progress--full-width" style="width:100%">
+              <span class="lp-progress__label">Scanning LDSP-FS-01</span>
+              <div class="lp-progress__row">
+                <div class="lp-progress__track"><div class="lp-progress__fill" style="width:72%"></div></div>
+                <span class="lp-progress__value">72%</span>
+              </div>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:16px">
+              <span class="lp-tag lp-tag--success"><span class="lp-tag__label">Read</span></span>
+              <span class="lp-tag lp-tag--warning"><span class="lp-tag__label">Write</span></span>
+              <span class="lp-tag lp-tag--error"><span class="lp-tag__label">Full control</span></span>
+            </div>
+            <label class="lp-checkbox" style="margin-top:16px">
+              <span class="lp-checkbox__control">
+                <input class="lp-checkbox__input" type="checkbox" checked disabled />
+                <span class="lp-checkbox__box">
+                  <svg class="lp-checkbox__check" viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4.2 3.8 7 9 1"/></svg>
+                  <svg class="lp-checkbox__dash" viewBox="0 0 10 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 1h8"/></svg>
+                </span>
+              </span>
+              <span class="lp-checkbox__label">Alert on privilege escalation</span>
+            </label>
+          </div>
+          <div class="lp-card__footer">
+            <button class="lp-button lp-button--primary lp-button--sm" tabindex="-1">View report</button>
+            <button class="lp-button lp-button--secondary lp-button--sm" tabindex="-1">Export</button>
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="home-section" aria-labelledby="explore-title">
     <h2 id="explore-title">Explore the system</h2>
     <p class="home-section__sub">Everything you need to design and build — organized the way you work.</p>
-    <ul class="explore-grid">
+    <ul class="explore-grid" data-reveal>
       <li>
         <a class="explore-card" href="/get-started/">
           <div class="explore-card__art" style="background:#e9f0ff" aria-hidden="true">
@@ -142,7 +201,7 @@ const cssCount = components.filter((c) => c.plainCss).length;
       </li>
     </ul>
 
-    <div class="stat-row">
+    <div class="stat-row" data-reveal>
       <div class="stat"><strong>{components.length}</strong><span>components</span></div>
       <div class="stat"><strong>{cssCount}</strong><span>as plain HTML + CSS</span></div>
       <div class="stat"><strong>3</strong><span>themes — light · dark · high contrast</span></div>
@@ -152,7 +211,7 @@ const cssCount = components.filter((c) => c.plainCss).length;
 
   <section class="home-section" aria-labelledby="ships-title">
     <h2 id="ships-title">How Lepidus ships</h2>
-    <ul class="tile-grid">
+    <ul class="tile-grid" data-reveal>
       <li>
         <a class="tile" href="/get-started/">
           <p class="tile__title">Plain HTML + CSS first</p>

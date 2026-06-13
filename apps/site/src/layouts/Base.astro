@@ -16,13 +16,24 @@ const { title, description = 'Lepidus — the Lepide enterprise design system.' 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title} · Lepidus Design System</title>
+    <!-- set theme before paint to avoid a flash -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      try {
+        var t = localStorage.getItem('lepidus-theme');
+        if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Sora:wght@600;700;800&display=swap"
     />
     <link rel="stylesheet" href="/lepidus/tokens.css" />
+    <!-- real lp-* component styles, for the live vignettes that dogfood the system -->
+    <link rel="stylesheet" href="/lepidus/lepidus.components.css" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231C4599'/><text x='16' y='22' font-size='18' font-family='sans-serif' font-weight='bold' fill='white' text-anchor='middle'>L</text></svg>" />
   </head>
   <body>
@@ -46,6 +57,7 @@ const { title, description = 'Lepidus — the Lepide enterprise design system.' 
             <li><a href="/get-started/">Get started</a></li>
             <li><a href="/foundations/">Foundations</a></li>
             <li><a href="/components/">Components</a></li>
+            <li><a href="/foundations/accessibility/">Accessibility</a></li>
             <li><a href="/tokens/">Tokens</a></li>
           </ul>
         </div>
@@ -68,5 +80,32 @@ const { title, description = 'Lepidus — the Lepide enterprise design system.' 
       </div>
       <div class="site-footer__legal">Lepidus Design System · Lepide</div>
     </footer>
+
+    <script is:inline>
+      // theme toggle — persists choice, syncs the component tokens too
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest && e.target.closest('[data-theme-toggle]');
+        if (!btn) return;
+        var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('lepidus-theme', next); } catch (e) {}
+      });
+
+      // scroll-reveal — rise sections in as they enter view (once)
+      (function () {
+        var els = document.querySelectorAll('[data-reveal]');
+        if (!els.length) return;
+        if (!('IntersectionObserver' in window)) {
+          els.forEach(function (el) { el.classList.add('is-in'); });
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+        els.forEach(function (el) { io.observe(el); });
+      })();
+    </script>
   </body>
 </html>

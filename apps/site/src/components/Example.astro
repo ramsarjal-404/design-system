@@ -68,7 +68,14 @@ const tabs = [
 const uid = `ex-${snippet.replace(/[^a-z0-9]+/gi, '-')}`;
 ---
 
-<figure class="example" data-live-example style="margin-inline:0">
+<figure
+  class="example"
+  data-live-example
+  data-snippet={html ? JSON.stringify(html) : undefined}
+  data-snippet-jsx={jsx ? JSON.stringify(jsx) : undefined}
+  data-snippet-name={snippet.replace(/\//g, '-')}
+  style="margin-inline:0"
+>
   <div class="example__bar">
     {srcdoc && !codeOnly && (
       <span class="live-pill" title="Rendered live from @lepidus/css — hover, focus and keyboard all work">
@@ -82,6 +89,19 @@ const uid = `ex-${snippet.replace(/[^a-z0-9]+/gi, '-')}`;
         <button type="button" aria-pressed="false" data-theme="dark">Dark</button>
         <button type="button" aria-pressed="false" data-theme="hc">High contrast</button>
       </div>
+    )}
+    {(html || jsx) && (
+      <button
+        type="button"
+        class="example__download"
+        data-download
+        title={html
+          ? 'Download a ready-to-open .html file — double-click it to see this in your browser. No setup, nothing to install.'
+          : 'Download the React component code as a .jsx file.'}
+      >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+        Download
+      </button>
     )}
     {story && (
       <span class="example__links">
@@ -133,9 +153,71 @@ const uid = `ex-${snippet.replace(/[^a-z0-9]+/gi, '-')}`;
 </figure>
 
 <script>
+  // ----- "Download" — build a self-contained, ready-to-open HTML file -------
+  // For non-coders: one click produces a complete .html with all CSS and the
+  // behavior script inlined, so the saved file works on its own — double-click
+  // it and it opens in the browser, fully styled, no setup or other files.
+  let lpCss: string | null = null;
+  let lpJs: string | null = null;
+  async function lepidusAssets() {
+    if (lpCss === null) lpCss = await fetch('/lepidus/lepidus.css').then((r) => r.text()).catch(() => '');
+    if (lpJs === null) lpJs = await fetch('/lepidus/lepidus.js').then((r) => r.text()).catch(() => '');
+    return { css: lpCss, js: lpJs };
+  }
+  function triggerDownload(content: string, filename: string, type: string) {
+    const url = URL.createObjectURL(new Blob([content], { type }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  async function downloadExample(fig: HTMLElement, btn: HTMLButtonElement) {
+    const markup = JSON.parse(fig.dataset.snippet || '""');
+    const jsxCode = JSON.parse(fig.dataset.snippetJsx || '""');
+    const name = fig.dataset.snippetName || 'example';
+    const original = btn.querySelector('svg')?.outerHTML ?? '';
+    const done = () => {
+      btn.innerHTML = original + ' Downloaded ✓';
+      setTimeout(() => (btn.innerHTML = original + ' Download'), 1800);
+    };
+
+    // React-only example (no plain HTML) — download the component code as .jsx
+    if (!markup && jsxCode) {
+      triggerDownload(jsxCode, `Lepidus-${name}.jsx`, 'text/jsx');
+      done();
+      return;
+    }
+
+    // plain-HTML example — build a self-contained, ready-to-open .html file
+    btn.textContent = 'Preparing…';
+    const { css, js } = await lepidusAssets();
+    const doc =
+      '<!doctype html>\n<html lang="en" data-theme="light">\n<head>\n' +
+      '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n' +
+      `<title>Lepidus example — ${name}</title>\n` +
+      '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap">\n' +
+      '<style>\n' + css + '\n' +
+      "body{font-family:var(--font-family-primary,'Open Sans',sans-serif);background:var(--color-background-page);color:var(--color-text-primary);padding:32px;margin:0}\n" +
+      '</style>\n</head>\n<body>\n' +
+      markup + '\n' +
+      '<' + 'script>\n' + js + '\n<' + '/script>\n' +
+      '</body>\n</html>\n';
+    triggerDownload(doc, `lepidus-${name}.html`, 'text/html');
+    done();
+  }
+
   // ----- theme switching for srcdoc previews (same-origin, direct DOM) -----
   document.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
+
+    const dlBtn = target.closest<HTMLButtonElement>('[data-live-example] [data-download]');
+    if (dlBtn) {
+      downloadExample(dlBtn.closest('[data-live-example]') as HTMLElement, dlBtn);
+      return;
+    }
 
     const themeBtn = target.closest<HTMLButtonElement>('[data-live-example] .theme-switch button');
     if (themeBtn) {
