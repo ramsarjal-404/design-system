@@ -5,7 +5,8 @@
   "license": "UNLICENSED",
   "private": false,
   "publishConfig": {
-    "access": "restricted"
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com"
   },
   "style": "./dist/lepidus.css",
   "sideEffects": [
@@ -22,5 +23,10 @@
     "./lepidus.js": "./dist/lepidus.js",
     "./components.css": "./dist/lepidus.components.css",
     "./components/*": "./dist/components/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramsarjal-404/design-system.git",
+    "directory": "packages/css"
   }
 }

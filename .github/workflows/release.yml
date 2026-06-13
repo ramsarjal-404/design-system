@@ -1,0 +1,46 @@
+name: Release packages
+
+# Publishes @lepidus/* to GitHub Packages via Changesets.
+#
+# Flow: add a changeset on a feature branch (`npm run changeset`). When it
+# lands on main, this opens a "Version Packages" PR. Merging that PR versions
+# the packages, builds them, and publishes to GitHub Packages.
+#
+# IMPORTANT — scope must match the owner. GitHub Packages requires the npm
+# scope (@lepidus) to match the org/user that owns this repo. This repo is
+# owned by `ramsarjal-404`, so publishing @lepidus/* will be rejected until
+# either (a) a GitHub org named `lepidus` owns the repo, or (b) the packages
+# are renamed to @ramsarjal-404/*. The built-in GITHUB_TOKEN handles auth.
+
+on:
+  push:
+    branches: [main]
+
+concurrency: release-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
+  packages: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+      - run: npm ci
+      - name: Build packages
+        run: npm run tokens && npm run css && npm run build:react
+      - name: Version or publish
+        uses: changesets/action@v1
+        with:
+          version: npm run version-packages
+          publish: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -5,7 +5,8 @@
   "license": "UNLICENSED",
   "private": false,
   "publishConfig": {
-    "access": "restricted"
+    "access": "restricted",
+    "registry": "https://npm.pkg.github.com"
   },
   "files": [
     "build/css/tokens.css",
@@ -20,5 +21,10 @@
   },
   "scripts": {
     "build": "node build-json.mjs && node build-sd.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ramsarjal-404/design-system.git",
+    "directory": "packages/tokens"
   }
 }

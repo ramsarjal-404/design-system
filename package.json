@@ -26,7 +26,8 @@
     "site": "npm run prestorybook && npm run site:data && npm --workspace @lepidus/site exec astro dev",
     "build:site": "npm run build-storybook && npm --workspace @lepidus/site run build && node apps/site/scripts/assemble.mjs",
     "changeset": "changeset",
-    "version-packages": "changeset version"
+    "version-packages": "changeset version",
+    "release": "npm publish --workspaces --no-git-checks || npm publish --workspaces"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
