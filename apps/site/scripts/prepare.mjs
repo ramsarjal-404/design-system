@@ -16,6 +16,7 @@
  * this script fails loudly otherwise.
  */
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { DEFAULT_SITE_URL, SITE_URL } from './site-url.mjs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -45,7 +46,12 @@ for (const [from, to] of artifacts) {
   }
   const dest = join(siteRoot, to);
   mkdirSync(dirname(dest), { recursive: true });
-  cpSync(src, dest);
+  if (to.endsWith('llms.txt')) {
+    // llms.txt is hand-written with the default domain; point it at this deployment.
+    writeFileSync(dest, readFileSync(src, 'utf8').split(DEFAULT_SITE_URL).join(SITE_URL));
+  } else {
+    cpSync(src, dest);
+  }
 }
 
 // ------------------------------------------------------- snippet coverage

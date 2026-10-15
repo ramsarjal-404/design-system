@@ -15,6 +15,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validate } from '../../../scripts/validate-lp-html.mjs';
 import { DRIFT } from './ai-drift.mjs';
+import { DEFAULT_SITE_URL, SITE_URL } from './site-url.mjs';
 
 const siteRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 const repoRoot = join(siteRoot, '../..');
@@ -141,7 +142,9 @@ for (const d of readdirSync(snippetsDir)) {
   }
 }
 for (const f of readdirSync(join(siteRoot, 'examples'))) {
-  if (!md.includes(read(join(siteRoot, 'examples', f)).trim())) F('snippets', `design.md: worked example ${f} not embedded`);
+  // the generator points the example's hotlinks at this deployment's domain
+  const example = read(join(siteRoot, 'examples', f)).split(DEFAULT_SITE_URL).join(SITE_URL).trim();
+  if (!md.includes(example)) F('snippets', `design.md: worked example ${f} not embedded`);
 }
 
 // ---------------------------------------------------- 7. anchors + links

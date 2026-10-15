@@ -24,7 +24,7 @@ import { DRIFT, driftFor, driftMarkdown } from './ai-drift.mjs';
 
 const siteRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 const repoRoot = join(siteRoot, '../..');
-const SITE = 'https://lepidus-design-system-button.vercel.app';
+import { DEFAULT_SITE_URL, SITE_URL as SITE } from './site-url.mjs';
 
 const manifest = JSON.parse(readFileSync(join(repoRoot, 'public/component-manifest.json'), 'utf8'));
 const stories = JSON.parse(readFileSync(join(siteRoot, 'src/data/stories-index.json'), 'utf8'));
@@ -596,7 +596,7 @@ h(3, 'Worked examples (complete screens, validated)');
 p('Full pages assembled only from canonical anatomy plus token-only layout wrappers. Both pass `scripts/validate-lp-html.mjs` and were exercised in a browser (modal focus trap / Escape / restore, toast, multi-select dropdown, dark theme). Use them as the shape of a correct answer.');
 const examplesDir = join(siteRoot, 'examples');
 for (const f of (existsSync(examplesDir) ? readdirSync(examplesDir) : []).filter((x) => x.endsWith('.html')).sort()) {
-  p(`**${f.replace(/\.html$/, '').replace(/-/g, ' ')}**`, '', '```html', readFileSync(join(examplesDir, f), 'utf8').trim(), '```');
+  p(`**${f.replace(/\.html$/, '').replace(/-/g, ' ')}**`, '', '```html', readFileSync(join(examplesDir, f), 'utf8').split(DEFAULT_SITE_URL).join(SITE).trim(), '```');
 }
 h(3, 'System gap note (when a pattern has no Lepidus component)');
 code(

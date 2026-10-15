@@ -13,10 +13,10 @@ import Base from '../../layouts/Base.astro';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { SITE_URL as SITE } from '../../../scripts/site-url.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const brandDir = join(here, '../../../public/v1/brand');
-const SITE = 'https://lepidus-design-system-button.vercel.app';
 
 // The monogram SVG, inlined for the live preview; size/color are applied at
 // copy/download time by the client script.

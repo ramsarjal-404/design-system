@@ -17,11 +17,12 @@ import { driftFor, driftMarkdown } from './ai-drift.mjs';
 
 const siteRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 const repoRoot = join(siteRoot, '../..');
-const SITE = 'https://lepidus-design-system-button.vercel.app';
+import { DEFAULT_SITE_URL, SITE_URL as SITE } from './site-url.mjs';
 const snippetsDir = join(siteRoot, 'src/snippets');
 const contentDir = join(siteRoot, 'src/content/components');
 
-const rules = readFileSync(join(repoRoot, 'public/llms.txt'), 'utf8');
+// llms.txt is hand-written with the default domain; point it at this deployment.
+const rules = readFileSync(join(repoRoot, 'public/llms.txt'), 'utf8').split(DEFAULT_SITE_URL).join(SITE);
 const out = [];
 out.push(
   '# Lepidus Design System — full context for AI assistants (llms-full.txt)',
