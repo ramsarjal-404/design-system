@@ -4,10 +4,12 @@ form. In plain HTML the open/close behavior comes from `lepidus.js`: a trigger w
 element with `data-lp-modal-close` closes it, and Escape, backdrop clicks, the focus trap
 and focus restore are wired automatically.
 
-## Open modal (static)
+## Open modal
 
-The full overlay markup with the `hidden` attribute removed — what an open modal looks
-like. In production keep `hidden` on and let `lepidus.js` toggle it.
+The full overlay markup, production-safe: the modal keeps `hidden` and the trigger opens it
+through `lepidus.js`. Click **Open modal** in the preview to see the dialog over the backdrop.
+Never ship an `lp-modal` without `hidden` — it is a fixed overlay and would cover the page on
+load.
 
 <Example snippet="modal/open" title="Open dialog over the backdrop" story="feedback-modal--default" height={480} />
 

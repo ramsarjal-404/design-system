@@ -1,0 +1,46 @@
+<!-- Anchor items: history and middle-click work for free. A disabled link
+     drops its href and sets aria-disabled so it is skipped by the keyboard. -->
+<div style="display: flex; height: 420px">
+  <nav class="lp-sidebar" aria-label="Primary" style="width: 100px">
+    <ul class="lp-sidebar__items">
+      <li>
+        <a href="/dashboard" class="lp-sidebar__item lp-sidebar__item--active" aria-current="page">
+          <span class="lp-sidebar__icon-box">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+              <path d="M4 4H10V12H4V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M4 16H10V20H4V16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M14 12H20V20H14V12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M14 4H20V8H14V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <span class="lp-sidebar__label">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="/logs" class="lp-sidebar__item">
+          <span class="lp-sidebar__icon-box">
+            <svg viewBox="0 0 30 30" fill="none" aria-hidden="true" focusable="false">
+              <path d="M5 15H5.0125M5 7.5H5.0125M5 22.5H5.0125M10 22.5H12.5M10 15H12.5M10 7.5H12.5M17.5 7.5H25M17.5 15H25M17.5 22.5H25"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <span class="lp-sidebar__label">Logs</span>
+        </a>
+      </li>
+      <li>
+        <a class="lp-sidebar__item lp-sidebar__item--disabled" aria-disabled="true">
+          <span class="lp-sidebar__icon-box">
+            <svg viewBox="0 0 30 30" fill="none" aria-hidden="true" focusable="false">
+              <path d="M5.71429 2H24.2857C26.3434 2 28 3.65657 28 5.71429V24.2857C28 26.3434 26.3434 28 24.2857 28H5.71429C3.65657 28 2 26.3434 2 24.2857V5.71429C2 3.65657 3.65657 2 5.71429 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M7.57269 7.57159H9.42983M13.141 7.57162L22.4267 7.57159M22.4298 15H20.5727M16.8584 15L7.57269 15M7.57269 22.4284H9.42983M13.141 22.4284L22.4267 22.4284" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="11.2838" cy="7.5719" r="1.857" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="18.7162" cy="15.0003" r="1.857" stroke="currentColor" stroke-width="1.5" />
+              <circle cx="11.2838" cy="22.4287" r="1.857" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+          </span>
+          <span class="lp-sidebar__label">Admin</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

@@ -104,7 +104,15 @@
           "description": "Accessible label for the toolbar group"
         }
       ],
-      "plainCss": null
+      "plainCss": {
+        "block": "lp-action-item",
+        "classes": [
+          "lp-action-item",
+          "lp-action-item__action",
+          "lp-action-item__action--brand",
+          "lp-action-item__action--danger"
+        ]
+      }
     },
     {
       "name": "AlertPanel",
@@ -1095,6 +1103,13 @@
           "description": "Disabled state — uses component/dropdown/disabled-* tokens"
         },
         {
+          "name": "fullWidth",
+          "type": "boolean",
+          "required": false,
+          "defaultValue": false,
+          "description": "Stretch to fill the container (default fixed 320px from Figma)"
+        },
+        {
           "name": "multiple",
           "type": "boolean",
           "required": false,
@@ -1155,6 +1170,7 @@
         "block": "lp-dropdown",
         "classes": [
           "lp-dropdown",
+          "lp-dropdown--full-width",
           "lp-dropdown__checkbox",
           "lp-dropdown__chevron",
           "lp-dropdown__chevron--open",
@@ -2098,7 +2114,18 @@
           "description": "Thumb state — defaults to `active` (the Figma default property)."
         }
       ],
-      "plainCss": null
+      "plainCss": {
+        "block": "lp-scrollbar",
+        "classes": [
+          "lp-scrollbar",
+          "lp-scrollbar--active",
+          "lp-scrollbar--default",
+          "lp-scrollbar--disabled",
+          "lp-scrollbar--horizontal",
+          "lp-scrollbar--vertical",
+          "lp-scrollbar__thumb"
+        ]
+      }
     },
     {
       "name": "SettingsPanel",
@@ -2189,7 +2216,21 @@
           "description": "Rail width (default 100px; the rounded variant defaults to 85px, matching Figma)"
         }
       ],
-      "plainCss": null
+      "plainCss": {
+        "block": "lp-sidebar",
+        "classes": [
+          "lp-sidebar",
+          "lp-sidebar--rounded",
+          "lp-sidebar__footer",
+          "lp-sidebar__header",
+          "lp-sidebar__icon-box",
+          "lp-sidebar__item",
+          "lp-sidebar__item--active",
+          "lp-sidebar__item--disabled",
+          "lp-sidebar__items",
+          "lp-sidebar__label"
+        ]
+      }
     },
     {
       "name": "Skeleton",
@@ -2694,7 +2735,15 @@
           "description": "Class applied to the inner <input> element"
         }
       ],
-      "plainCss": null
+      "plainCss": {
+        "block": "lp-text-field",
+        "classes": [
+          "lp-text-field",
+          "lp-text-field--disabled",
+          "lp-text-field--full-width",
+          "lp-text-field__input"
+        ]
+      }
     },
     {
       "name": "Textarea",
@@ -2730,7 +2779,15 @@
           "description": "Class applied to the inner <textarea> element"
         }
       ],
-      "plainCss": null
+      "plainCss": {
+        "block": "lp-textarea",
+        "classes": [
+          "lp-textarea",
+          "lp-textarea--disabled",
+          "lp-textarea--full-width",
+          "lp-textarea__textarea"
+        ]
+      }
     },
     {
       "name": "TimePicker",

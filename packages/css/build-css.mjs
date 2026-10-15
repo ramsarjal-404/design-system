@@ -287,6 +287,46 @@ export const COMPONENTS = [
     block: 'tooltip',
     elements: [],
   },
+  {
+    name: 'text-field',
+    source: 'TextField/TextField.module.css',
+    block: 'field',
+    elements: ['input'],
+  },
+  {
+    name: 'textarea',
+    source: 'Textarea/Textarea.module.css',
+    block: 'box',
+    elements: ['textarea'],
+  },
+  {
+    name: 'action-item',
+    source: 'ActionItem/ActionItem.module.css',
+    block: 'toolbar',
+    elements: ['action'],
+    // tone modifiers belong to the icon button, not the toolbar
+    map: {
+      brand: 'lp-action-item__action--brand',
+      danger: 'lp-action-item__action--danger',
+    },
+  },
+  {
+    name: 'scrollbar',
+    source: 'Scrollbar/Scrollbar.module.css',
+    block: 'track',
+    elements: ['thumb'],
+  },
+  {
+    name: 'sidebar',
+    source: 'Sidebar/Sidebar.module.css',
+    block: 'sidebar',
+    elements: ['header', 'items', 'item', 'label', 'iconBox', 'footer'],
+    // state modifiers belong to the item, not the rail
+    map: {
+      active: 'lp-sidebar__item--active',
+      disabled: 'lp-sidebar__item--disabled',
+    },
+  },
 ];
 
 const CLASS_RE = /\.([A-Za-z_][A-Za-z0-9_-]*)/g;

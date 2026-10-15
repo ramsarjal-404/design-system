@@ -1,30 +1,32 @@
-<Callout variant="info" title="React-only">
-  <p>This component has no <code>@ramsarjal-404/css</code> distribution yet — use
-  <code>@ramsarjal-404/react</code>. For plain HTML/CSS projects, the labeled
-  <a href="/components/input/">Input</a> field is available as <code>lp-input</code>.</p>
-</Callout>
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@ramsarjal-404/react`) renders the same markup. Both resolve to the
+same `component/textfield/*` tokens, so they are pixel-identical in every theme.
 
 ## Basic
 
-A native `<input>` in a 44px pill. Always pass an `aria-label` — the field has no visible
-label.
+A native `<input>` in a 44px pill: `lp-text-field` is the shell, `lp-text-field__input` the
+field. Always pass an `aria-label` — the field has no visible label. Click into it —
+`:focus-within` on the shell drives the active fill and brand border with no JavaScript.
 
-<Example snippet="text-field/basic" codeOnly title="Search field" />
-
-<StoryEmbed id="forms-textfield--normal" height={120} caption="Live — focus to see the active fill" />
+<Example snippet="text-field/basic" title="Search field" story="forms-textfield--normal" />
 
 ## Full width
 
-`fullWidth` overrides the fixed 490px Figma width so the pill tracks its container.
+`lp-text-field--full-width` (React: `fullWidth`) overrides the fixed 490px Figma width so the
+pill tracks its container.
 
-<Example snippet="text-field/full-width" codeOnly title="Full width in a toolbar" />
-
-<StoryEmbed id="forms-textfield--full-width" height={120} caption="Live full-width field" />
+<Example snippet="text-field/full-width" title="Full width in a toolbar" story="forms-textfield--full-width" />
 
 ## Disabled
 
-The native `disabled` attribute — gray fill and text, removed from the tab order.
+The native `disabled` attribute on the input plus `lp-text-field--disabled` on the shell —
+gray fill and text, removed from the tab order.
 
-<Example snippet="text-field/disabled" codeOnly title="Disabled" />
+<Example snippet="text-field/disabled" title="Disabled" story="forms-textfield--disabled" />
 
-<StoryEmbed id="forms-textfield--disabled" height={120} caption="Live disabled state" />
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@ramsarjal-404/css</code> — see <a href="/get-started/">Get Started</a>. TextField is pure CSS
+  and needs no <code>lepidus.js</code>. Need a visible label, helper text or validation? Use
+  <a href="/components/input/">Input</a> instead.</p>
+</Callout>

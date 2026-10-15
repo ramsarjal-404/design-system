@@ -1,25 +1,33 @@
-<Callout variant="info" title="React-only">
-  <p>This component has no <code>@ramsarjal-404/css</code> distribution yet — use
-  <code>@ramsarjal-404/react</code>.</p>
-</Callout>
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@ramsarjal-404/react`) renders the same markup from its geometry
+props. Both resolve to the same `component/scrollbar/*` tokens.
 
-Scrollbar is presentational: pass the geometry (`length`, `thumbSize`, `thumbOffset`) and state
-(`variant`, `orientation`) — your container supplies the scroll behavior.
+Scrollbar is presentational: the track is `lp-scrollbar` + an orientation modifier
+(`--vertical` | `--horizontal`) + a state modifier (`--default` | `--active` | `--disabled`),
+holding one `lp-scrollbar__thumb`. Geometry comes from three custom properties your scroll
+handler updates — `--track-length` (any CSS length), `--thumb-size` and `--thumb-offset` (both
+percentages). React maps `length`, `thumbSize`, `thumbOffset` to the same variables.
 
 ## Basic vertical scrollbar
 
-<Example snippet="scrollbar/basic" title="Active vertical scrollbar" codeOnly />
-
-<StoryEmbed id="data-display-scrollbar--active" height={500} caption="Active vertical scrollbar" />
+<Example snippet="scrollbar/basic" title="Active vertical scrollbar" story="data-display-scrollbar--active" />
 
 ## Horizontal
 
-<Example snippet="scrollbar/horizontal" title="Horizontal orientation" codeOnly />
+`--horizontal` flips the axis: `--thumb-size` becomes the width and `--thumb-offset` measures
+from the left edge.
 
-<StoryEmbed id="data-display-scrollbar--horizontal" height={120} caption="Horizontal scrollbar" />
+<Example snippet="scrollbar/horizontal" title="Horizontal orientation" story="data-display-scrollbar--horizontal" />
 
 ## All variants
 
-<Example snippet="scrollbar/variants" title="Default, active, disabled" codeOnly />
+The three thumb states — add `aria-disabled="true"` alongside `--disabled`.
 
-<StoryEmbed id="data-display-scrollbar--all-variants" height={300} caption="The three thumb states plus horizontal" />
+<Example snippet="scrollbar/variants" title="Default, active, disabled" story="data-display-scrollbar--all-variants" />
+
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@ramsarjal-404/css</code> — see <a href="/get-started/">Get Started</a>. Scrollbar is pure CSS
+  and needs no <code>lepidus.js</code>; your container supplies the scroll behavior and updates the
+  custom properties plus <code>aria-valuenow</code>.</p>
+</Callout>

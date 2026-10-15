@@ -1,0 +1,289 @@
+---
+/**
+ * Brand — the Lepide logo assets for developers. Two assets (monogram +
+ * wordmark), three colorways, any size: pick a color and a size, then copy
+ * or download SVG / PNG with the choices baked in. SVGs are served from
+ * /v1/brand/ so pages can hotlink them like lepidus.css.
+ *
+ * Source of truth is Figma (file Ck7BIRlRw2bwHRk8PL5IfC): monogram node
+ * 2019-3 (vector), wordmark node 988-4 (currently a bitmap in Figma, so it
+ * ships as PNG only until the vector lands — see the note on the page).
+ */
+import Base from '../../layouts/Base.astro';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+const here = dirname(fileURLToPath(import.meta.url));
+const brandDir = join(here, '../../../public/v1/brand');
+const SITE = 'https://lepidus-design-system-button.vercel.app';
+
+// The monogram SVG, inlined for the live preview; size/color are applied at
+// copy/download time by the client script.
+const markSvg = readFileSync(join(brandDir, 'lepide-mark.svg'), 'utf8')
+  .replace(/\s(width|height)="[^"]*"/g, '')
+  .trim();
+const BRAND = '#2498D4';
+
+const colorways = [
+  { key: 'brand', label: 'Brand blue', value: BRAND },
+  { key: 'white', label: 'White', value: '#FFFFFF' },
+  { key: 'black', label: 'Black', value: '#000000' },
+];
+const markSizes = [16, 32, 64, 128, 256, 512];
+const wordmarkWidths = [240, 480, 960, 1920, 4096];
+---
+
+<Base title="Brand" description="The Lepide monogram and wordmark — download as SVG or PNG at any size, in brand blue, white or black.">
+  <main class="site-main" style="max-width: 1100px; margin: 0 auto;" data-pagefind-body>
+    <p class="page-eyebrow">Foundations</p>
+    <h1>Brand</h1>
+    <p class="page-lede">
+      The Lepide logo in the two forms products use — the <strong>monogram</strong> (six bars) and the
+      <strong>wordmark</strong> (bars + "Lepide"). Pick a colorway and a size, then copy or download.
+      The logo is the one asset that keeps a fixed color (<code>{BRAND}</code>) instead of
+      <code>currentColor</code>: it is brand identity, not UI.
+    </p>
+
+    <!-- ===================================================== monogram -->
+    <section class="brand-asset" data-asset="mark">
+      <div class="brand-asset__head">
+        <h2 id="monogram">Monogram</h2>
+        <span class="brand-asset__meta">Square · vector · 6 paths · <a href="https://www.figma.com/design/Ck7BIRlRw2bwHRk8PL5IfC/Lepidus?node-id=2019-3" target="_blank" rel="noopener">Figma ↗</a></span>
+      </div>
+
+      <div class="brand-previews">
+        <div class="brand-preview brand-preview--light"><small>On light</small><span data-preview="light" set:html={markSvg} /></div>
+        <div class="brand-preview brand-preview--dark"><small>On dark</small><span data-preview="dark" set:html={markSvg} /></div>
+      </div>
+
+      <div class="brand-controls">
+        <div class="icon-swatches" role="group" aria-label="Monogram color">
+          {colorways.map((c, i) => (
+            <button type="button" class="icon-swatch" data-color={c.value} aria-pressed={i === 0 ? 'true' : 'false'} title={c.label} style={`background:${c.value}`}></button>
+          ))}
+        </div>
+        <div class="icon-sizes" role="group" aria-label="Monogram size">
+          {markSizes.map((s) => (
+            <button type="button" class="icon-size" data-size={s} aria-pressed={s === 128 ? 'true' : 'false'}>{s}</button>
+          ))}
+        </div>
+        <label>Custom <input type="number" min="8" max="4096" step="1" value="128" data-custom aria-label="Custom size in pixels" /> px</label>
+      </div>
+
+      <div class="brand-actions">
+        <button type="button" class="btn btn--primary" data-download="svg">Download SVG</button>
+        <button type="button" class="btn btn--primary" data-download="png">Download PNG</button>
+        <button type="button" class="btn btn--secondary" data-copy="svg">Copy SVG</button>
+      </div>
+
+      <p class="brand-links">
+        Hotlink instead of downloading — stable <code>/v1/</code> URLs:
+        <code>{SITE}/v1/brand/lepide-mark.svg</code> ·
+        <code>{SITE}/v1/brand/lepide-mark-white.svg</code> ·
+        <code>{SITE}/v1/brand/lepide-mark-black.svg</code>
+      </p>
+    </section>
+
+    <!-- ===================================================== wordmark -->
+    <section class="brand-asset" data-asset="wordmark">
+      <div class="brand-asset__head">
+        <h2 id="wordmark">Wordmark</h2>
+        <span class="brand-asset__meta">4096 × 1690 · PNG · <a href="https://www.figma.com/design/Ck7BIRlRw2bwHRk8PL5IfC/Lepidus?node-id=988-4" target="_blank" rel="noopener">Figma ↗</a></span>
+      </div>
+
+      <div class="brand-previews">
+        <div class="brand-preview brand-preview--light"><small>On light</small><img data-preview="light" src="/v1/brand/lepide-wordmark.png" alt="Lepide wordmark" width="320" height="132" /></div>
+        <div class="brand-preview brand-preview--dark"><small>On dark</small><img data-preview="dark" src="/v1/brand/lepide-wordmark.png" alt="Lepide wordmark" width="320" height="132" /></div>
+      </div>
+
+      <div class="brand-controls">
+        <div class="icon-swatches" role="group" aria-label="Wordmark color">
+          {colorways.map((c, i) => (
+            <button type="button" class="icon-swatch" data-color={c.value} aria-pressed={i === 0 ? 'true' : 'false'} title={c.label} style={`background:${c.value}`}></button>
+          ))}
+        </div>
+        <div class="icon-sizes" role="group" aria-label="Wordmark width">
+          {wordmarkWidths.map((s) => (
+            <button type="button" class="icon-size" data-size={s} aria-pressed={s === 960 ? 'true' : 'false'}>{s}</button>
+          ))}
+        </div>
+        <label>Custom width <input type="number" min="40" max="4096" step="1" value="960" data-custom aria-label="Custom width in pixels" /> px</label>
+      </div>
+
+      <div class="brand-actions">
+        <button type="button" class="btn btn--primary" data-download="png">Download PNG</button>
+        <button type="button" class="btn btn--secondary" disabled title="The wordmark is a bitmap in Figma today — vector coming">Download SVG</button>
+      </div>
+
+      <p class="brand-links">
+        Hotlink: <code>{SITE}/v1/brand/lepide-wordmark.png</code> (full-size, brand blue, transparent).
+      </p>
+      <div class="callout callout--info" style="margin-top:14px">
+        <span class="callout__icon" aria-hidden="true">ℹ️</span>
+        <div><p><strong>SVG wordmark — pending.</strong> In Figma the wordmark (node 988-4) is a placed bitmap, not
+        vector paths, so only PNG can be generated faithfully. Once the vector version lands in the
+        Lepidus file this page will offer SVG at any size, like the monogram.</p></div>
+      </div>
+    </section>
+
+    <!-- ===================================================== rules -->
+    <h2>Using the logo</h2>
+    <ul class="brand-rules">
+      <li><strong>Three colorways only</strong> Brand blue on light backgrounds, white on brand/dark backgrounds, black for print or single-color contexts. Never tint it with a UI token.</li>
+      <li><strong>Clear space</strong> Keep at least one bar-width (¼ of the monogram's height) clear on every side — no text, icons or edges inside that zone.</li>
+      <li><strong>Minimum size</strong> Monogram 16 px; wordmark 80 px wide. Below that, use the monogram alone.</li>
+      <li><strong>Never stretch or rotate</strong> Scale proportionally only. The downloads here already lock the aspect ratio.</li>
+      <li><strong>In the Sidebar</strong> The rail's header slot takes the monogram at 40 px — see <a href="/components/sidebar/">Sidebar</a>.</li>
+      <li><strong>Favicons &amp; app icons</strong> Download the monogram PNG at 16, 32, 180 and 512 px; it is square by design.</li>
+    </ul>
+
+    <h2>In code</h2>
+    <pre class="astro-code github-dark" style="background:#24292e;color:#e1e4e8;padding:14px 16px;border-radius:10px;overflow:auto;font-size:12.5px"><code>&lt;!-- hotlinked, brand blue --&gt;
+&lt;img src="{SITE}/v1/brand/lepide-mark.svg" alt="Lepide" width="40" height="40"&gt;
+
+&lt;!-- white on the sidebar rail --&gt;
+&lt;img src="{SITE}/v1/brand/lepide-mark-white.svg" alt="Lepide" width="40" height="40"&gt;</code></pre>
+  </main>
+
+  <script>
+    // Per-asset state lives on the section; the handlers below read it.
+    type Asset = { el: HTMLElement; kind: 'mark' | 'wordmark'; color: string; size: number };
+    const assets: Asset[] = Array.from(document.querySelectorAll<HTMLElement>('.brand-asset')).map((el) => ({
+      el,
+      kind: el.dataset.asset as 'mark' | 'wordmark',
+      color: '#2498D4',
+      size: Number(el.querySelector<HTMLInputElement>('[data-custom]')!.value),
+    }));
+    const BRAND = '#2498D4';
+    const WORDMARK_RATIO = 1690 / 4096;
+
+    function flash(btn: HTMLElement, msg: string) {
+      const t = btn.textContent;
+      btn.textContent = msg;
+      setTimeout(() => (btn.textContent = t), 1400);
+    }
+    function trigger(url: string, filename: string) {
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }
+    const colorName = (c: string) => (c === BRAND ? 'blue' : c === '#FFFFFF' ? 'white' : 'black');
+
+    // ---- monogram: SVG string with color + size baked in
+    function markSvg(a: Asset) {
+      const svg = a.el.querySelector('[data-preview="light"] svg')!.cloneNode(true) as SVGElement;
+      svg.setAttribute('width', String(a.size));
+      svg.setAttribute('height', String(a.size));
+      return svg.outerHTML.replace(/#2498D4/gi, a.color);
+    }
+    // ---- wordmark: tint the source PNG (single-color, transparent) on a canvas
+    function loadImg(src: string) {
+      return new Promise<HTMLImageElement>((res, rej) => {
+        const i = new Image();
+        i.onload = () => res(i);
+        i.onerror = rej;
+        i.src = src;
+      });
+    }
+    async function pngBlob(a: Asset): Promise<Blob> {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d')!;
+      if (a.kind === 'mark') {
+        canvas.width = canvas.height = a.size;
+        const url = URL.createObjectURL(new Blob([markSvg(a)], { type: 'image/svg+xml' }));
+        const img = await loadImg(url);
+        ctx.drawImage(img, 0, 0, a.size, a.size);
+        URL.revokeObjectURL(url);
+      } else {
+        canvas.width = a.size;
+        canvas.height = Math.round(a.size * WORDMARK_RATIO);
+        const img = await loadImg('/v1/brand/lepide-wordmark.png');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        if (a.color !== BRAND) {
+          // recolor every opaque pixel, keeping the alpha edge
+          ctx.globalCompositeOperation = 'source-in';
+          ctx.fillStyle = a.color;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+      return new Promise((res) => canvas.toBlob((b) => res(b!), 'image/png'));
+    }
+
+    // ---- live preview reflects color + size
+    function render(a: Asset) {
+      const previewSize = Math.min(a.kind === 'mark' ? a.size : a.size, a.kind === 'mark' ? 140 : 320);
+      a.el.querySelectorAll<HTMLElement>('[data-preview]').forEach((p) => {
+        if (a.kind === 'mark') {
+          const svg = p.querySelector('svg')!;
+          svg.setAttribute('width', String(previewSize));
+          svg.setAttribute('height', String(previewSize));
+          svg.querySelectorAll('path').forEach((path) => path.setAttribute('fill', a.color));
+        } else {
+          const img = p as HTMLImageElement;
+          img.width = previewSize;
+          img.height = Math.round(previewSize * WORDMARK_RATIO);
+          // CSS filters approximate the tint for the preview; the download is exact
+          img.style.filter = a.color === '#FFFFFF' ? 'brightness(0) invert(1)' : a.color === '#000000' ? 'brightness(0)' : '';
+        }
+      });
+      a.el.querySelector<HTMLInputElement>('[data-custom]')!.value = String(a.size);
+    }
+    assets.forEach(render);
+
+    document.addEventListener('click', async (e) => {
+      const target = e.target as HTMLElement;
+      const section = target.closest<HTMLElement>('.brand-asset');
+      if (!section) return;
+      const a = assets.find((x) => x.el === section)!;
+
+      const sw = target.closest<HTMLElement>('.icon-swatch[data-color]');
+      if (sw) {
+        a.color = sw.dataset.color!;
+        section.querySelectorAll('.icon-swatch').forEach((b) => b.setAttribute('aria-pressed', String(b === sw)));
+        render(a);
+        return;
+      }
+      const sz = target.closest<HTMLElement>('.icon-size');
+      if (sz) {
+        a.size = Number(sz.dataset.size);
+        section.querySelectorAll('.icon-size').forEach((b) => b.setAttribute('aria-pressed', String(b === sz)));
+        render(a);
+        return;
+      }
+      const dl = target.closest<HTMLElement>('[data-download]');
+      if (dl) {
+        const base = `lepide-${a.kind === 'mark' ? 'mark' : 'wordmark'}-${colorName(a.color)}-${a.size}`;
+        if (dl.dataset.download === 'svg') {
+          trigger(URL.createObjectURL(new Blob([markSvg(a)], { type: 'image/svg+xml' })), `${base}.svg`);
+        } else {
+          const t = dl.textContent;
+          dl.textContent = 'Rendering…';
+          trigger(URL.createObjectURL(await pngBlob(a)), `${base}.png`);
+          dl.textContent = t;
+        }
+        flash(dl, 'Downloaded ✓');
+        return;
+      }
+      const cp = target.closest<HTMLElement>('[data-copy]');
+      if (cp) {
+        navigator.clipboard.writeText(markSvg(a)).then(() => flash(cp, 'Copied ✓'));
+      }
+    });
+
+    document.querySelectorAll<HTMLInputElement>('.brand-asset [data-custom]').forEach((input) => {
+      input.addEventListener('input', () => {
+        const a = assets.find((x) => x.el === input.closest('.brand-asset'))!;
+        const v = Number(input.value);
+        if (!v || v < Number(input.min) || v > Number(input.max)) return;
+        a.size = v;
+        a.el.querySelectorAll('.icon-size').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+        render(a);
+      });
+    });
+  </script>
+</Base>

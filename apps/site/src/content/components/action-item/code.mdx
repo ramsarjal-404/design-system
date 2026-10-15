@@ -1,32 +1,36 @@
-<Callout variant="info" title="React-only">
-  <p>This component has no <code>@ramsarjal-404/css</code> distribution yet — use
-  <code>@ramsarjal-404/react</code>.</p>
-</Callout>
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@ramsarjal-404/react`) renders the same markup from an `actions`
+array. Both resolve to the same tokens, so they are pixel-identical in every theme.
 
 ## Default set
 
-With no `actions` prop, ActionItem renders the Figma set: delete (danger) · upload · edit ·
-share. The exported `defaultActions` array is the same list, ready to extend.
+`lp-action-item` is the floating surface (`role="toolbar"` + `aria-label`); each
+`lp-action-item__action` is a native button holding a 24px `currentColor` SVG, with
+`aria-label` + `title` for the name. The tone modifier picks the glyph color and hover fill:
+`--brand` (default) or `--danger`. The Figma set is delete (danger) · upload · edit · share —
+in React, omitting `actions` renders exactly this; the exported `defaultActions` array is the
+same list, ready to extend.
 
-<Example snippet="action-item/default" title="Default Figma set" story="actions-actionitem--default" codeOnly />
-
-<StoryEmbed id="actions-actionitem--default" height={120} caption="Default set, live" />
+<Example snippet="action-item/default" title="Default Figma set" story="actions-actionitem--default" />
 
 ## Custom actions
 
-Each action is `{ id, label, icon, tone?, onClick?, disabled? }` — pass any ordered subset.
-Icons must be 24px SVGs using `currentColor` so the tone controls the fill; the four default
-glyphs are exported from `@ramsarjal-404/react`.
+Any ordered subset — in plain HTML wire each button's click yourself; in React each action is
+`{ id, label, icon, tone?, onClick?, disabled? }`. Icons must be 24px SVGs using
+`currentColor` so the tone controls the fill; the four default glyphs are exported from
+`@ramsarjal-404/react`.
 
-<Example snippet="action-item/custom" title="Two-action subset with handlers" story="actions-actionitem--custom-subset" codeOnly />
-
-<StoryEmbed id="actions-actionitem--custom-subset" height={120} caption="Custom subset, live" />
+<Example snippet="action-item/custom" title="Two-action subset with handlers" story="actions-actionitem--custom-subset" />
 
 ## Disabled action
 
-Set `disabled` on an individual action — the native attribute removes it from the tab order
-and dims it to 40%.
+The native `disabled` attribute on an individual button removes it from the tab order and
+dims it to 40%.
 
-<Example snippet="action-item/disabled" title="Disabling the destructive action" story="actions-actionitem--with-disabled" codeOnly />
+<Example snippet="action-item/disabled" title="Disabling the destructive action" story="actions-actionitem--with-disabled" />
 
-<StoryEmbed id="actions-actionitem--with-disabled" height={120} caption="Disabled action, live" />
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@ramsarjal-404/css</code> — see <a href="/get-started/">Get Started</a>. ActionItem is pure CSS
+  and needs no <code>lepidus.js</code>; the buttons are native, so click handlers are yours.</p>
+</Callout>

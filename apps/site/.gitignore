@@ -6,3 +6,5 @@ src/data/stories-index.json
 # astro
 dist/
 .astro/
+public/design.md
+public/llms-full.txt

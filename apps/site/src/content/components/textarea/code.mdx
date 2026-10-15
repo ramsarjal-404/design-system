@@ -1,32 +1,33 @@
-<Callout variant="info" title="React-only">
-  <p>This component has no <code>@ramsarjal-404/css</code> distribution yet — use
-  <code>@ramsarjal-404/react</code>. For plain HTML/CSS projects, the labeled
-  <a href="/components/input/">Input</a> field is available as <code>lp-input</code>.</p>
-</Callout>
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@ramsarjal-404/react`) renders the same markup. Both resolve to the
+same `component/textarea/*` tokens, so they are pixel-identical in every theme.
 
 ## Basic
 
-A native `<textarea>` (default `rows={6}`) in a 15px-radius card box. Pair it with a visible
-label or `aria-label` — there is no built-in label.
+A native `<textarea>` (`rows="6"`) in a 15px-radius card box: `lp-textarea` is the box,
+`lp-textarea__textarea` the field. Pair it with a visible label or `aria-label` — there is no
+built-in label. Click in and type — `:focus-within` swaps the border and text to brand blue
+with no JavaScript.
 
-<Example snippet="textarea/basic" codeOnly title="Description box" />
-
-<StoryEmbed id="forms-textarea--default" height={240} caption="Live — click in and type to see the brand border" />
+<Example snippet="textarea/basic" title="Description box" story="forms-textarea--default" />
 
 ## Sized and full width
 
-`rows` sets the initial height; `fullWidth` makes the box track its container instead of the
-fixed 481px Figma width.
+`rows` sets the initial height; `lp-textarea--full-width` (React: `fullWidth`) makes the box
+track its container instead of the fixed 481px Figma width.
 
-<Example snippet="textarea/full-width" codeOnly title="Three rows, full width" />
-
-<StoryEmbed id="forms-textarea--full-width" height={240} caption="Live full-width box" />
+<Example snippet="textarea/full-width" title="Three rows, full width" story="forms-textarea--full-width" />
 
 ## Disabled
 
-The native `disabled` attribute — subtle gray fill, resize disabled, removed from the tab
-order.
+The native `disabled` attribute on the textarea plus `lp-textarea--disabled` on the box —
+subtle gray fill, resize disabled, removed from the tab order.
 
-<Example snippet="textarea/disabled" codeOnly title="Disabled" />
+<Example snippet="textarea/disabled" title="Disabled" story="forms-textarea--disabled" />
 
-<StoryEmbed id="forms-textarea--disabled" height={240} caption="Live disabled state" />
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@ramsarjal-404/css</code> — see <a href="/get-started/">Get Started</a>. Textarea is pure CSS
+  and needs no <code>lepidus.js</code>. Need a visible label, helper text or validation? Use
+  <a href="/components/input/">Input</a> instead.</p>
+</Callout>

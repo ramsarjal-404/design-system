@@ -1,0 +1,47 @@
+<!-- Completed circles are wrapped in "Go to step N" buttons. Your script
+     handles the click: set the new current step, then re-render the state
+     classes, aria-valuenow / aria-valuetext and the label together. -->
+<div class="lp-steps" role="progressbar" aria-label="Steps"
+     aria-valuemin="1" aria-valuemax="5" aria-valuenow="3" aria-valuetext="Step 3 of 5">
+  <span class="lp-steps__item">
+    <button type="button" class="lp-steps__step-button" aria-label="Go to step 1">
+      <span class="lp-steps__circle lp-steps__circle--done">
+        <svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m1 5 3.5 3.5L11 1.5" />
+        </svg>
+      </span>
+    </button>
+    <span class="lp-steps__connector lp-steps__connector--done"></span>
+  </span>
+  <span class="lp-steps__item">
+    <button type="button" class="lp-steps__step-button" aria-label="Go to step 2">
+      <span class="lp-steps__circle lp-steps__circle--done">
+        <svg viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m1 5 3.5 3.5L11 1.5" />
+        </svg>
+      </span>
+    </button>
+    <span class="lp-steps__connector lp-steps__connector--done"></span>
+  </span>
+  <span class="lp-steps__item">
+    <span class="lp-steps__circle lp-steps__circle--current"><span class="lp-steps__dot"></span></span>
+    <span class="lp-steps__connector"></span>
+  </span>
+  <span class="lp-steps__item">
+    <span class="lp-steps__circle lp-steps__circle--upcoming"></span>
+    <span class="lp-steps__connector"></span>
+  </span>
+  <span class="lp-steps__item">
+    <span class="lp-steps__circle lp-steps__circle--upcoming"></span>
+  </span>
+  <span class="lp-steps__label">3 of 5</span>
+</div>
+
+<!-- …step content… -->
+
+<div style="display: flex; gap: 12px; margin-top: 20px">
+  <button class="lp-button lp-button--secondary lp-button--md">Back</button>
+  <button class="lp-button lp-button--primary lp-button--md">Next</button>
+</div>

@@ -667,11 +667,90 @@ button, and auto-dismiss. Returns a function that dismisses the toast early.
 the target (flipping below when there's no room), wires `aria-describedby`,
 and hides on leave/blur/Escape.
 
+## Text field
+
+```html
+<!-- label-less pill — aria-label is the accessible name; --full-width, --disabled -->
+<div class="lp-text-field">
+  <input class="lp-text-field__input" type="text" aria-label="Search" placeholder="Type text" />
+</div>
+```
+
+`:focus-within` on the shell drives the active fill and brand border. Pair
+`disabled` on the input with `lp-text-field--disabled` on the shell.
+
+## Textarea
+
+```html
+<!-- --full-width, --disabled -->
+<div class="lp-textarea">
+  <textarea class="lp-textarea__textarea" rows="6" aria-label="Description"
+            placeholder="Type Description here"></textarea>
+</div>
+```
+
+## Action item
+
+```html
+<div class="lp-action-item" role="toolbar" aria-label="Report actions">
+  <button class="lp-action-item__action lp-action-item__action--danger" aria-label="Delete" title="Delete">
+    <!-- 24px currentColor svg -->
+  </button>
+  <button class="lp-action-item__action lp-action-item__action--brand" aria-label="Edit" title="Edit">
+    <!-- 24px currentColor svg -->
+  </button>
+</div>
+```
+
+Native buttons — wire the clicks yourself; `disabled` dims an action to 40%.
+
+## Scrollbar
+
+```html
+<div class="lp-scrollbar lp-scrollbar--vertical lp-scrollbar--active"
+     role="scrollbar" aria-orientation="vertical"
+     aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+     style="--track-length: 300px; --thumb-size: 26%; --thumb-offset: 0%">
+  <div class="lp-scrollbar__thumb"></div>
+</div>
+```
+
+Presentational: orientation `--vertical|--horizontal`, state
+`--default|--active|--disabled`; your scroll handler updates the three custom
+properties and `aria-valuenow`.
+
+## Sidebar
+
+```html
+<nav class="lp-sidebar" aria-label="Primary" style="width: 100px"> <!-- --rounded -->
+  <div class="lp-sidebar__header"><!-- logo --></div>
+  <ul class="lp-sidebar__items">
+    <li>
+      <button class="lp-sidebar__item lp-sidebar__item--active" aria-current="page">
+        <span class="lp-sidebar__icon-box"><!-- 26px currentColor svg --></span>
+        <span class="lp-sidebar__label">Dashboard</span>
+      </button>
+    </li>
+    <li>
+      <a href="/logs" class="lp-sidebar__item">
+        <span class="lp-sidebar__icon-box"><!-- svg --></span>
+        <span class="lp-sidebar__label">Logs</span>
+      </a>
+    </li>
+  </ul>
+  <div class="lp-sidebar__footer"><!-- settings / avatar --></div>
+</nav>
+```
+
+The rail stretches to its container (`min-height: 100%`) — give the parent a
+height. Items are native links or buttons; `lp-sidebar__item--disabled` +
+`aria-disabled` for a disabled entry.
+
 ## What's covered so far
 
-**27 components** ship as plain CSS today — everything except the React-only
-specialties (ActionItem, Calendar, Charts, Filter, FolderTree, Scrollbar,
-SettingsPanel, Sidebar, TextField, Textarea, TimePicker). Interactive behavior
+**32 components** ship as plain CSS today — everything except the React-only
+specialties (Calendar, Charts, Filter, FolderTree, SettingsPanel, TimePicker),
+whose stateful behavior has no vanilla rendition yet. Interactive behavior
 (Tabs, Modal, Accordion, Dropdown, Stepper, Toast, Tooltip) comes from
 `lepidus.js`. The full one-page showcase lives at
 `packages/css/demo/index.html`.

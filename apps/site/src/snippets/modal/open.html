@@ -1,6 +1,10 @@
-<!-- Static open state: `hidden` removed so the dialog shows. In production keep
-     `hidden` and open it with data-lp-modal-open / Lepidus.openModal (lepidus.js). -->
-<div class="lp-modal" id="url-modal">
+<!-- Production-safe: the modal keeps `hidden`; the trigger opens it through
+     lepidus.js. Click "Open modal" in the preview to see the dialog. -->
+<button class="lp-button lp-button--primary lp-button--md" data-lp-modal-open="url-modal">
+  Open modal
+</button>
+
+<div class="lp-modal" id="url-modal" hidden>
   <div class="lp-modal__shell lp-modal__shell--lg" role="dialog" aria-modal="true"
        aria-labelledby="url-modal-title">
     <div class="lp-modal__header lp-modal__header--center">
@@ -11,7 +15,7 @@
         <label class="lp-modal__field-label" for="url-input">Site Collection:</label>
         <div class="lp-input lp-input--full-width">
           <div class="lp-input__field">
-            <input class="lp-input__input" id="url-input" value="\\192.14.35.335" />
+            <input class="lp-input__input" id="url-input" value="\\192.14.35.335" data-lp-autofocus />
           </div>
         </div>
       </div>

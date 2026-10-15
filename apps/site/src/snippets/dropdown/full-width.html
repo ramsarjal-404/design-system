@@ -1,0 +1,29 @@
+<!-- --full-width stretches the pill to its container (default is the fixed 320px Figma width).
+     Use this in form grids instead of setting width on lp-dropdown from page CSS. -->
+<div style="max-width: 640px">
+  <div class="lp-dropdown lp-dropdown--full-width" data-lp-dropdown="single">
+    <button class="lp-dropdown__trigger" aria-expanded="false" aria-haspopup="listbox">
+      <span class="lp-dropdown__trigger-label">Select data source</span>
+      <svg class="lp-dropdown__chevron" viewBox="0 0 12 6" fill="none" stroke="currentColor"
+           stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 1l5 4 5-4"/></svg>
+    </button>
+    <div class="lp-dropdown__panel" hidden>
+      <div class="lp-dropdown__header">
+        <span class="lp-dropdown__header-label">Select data source</span>
+        <svg class="lp-dropdown__chevron lp-dropdown__chevron--open" viewBox="0 0 12 6" fill="none"
+             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 1l5 4 5-4"/></svg>
+      </div>
+      <div class="lp-dropdown__list" role="listbox" aria-label="Select data source">
+        <button class="lp-dropdown__option" role="option">
+          <span class="lp-dropdown__option-label">Active Directory</span>
+        </button>
+        <button class="lp-dropdown__option" role="option">
+          <span class="lp-dropdown__option-label">File Server</span>
+        </button>
+        <button class="lp-dropdown__option" role="option">
+          <span class="lp-dropdown__option-label">Microsoft 365</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

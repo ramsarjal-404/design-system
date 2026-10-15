@@ -78,6 +78,18 @@ Components available as plain CSS (copy-paste markup on the
   (+`--done|--current|--upcoming`), `__dot`, `__connector` (+`--done`), `__label`
 - Pagination — `lp-pagination`; `__label`, `__button`, `__page-input`,
   `__page-size` + `__page-size-trigger/chevron/panel/option` (+`--selected`)
+- Text field — `lp-text-field` (+`--full-width|--disabled`) wrapping
+  `__input`; label-less pill, always give the input an `aria-label`
+- Textarea — `lp-textarea` (+`--full-width|--disabled`) wrapping `__textarea`
+- Action item — `lp-action-item` (`role="toolbar"` + `aria-label`) > `__action`
+  icon buttons (+`--brand|--danger`), 24px currentColor SVGs, `aria-label` +
+  `title` per button
+- Scrollbar — `lp-scrollbar` + `--vertical|--horizontal` +
+  `--default|--active|--disabled` > `__thumb`; geometry via `--track-length`,
+  `--thumb-size` (%), `--thumb-offset` (%) custom properties + `role="scrollbar"`
+- Sidebar — `lp-sidebar` `<nav>` (+`--rounded`, set width inline); `__header`,
+  `__items` (ul) > `__item` (a/button, +`--active|--disabled`,
+  `aria-current="page"`) > `__icon-box` + `__label`, `__footer`
 
 ## Interactive components (include lepidus.js)
 
@@ -97,7 +109,7 @@ Components available as plain CSS (copy-paste markup on the
 - Accordion — `lp-accordion` with `data-lp-accordion`; `__item`, `__heading`,
   `__trigger` (aria-expanded + aria-controls), `__title`, `__chevron`,
   `__panel` (+`--open`) > `__panel-inner` > `__panel-content`
-- Dropdown — `lp-dropdown` with `data-lp-dropdown="multi"|"single"`;
+- Dropdown — `lp-dropdown` (+`--full-width`) with `data-lp-dropdown="multi"|"single"`;
   `__trigger` (+`--disabled`) > `__trigger-label` + `__chevron` (+`--open`);
   `__panel` (hidden) > `__header` + `__header-label`, `__list` (role=listbox) >
   `__option` (role=option, aria-checked) > `__checkbox` + `__option-label`,
@@ -112,8 +124,7 @@ Components available as plain CSS (copy-paste markup on the
   with role=tooltip and aria-describedby wiring, hover + focus + Escape
 
 Components not yet converted to plain CSS (use the React package or wait):
-ActionItem, Calendar, Charts, Filter, FolderTree, Scrollbar, SettingsPanel,
-Sidebar, TextField, Textarea, TimePicker.
+Calendar, Charts, Filter, FolderTree, SettingsPanel, TimePicker.
 
 ## React usage
 
@@ -123,6 +134,12 @@ Sidebar, TextField, Textarea, TimePicker.
 
 ## Machine-readable API
 
+- Rules + every HTML example verbatim, one paste (~25k tokens):
+  https://lepidus-design-system-button.vercel.app/llms-full.txt
+
+- Complete reference in one Markdown file (quick start, rules, every
+  component with HTML + React snippets, props, classes, accessibility,
+  patterns, all tokens): https://lepidus-design-system-button.vercel.app/design.md
 - Component manifest (props, types, defaults, lp- classes per component):
   https://lepidus-design-system-button.vercel.app/component-manifest.json
 - MCP server (for Claude Code / Cursor etc., from the repo):
@@ -138,4 +155,5 @@ Sidebar, TextField, Textarea, TimePicker.
   focus `-bg-focus|-border-focus`
 - Surfaces: `--color-background-{page|surface|raised|subtle|cards}`
 - Text: `--color-text-{primary|secondary|disabled|inverse|brand|danger}`
-- Focus ring: `--color-focus-ring`; brand border: `--color-border-brand`
+- Borders: `--color-border-{default|strong|brand|danger}` (there is no `-primary`)
+- Focus ring: `--color-focus-ring`

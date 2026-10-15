@@ -27,7 +27,11 @@
     "build:site": "npm run build-storybook && npm --workspace @ramsarjal-404/site run build && node apps/site/scripts/assemble.mjs",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "npm publish --workspaces --no-git-checks || npm publish --workspaces"
+    "release": "npm publish --workspaces --no-git-checks || npm publish --workspaces",
+    "design:md": "node apps/site/scripts/build-design-md.mjs",
+    "llms:full": "node apps/site/scripts/build-llms-full.mjs",
+    "validate:html": "node scripts/validate-lp-html.mjs",
+    "audit:design-md": "node apps/site/scripts/audit-design-md.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",

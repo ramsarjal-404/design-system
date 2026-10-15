@@ -469,6 +469,63 @@
   <span class="lp-pagination__label">10/Page</span>
 </div>
 
+<h2>Text field &amp; Textarea</h2>
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 520px">
+  <div class="lp-text-field">
+    <input class="lp-text-field__input" type="text" aria-label="Search" placeholder="Type text" />
+  </div>
+  <div class="lp-text-field lp-text-field--disabled">
+    <input class="lp-text-field__input" type="text" aria-label="Search (disabled)" value="Type text" disabled />
+  </div>
+  <div class="lp-textarea lp-textarea--full-width">
+    <textarea class="lp-textarea__textarea" rows="3" aria-label="Description" placeholder="Type Description here"></textarea>
+  </div>
+</div>
+
+<h2>Action item</h2>
+<div class="lp-action-item" role="toolbar" aria-label="Report actions">
+  <button type="button" class="lp-action-item__action lp-action-item__action--danger" aria-label="Delete" title="Delete">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M4 7h16M9.5 7V5.5A1.5 1.5 0 0 1 11 4h2a1.5 1.5 0 0 1 1.5 1.5V7m3 0-.7 11.1A2 2 0 0 1 14.8 20H9.2a2 2 0 0 1-2-1.9L6.5 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 10.5v5M14 10.5v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </button>
+  <button type="button" class="lp-action-item__action lp-action-item__action--brand" aria-label="Upload" title="Upload">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M12 15V4m0 0L8 8m4-4 4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 14v3.5A2.5 2.5 0 0 0 6.5 20h11a2.5 2.5 0 0 0 2.5-2.5V14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button type="button" class="lp-action-item__action lp-action-item__action--brand" aria-label="Edit" title="Edit">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M4 16.5 15 5.5a2.12 2.12 0 0 1 3 3L7 19.5l-4 1 1-4Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="m13 7.5 3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button type="button" class="lp-action-item__action lp-action-item__action--brand" aria-label="Share" title="Share">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="6" r="2.4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="18" r="2.4" stroke="currentColor" stroke-width="1.6"/><path d="m8.1 10.9 7.3-3.8M8.1 13.1l7.3 3.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </button>
+</div>
+
+<h2>Scrollbar</h2>
+<div style="display: flex; gap: 40px; align-items: flex-start">
+  <div class="lp-scrollbar lp-scrollbar--vertical lp-scrollbar--default" role="scrollbar" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="100" aria-valuenow="20" style="--track-length: 160px; --thumb-offset: 20%"><div class="lp-scrollbar__thumb"></div></div>
+  <div class="lp-scrollbar lp-scrollbar--vertical lp-scrollbar--active" role="scrollbar" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="--track-length: 160px"><div class="lp-scrollbar__thumb"></div></div>
+  <div class="lp-scrollbar lp-scrollbar--vertical lp-scrollbar--disabled" role="scrollbar" aria-orientation="vertical" aria-disabled="true" aria-valuemin="0" aria-valuemax="100" aria-valuenow="20" style="--track-length: 160px; --thumb-offset: 20%"><div class="lp-scrollbar__thumb"></div></div>
+  <div class="lp-scrollbar lp-scrollbar--horizontal lp-scrollbar--active" role="scrollbar" aria-orientation="horizontal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="10" style="--track-length: 240px; --thumb-size: 30%; --thumb-offset: 10%"><div class="lp-scrollbar__thumb"></div></div>
+</div>
+
+<h2>Sidebar</h2>
+<div style="display: flex; gap: 24px; height: 320px">
+  <nav class="lp-sidebar" aria-label="Primary" style="width: 100px">
+    <div class="lp-sidebar__header">
+      <svg width="40" height="26" viewBox="0 0 40 26" fill="#5C8AD6" aria-label="Lepide" role="img"><path d="M10 2h6l-10 22h-6Z"/><path d="M20 2h6l-10 22h-6Z"/><path d="M30 2h6l-10 22h-6Z"/></svg>
+    </div>
+    <ul class="lp-sidebar__items">
+      <li><button type="button" class="lp-sidebar__item lp-sidebar__item--active" aria-current="page"><span class="lp-sidebar__icon-box"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M4 4H10V12H4V4ZM4 16H10V20H4V16ZM14 12H20V20H14V12ZM14 4H20V8H14V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lp-sidebar__label">Dashboard</span></button></li>
+      <li><button type="button" class="lp-sidebar__item"><span class="lp-sidebar__icon-box"><svg viewBox="0 0 30 30" fill="none" aria-hidden="true" focusable="false"><path d="M5 15H5.0125M5 7.5H5.0125M5 22.5H5.0125M10 22.5H12.5M10 15H12.5M10 7.5H12.5M17.5 7.5H25M17.5 15H25M17.5 22.5H25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lp-sidebar__label">Logs</span></button></li>
+      <li><button type="button" class="lp-sidebar__item lp-sidebar__item--disabled" disabled><span class="lp-sidebar__icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.82 1.17V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 7.5 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 3 14.5a1.65 1.65 0 0 0-1.5-1H1a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 2.6 8.5a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 3.6a1.65 1.65 0 0 0 1-1.5V1a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 21.4 9H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg></span><span class="lp-sidebar__label">Admin</span></button></li>
+    </ul>
+  </nav>
+  <nav class="lp-sidebar lp-sidebar--rounded" aria-label="Secondary" style="width: 85px">
+    <ul class="lp-sidebar__items">
+      <li><button type="button" class="lp-sidebar__item lp-sidebar__item--active" aria-current="page"><span class="lp-sidebar__icon-box"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M4 4H10V12H4V4ZM4 16H10V20H4V16ZM14 12H20V20H14V12ZM14 4H20V8H14V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lp-sidebar__label">Dashboard</span></button></li>
+      <li><button type="button" class="lp-sidebar__item"><span class="lp-sidebar__icon-box"><svg viewBox="0 0 30 30" fill="none" aria-hidden="true" focusable="false"><path d="M5 15H5.0125M5 7.5H5.0125M5 22.5H5.0125M10 22.5H12.5M10 15H12.5M10 7.5H12.5M17.5 7.5H25M17.5 15H25M17.5 22.5H25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lp-sidebar__label">Logs</span></button></li>
+    </ul>
+  </nav>
+</div>
+
 <h2>Toast &amp; Tooltip (interactive — lepidus.js)</h2>
 <div class="demo-row">
   <button class="lp-button lp-button--primary lp-button--md" onclick="Lepidus.toast({ title: 'Scan started', message: 'LDSP-FS-01 is being scanned.', variant: 'info' })">Show toast</button>

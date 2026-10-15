@@ -261,10 +261,14 @@ const uid = `ex-${snippet.replace(/[^a-z0-9]+/gi, '-')}`;
     if (h) iframe.height = String(Math.min(Math.max(h + 8, 64), 720));
   };
   document.querySelectorAll<HTMLIFrameElement>('[data-live-example] iframe[data-auto-height]').forEach((f) => {
-    f.addEventListener('load', () => {
+    const onLoad = () => {
       fit(f);
       // fonts/late layout
       setTimeout(() => fit(f), 350);
-    });
+    };
+    f.addEventListener('load', onLoad);
+    // A srcdoc iframe above the fold can finish loading before this script
+    // runs — its load event is already gone, so fit it now.
+    if (f.contentDocument?.readyState === 'complete' && f.contentDocument.body?.children.length) onLoad();
   });
 </script>

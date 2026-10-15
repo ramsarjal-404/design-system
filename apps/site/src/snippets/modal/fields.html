@@ -1,6 +1,10 @@
-<!-- Shown open (no `hidden`) for the preview. The label column auto-sizes to
-     the widest label; every input stays aligned. -->
-<div class="lp-modal" id="credentials-modal">
+<!-- The label column auto-sizes to the widest label; every input stays aligned.
+     The modal keeps `hidden`; click "Add credentials" in the preview to open it. -->
+<button class="lp-button lp-button--primary lp-button--md" data-lp-modal-open="credentials-modal">
+  Add credentials
+</button>
+
+<div class="lp-modal" id="credentials-modal" hidden>
   <div class="lp-modal__shell lp-modal__shell--lg" role="dialog" aria-modal="true"
        aria-labelledby="credentials-title">
     <div class="lp-modal__header lp-modal__header--center">

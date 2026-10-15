@@ -12,6 +12,8 @@ ${SITE}/llms.txt
 
 Output plain HTML using the documented lp- classes only — never hardcoded
 colors — and set data-theme="light" | "dark" | "hc" on <html> for theming.
+Link ${SITE}/v1/lepidus.css in <head> and ${SITE}/v1/lepidus.js (defer)
+before </body> so the page runs as-is.
 
 Now build what I describe next.`;
 
@@ -31,8 +33,10 @@ This project uses Lepidus (${SITE}).
 - Theming: set data-theme="light" | "dark" | "hc" on <html>.
   Never write per-theme values by hand.
 - Interactive components use lepidus.js: data-lp-tabs, data-lp-modal-open /
-  data-lp-modal-close, data-lp-accordion, data-lp-stepper, data-lp-tooltip,
-  or Lepidus.toast({...}) / Lepidus.openModal(id).
+  data-lp-modal-close, data-lp-accordion, data-lp-dropdown="single|multi",
+  data-lp-stepper, data-lp-tooltip, or Lepidus.toast({...}) /
+  Lepidus.openModal(id). Copy the exact markup from
+  ${SITE}/llms-full.txt — never invent nesting.
 - Keep the documented accessibility markup: role="switch" + aria-checked on
   toggles, aria-invalid + aria-describedby on input errors, aria-current in
   breadcrumbs, aria-label on listboxes, role="img" + aria-label on avatars.`;
@@ -46,8 +50,12 @@ const mcpConfig = `{
   }
 }`;
 
+const validateCmd = `# from a checkout of the design-system repo
+node scripts/validate-lp-html.mjs path/to/screen.html   # ✓ or FAIL lines; exit 1 on failure`;
+
 const reviewGrep = `# any hex color outside a var() fallback is a violation
-grep -rnE '#[0-9a-fA-F]{3,8}\\b' src/ --include='*.html' --include='*.css' --include='*.tsx'`;
+grep -rnE '#[0-9a-fA-F]{3,8}\\b' src/ --include='*.html' --include='*.css' --include='*.tsx' \\
+  | grep -vE 'var\\(--[a-z0-9-]+,\\s*#'   # var(--token, #fallback) is allowed`;
 
 // Editor tabs — only the filename/location differs; the rules are identical.
 const tools = [
@@ -94,6 +102,17 @@ const tools = [
         </span>
       </a>
     </li>
+    <li>
+      <a class="path-card" href="/design.md" download="lepidus-design.md">
+        <span class="path-card__icon" style="background:#e6f6ec" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1caa52" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+        </span>
+        <span>
+          <strong>I want the whole system in one file</strong>
+          <small>Download design.md — every component, snippet, prop and token</small>
+        </span>
+      </a>
+    </li>
   </ul>
 
   <h2 class="step" id="chat"><span class="step__num" aria-hidden="true">A</span>Describe it in a chat</h2>
@@ -103,7 +122,13 @@ const tools = [
   </p>
 
   <h3>1 · Paste this once, at the start of your chat</h3>
-  <p>Or just give the assistant the link <code>{SITE}/llms.txt</code> and tell it to follow it.</p>
+  <p>
+    It points the assistant at <a href="/llms.txt"><code>llms.txt</code></a> — the rules and every legal
+    class name, ~2k tokens. For anything beyond a single screen, paste
+    <a href="/llms-full.txt"><code>llms-full.txt</code></a> instead (or as well): the same rules plus
+    every documented HTML example verbatim, ~25k tokens — fits any current model, and the assistant
+    copies real nesting instead of guessing it.
+  </p>
   <div class="copy-wrap">
     <button type="button" class="copy-btn" data-copy-pre>Copy</button>
     <Code code={chatContext} lang="text" theme="github-dark" />
@@ -212,6 +237,16 @@ const tools = [
     <Code code={reviewGrep} lang="bash" theme="github-dark" />
   </div>
   <ul>
+    <li><strong>Run the validator</strong> — the repo ships <code>scripts/validate-lp-html.mjs</code>:
+      classes against the manifest, hooks against <code>lepidus.js</code>, raw hex, the Modal /
+      Dropdown / Tabs / Table / Toggle / Input-error anatomy, and the page shell. One command, exit 1
+      on any failure:</li>
+  </ul>
+  <div class="copy-wrap">
+    <button type="button" class="copy-btn" data-copy-pre>Copy</button>
+    <Code code={validateCmd} lang="bash" theme="github-dark" />
+  </div>
+  <ul>
     <li><strong>Only documented classes</strong> — every <code>lp-*</code> class appears on the
       component's <a href="/components/">Specifications tab</a> (the complete legal set).</li>
     <li><strong>Accessibility and theming survived</strong> — tab through it (focus rings, the
@@ -219,10 +254,39 @@ const tools = [
       hardcoded.</li>
   </ul>
 
+  <h2 id="design-md">The whole system in one file — the AI Design Contract</h2>
+  <p>
+    <a href="/design.md"><code>/design.md</code></a> is a single Markdown file that makes an assistant
+    produce the <em>documented</em> Lepidus implementation, not a lookalike. For every one of the 44
+    components it carries the legal class set, the hooks and ARIA the canonical markup relies on,
+    every HTML and React example verbatim, the React API, the accessibility contract and a hard-fail
+    checklist — plus the rules, source precedence, page archetypes, the generation workflow and output
+    format, review gates, two complete validated screens, and all tokens per theme. It is generated on
+    every build from the same sources as this site, so it never drifts from the docs.
+  </p>
+  <ul>
+    <li><strong>For people</strong> — download it and keep the system offline, or search one file
+      instead of forty pages.</li>
+    <li><strong>For assistants</strong> — it is ~160k tokens, so it belongs in a <em>knowledge base</em>,
+      not a chat message: upload it to a Claude Project, a custom GPT, or NotebookLM once and every
+      conversation can look things up. In an editor, keep it in the repo and <code>@</code>-mention it.
+      For a single chat, use <a href="/llms-full.txt"><code>llms-full.txt</code></a> (~25k tokens) instead.</li>
+  </ul>
+  <p style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+    <a class="btn btn--primary" href="/design.md" download="lepidus-design.md">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+      Download design.md
+    </a>
+    <a class="btn btn--secondary" href="/design.md" target="_blank" rel="noopener">View in browser ↗</a>
+    <span style="color:var(--site-ink-faint);font-size:13px">Markdown · ~630 KB · regenerated on every build</span>
+  </p>
+
   <h2>Under the hood</h2>
   <p>
-    Three layers power all of this: <a href="/llms.txt"><code>/llms.txt</code></a> (the
-    plain-language contract + class inventory), <a href="/component-manifest.json"><code>/component-manifest.json</code></a>
+    Five layers power all of this: <a href="/llms.txt"><code>/llms.txt</code></a> (the
+    plain-language contract + class inventory), <a href="/llms-full.txt"><code>/llms-full.txt</code></a>
+    (the contract + every HTML example, one paste), <a href="/design.md"><code>/design.md</code></a>
+    (the full reference in one file), <a href="/component-manifest.json"><code>/component-manifest.json</code></a>
     (every prop and class in machine-readable form, regenerated on every build — the
     Specifications tabs on this site are this file, visualized), and the MCP server
     (<code>packages/mcp/server.mjs</code> — design doc in <code>packages/mcp/README.md</code>).
@@ -259,9 +323,11 @@ const tools = [
   const ruleMcps = document.querySelectorAll<HTMLElement>('[data-tool-mcp]');
   let currentDl = 'CLAUDE.md';
   function selectTool(tab: HTMLElement) {
-    document
-      .querySelectorAll('.tool-tabs [data-tool]')
-      .forEach((b) => b.setAttribute('aria-selected', String(b === tab)));
+    document.querySelectorAll<HTMLElement>('.tool-tabs [data-tool]').forEach((b) => {
+      const on = b === tab;
+      b.setAttribute('aria-selected', String(on));
+      b.tabIndex = on ? 0 : -1;
+    });
     const file = tab.dataset.file!;
     currentDl = tab.dataset.dl!;
     ruleFiles.forEach((el) => (el.textContent = file));
@@ -269,6 +335,24 @@ const tools = [
     ruleDls.forEach((el) => (el.textContent = currentDl));
     ruleMcps.forEach((el) => (el.textContent = tab.dataset.mcp!));
   }
+
+  // roving tabindex: only the selected tab is in the Tab order; arrows move
+  const toolTabs = Array.from(document.querySelectorAll<HTMLElement>('.tool-tabs [data-tool]'));
+  toolTabs.forEach((b, i) => (b.tabIndex = i === 0 ? 0 : -1));
+  document.querySelector('.tool-tabs')?.addEventListener('keydown', (e) => {
+    const i = toolTabs.indexOf(document.activeElement as HTMLElement);
+    if (i === -1) return;
+    const next =
+      e.key === 'ArrowRight' ? (i + 1) % toolTabs.length
+      : e.key === 'ArrowLeft' ? (i - 1 + toolTabs.length) % toolTabs.length
+      : e.key === 'Home' ? 0
+      : e.key === 'End' ? toolTabs.length - 1
+      : -1;
+    if (next === -1) return;
+    e.preventDefault();
+    toolTabs[next].focus();
+    selectTool(toolTabs[next]);
+  });
 
   document.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;

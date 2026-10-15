@@ -67,6 +67,7 @@ export function Dropdown({
   showButtons = false,
   placeholder = 'Select',
   disabled = false,
+  fullWidth = false,
   onChange,
   onApply,
   onCancel,
@@ -139,7 +140,7 @@ export function Dropdown({
           .join(', ') || placeholder;
 
   return (
-    <div ref={rootRef} className={cx(styles.wrapper, className)}>
+    <div ref={rootRef} className={cx(styles.wrapper, fullWidth && styles.fullWidth, className)}>
       <button
         type="button"
         className={cx(

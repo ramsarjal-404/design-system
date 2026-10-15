@@ -19,10 +19,12 @@ the progress — keep `aria-valuetext` either way.
 
 ## Clickable wizard
 
-`onStepClick` turns completed circles into "Go to step N" buttons (`lp-steps__step-button` in
-the generated markup) — back-navigation for wizards where revisiting is safe.
+Wrap each completed circle in a `lp-steps__step-button` with a "Go to step N" `aria-label`
+(React: `onStepClick` renders them for you) — back-navigation for wizards where revisiting is
+safe. In plain HTML your click handler moves the current step and re-renders the state
+classes, `aria-valuenow` and the label together.
 
-<Example snippet="steps/wizard" title="Wizard with back-navigation" story="navigation-steps--wizard" codeOnly />
+<Example snippet="steps/wizard" title="Wizard with back-navigation" story="navigation-steps--wizard" />
 
 <StoryEmbed id="navigation-steps--wizard" height={220} caption="Wizard, live" />
 

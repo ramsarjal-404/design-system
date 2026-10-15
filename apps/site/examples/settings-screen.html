@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Server settings — Lepidus UI</title>
+  <link rel="stylesheet" href="https://lepidus-design-system-button.vercel.app/v1/lepidus.css" />
+  <style>
+    /* token-only layout wrappers */
+    .product-shell { min-height: 100vh; background: var(--color-background-page); color: var(--color-text-primary); font-family: var(--font-family-primary); }
+    .page-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); padding: var(--space-9); }
+    .page-body { padding: 0 var(--space-9) var(--space-9); max-width: 720px; display: grid; gap: var(--space-9); }
+    .form-stack { display: grid; gap: var(--space-8); }
+    .footer-actions { display: flex; gap: var(--space-5); justify-content: flex-end; }
+  </style>
+</head>
+<body>
+<div class="product-shell">
+  <header class="page-header">
+    <h1 style="margin:0;font-size:var(--typography-heading-h2-fontSize)">Server settings</h1>
+    <span class="lp-badge lp-badge--success"><span class="lp-badge__dot"></span>Connected</span>
+  </header>
+
+  <main class="page-body">
+    <section class="lp-card lp-card--elevated">
+      <div class="lp-card__header"><div class="lp-card__title">General</div></div>
+      <div class="lp-card__body form-stack">
+        <div class="lp-input lp-input--full-width">
+          <div class="lp-input__row lp-input__row--label-left">
+            <label class="lp-input__label" for="server-name">Server name</label>
+            <div class="lp-input__field">
+              <input class="lp-input__input" id="server-name" placeholder="e.g. LDSP-FS-04" />
+            </div>
+          </div>
+        </div>
+
+        <div class="lp-radio-group" role="radiogroup" aria-labelledby="schedule-label">
+          <span class="lp-radio-group__label" id="schedule-label">Scan schedule</span>
+          <div class="lp-radio-group__options">
+            <label class="lp-radio">
+              <span class="lp-radio__control">
+                <input class="lp-radio__input" type="radio" name="schedule" value="hourly" />
+                <span class="lp-radio__circle" aria-hidden="true"><span class="lp-radio__dot"></span></span>
+              </span>
+              <span class="lp-radio__label">Hourly</span>
+            </label>
+            <label class="lp-radio">
+              <span class="lp-radio__control">
+                <input class="lp-radio__input" type="radio" name="schedule" value="daily" checked />
+                <span class="lp-radio__circle" aria-hidden="true"><span class="lp-radio__dot"></span></span>
+              </span>
+              <span class="lp-radio__label">Daily</span>
+            </label>
+            <label class="lp-radio">
+              <span class="lp-radio__control">
+                <input class="lp-radio__input" type="radio" name="schedule" value="weekly" />
+                <span class="lp-radio__circle" aria-hidden="true"><span class="lp-radio__dot"></span></span>
+              </span>
+              <span class="lp-radio__label">Weekly</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="lp-card__footer footer-actions">
+        <button class="lp-button lp-button--secondary lp-button--md">Cancel</button>
+        <button class="lp-button lp-button--primary lp-button--md"
+                onclick="Lepidus.toast({ title: 'Settings saved', message: 'LDSP-FS-04 will scan daily.', variant: 'success' })">Save changes</button>
+      </div>
+    </section>
+
+    <section class="lp-card">
+      <div class="lp-card__header"><div class="lp-card__title">Danger zone</div></div>
+      <div class="lp-card__body">
+        <p style="margin:0 0 var(--space-5)">Removing the server stops monitoring and deletes its scan history.</p>
+        <button class="lp-button lp-button--danger lp-button--md" data-lp-modal-open="confirm-delete">Delete server</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="lp-modal" id="confirm-delete" hidden>
+  <div class="lp-modal__shell lp-modal__shell--sm" role="dialog" aria-modal="true" aria-labelledby="confirm-delete-title">
+    <div class="lp-modal__header lp-modal__header--center">
+      <h2 class="lp-modal__title" id="confirm-delete-title">Delete server?</h2>
+    </div>
+    <div class="lp-modal__body">
+      <p style="margin:0">LDSP-FS-04 and its scan history will be removed. This cannot be undone.</p>
+    </div>
+    <div class="lp-modal__footer">
+      <button class="lp-button lp-button--secondary lp-button--md" data-lp-modal-close data-lp-autofocus>Cancel</button>
+      <button class="lp-button lp-button--danger lp-button--md" data-lp-modal-close>Delete server</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://lepidus-design-system-button.vercel.app/v1/lepidus.js" defer></script>
+</body>
+</html>

@@ -48,6 +48,40 @@ for (const [from, to] of artifacts) {
   cpSync(src, dest);
 }
 
+// ------------------------------------------------------- snippet coverage
+// Example.astro renders one code tab per snippet file it finds, so a .jsx
+// without its .html twin silently yields a React-only tab — wrong for any
+// component that ships in @ramsarjal-404/css (plain HTML is the canonical
+// form). Surface the gap at build time instead of on the published page.
+const manifest = JSON.parse(
+  readFileSync(join(repoRoot, 'public/component-manifest.json'), 'utf8')
+);
+const kebab = (s) =>
+  s
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2')
+    .toLowerCase();
+const plainCssSlugs = new Set(
+  manifest.components.filter((c) => c.plainCss).map((c) => kebab(c.name))
+);
+const snippetsDir = join(siteRoot, 'src/snippets');
+const reactOnly = [];
+for (const slug of readdirSync(snippetsDir)) {
+  if (!plainCssSlugs.has(slug)) continue;
+  for (const file of readdirSync(join(snippetsDir, slug))) {
+    if (!file.endsWith('.jsx')) continue;
+    if (!existsSync(join(snippetsDir, slug, file.replace(/\.jsx$/, '.html')))) {
+      reactOnly.push(`${slug}/${file}`);
+    }
+  }
+}
+if (reactOnly.length) {
+  console.warn(
+    `⚠ ${reactOnly.length} example(s) on plain-CSS components have no HTML snippet ` +
+      `(add the .html twin next to the .jsx):\n  ${reactOnly.join('\n  ')}`
+  );
+}
+
 // ------------------------------------------------------------ story index
 // Storybook's id sanitizer (storybook/csf `sanitize`) — for our ASCII
 // titles this reduces to: non-alphanumeric runs become single dashes.
@@ -168,3 +202,10 @@ for (const [slug, story] of Object.entries(patternStories)) {
 console.log(
   `✓ site data ready — ${Object.keys(index).length} story files indexed, ${thumbs} component + ${patternThumbs} pattern thumbnails, artifacts copied to apps/site/public`
 );
+
+// ---------------------------------------------------------- design.md
+// The single-file reference (served at /design.md) is assembled from the
+// data prepared above, so it runs last.
+await import('./build-llms-full.mjs');
+await import('./build-design-md.mjs');
+await import('./audit-design-md.mjs');

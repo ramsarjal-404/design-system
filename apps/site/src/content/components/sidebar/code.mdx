@@ -1,31 +1,41 @@
-<Callout variant="info" title="React-only">
-  <p>This component has no <code>@ramsarjal-404/css</code> distribution yet — use
-  <code>@ramsarjal-404/react</code>.</p>
-</Callout>
+Lepide products ship plain HTML/CSS/JS — the **HTML + `lp-` classes** tab is the canonical
+form. The React rendition (`@ramsarjal-404/react`) renders the same markup from an `items`
+array. Both resolve to the same `component/nav/*` tokens, so they are pixel-identical in every
+theme.
 
 ## Basic rail
 
-Each `SidebarItem` needs a stable `key`, a `label`, and an `icon` (use `currentColor` SVGs so
-the active tint applies). Slot the product logo into `header` and pinned controls into
-`footer`.
+`lp-sidebar` is a `<nav>` landmark (give it an `aria-label`) that stretches to its container —
+set the rail width inline (100px matches the Figma frame). Inside: an optional
+`lp-sidebar__header` for the product logo, a `lp-sidebar__items` list where each `<li>` holds
+one `lp-sidebar__item` (a `<button>` or `<a>`) made of `lp-sidebar__icon-box` + `lp-sidebar__label`,
+and an optional `lp-sidebar__footer` pinned to the bottom. Exactly one item carries
+`lp-sidebar__item--active` + `aria-current="page"`. Use `currentColor` SVGs so the active tint
+applies; in React every `SidebarItem` needs a stable `key`, a `label` and an `icon`.
 
-<Example snippet="sidebar/basic" title="Rail with header, items, and active state" story="navigation-sidebar--default" codeOnly />
-
-<StoryEmbed id="navigation-sidebar--default" height={480} caption="Default rail, live" />
+<Example snippet="sidebar/basic" title="Rail with header, items, and active state" story="navigation-sidebar--default" />
 
 ## Rounded variant
 
-`variant="rounded"` switches to the 85px capsule rail with the circular active indicator;
-selection here is driven by `onClick` buttons.
+`lp-sidebar--rounded` (React: `variant="rounded"`) switches to the 85px capsule rail with the
+circular active indicator. Selection is yours to manage in plain HTML — move the `--active`
+class and `aria-current` on click; the React example does the same with `onClick` + state.
 
-<Example snippet="sidebar/rounded" title="Capsule rail with stateful selection" story="navigation-sidebar--rounded" codeOnly />
+<Example snippet="sidebar/rounded" title="Capsule rail with stateful selection" story="navigation-sidebar--rounded" />
 
-<StoryEmbed id="navigation-sidebar--rounded" height={480} caption="Rounded rail, live" />
+<StoryEmbed id="navigation-sidebar--rounded" height={480} caption="Rounded rail with live selection (React)" />
 
 ## Links as items
 
-Give items an `href` to render real anchors — browser history and middle-click work, and the
-active item still sets `aria-current="page"`. Disabled link items drop their `href` and set
-`aria-disabled`.
+Make items real anchors (React: give them an `href`) — browser history and middle-click work,
+and the active item still sets `aria-current="page"`. A disabled link drops its `href`, sets
+`aria-disabled="true"` and takes `lp-sidebar__item--disabled`.
 
-<Example snippet="sidebar/links" title="Anchor items with a disabled entry" codeOnly />
+<Example snippet="sidebar/links" title="Anchor items with a disabled entry" />
+
+<Callout variant="info" title="Getting the stylesheet">
+  <p>One link tag, no build step: <code>&lt;link rel="stylesheet" href="lepidus.css"&gt;</code> from
+  <code>@ramsarjal-404/css</code> — see <a href="/get-started/">Get Started</a>. Sidebar is pure CSS
+  and needs no <code>lepidus.js</code>; items are native links or buttons, so navigation and
+  selection are yours.</p>
+</Callout>

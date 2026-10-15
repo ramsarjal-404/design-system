@@ -24,6 +24,8 @@ export interface DropdownProps {
   placeholder?: string;
   /** Disabled state — uses component/dropdown/disabled-* tokens */
   disabled?: boolean;
+  /** Stretch to fill the container (default fixed 320px from Figma) */
+  fullWidth?: boolean;
   /** Fired whenever the selection changes (on click, or on Apply when showButtons) */
   onChange?: (value: string | string[]) => void;
   /** Fired when Apply is pressed (showButtons mode) */

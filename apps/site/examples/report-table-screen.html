@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <title>File server reports — Lepidus UI</title>
+  <link rel="stylesheet" href="https://lepidus-design-system-button.vercel.app/v1/lepidus.css" />
+  <style>
+    .product-shell { min-height: 100vh; background: var(--color-background-page); color: var(--color-text-primary); font-family: var(--font-family-primary); }
+    .page-body { padding: var(--space-9); display: grid; gap: var(--space-8); }
+    .toolbar { display: flex; align-items: center; gap: var(--space-5); }
+    .toolbar__spacer { flex: 1; }
+  </style>
+</head>
+<body>
+<div class="product-shell">
+  <main class="page-body">
+    <nav class="lp-breadcrumb" aria-label="Breadcrumb">
+      <ol class="lp-breadcrumb__list">
+        <li class="lp-breadcrumb__item"><a class="lp-breadcrumb__link" href="/">Home</a><span class="lp-breadcrumb__separator" aria-hidden="true">/</span></li>
+        <li class="lp-breadcrumb__item"><a class="lp-breadcrumb__link" href="/reports">Reports</a><span class="lp-breadcrumb__separator" aria-hidden="true">/</span></li>
+        <li class="lp-breadcrumb__item"><span class="lp-breadcrumb__current" aria-current="page">File servers</span></li>
+      </ol>
+    </nav>
+
+    <div class="toolbar">
+      <div class="lp-dropdown" data-lp-dropdown="multi">
+        <button class="lp-dropdown__trigger" aria-expanded="false" aria-haspopup="listbox">
+          <span class="lp-dropdown__trigger-label">Select servers</span>
+          <svg class="lp-dropdown__chevron" viewBox="0 0 12 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 1l5 4 5-4"/></svg>
+        </button>
+        <div class="lp-dropdown__panel" hidden>
+          <div class="lp-dropdown__header">
+            <span class="lp-dropdown__header-label">Select servers</span>
+            <svg class="lp-dropdown__chevron lp-dropdown__chevron--open" viewBox="0 0 12 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M1 1l5 4 5-4"/></svg>
+          </div>
+          <div class="lp-dropdown__list" role="listbox" aria-multiselectable="true" aria-label="Select servers">
+            <button class="lp-dropdown__option" role="option" aria-checked="true">
+              <span class="lp-dropdown__checkbox"><svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 6 4.3 8.8 9.5 2"/></svg></span>
+              <span class="lp-dropdown__option-label">LDSP-FS-01</span>
+            </button>
+            <button class="lp-dropdown__option" role="option" aria-checked="false">
+              <span class="lp-dropdown__checkbox"><svg style="visibility:hidden" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 6 4.3 8.8 9.5 2"/></svg></span>
+              <span class="lp-dropdown__option-label">LDSP-FS-02</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <span class="toolbar__spacer"></span>
+      <button class="lp-button lp-button--secondary lp-button--md">Export report</button>
+      <button class="lp-button lp-button--primary lp-button--md">Add report</button>
+    </div>
+
+    <div class="lp-table">
+      <table class="lp-table__table">
+        <caption style="position: absolute; clip: rect(0 0 0 0)">Monitored servers</caption>
+        <thead>
+          <tr>
+            <th class="lp-table__th" scope="col"><div class="lp-table__header-inner"><span class="lp-table__header-label">Server</span></div></th>
+            <th class="lp-table__th" scope="col"><div class="lp-table__header-inner"><span class="lp-table__header-label">Status</span></div></th>
+            <th class="lp-table__th" scope="col"><div class="lp-table__header-inner"><span class="lp-table__header-label">Last scan</span></div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-table__cell-text">LDSP-FS-01</span></div></td>
+            <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-badge lp-badge--success"><span class="lp-badge__dot"></span>Healthy</span></div></td>
+            <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-table__cell-text">2 hours ago</span></div></td>
+          </tr>
+          <tr>
+            <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-table__cell-text">LDSP-FS-02</span></div></td>
+            <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-badge lp-badge--warning"><span class="lp-badge__dot"></span>Degraded</span></div></td>
+            <td class="lp-table__td"><div class="lp-table__cell-inner"><span class="lp-table__cell-text">5 hours ago</span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="lp-pagination" role="navigation" aria-label="Pagination">
+      <span class="lp-pagination__label">Total Records - 248</span>
+      <button class="lp-pagination__button">First</button>
+      <button class="lp-pagination__button">Previous</button>
+      <input class="lp-pagination__page-input" type="number" value="1" aria-label="Current page" />
+      <span class="lp-pagination__label">/25</span>
+      <button class="lp-pagination__button">Next</button>
+      <button class="lp-pagination__button">Last</button>
+      <span class="lp-pagination__label">10/Page</span>
+    </div>
+  </main>
+</div>
+<script src="https://lepidus-design-system-button.vercel.app/v1/lepidus.js" defer></script>
+</body>
+</html>
