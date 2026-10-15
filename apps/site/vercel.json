@@ -1,0 +1,23 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "_comment": "Used only when the Vercel project's Root Directory is set to apps/site. Mirrors the repo-root vercel.json: the site must be built from the monorepo root (Storybook + Astro + assemble), so every command climbs to the root first. Requires 'Include source files outside of the Root Directory' (Vercel default) to stay enabled.",
+  "framework": null,
+  "installCommand": "cd ../.. && npm ci",
+  "buildCommand": "cd ../.. && npm run build:site",
+  "outputDirectory": "dist",
+  "redirects": [
+    { "source": "/iframe.html", "destination": "/storybook/iframe.html", "permanent": false },
+    {
+      "source": "/",
+      "has": [{ "type": "query", "key": "path" }],
+      "destination": "/storybook/",
+      "permanent": false
+    },
+    {
+      "source": "/index.html",
+      "has": [{ "type": "query", "key": "path" }],
+      "destination": "/storybook/",
+      "permanent": false
+    }
+  ]
+}
