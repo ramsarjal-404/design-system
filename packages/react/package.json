@@ -1,6 +1,6 @@
 {
   "name": "@ramsarjal-404/react",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Lepidus design system — React components bound to the @ramsarjal-404/tokens pipeline",
   "license": "UNLICENSED",
   "private": false,
